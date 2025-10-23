@@ -111,10 +111,14 @@ fi
 progress "Setze Netzwerkadresse (NetworkManager)..."
 sudo apt-get install -y -qq network-manager
 
-# Aktive Ethernet-Verbindung ermitteln
+# Aktive Ethernet-Verbindung finden oder anlegen
 ACTIVE_CON=$(nmcli -t -f NAME,DEVICE,TYPE con show --active | awk -F: '$3=="ethernet"{print $1; exit}')
 [[ -z "$ACTIVE_CON" ]] && ACTIVE_CON=$(nmcli -t -f NAME,TYPE con show | awk -F: '$2=="ethernet"{print $1; exit}')
-[[ -z "$ACTIVE_CON" ]] && { echo "Keine Ethernet-Verbindung gefunden."; exit 1; }
+[[ -z "$ACTIVE_CON" ]] && {
+  log_info "Erstelle neue Verbindung 'eth0'..."
+  sudo nmcli con add type ethernet ifname eth0 con-name eth0
+  ACTIVE_CON="eth0"
+}
 
 mask_to_cidr() {
   local mask=$1 bits=0
@@ -132,11 +136,11 @@ CIDR=$(mask_to_cidr "$NETMASK")
 if $USE_STATIC_NET; then
   log_info "Setze statische IP auf ${STATIC_IP}/${CIDR} für ${ACTIVE_CON} ..."
   sudo nmcli con mod "$ACTIVE_CON" \
-    ipv4.method manual \
-    ipv4.addresses "${STATIC_IP}/${CIDR}" \
-    ipv4.gateway "$GATEWAY" \
-    ipv4.dns "$DNS" \
-    ipv6.method ignore
+      ipv4.method manual \
+      ipv4.addresses "${STATIC_IP}/${CIDR}" \
+      ipv4.gateway "$GATEWAY" \
+      ipv4.dns "$DNS" \
+      ipv6.method ignore
 else
   log_info "Verwende DHCP auf ${ACTIVE_CON}..."
   sudo nmcli con mod "$ACTIVE_CON" ipv4.method auto ipv6.method ignore
@@ -146,6 +150,7 @@ sudo nmcli con down "$ACTIVE_CON" || true
 sudo nmcli con up "$ACTIVE_CON" || true
 
 log_info "Netzwerk gesetzt für: $ACTIVE_CON → ${STATIC_IP:-DHCP}/${CIDR:-auto}"
+
 
 
 
