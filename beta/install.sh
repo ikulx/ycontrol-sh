@@ -2,15 +2,9 @@
 set -Eeuo pipefail
 
 # =====================================================================
-#  Y-Control Raspberry Pi Installer – v5 (Bookworm 64-bit)
-#  - EDATEC BSP & Firmware (JSON-Logik wie ed-install.sh)
-#  - Splash von GitHub
-#  - NetworkManager (ohne Down/Up während Installation)
-#  - Docker + Compose + Y-Control Dateien
-#  - Kiosk-Setup (optional je Gerät)
+#  Y-Control Raspberry Pi Installer – v6 (Bookworm 64-bit)
 # =====================================================================
-
-TOTAL_STEPS=12
+TOTAL_STEPS=13
 CURRENT_STEP=0
 CURRENT_ACTION="Initialisierung"
 
@@ -19,7 +13,7 @@ error_handler() {
   local exit_code=$?
   local line_no=$1
   echo -e "\n\033[31m--------------------------------------------------------\033[0m"
-  echo -e "\033[31m[FEHLER]\033[0m in Zeile ${line_no} bei Schritt: '${CURRENT_ACTION}'"
+  echo -e "\033[31m[FEHLER]\\033[0m in Zeile ${line_no} bei Schritt: '${CURRENT_ACTION}'"
   echo -e "\033[31mDas Script wurde mit Fehlercode ${exit_code} abgebrochen.\033[0m"
   echo -e "\033[31m--------------------------------------------------------\033[0m"
   exit $exit_code
@@ -72,34 +66,24 @@ mask_to_cidr() {
   echo "$bits"
 }
 
-# JSON-Helfer wie im ed-install.sh (robust, via Python)
 json_has_key() {
   echo "$1" | python3 - "$2" <<'PY'
-import sys,json
-data=json.load(sys.stdin); key=sys.argv[1]
-print("True" if key in data else "False")
+import sys,json;d=json.load(sys.stdin);print("True" if sys.argv[1] in d else "False")
 PY
 }
 json_len() {
   echo "$1" | python3 - "$2" <<'PY'
-import sys,json
-data=json.load(sys.stdin); key=sys.argv[1]
-print(len(data[key]))
+import sys,json;d=json.load(sys.stdin);print(len(d[sys.argv[1]]))
 PY
 }
 json_get() {
-  # json_get "<json>" key [idx]
   if [ $# -eq 2 ]; then
     echo "$1" | python3 - "$2" <<'PY'
-import sys,json
-data=json.load(sys.stdin); key=sys.argv[1]
-print(data[key])
+import sys,json;d=json.load(sys.stdin);print(d[sys.argv[1]])
 PY
   else
     echo "$1" | python3 - "$2" "$3" <<'PY'
-import sys,json
-data=json.load(sys.stdin); key=sys.argv[1]; idx=int(sys.argv[2])
-print(data[key][idx])
+import sys,json;d=json.load(sys.stdin);print(d[sys.argv[1]][int(sys.argv[2])])
 PY
   fi
 }
@@ -120,26 +104,14 @@ USE_STATIC_NET=false
 read -p "Willst du eine statische IP-Adresse konfigurieren? (j/N): " netchoice
 if [[ "$netchoice" =~ ^[JjYy]$ ]]; then
   USE_STATIC_NET=true
-  echo
   read -p "Standard-IP verwenden (192.168.10.31 / 255.255.255.0 / 192.168.10.1 / 1.1.1.2)? (J/n): " stdchoice
   if [[ ! "$stdchoice" =~ ^[Nn]$ ]]; then
     STATIC_IP="192.168.10.31"; NETMASK="255.255.255.0"; GATEWAY="192.168.10.1"; DNS="1.1.1.2"
   else
-    while true; do
-      read -p "IP-Adresse [192.168.1.100]: " STATIC_IP; STATIC_IP=${STATIC_IP:-192.168.1.100}
-      read -p "Subnetzmaske [255.255.255.0]: " NETMASK; NETMASK=${NETMASK:-255.255.255.0}
-      read -p "Gateway [192.168.1.1]: " GATEWAY; GATEWAY=${GATEWAY:-192.168.1.1}
-      read -p "DNS-Server [8.8.8.8]: " DNS; DNS=${DNS:-8.8.8.8}
-      draw_header
-      echo "--------------------------------------------------------"
-      echo "  IP-Adresse:   ${STATIC_IP}"
-      echo "  Subnetzmaske: ${NETMASK}"
-      echo "  Gateway:      ${GATEWAY}"
-      echo "  DNS:          ${DNS}"
-      echo "--------------------------------------------------------"
-      read -p "Sind diese Angaben korrekt? (J/n): " confirm
-      [[ ! "$confirm" =~ ^[Nn]$ ]] && break
-    done
+    read -p "IP-Adresse: " STATIC_IP
+    read -p "Subnetzmaske: " NETMASK
+    read -p "Gateway: " GATEWAY
+    read -p "DNS: " DNS
   fi
 fi
 
@@ -157,58 +129,49 @@ else
 fi
 log_info "Netzwerk­konfiguration gespeichert (aktiv nach Reboot)."
 
-# ----------------------------- 4. EDATEC BSP/Firmware ------------------------
-progress "EDATEC BSP & Firmware..."
+# ----------------------------- 4. EDATEC Firmware ----------------------------
+progress "EDATEC BSP & Firmware (Debug-Modus)..."
 BASE_URL="https://apt.edatec.cn/bsp"
 TMP_PATH="/tmp/eda-common"
 sudo mkdir -p "$TMP_PATH"
 
-# Repo & Key (wie im Original)
 wget -q https://apt.edatec.cn/pubkey.gpg -O "${TMP_PATH}/edatec.gpg"
 cat "${TMP_PATH}/edatec.gpg" | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/edatec-archive-stable.gpg >/dev/null
 echo "deb https://apt.edatec.cn/raspbian stable main" | sudo tee /etc/apt/sources.list.d/edatec.list >/dev/null
 sudo apt update -qq
 
-# cmdline: net.ifnames=0 hinzufügen (wie Original)
-cmd_file="/boot/firmware/cmdline.txt"
-grep -q "net.ifnames=0" "$cmd_file" || sudo sed -i '1{s/$/ net.ifnames=0/}' "$cmd_file"
-
-# Gerätespezifisches JSON laden
 DEVICE_JSON="$(curl -fsSL --connect-timeout 30 "${BASE_URL}/devices/${TARGET}.json")"
 if [[ -z "$DEVICE_JSON" ]]; then
-  echo "Geräte-JSON konnte nicht geladen werden: ${BASE_URL}/devices/${TARGET}.json"
+  echo "Geräte-JSON konnte nicht geladen werden! (${BASE_URL}/devices/${TARGET}.json)"
   exit 2
 fi
 
-# debs installieren
 if [[ "$(json_has_key "$DEVICE_JSON" "debs")" == "True" ]]; then
   DEBS="$(json_get "$DEVICE_JSON" "debs")"
   log_info "Installiere Pakete: $DEBS"
   sudo apt install -y $DEBS
 fi
 
-# cmd[] ausführen (in Reihenfolge)
+# Debug: Logge alle CMDs in /tmp/eda-debug.log
 if [[ "$(json_has_key "$DEVICE_JSON" "cmd")" == "True" ]]; then
   LEN="$(json_len "$DEVICE_JSON" "cmd")"
+  echo "Starte ${LEN} Gerätekonfigurationsbefehle ..." | tee /tmp/eda-debug.log
   for ((i=0;i<LEN;i++)); do
     T_CMD="$(json_get "$DEVICE_JSON" "cmd" "$i")"
-    echo "[CMD] $T_CMD"
-    eval "$T_CMD"
+    echo -e "\033[33m[CMD $((i+1))/$LEN]\033[0m $T_CMD" | tee -a /tmp/eda-debug.log
+    bash -x -c "$T_CMD" 2>&1 | tee -a /tmp/eda-debug.log
+    RC=${PIPESTATUS[0]}
+    if [ "$RC" -ne 0 ]; then
+      echo -e "\033[31m[FEHLER]\033[0m Befehl fehlgeschlagen: $T_CMD" | tee -a /tmp/eda-debug.log
+      exit 99
+    fi
   done
 fi
 
-# Auf EEPROM-/Flash-Operationen warten (wie im Original)
-echo "Warte auf eventuell laufende EEPROM/Flash-Updates..."
+# Warte auf EEPROM/Flash-Prozesse
 while pgrep -f flashrom >/dev/null; do sleep 0.5; done
 while pgrep -f rpi-eeprom-update >/dev/null; do sleep 0.5; done
-# ggf. auf erfolgreichen Service warten, wenn vorhanden
-if systemctl list-units | grep -q rpi-eeprom-update.service; then
-  while true; do
-    if [ "$(systemctl show -p Result rpi-eeprom-update.service --value)" = "success" ]; then break; fi
-    sleep 0.5
-  done
-fi
-log_info "EDATEC BSP/Firmware erfolgreich installiert."
+log_info "EDATEC Firmwareinstallation abgeschlossen. Logs unter /tmp/eda-debug.log"
 
 # ----------------------------- 5. Splash von GitHub --------------------------
 progress "Installiere Splashscreen (GitHub)..."
@@ -217,15 +180,7 @@ sudo raspi-config nonint do_boot_splash 0 || true
 sudo raspi-config nonint do_boot_behaviour B2 || true
 sudo mkdir -p /usr/share/plymouth/themes/pix
 sudo wget -q https://raw.githubusercontent.com/ikulx/ycontrol-sh/main/img/splash.png -O /usr/share/plymouth/themes/pix/splash.png
-
-KERNEL_VER="$(uname -r)"
-sudo update-initramfs -c -k "$KERNEL_VER"
-if [ -d /boot/firmware ]; then
-  if [ -f "/boot/initrd.img-${KERNEL_VER}" ]; then
-    sudo cp "/boot/initrd.img-${KERNEL_VER}" /boot/firmware/ 2>/dev/null || true
-    sudo mv "/boot/firmware/initrd.img-${KERNEL_VER}" /boot/firmware/initramfs_2712 2>/dev/null || true
-  fi
-fi
+sudo update-initramfs -u
 sudo plymouth-set-default-theme --rebuild-initrd pix || true
 log_info "Splashscreen eingerichtet."
 
@@ -243,60 +198,58 @@ sudo groupadd docker 2>/dev/null || true
 sudo usermod -aG docker pi
 log_info "Docker installiert."
 
-# ----------------------------- 7. Verzeichnisse/Dateien ----------------------
-progress "Lege Verzeichnisse & Y-Control Dateien an..."
-sudo mkdir -p /home/pi/docker /home/pi/y-red_Data /home/pi/ycontrol-data
-sudo chown -R pi:pi /home/pi/docker /home/pi/y-red_Data /home/pi/ycontrol-data
-sudo -u pi mkdir -p /home/pi/ycontrol-data/assets /home/pi/ycontrol-data/external
+# ----------------------------- 7b. Docker Login -----------------------------
+progress "Docker Login..."
+if [ -f /home/pi/docker.txt ]; then
+  DOCKER_USER=$(head -n1 /home/pi/docker.txt | tr -d '\r')
+  DOCKER_TOKEN=$(sed -n '2p' /home/pi/docker.txt | tr -d '\r')
+  if [ -n "$DOCKER_USER" ] && [ -n "$DOCKER_TOKEN" ]; then
+    echo "$DOCKER_TOKEN" | sudo -u pi docker login -u "$DOCKER_USER" --password-stdin
+    log_info "Docker Login erfolgreich für '$DOCKER_USER'."
+    sudo rm -f /home/pi/docker.txt
+  else
+    echo -e "\033[33mWarnung:\033[0m /home/pi/docker.txt unvollständig."
+  fi
+else
+  echo -e "\033[33mHinweis:\033[0m Keine /home/pi/docker.txt gefunden – Login übersprungen."
+fi
 
-# vis/assets + vis/external aus GitHub (nur die Ordner)
+# ----------------------------- 8. Y-Control Dateien --------------------------
+progress "Lade Y-Control Dateien..."
+sudo mkdir -p /home/pi/docker /home/pi/y-red_Data /home/pi/ycontrol-data
+sudo chown -R pi:pi /home/pi
+sudo -u pi curl -fsSL -o /home/pi/docker/docker-compose.yml \
+  https://raw.githubusercontent.com/ikulx/ycontrol-sh/main/docker/dis/docker-compose.yml
 sudo -u pi curl -fsSL https://github.com/ikulx/ycontrol-sh/archive/refs/heads/main.tar.gz \
   | sudo -u pi tar -xz --strip-components=2 -C /home/pi/ycontrol-data ycontrol-sh-main/vis/assets
 sudo -u pi curl -fsSL https://github.com/ikulx/ycontrol-sh/archive/refs/heads/main.tar.gz \
   | sudo -u pi tar -xz --strip-components=2 -C /home/pi/ycontrol-data ycontrol-sh-main/vis/external
+log_info "Dateien geladen."
 
-# docker-compose.yml in /home/pi/docker
-sudo -u pi curl -fsSL -o /home/pi/docker/docker-compose.yml \
-  https://raw.githubusercontent.com/ikulx/ycontrol-sh/main/docker/dis/docker-compose.yml
-log_info "Dateien bereitgestellt."
-
-# ----------------------------- 8. Docker Compose -----------------------------
+# ----------------------------- 9. Docker Compose -----------------------------
 progress "Starte Docker Compose..."
 cd /home/pi/docker
-if groups pi | grep -q docker; then
-  sudo -u pi docker compose pull
-  sudo -u pi docker compose up -d
-else
-  log_info "Benutzer pi noch nicht in Docker-Gruppe aktiv – verwende root..."
-  sudo docker compose pull
-  sudo docker compose up -d
-fi
+sudo -u pi docker compose pull
+sudo -u pi docker compose up -d
 log_info "Container gestartet."
 
-# ----------------------------- 9. Kiosk / X-Server ---------------------------
+# ----------------------------- 10. Kiosk ------------------------------------
 if [[ "$TARGET" =~ 070c$ || "$TARGET" =~ 101c$ ]]; then
   progress "Installiere X-Server & Kiosk..."
-  sudo apt-get install -y -qq --no-install-recommends \
-    xserver-xorg-video-all xserver-xorg-input-all xserver-xorg-core xinit x11-xserver-utils vlc unclutter chromium
+  sudo apt-get install -y -qq --no-install-recommends xserver-xorg-video-all xserver-xorg-input-all xserver-xorg-core xinit x11-xserver-utils vlc unclutter chromium
   sudo -u pi curl -fsSL -o /home/pi/.bash_profile https://raw.githubusercontent.com/ikulx/ycontrol-sh/main/kiosk/.bash_profile
   if [[ "$TARGET" =~ 070c$ ]]; then
     sudo -u pi curl -fsSL -o /home/pi/.xinitrc https://raw.githubusercontent.com/ikulx/ycontrol-sh/main/kiosk/7z/.xinitrc
   else
     sudo -u pi curl -fsSL -o /home/pi/.xinitrc https://raw.githubusercontent.com/ikulx/ycontrol-sh/main/kiosk/10z/.xinitrc
-    # Touchscreen-Matrix für 10" setzen
-    if [ -f /usr/share/X11/xorg.conf.d/40-libinput.conf ]; then
-      sudo sed -i '/MatchIsTouchscreen "on"/a \ \ Option "CalibrationMatrix" "0 -1 1 1 0 0 0 0 0 1"' /usr/share/X11/xorg.conf.d/40-libinput.conf
-    fi
+    sudo sed -i '/MatchIsTouchscreen "on"/a \ \ Option "CalibrationMatrix" "0 -1 1 1 0 0 0 0 0 1"' /usr/share/X11/xorg.conf.d/40-libinput.conf
   fi
   sudo chown pi:pi /home/pi/.bash_profile /home/pi/.xinitrc
   log_info "Kioskmodus eingerichtet."
 fi
 
-# ----------------------------- 10. Abschluss --------------------------------
+# ----------------------------- 11. Abschluss --------------------------------
 progress "Abschluss..."
-log_info "Alle Installationen abgeschlossen. Neue Netzwerkeinstellungen aktiv nach Neustart."
-
-# ----------------------------- 11. Reboot -----------------------------------
-progress "Starte System neu..."
-sleep 3
+log_info "Installation abgeschlossen. Reboot in 5 Sekunden..."
+sleep 5
 sudo reboot
