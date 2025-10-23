@@ -2,15 +2,16 @@
 
 /home/pi/wg_mqtt_listener.sh &
 
+
 xset s on
 xset s blank
 xset s 1800  # Bildschirmschoner aktiviert sich nach 10 Minuten
 
-xrandr --output DSI-2 --rotate left &
+
 
 
 # Start video in fullscreen loop mode
-cvlc --fullscreen --loop --no-osd --video-filter "transform{type=270}" --no-mouse-events --no-audio /home/pi/ygnis_loading_black.mp4 &
+cvlc --fullscreen --loop --no-osd --no-mouse-events --no-audio /home/pi/ygnis_loading_black.mp4 &
 pid=$!
 sleep 5
 
@@ -31,9 +32,8 @@ do
         --fast-start \
         --disable-infobars \
         --touch-events \
-	--lang=de-CH \
-        --force-device-scale-factor=1.25 \
-	--force-dark-mode \
+	      --lang=de-CH \
+        --force-dark-mode \
         --overscroll-history-navigation=0 &
         kill $pid
         break  # Exit the loop if the webpage is accessible
