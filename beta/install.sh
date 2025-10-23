@@ -2,7 +2,7 @@
 set -Eeuo pipefail
 
 # =====================================================================
-#  Y-Control Raspberry Pi Installer  –  Debug Version (Bookworm)
+#  Y-Control Raspberry Pi Installer – Bookworm Clean Release
 # =====================================================================
 TOTAL_STEPS=11
 CURRENT_STEP=0
@@ -106,22 +106,23 @@ if [[ "$netchoice" =~ ^[JjYy]$ ]]; then
 fi
 
 # -------------------------------------------------------
-# 3. NetworkManager-Setup (mit Debug)
+# 3. NetworkManager-Setup
 # -------------------------------------------------------
-progress "Setze Netzwerkadresse (NetworkManager) – Debug..."
-set -x  # Debug-Ausgabe einschalten
-
+progress "Setze Netzwerkadresse (NetworkManager)..."
 sudo apt-get install -y -qq network-manager
 
-# Alle doppelten 'eth0'-Verbindungen löschen
-for UUID in $(nmcli -t -f UUID,NAME con show | awk -F: '$2=="eth0"{print $1}'); do
-  echo "Lösche alte Verbindung: $UUID"
-  sudo nmcli con delete uuid "$UUID" || true
-done
+# Doppelte 'eth0'-Profile bereinigen
+DUPES=$(nmcli -t -f NAME con show | grep '^eth0$' | wc -l)
+if [ "$DUPES" -gt 1 ]; then
+  log_info "Mehrere 'eth0'-Verbindungen gefunden – bereinige..."
+  for UUID in $(nmcli -t -f UUID,NAME con show | awk -F: '$2=="eth0"{print $1}'); do
+    sudo nmcli con delete uuid "$UUID" || true
+  done
+fi
 
-# Falls keine 'eth0'-Verbindung existiert → anlegen
+# Verbindung sicherstellen
 if ! nmcli -t -f NAME con show | grep -q '^eth0$'; then
-  echo "Erstelle neue Verbindung 'eth0'..."
+  log_info "Erstelle neue Verbindung 'eth0'..."
   sudo nmcli con add type ethernet ifname eth0 con-name eth0
 fi
 
@@ -141,34 +142,64 @@ mask_to_cidr() {
 CIDR=$(mask_to_cidr "$NETMASK")
 
 if $USE_STATIC_NET; then
-  echo "==> Versuche, statische IP zu setzen auf ${STATIC_IP}/${CIDR}"
-  sudo nmcli con mod "$ACTIVE_CON" ipv4.method manual \
+  log_info "Setze statische IP auf ${STATIC_IP}/${CIDR} für ${ACTIVE_CON} ..."
+  sudo nmcli con mod "$ACTIVE_CON" \
+      ipv4.method manual \
       ipv4.addresses "${STATIC_IP}/${CIDR}" \
       ipv4.gateway "$GATEWAY" \
       ipv4.dns "$DNS" \
       ipv6.method ignore
 else
-  echo "==> DHCP konfigurieren"
+  log_info "Verwende DHCP auf ${ACTIVE_CON}..."
   sudo nmcli con mod "$ACTIVE_CON" ipv4.method auto ipv6.method ignore
 fi
 
-set +x  # Debug wieder aus
-log_info "Netzwerk-Konfiguration geschrieben (wird nach Reboot aktiv)."
+log_info "Neue Netzwerk­konfiguration wird beim nächsten Neustart aktiv."
 
 # -------------------------------------------------------
-# 4. EDATEC-Setup
+# 4. EDATEC-Splashscreen Setup
 # -------------------------------------------------------
-progress "EDATEC Setup..."
+progress "EDATEC Setup (Splashscreen)..."
+
 TMP_PATH="/tmp/eda-common"
 mkdir -p "$TMP_PATH"
 wget -q https://apt.edatec.cn/pubkey.gpg -O "${TMP_PATH}/edatec.gpg"
 cat "${TMP_PATH}/edatec.gpg" | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/edatec-archive-stable.gpg >/dev/null
 echo "deb https://apt.edatec.cn/raspbian stable main" | sudo tee /etc/apt/sources.list.d/edatec.list >/dev/null
 sudo apt update -qq
-sudo wget -q https://raw.githubusercontent.com/ikulx/ycontrol-sh/main/img/splash.png -O /usr/share/plymouth/themes/pix/splash.png
+
+# 1. Splashscreen installieren
+sudo apt -y install rpd-plym-splash plymouth-themes || true
+
+# 2. Aktivieren
+sudo raspi-config nonint do_boot_splash 0 || true
+sudo raspi-config nonint do_boot_behaviour B2 || true
+
+# 3. Bild einfügen
+sudo wget -q https://raw.githubusercontent.com/ikulx/ycontrol-sh/main/img/splash.png -O /home/pi/splash.png
+sudo mkdir -p /usr/share/plymouth/themes/pix
+sudo cp /home/pi/splash.png /usr/share/plymouth/themes/pix/splash.png
+
+# 4. Init-Dateien neu generieren
+KERNEL_VER=$(uname -r)
+sudo update-initramfs -c -k "$KERNEL_VER"
+
+# 5. Initrd-Image für Firmware bereitstellen
+cd /boot
+if [ -d firmware ]; then
+  sudo cp "initrd.img-${KERNEL_VER}" firmware/ 2>/dev/null || true
+  cd firmware
+  sudo mv "initrd.img-${KERNEL_VER}" initramfs_2712 2>/dev/null || true
+fi
+cd ~
+
+# 6. Theme setzen
+sudo plymouth-set-default-theme --rebuild-initrd pix || true
+
 cmd_file="/boot/firmware/cmdline.txt"
 grep -q "net.ifnames=0" "$cmd_file" || sudo sed -i "1{s/$/ net.ifnames=0/}" "$cmd_file"
-log_info "EDATEC-Repo & Splashscreen eingerichtet."
+
+log_info "EDATEC-Splashscreen installiert und aktiviert."
 
 # -------------------------------------------------------
 # 5. Docker-Installation
@@ -193,7 +224,8 @@ sudo mkdir -p /home/pi/docker /home/pi/y-red_Data /home/pi/ycontrol-data
 sudo chown -R pi:pi /home/pi/docker /home/pi/y-red_Data /home/pi/ycontrol-data
 sudo -u pi mkdir -p /home/pi/ycontrol-data/assets /home/pi/ycontrol-data/external
 sudo -u pi curl -fsSL -o /home/pi/docker/docker-compose.yml https://raw.githubusercontent.com/ikulx/ycontrol-sh/main/docker/dis/docker-compose.yml
-sudo -u pi curl -fsSL -o /home/pi/ycontrol-data/assets.tar.gz https://github.com/ikulx/ycontrol-sh/archive/refs/heads/main.tar.gz
+sudo -u pi curl -fsSL https://github.com/ikulx/ycontrol-sh/archive/refs/heads/main.tar.gz | sudo -u pi tar -xz --strip-components=2 -C /home/pi/ycontrol-data ycontrol-sh-main/vis/assets
+sudo -u pi curl -fsSL https://github.com/ikulx/ycontrol-sh/archive/refs/heads/main.tar.gz | sudo -u pi tar -xz --strip-components=2 -C /home/pi/ycontrol-data ycontrol-sh-main/vis/external
 log_info "Dateien geladen."
 
 # -------------------------------------------------------
