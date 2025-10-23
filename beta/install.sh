@@ -2,15 +2,12 @@
 set -Eeuo pipefail
 
 # =====================================================================
-#  Y-Control Raspberry Pi Installer – Bookworm Clean Release
+#  Y-Control Raspberry Pi Installer – Bookworm Complete v4
 # =====================================================================
-TOTAL_STEPS=11
+TOTAL_STEPS=12
 CURRENT_STEP=0
 CURRENT_ACTION="Initialisierung"
 
-# -------------------------------------------------------
-# Fehlerbehandlung
-# -------------------------------------------------------
 error_handler() {
   local exit_code=$?
   local line_no=$1
@@ -22,9 +19,6 @@ error_handler() {
 }
 trap 'error_handler $LINENO' ERR
 
-# -------------------------------------------------------
-# Anzeige-Hilfen
-# -------------------------------------------------------
 draw_header() {
   tput clear
   cat <<'EOF'
@@ -106,28 +100,13 @@ if [[ "$netchoice" =~ ^[JjYy]$ ]]; then
 fi
 
 # -------------------------------------------------------
-# 3. NetworkManager-Setup
+# 3. NetworkManager
 # -------------------------------------------------------
 progress "Setze Netzwerkadresse (NetworkManager)..."
 sudo apt-get install -y -qq network-manager
-
-# Doppelte 'eth0'-Profile bereinigen
-DUPES=$(nmcli -t -f NAME con show | grep '^eth0$' | wc -l)
-if [ "$DUPES" -gt 1 ]; then
-  log_info "Mehrere 'eth0'-Verbindungen gefunden – bereinige..."
-  for UUID in $(nmcli -t -f UUID,NAME con show | awk -F: '$2=="eth0"{print $1}'); do
-    sudo nmcli con delete uuid "$UUID" || true
-  done
-fi
-
-# Verbindung sicherstellen
 if ! nmcli -t -f NAME con show | grep -q '^eth0$'; then
-  log_info "Erstelle neue Verbindung 'eth0'..."
   sudo nmcli con add type ethernet ifname eth0 con-name eth0
 fi
-
-ACTIVE_CON="eth0"
-
 mask_to_cidr() {
   local mask=$1 bits=0
   IFS=. read -r i1 i2 i3 i4 <<< "$mask"
@@ -140,69 +119,72 @@ mask_to_cidr() {
   echo "$bits"
 }
 CIDR=$(mask_to_cidr "$NETMASK")
-
 if $USE_STATIC_NET; then
-  log_info "Setze statische IP auf ${STATIC_IP}/${CIDR} für ${ACTIVE_CON} ..."
-  sudo nmcli con mod "$ACTIVE_CON" \
-      ipv4.method manual \
-      ipv4.addresses "${STATIC_IP}/${CIDR}" \
-      ipv4.gateway "$GATEWAY" \
-      ipv4.dns "$DNS" \
-      ipv6.method ignore
+  sudo nmcli con mod eth0 ipv4.method manual ipv4.addresses "${STATIC_IP}/${CIDR}" ipv4.gateway "$GATEWAY" ipv4.dns "$DNS" ipv6.method ignore
 else
-  log_info "Verwende DHCP auf ${ACTIVE_CON}..."
-  sudo nmcli con mod "$ACTIVE_CON" ipv4.method auto ipv6.method ignore
+  sudo nmcli con mod eth0 ipv4.method auto ipv6.method ignore
 fi
-
-log_info "Neue Netzwerk­konfiguration wird beim nächsten Neustart aktiv."
+log_info "Netzwerk­konfiguration gespeichert."
 
 # -------------------------------------------------------
-# 4. EDATEC-Splashscreen Setup
+# 4. EDATEC Firmware & Gerätetreiber
 # -------------------------------------------------------
-progress "EDATEC Setup (Splashscreen)..."
-
+progress "Installiere EDATEC Firmware & BSP..."
+BASE_URL="https://apt.edatec.cn/bsp"
 TMP_PATH="/tmp/eda-common"
 mkdir -p "$TMP_PATH"
+
+log_info "Füge EDATEC Repository hinzu..."
 wget -q https://apt.edatec.cn/pubkey.gpg -O "${TMP_PATH}/edatec.gpg"
 cat "${TMP_PATH}/edatec.gpg" | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/edatec-archive-stable.gpg >/dev/null
 echo "deb https://apt.edatec.cn/raspbian stable main" | sudo tee /etc/apt/sources.list.d/edatec.list >/dev/null
 sudo apt update -qq
 
-# 1. Splashscreen installieren
-sudo apt -y install rpd-plym-splash plymouth-themes || true
+log_info "Lade Gerätekonfiguration für ${TARGET}..."
+DEVICE_JSON=$(curl -fsSL "${BASE_URL}/devices/${TARGET}.json")
 
-# 2. Aktivieren
+if [[ -z "$DEVICE_JSON" ]]; then
+  echo "Fehler: Gerätedaten konnten nicht geladen werden!"
+  exit 1
+fi
+
+if echo "$DEVICE_JSON" | grep -q '"debs"'; then
+  DEBS=$(echo "$DEVICE_JSON" | python3 -c "import sys,json; d=json.load(sys.stdin); print(d['debs'])")
+  log_info "Installiere Pakete: $DEBS"
+  sudo apt install -y $DEBS
+fi
+
+if echo "$DEVICE_JSON" | grep -q '"cmd"'; then
+  LEN=$(echo "$DEVICE_JSON" | python3 -c "import sys,json; d=json.load(sys.stdin); print(len(d['cmd']))")
+  for ((i=0; i<LEN; i++)); do
+    CMD=$(echo "$DEVICE_JSON" | python3 -c "import sys,json; d=json.load(sys.stdin); print(d['cmd'][$i])")
+    log_info "Führe aus: $CMD"
+    eval "$CMD"
+  done
+fi
+log_info "EDATEC Firmwareinstallation abgeschlossen."
+
+# -------------------------------------------------------
+# 5. EDATEC Splashscreen
+# -------------------------------------------------------
+progress "Installiere Splashscreen..."
+sudo apt -y install rpd-plym-splash plymouth-themes || true
 sudo raspi-config nonint do_boot_splash 0 || true
 sudo raspi-config nonint do_boot_behaviour B2 || true
-
-# 3. Bild einfügen
 sudo wget -q https://raw.githubusercontent.com/ikulx/ycontrol-sh/main/img/splash.png -O /home/pi/splash.png
 sudo mkdir -p /usr/share/plymouth/themes/pix
 sudo cp /home/pi/splash.png /usr/share/plymouth/themes/pix/splash.png
-
-# 4. Init-Dateien neu generieren
 KERNEL_VER=$(uname -r)
 sudo update-initramfs -c -k "$KERNEL_VER"
-
-# 5. Initrd-Image für Firmware bereitstellen
-cd /boot
-if [ -d firmware ]; then
-  sudo cp "initrd.img-${KERNEL_VER}" firmware/ 2>/dev/null || true
-  cd firmware
-  sudo mv "initrd.img-${KERNEL_VER}" initramfs_2712 2>/dev/null || true
+if [ -d /boot/firmware ]; then
+  sudo cp "/boot/initrd.img-${KERNEL_VER}" /boot/firmware/ 2>/dev/null || true
+  sudo mv "/boot/firmware/initrd.img-${KERNEL_VER}" /boot/firmware/initramfs_2712 2>/dev/null || true
 fi
-cd ~
-
-# 6. Theme setzen
 sudo plymouth-set-default-theme --rebuild-initrd pix || true
-
-cmd_file="/boot/firmware/cmdline.txt"
-grep -q "net.ifnames=0" "$cmd_file" || sudo sed -i "1{s/$/ net.ifnames=0/}" "$cmd_file"
-
-log_info "EDATEC-Splashscreen installiert und aktiviert."
+log_info "Splashscreen erfolgreich eingerichtet."
 
 # -------------------------------------------------------
-# 5. Docker-Installation
+# 6. Docker Setup
 # -------------------------------------------------------
 progress "Installiere Docker..."
 sudo apt-get remove -y -qq docker.io docker-doc docker-compose podman-docker containerd runc || true
@@ -213,31 +195,37 @@ echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.
 sudo apt-get update -qq
 sudo apt-get install -y -qq docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 sudo groupadd docker 2>/dev/null || true
-sudo usermod -aG docker $USER
+sudo usermod -aG docker pi
 log_info "Docker installiert."
 
 # -------------------------------------------------------
-# 6. y-control-Dateien
+# 7. Y-Control Dateien
 # -------------------------------------------------------
 progress "Lade y-control-Dateien..."
 sudo mkdir -p /home/pi/docker /home/pi/y-red_Data /home/pi/ycontrol-data
-sudo chown -R pi:pi /home/pi/docker /home/pi/y-red_Data /home/pi/ycontrol-data
-sudo -u pi mkdir -p /home/pi/ycontrol-data/assets /home/pi/ycontrol-data/external
+sudo chown -R pi:pi /home/pi
 sudo -u pi curl -fsSL -o /home/pi/docker/docker-compose.yml https://raw.githubusercontent.com/ikulx/ycontrol-sh/main/docker/dis/docker-compose.yml
 sudo -u pi curl -fsSL https://github.com/ikulx/ycontrol-sh/archive/refs/heads/main.tar.gz | sudo -u pi tar -xz --strip-components=2 -C /home/pi/ycontrol-data ycontrol-sh-main/vis/assets
 sudo -u pi curl -fsSL https://github.com/ikulx/ycontrol-sh/archive/refs/heads/main.tar.gz | sudo -u pi tar -xz --strip-components=2 -C /home/pi/ycontrol-data ycontrol-sh-main/vis/external
 log_info "Dateien geladen."
 
 # -------------------------------------------------------
-# 7. Docker starten
+# 8. Docker Compose
 # -------------------------------------------------------
 progress "Starte Docker Compose..."
 cd /home/pi/docker
-sudo -u pi docker compose up -d
+if groups pi | grep -q docker; then
+  sudo -u pi docker compose pull
+  sudo -u pi docker compose up -d
+else
+  log_info "Benutzer pi noch nicht in Docker-Gruppe aktiv – verwende root..."
+  sudo docker compose pull
+  sudo docker compose up -d
+fi
 log_info "Container gestartet."
 
 # -------------------------------------------------------
-# 8. X-Server / Kiosk-Modus
+# 9. X-Server / Kiosk-Modus
 # -------------------------------------------------------
 if [[ "$TARGET" =~ 070c$ || "$TARGET" =~ 101c$ ]]; then
   progress "Installiere X-Server & Kiosk..."
@@ -254,7 +242,7 @@ if [[ "$TARGET" =~ 070c$ || "$TARGET" =~ 101c$ ]]; then
 fi
 
 # -------------------------------------------------------
-# 9. Abschluss & Reboot
+# 10. Abschluss
 # -------------------------------------------------------
 progress "Abschluss..."
 log_info "Alle Installationen abgeschlossen."
