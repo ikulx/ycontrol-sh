@@ -2,12 +2,16 @@
 set -Eeuo pipefail
 
 # =====================================================================
-#  Y-Control Raspberry Pi Installer
-#  - Fixierter Header + Fortschrittsanzeige
-#  - Fehlerbehandlung mit Abbruch
-#  - NetworkManager-only (Bookworm)
-#  - Chromium-Fix
-#  - Inklusive EDATEC-Setup
+#  Y-Control Raspberry Pi Installer (Bookworm 64-bit)
+# =====================================================================
+#  Features:
+#   - Fixierter ASCII-Header mit Fortschrittsanzeige
+#   - Robuste Fehlerbehandlung mit Zeilennummer & Schritt
+#   - Interaktive Auswahl von Gerät & Netzwerkmodus
+#   - Optional vordefinierte Standard-IP-Konfiguration
+#   - NetworkManager-only (kein dhcpcd)
+#   - EDATEC Setup (Repo, Key, cmdline, Splash)
+#   - Docker + y-control Dateien + Kiosk Setup
 # =====================================================================
 
 TOTAL_STEPS=11
@@ -21,7 +25,7 @@ error_handler() {
     local exit_code=$?
     local line_no=$1
     echo -e "\n\033[31m--------------------------------------------------------\033[0m"
-    echo -e "\033[31m[FEHLER]\033[0m in Zeile ${line_no} bei Schritt: '${CURRENT_ACTION}'"
+    echo -e "\033[31m[FEHLER]\\033[0m in Zeile ${line_no} bei Schritt: '${CURRENT_ACTION}'"
     echo -e "\033[31mDas Script wurde mit Fehlercode ${exit_code} abgebrochen.\033[0m"
     echo -e "\033[31m--------------------------------------------------------\033[0m"
     exit $exit_code
@@ -29,7 +33,7 @@ error_handler() {
 trap 'error_handler $LINENO' ERR
 
 # -------------------------------------------------------
-# Header
+# UI-Hilfsfunktionen
 # -------------------------------------------------------
 draw_header() {
     tput clear
@@ -74,7 +78,6 @@ log_info() { echo -e "\033[32m[OK]\033[0m $1"; sleep 1; }
 progress "Starte Installation..."
 sleep 1
 DEVICES=("hmi3010_070c" "hmi3010_101c" "hmi3120_070c" "hmi3120_101c" "hmi3120_116c" "ipc3630")
-
 progress "Gerät auswählen..."
 select TARGET in "${DEVICES[@]}"; do
     [[ -n "$TARGET" ]] && break || echo "Ungültige Auswahl."
@@ -89,22 +92,32 @@ progress "Netzwerkkonfiguration..."
 USE_STATIC_NET=false
 read -p "Willst du eine statische IP-Adresse konfigurieren? (j/N): " netchoice
 if [[ "$netchoice" =~ ^[JjYy]$ ]]; then
-    while true; do
-        read -p "IP-Adresse [192.168.1.100]: " STATIC_IP; STATIC_IP=${STATIC_IP:-192.168.1.100}
-        read -p "Subnetzmaske [255.255.255.0]: " NETMASK; NETMASK=${NETMASK:-255.255.255.0}
-        read -p "Gateway [192.168.1.1]: " GATEWAY; GATEWAY=${GATEWAY:-192.168.1.1}
-        read -p "DNS-Server [8.8.8.8]: " DNS; DNS=${DNS:-8.8.8.8}
+    USE_STATIC_NET=true
 
-        draw_header
-        echo "--------------------------------------------------------"
-        echo "  IP-Adresse:   ${STATIC_IP}"
-        echo "  Subnetzmaske: ${NETMASK}"
-        echo "  Gateway:      ${GATEWAY}"
-        echo "  DNS:          ${DNS}"
-        echo "--------------------------------------------------------"
-        read -p "Sind diese Angaben korrekt? (J/n): " confirm
-        [[ ! "$confirm" =~ ^[Nn]$ ]] && USE_STATIC_NET=true && break
-    done
+    echo
+    read -p "Willst du die Standardkonfiguration verwenden (192.168.10.31 / 255.255.255.0 / 192.168.10.1 / 1.1.1.2)? (J/n): " stdchoice
+    if [[ ! "$stdchoice" =~ ^[Nn]$ ]]; then
+        STATIC_IP="192.168.10.31"
+        NETMASK="255.255.255.0"
+        GATEWAY="192.168.10.1"
+        DNS="1.1.1.2"
+    else
+        while true; do
+            read -p "IP-Adresse [192.168.1.100]: " STATIC_IP; STATIC_IP=${STATIC_IP:-192.168.1.100}
+            read -p "Subnetzmaske [255.255.255.0]: " NETMASK; NETMASK=${NETMASK:-255.255.255.0}
+            read -p "Gateway [192.168.1.1]: " GATEWAY; GATEWAY=${GATEWAY:-192.168.1.1}
+            read -p "DNS-Server [8.8.8.8]: " DNS; DNS=${DNS:-8.8.8.8}
+            draw_header
+            echo "--------------------------------------------------------"
+            echo "  IP-Adresse:   ${STATIC_IP}"
+            echo "  Subnetzmaske: ${NETMASK}"
+            echo "  Gateway:      ${GATEWAY}"
+            echo "  DNS:          ${DNS}"
+            echo "--------------------------------------------------------"
+            read -p "Sind diese Angaben korrekt? (J/n): " confirm
+            [[ ! "$confirm" =~ ^[Nn]$ ]] && break
+        done
+    fi
 fi
 
 # -------------------------------------------------------
@@ -114,21 +127,34 @@ progress "Setze Netzwerkadresse (NetworkManager)..."
 sudo apt-get install -y -qq network-manager
 iface=$(nmcli -t -f DEVICE,STATE dev status | awk -F: '$2=="connected"{print $1; exit}')
 [[ -z "$iface" ]] && iface="eth0"
+
+mask_to_cidr() {
+  local mask=$1 bits=0
+  IFS=. read -r i1 i2 i3 i4 <<< "$mask"
+  for octet in $i1 $i2 $i3 $i4; do
+    while [ $octet -gt 0 ]; do
+      bits=$((bits + (octet & 1)))
+      octet=$((octet >> 1))
+    done
+  done
+  echo "$bits"
+}
+CIDR=$(mask_to_cidr "$NETMASK")
+
 if ! nmcli -t con show | grep -q "^${iface}:"; then
-    sudo nmcli con add type ethernet ifname "$iface" con-name "$iface" || true
+  sudo nmcli con add type ethernet ifname "$iface" con-name "$iface" || true
 fi
 if $USE_STATIC_NET; then
-    sudo nmcli con mod "$iface" ipv4.method manual \
-        ipv4.addresses "${STATIC_IP}/24" \
-        ipv4.gateway "$GATEWAY" \
-        ipv4.dns "$DNS" \
-        ipv6.method ignore
+  sudo nmcli con mod "$iface" ipv4.method manual ipv6.method ignore
+  sudo nmcli con mod "$iface" ipv4.addresses "${STATIC_IP}/${CIDR}"
+  sudo nmcli con mod "$iface" ipv4.gateway "$GATEWAY" || true
+  sudo nmcli con mod "$iface" ipv4.dns "$DNS"
 else
-    sudo nmcli con mod "$iface" ipv4.method auto ipv6.method ignore
+  sudo nmcli con mod "$iface" ipv4.method auto ipv6.method ignore
 fi
 sudo nmcli con down "$iface" || true
-sudo nmcli con up "$iface"
-log_info "Netzwerk konfiguriert über $iface"
+sudo nmcli con up "$iface" || true
+log_info "Netzwerk für $iface gesetzt: ${STATIC_IP:-DHCP} (${CIDR:-auto})"
 
 # -------------------------------------------------------
 # 4. EDATEC Setup
@@ -140,12 +166,7 @@ wget -q https://apt.edatec.cn/pubkey.gpg -O "${TMP_PATH}/edatec.gpg"
 cat "${TMP_PATH}/edatec.gpg" | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/edatec-archive-stable.gpg >/dev/null
 echo "deb https://apt.edatec.cn/raspbian stable main" | sudo tee /etc/apt/sources.list.d/edatec.list >/dev/null
 sudo apt update -qq
-
-# splash ersetzen
-sudo wget -q https://raw.githubusercontent.com/ikulx/ycontrol-sh/main/img/splash.png \
-    -O /usr/share/plymouth/themes/pix/splash.png
-
-# net.ifnames=0 sicherstellen
+sudo wget -q https://raw.githubusercontent.com/ikulx/ycontrol-sh/main/img/splash.png -O /usr/share/plymouth/themes/pix/splash.png
 cmd_file="/boot/firmware/cmdline.txt"
 grep -q "net.ifnames=0" "$cmd_file" || sudo sed -i "1{s/$/ net.ifnames=0/}" "$cmd_file"
 log_info "EDATEC Quelle & Splashscreen konfiguriert."
@@ -158,8 +179,7 @@ sudo apt-get remove -y -qq docker.io docker-doc docker-compose podman-docker con
 sudo apt-get install -y -qq ca-certificates curl gnupg
 sudo mkdir -p /etc/apt/keyrings
 sudo curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
-echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
-  sudo tee /etc/apt/sources.list.d/docker.list >/dev/null
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | sudo tee /etc/apt/sources.list.d/docker.list >/dev/null
 sudo apt-get update -qq
 sudo apt-get install -y -qq docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 sudo groupadd docker 2>/dev/null || true
@@ -167,18 +187,15 @@ sudo usermod -aG docker $USER
 log_info "Docker installiert."
 
 # -------------------------------------------------------
-# 6. y-control Daten
+# 6. y-control Dateien
 # -------------------------------------------------------
 progress "Lade y-control Dateien..."
 sudo mkdir -p /home/pi/docker /home/pi/y-red_Data /home/pi/ycontrol-data
 sudo chown -R pi:pi /home/pi/docker /home/pi/y-red_Data /home/pi/ycontrol-data
 sudo -u pi mkdir -p /home/pi/ycontrol-data/assets /home/pi/ycontrol-data/external
-sudo -u pi curl -fsSL https://github.com/ikulx/ycontrol-sh/archive/refs/heads/main.tar.gz | \
-  sudo -u pi tar -xz --strip-components=2 -C /home/pi/ycontrol-data ycontrol-sh-main/vis/assets
-sudo -u pi curl -fsSL https://github.com/ikulx/ycontrol-sh/archive/refs/heads/main.tar.gz | \
-  sudo -u pi tar -xz --strip-components=2 -C /home/pi/ycontrol-data ycontrol-sh-main/vis/external
-sudo -u pi curl -fsSL -o /home/pi/docker/docker-compose.yml \
-  https://raw.githubusercontent.com/ikulx/ycontrol-sh/main/docker/dis/docker-compose.yml
+sudo -u pi curl -fsSL https://github.com/ikulx/ycontrol-sh/archive/refs/heads/main.tar.gz | sudo -u pi tar -xz --strip-components=2 -C /home/pi/ycontrol-data ycontrol-sh-main/vis/assets
+sudo -u pi curl -fsSL https://github.com/ikulx/ycontrol-sh/archive/refs/heads/main.tar.gz | sudo -u pi tar -xz --strip-components=2 -C /home/pi/ycontrol-data ycontrol-sh-main/vis/external
+sudo -u pi curl -fsSL -o /home/pi/docker/docker-compose.yml https://raw.githubusercontent.com/ikulx/ycontrol-sh/main/docker/dis/docker-compose.yml
 log_info "Dateien geladen."
 
 # -------------------------------------------------------
@@ -194,20 +211,13 @@ log_info "Container gestartet."
 # -------------------------------------------------------
 if [[ "$TARGET" =~ 070c$ || "$TARGET" =~ 101c$ ]]; then
     progress "Installiere XServer & Kiosk..."
-    sudo apt-get install -y -qq --no-install-recommends \
-        xserver-xorg-video-all xserver-xorg-input-all \
-        xserver-xorg-core xinit x11-xserver-utils \
-        vlc unclutter chromium
-    sudo -u pi curl -fsSL -o /home/pi/.bash_profile \
-        https://raw.githubusercontent.com/ikulx/ycontrol-sh/main/kiosk/.bash_profile
+    sudo apt-get install -y -qq --no-install-recommends xserver-xorg-video-all xserver-xorg-input-all xserver-xorg-core xinit x11-xserver-utils vlc unclutter chromium
+    sudo -u pi curl -fsSL -o /home/pi/.bash_profile https://raw.githubusercontent.com/ikulx/ycontrol-sh/main/kiosk/.bash_profile
     if [[ "$TARGET" =~ 070c$ ]]; then
-        sudo -u pi curl -fsSL -o /home/pi/.xinitrc \
-            https://raw.githubusercontent.com/ikulx/ycontrol-sh/main/kiosk/7z/.xinitrc
+        sudo -u pi curl -fsSL -o /home/pi/.xinitrc https://raw.githubusercontent.com/ikulx/ycontrol-sh/main/kiosk/7z/.xinitrc
     else
-        sudo -u pi curl -fsSL -o /home/pi/.xinitrc \
-            https://raw.githubusercontent.com/ikulx/ycontrol-sh/main/kiosk/10z/.xinitrc
-        sudo sed -i '/MatchIsTouchscreen "on"/a \ \ Option "CalibrationMatrix" "0 -1 1 1 0 0 0 0 0 1"' \
-            /usr/share/X11/xorg.conf.d/40-libinput.conf
+        sudo -u pi curl -fsSL -o /home/pi/.xinitrc https://raw.githubusercontent.com/ikulx/ycontrol-sh/main/kiosk/10z/.xinitrc
+        sudo sed -i '/MatchIsTouchscreen "on"/a \ \ Option "CalibrationMatrix" "0 -1 1 1 0 0 0 0 0 1"' /usr/share/X11/xorg.conf.d/40-libinput.conf
     fi
     sudo chown pi:pi /home/pi/.bash_profile /home/pi/.xinitrc
     log_info "Kioskmodus eingerichtet."
