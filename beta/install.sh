@@ -25,7 +25,7 @@ error_handler() {
     local exit_code=$?
     local line_no=$1
     echo -e "\n\033[31m--------------------------------------------------------\033[0m"
-    echo -e "\033[31m[FEHLER]\\033[0m in Zeile ${line_no} bei Schritt: '${CURRENT_ACTION}'"
+    echo -e "\033[31m[FEHLER]\033[0m in Zeile ${line_no} bei Schritt: '${CURRENT_ACTION}'"
     echo -e "\033[31mDas Script wurde mit Fehlercode ${exit_code} abgebrochen.\033[0m"
     echo -e "\033[31m--------------------------------------------------------\033[0m"
     exit $exit_code
@@ -93,7 +93,6 @@ USE_STATIC_NET=false
 read -p "Willst du eine statische IP-Adresse konfigurieren? (j/N): " netchoice
 if [[ "$netchoice" =~ ^[JjYy]$ ]]; then
     USE_STATIC_NET=true
-
     echo
     read -p "Willst du die Standardkonfiguration verwenden (192.168.10.31 / 255.255.255.0 / 192.168.10.1 / 1.1.1.2)? (J/n): " stdchoice
     if [[ ! "$stdchoice" =~ ^[Nn]$ ]]; then
@@ -121,7 +120,7 @@ if [[ "$netchoice" =~ ^[JjYy]$ ]]; then
 fi
 
 # -------------------------------------------------------
-# 3. NetworkManager Setup
+# 3. NetworkManager Setup (Bookworm-fix)
 # -------------------------------------------------------
 progress "Setze Netzwerkadresse (NetworkManager)..."
 sudo apt-get install -y -qq network-manager
@@ -142,16 +141,19 @@ mask_to_cidr() {
 CIDR=$(mask_to_cidr "$NETMASK")
 
 if ! nmcli -t con show | grep -q "^${iface}:"; then
-  sudo nmcli con add type ethernet ifname "$iface" con-name "$iface" || true
+    sudo nmcli con add type ethernet ifname "$iface" con-name "$iface"
 fi
+
 if $USE_STATIC_NET; then
-  sudo nmcli con mod "$iface" ipv4.method manual ipv6.method ignore
-  sudo nmcli con mod "$iface" ipv4.addresses "${STATIC_IP}/${CIDR}"
-  sudo nmcli con mod "$iface" ipv4.gateway "$GATEWAY" || true
-  sudo nmcli con mod "$iface" ipv4.dns "$DNS"
+    sudo nmcli con mod "$iface" -ipv4.addresses -ipv4.gateway -ipv4.dns || true
+    sudo nmcli con mod "$iface" ipv4.addresses "${STATIC_IP}/${CIDR}"
+    sudo nmcli con mod "$iface" ipv4.gateway "$GATEWAY"
+    sudo nmcli con mod "$iface" ipv4.dns "$DNS"
+    sudo nmcli con mod "$iface" ipv4.method manual ipv6.method ignore
 else
-  sudo nmcli con mod "$iface" ipv4.method auto ipv6.method ignore
+    sudo nmcli con mod "$iface" ipv4.method auto ipv6.method ignore
 fi
+
 sudo nmcli con down "$iface" || true
 sudo nmcli con up "$iface" || true
 log_info "Netzwerk für $iface gesetzt: ${STATIC_IP:-DHCP} (${CIDR:-auto})"
