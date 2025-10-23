@@ -108,21 +108,20 @@ fi
 # -------------------------------------------------------
 # 3. NetworkManager-Setup  (Bookworm-Fix)
 # -------------------------------------------------------
-progress "Setze Netzwerkadresse (NetworkManager)..."
+progress "Setze Netzwerkadresse (NetworkManager) – Debug-Modus..."
+set -x   # Debug-Ausgabe aktivieren
+
 sudo apt-get install -y -qq network-manager
 
-# Doppelte 'eth0'-Profile bereinigen
-DUPES=$(nmcli -t -f NAME con show | grep '^eth0$' | wc -l)
-if [ "$DUPES" -gt 1 ]; then
-  log_info "Mehrere 'eth0'-Verbindungen gefunden – bereinige..."
-  for UUID in $(nmcli -t -f UUID,NAME con show | awk -F: '$2=="eth0"{print $1}'); do
-    sudo nmcli con delete uuid "$UUID" || true
-  done
-fi
+# Alle doppelten 'eth0'-Verbindungen löschen
+for UUID in $(nmcli -t -f UUID,NAME con show | awk -F: '$2=="eth0"{print $1}'); do
+  echo "Lösche alte Verbindung: $UUID"
+  sudo nmcli con delete uuid "$UUID" || true
+done
 
-# Verbindung sicherstellen
+# Falls keine 'eth0'-Verbindung existiert → anlegen
 if ! nmcli -t -f NAME con show | grep -q '^eth0$'; then
-  log_info "Erstelle neue Verbindung 'eth0'..."
+  echo "Erstelle neue Verbindung 'eth0'..."
   sudo nmcli con add type ethernet ifname eth0 con-name eth0
 fi
 
@@ -142,19 +141,19 @@ mask_to_cidr() {
 CIDR=$(mask_to_cidr "$NETMASK")
 
 if $USE_STATIC_NET; then
-  log_info "Setze statische IP auf ${STATIC_IP}/${CIDR} für ${ACTIVE_CON} ..."
-  sudo nmcli con mod "$ACTIVE_CON" \
-      ipv4.method manual \
+  echo "==> Versuche, statische IP zu setzen auf ${STATIC_IP}/${CIDR}"
+  sudo nmcli con mod "$ACTIVE_CON" ipv4.method manual \
       ipv4.addresses "${STATIC_IP}/${CIDR}" \
       ipv4.gateway "$GATEWAY" \
-      ipv4.dns "$DNS" \
-      ipv6.method ignore
+      ipv4.dns "$DNS" ipv6.method ignore
 else
-  log_info "Verwende DHCP auf ${ACTIVE_CON}..."
+  echo "==> DHCP konfigurieren"
   sudo nmcli con mod "$ACTIVE_CON" ipv4.method auto ipv6.method ignore
 fi
 
-log_info "Neue Netzwerk­konfiguration wird beim nächsten Neustart aktiv."
+set +x  # Debug wieder aus
+log_info "Netzwerk-Konfiguration geschrieben (wird nach Reboot aktiv)."
+
 
 # -------------------------------------------------------
 # 4. EDATEC-Setup
