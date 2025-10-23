@@ -106,19 +106,27 @@ if [[ "$netchoice" =~ ^[JjYy]$ ]]; then
 fi
 
 # -------------------------------------------------------
-# 3. NetworkManager Setup (Bookworm final fix)
+# 3. NetworkManager-Setup  (Bookworm-Fix)
 # -------------------------------------------------------
 progress "Setze Netzwerkadresse (NetworkManager)..."
 sudo apt-get install -y -qq network-manager
 
-# Aktive Ethernet-Verbindung finden oder anlegen
-ACTIVE_CON=$(nmcli -t -f NAME,DEVICE,TYPE con show --active | awk -F: '$3=="ethernet"{print $1; exit}')
-[[ -z "$ACTIVE_CON" ]] && ACTIVE_CON=$(nmcli -t -f NAME,TYPE con show | awk -F: '$2=="ethernet"{print $1; exit}')
-[[ -z "$ACTIVE_CON" ]] && {
+# Doppelte 'eth0'-Profile bereinigen
+DUPES=$(nmcli -t -f NAME con show | grep '^eth0$' | wc -l)
+if [ "$DUPES" -gt 1 ]; then
+  log_info "Mehrere 'eth0'-Verbindungen gefunden – bereinige..."
+  for UUID in $(nmcli -t -f UUID,NAME con show | awk -F: '$2=="eth0"{print $1}'); do
+    sudo nmcli con delete uuid "$UUID" || true
+  done
+fi
+
+# Verbindung sicherstellen
+if ! nmcli -t -f NAME con show | grep -q '^eth0$'; then
   log_info "Erstelle neue Verbindung 'eth0'..."
   sudo nmcli con add type ethernet ifname eth0 con-name eth0
-  ACTIVE_CON="eth0"
-}
+fi
+
+ACTIVE_CON="eth0"
 
 mask_to_cidr() {
   local mask=$1 bits=0
@@ -146,13 +154,7 @@ else
   sudo nmcli con mod "$ACTIVE_CON" ipv4.method auto ipv6.method ignore
 fi
 
-sudo nmcli con down "$ACTIVE_CON" || true
-sudo nmcli con up "$ACTIVE_CON" || true
-
-log_info "Netzwerk gesetzt für: $ACTIVE_CON → ${STATIC_IP:-DHCP}/${CIDR:-auto}"
-
-
-
+log_info "Neue Netzwerk­konfiguration wird beim nächsten Neustart aktiv."
 
 # -------------------------------------------------------
 # 4. EDATEC-Setup
