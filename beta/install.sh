@@ -2,11 +2,40 @@
 set -e
 
 # =====================================================================
-#  Y-Control Raspberry Pi Installationsscript (finale Version)
+#  Y-Control Raspberry Pi Installationsscript (mit Header & Logo)
 # =====================================================================
 
 # -------------------------------------------------------
-# Logging-Funktionen (müssen ganz oben stehen)
+# Header-Logo anzeigen
+# -------------------------------------------------------
+clear
+cat <<'EOF'
+       ██            ██                                                                                                 
+      █████        █████                                                                                                
+     ████████    ████████                                                                                               
+    ██████████ ███████████                                                                                              
+   ███████████████████████   ██████        ██████     █████████       █████        ██████    ██████       █████████     
+   ███████████████████████   ███████      ███████  ███████████████    ███████      ██████    ██████    ███████████████  
+  ██████████ █████████████    ███████    ███████  █████████████████   █████████    ██████    ██████   ████████████████  
+ ██████████  ████████████      ███████  ███████ █████████    ████     ██████████   ██████    ██████   ███████     ███   
+ █████████   ████████████       ██████████████  ███████    ███████    ████████████ ██████    ██████   ███████████       
+ ████████   ████████████         ████████████   ███████   █████████   ███████████████████    ██████    ██████████████   
+ ████████  ███████████            ██████████    ███████   █████████   ███████████████████    ██████     ███████████████ 
+  ██████   ██████████              ████████     ███████    ████████   ██████  ███████████    ██████           █████████ 
+  ██████  ██████████              ████████       ██████████████████   ██████   ██████████    ██████    ████████████████ 
+    ████ █████████               ███████          █████████████████   ██████     ████████    ██████   ████████████████  
+      ███████████               ███████             ██████████████    ██████       ██████    ██████   ██████████████    
+        ███████                                                                                                         
+         ████                                                                                                           
+
+--------------------------------------------------------
+           Y-Control Raspberry Pi Installer
+--------------------------------------------------------
+
+EOF
+
+# -------------------------------------------------------
+# Logging-Funktionen
 # -------------------------------------------------------
 log_error() { echo -e "\033[31m${1}\033[0m"; }
 log_info()  { echo -e "\033[32m${1}\033[0m"; }
@@ -14,7 +43,6 @@ log_info()  { echo -e "\033[32m${1}\033[0m"; }
 # -------------------------------------------------------
 # Interaktive Eingabe
 # -------------------------------------------------------
-
 ask() {
     local prompt=$1
     local default=$2
@@ -25,10 +53,6 @@ ask() {
 
 DEVICES=("hmi3010_070c" "hmi3010_101c" "hmi3120_070c" "hmi3120_101c" "hmi3120_116c" "ipc3630")
 
-echo "--------------------------------------------------------"
-echo "   Y-Control Raspberry Pi Installer"
-echo "--------------------------------------------------------"
-echo
 echo "Bitte wähle dein Gerät:"
 select TARGET in "${DEVICES[@]}"; do
     if [[ -n "$TARGET" ]]; then
@@ -71,8 +95,34 @@ else
 fi
 
 # -------------------------------------------------------
-# Netzwerk-Konfiguration über dhcpcd.conf
+# Netzwerk-Konfiguration (Bookworm-kompatibel)
 # -------------------------------------------------------
+configure_network_bookworm() {
+    log_info "Erkenne aktives Netzwerkinterface..."
+    local iface
+    iface=$(nmcli -t -f DEVICE,STATE dev status | awk -F: '$2=="connected"{print $1; exit}')
+
+    if [ -z "$iface" ]; then
+        log_error "Kein aktives Netzwerkinterface gefunden!"
+        return 1
+    fi
+
+    log_info "Setze statische IP-Konfiguration über NetworkManager..."
+    sudo apt-get install -y network-manager
+
+    sudo nmcli connection modify "$iface" ipv4.method manual \
+        ipv4.addresses "${STATIC_IP}/24" \
+        ipv4.gateway "${GATEWAY}" \
+        ipv4.dns "${DNS}" \
+        ipv4.dns-search "" \
+        ipv6.method ignore
+
+    sudo nmcli connection down "$iface" || true
+    sudo nmcli connection up "$iface"
+
+    log_info "Statische IP erfolgreich gesetzt für $iface."
+    nmcli dev show "$iface" | grep IP4
+}
 
 configure_network_dhcpcd() {
     local config="/etc/dhcpcd.conf"
@@ -85,12 +135,17 @@ configure_network_dhcpcd() {
     echo "" | sudo tee -a $config > /dev/null
 
     log_info "Netzwerk-Konfiguration gespeichert in $config"
-    sudo systemctl restart dhcpcd
+    sudo systemctl restart dhcpcd || log_error "dhcpcd konnte nicht neu gestartet werden."
 }
 
 if [ "$USE_STATIC_NET" = true ]; then
-    echo "Konfiguriere statische Netzwerkadresse..."
-    configure_network_dhcpcd
+    if grep -q "VERSION_CODENAME=bookworm" /etc/os-release; then
+        log_info "Bookworm erkannt – verwende NetworkManager."
+        configure_network_bookworm
+    else
+        log_info "Verwende dhcpcd (älteres Raspberry Pi OS)."
+        configure_network_dhcpcd
+    fi
 else
     echo "DHCP bleibt aktiv."
 fi
@@ -98,7 +153,6 @@ fi
 # -------------------------------------------------------
 # Allgemeine Variablen
 # -------------------------------------------------------
-
 TIMEOUT=30
 BASE_URL=https://apt.edatec.cn/bsp
 TMP_PATH="/tmp/eda-common"
@@ -106,7 +160,6 @@ TMP_PATH="/tmp/eda-common"
 # -------------------------------------------------------
 # 1. EDATEC / Splash Screen Setup
 # -------------------------------------------------------
-
 install_eda() {
     local tmp_dir="${TMP_PATH}/eda/"
     mkdir -p "$tmp_dir"
@@ -131,7 +184,7 @@ install_eda() {
     local cmd_file="/boot/firmware/cmdline.txt"
     [ "${code_name}" != "bookworm" ] && cmd_file="/boot/cmdline.txt"
 
-    grep -q "net.ifnames=0" ${cmd_file} || sed -i "1{s/$/ net.ifnames=0/}" ${cmd_file}
+    grep -q "net.ifnames=0" ${cmd_file} || sudo sed -i "1{s/$/ net.ifnames=0/}" ${cmd_file}
 
     wget -q "https://apt.edatec.cn/pubkey.gpg" -O "${tmp_dir}edatec.gpg"
     cat "${tmp_dir}edatec.gpg" | gpg --dearmor | sudo tee "/etc/apt/trusted.gpg.d/edatec-archive-stable.gpg" > /dev/null
@@ -144,14 +197,12 @@ install_eda
 # -------------------------------------------------------
 # 2. Docker & ycontrol Setup
 # -------------------------------------------------------
-
 log_info "Starte Docker-Installation..."
 for pkg in docker.io docker-doc docker-compose podman-docker containerd runc; do 
     sudo apt-get remove -y $pkg 2>/dev/null || true
 done
 
 sudo apt-get install -y ca-certificates curl gnupg subversion
-
 sudo install -m 0755 -d /etc/apt/keyrings
 sudo curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
 sudo chmod a+r /etc/apt/keyrings/docker.asc
@@ -168,9 +219,7 @@ sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plug
 sudo groupadd docker 2>/dev/null || true
 sudo usermod -aG docker $USER
 
-sudo mkdir -p /home/pi/docker/
-sudo mkdir -p /home/pi/y-red_Data/
-sudo mkdir -p /home/pi/ycontrol-data/
+sudo mkdir -p /home/pi/docker/ /home/pi/y-red_Data/ /home/pi/ycontrol-data/
 sudo chown -R pi:pi /home/pi/docker/ /home/pi/y-red_Data/ /home/pi/ycontrol-data/
 
 log_info "Lade y-control Dateien..."
@@ -186,30 +235,24 @@ cd /home/pi/docker/
 sudo -u pi docker compose up -d
 
 # -------------------------------------------------------
-# 3. XServer / Kiosk Setup (nur 7" / 10" Geräte)
+# 3. XServer / Kiosk Setup
 # -------------------------------------------------------
-
-if [[ "$TARGET" == "hmi3010_070c" || "$TARGET" == "hmi3120_070c" || "$TARGET" == "hmi3010_101c" || "$TARGET" == "hmi3120_101c" ]]; then
+if [[ "$TARGET" =~ 070c$ || "$TARGET" =~ 101c$ ]]; then
     log_info "Installiere XServer & Kiosk-Umgebung..."
-
     sudo apt-get install -y --no-install-recommends \
         xserver-xorg-video-all \
         xserver-xorg-input-all xserver-xorg-core xinit x11-xserver-utils \
-        vlc chromium-browser-l10n unclutter \
-        chromium-browser
+        vlc chromium-browser-l10n unclutter chromium-browser
 
-    # bash_profile und xinitrc laden
     sudo -u pi curl -fsSL -o /home/pi/.bash_profile \
         https://raw.githubusercontent.com/ikulx/ycontrol-sh/refs/heads/main/kiosk/.bash_profile
 
-    if [[ "$TARGET" == "hmi3010_070c" || "$TARGET" == "hmi3120_070c" ]]; then
+    if [[ "$TARGET" =~ 070c$ ]]; then
         sudo -u pi curl -fsSL -o /home/pi/.xinitrc \
             https://raw.githubusercontent.com/ikulx/ycontrol-sh/refs/heads/main/kiosk/7z/.xinitrc
     else
         sudo -u pi curl -fsSL -o /home/pi/.xinitrc \
             https://raw.githubusercontent.com/ikulx/ycontrol-sh/refs/heads/main/kiosk/10z/.xinitrc
-
-        # Touchscreen-Kalibrierung (nur 10 Zoll)
         log_info "Füge Touchscreen-Kalibrierung hinzu..."
         sudo sed -i '/MatchIsTouchscreen "on"/a \ \ Option "CalibrationMatrix" "0 -1 1 1 0 0 0 0 0 1"' /usr/share/X11/xorg.conf.d/40-libinput.conf
     fi
@@ -219,7 +262,6 @@ fi
 # -------------------------------------------------------
 # 4. Abschluss & Reboot
 # -------------------------------------------------------
-
 log_info "Alle Installationen abgeschlossen."
 echo "System wird in 5 Sekunden neu gestartet..."
 sleep 5
