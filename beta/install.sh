@@ -108,8 +108,8 @@ fi
 # -------------------------------------------------------
 # 3. NetworkManager-Setup  (Bookworm-Fix)
 # -------------------------------------------------------
-progress "Setze Netzwerkadresse (NetworkManager) – Debug-Modus..."
-set -x   # Debug-Ausgabe aktivieren
+progress "Setze Netzwerkadresse (NetworkManager) – Debug..."
+set -x  # Debug-Ausgabe einschalten
 
 sudo apt-get install -y -qq network-manager
 
@@ -145,7 +145,8 @@ if $USE_STATIC_NET; then
   sudo nmcli con mod "$ACTIVE_CON" ipv4.method manual \
       ipv4.addresses "${STATIC_IP}/${CIDR}" \
       ipv4.gateway "$GATEWAY" \
-      ipv4.dns "$DNS" ipv6.method ignore
+      ipv4.dns "$DNS" \
+      ipv6.method ignore
 else
   echo "==> DHCP konfigurieren"
   sudo nmcli con mod "$ACTIVE_CON" ipv4.method auto ipv6.method ignore
@@ -153,6 +154,7 @@ fi
 
 set +x  # Debug wieder aus
 log_info "Netzwerk-Konfiguration geschrieben (wird nach Reboot aktiv)."
+
 
 
 # -------------------------------------------------------
