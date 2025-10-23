@@ -113,7 +113,8 @@ sudo apt-get install -y -qq network-manager
 
 # Aktive Ethernet-Verbindung ermitteln
 ACTIVE_CON=$(nmcli -t -f NAME,DEVICE,TYPE con show --active | awk -F: '$3=="ethernet"{print $1; exit}')
-[[ -z "$ACTIVE_CON" ]] && ACTIVE_CON="Wired connection 1"
+[[ -z "$ACTIVE_CON" ]] && ACTIVE_CON=$(nmcli -t -f NAME,TYPE con show | awk -F: '$2=="ethernet"{print $1; exit}')
+[[ -z "$ACTIVE_CON" ]] && { echo "Keine Ethernet-Verbindung gefunden."; exit 1; }
 
 mask_to_cidr() {
   local mask=$1 bits=0
@@ -129,7 +130,7 @@ mask_to_cidr() {
 CIDR=$(mask_to_cidr "$NETMASK")
 
 if $USE_STATIC_NET; then
-  log_info "Setze statische IP auf ${STATIC_IP}/${CIDR} ..."
+  log_info "Setze statische IP auf ${STATIC_IP}/${CIDR} für ${ACTIVE_CON} ..."
   sudo nmcli con mod "$ACTIVE_CON" \
     ipv4.method manual \
     ipv4.addresses "${STATIC_IP}/${CIDR}" \
@@ -137,15 +138,15 @@ if $USE_STATIC_NET; then
     ipv4.dns "$DNS" \
     ipv6.method ignore
 else
-  log_info "Verwende DHCP..."
+  log_info "Verwende DHCP auf ${ACTIVE_CON}..."
   sudo nmcli con mod "$ACTIVE_CON" ipv4.method auto ipv6.method ignore
 fi
 
-# Änderungen übernehmen
 sudo nmcli con down "$ACTIVE_CON" || true
 sudo nmcli con up "$ACTIVE_CON" || true
 
 log_info "Netzwerk gesetzt für: $ACTIVE_CON → ${STATIC_IP:-DHCP}/${CIDR:-auto}"
+
 
 
 # -------------------------------------------------------
