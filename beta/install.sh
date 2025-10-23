@@ -3,13 +3,14 @@ set -e
 
 # =====================================================================
 #  Y-Control Raspberry Pi Installationsscript
-#  Enthält:
-#   - Geräteauswahl & EDATEC-Setup
-#   - Optional statische IP-Konfiguration (wie nmtui)
+#  Features:
+#   - Interaktive Geräteauswahl
+#   - Optionale statische IP-Konfiguration (über dhcpcd.conf)
 #   - Splash-Screen Installation & Aktivierung
 #   - Docker & ycontrol Setup
-#   - X-Server & Kiosk-Umgebung für 7" / 10" Geräte
-#   - Automatischer Reboot am Ende
+#   - X-Server & Kiosk-Umgebung (7" / 10")
+#   - Touchscreen-Kalibrierung (10")
+#   - Automatischer Reboot
 # =====================================================================
 
 # -------------------------------------------------------
@@ -53,33 +54,26 @@ else
 fi
 
 # -------------------------------------------------------
-# Netzwerk-Konfiguration (optional)
+# Netzwerk-Konfiguration über dhcpcd.conf
 # -------------------------------------------------------
-function configure_network() {
-    local iface
-    iface=$(nmcli -t -f DEVICE,STATE dev status | awk -F: '$2=="connected"{print $1; exit}')
 
-    if [ -z "$iface" ]; then
-        echo "Kein aktives Netzwerkinterface gefunden."
-        return
-    fi
+function configure_network_dhcpcd() {
+    local config="/etc/dhcpcd.conf"
+    echo "" | sudo tee -a $config > /dev/null
+    echo "# --- Y-Control static network configuration ---" | sudo tee -a $config > /dev/null
+    echo "interface eth0" | sudo tee -a $config > /dev/null
+    echo "static ip_address=${STATIC_IP}/24" | sudo tee -a $config > /dev/null
+    echo "static routers=${GATEWAY}" | sudo tee -a $config > /dev/null
+    echo "static domain_name_servers=${DNS}" | sudo tee -a $config > /dev/null
+    echo "" | sudo tee -a $config > /dev/null
 
-    echo "Setze statische IP-Konfiguration für $iface ..."
-    sudo nmcli con mod "$iface" ipv4.method manual \
-        ipv4.addresses "${STATIC_IP}/$(ipcalc -p "$STATIC_IP" "$NETMASK" | cut -d= -f2)" \
-        ipv4.gateway "${GATEWAY}" \
-        ipv4.dns "${DNS}" \
-        ipv6.method ignore
-
-    sudo nmcli con down "$iface" || true
-    sudo nmcli con up "$iface"
-
-    echo "Netzwerkkonfiguration abgeschlossen:"
-    nmcli dev show "$iface" | grep IP4
+    log_info "Netzwerk-Konfiguration gespeichert in $config"
+    sudo systemctl restart dhcpcd
 }
 
 if [ "$USE_STATIC_NET" = true ]; then
-    configure_network
+    echo "Konfiguriere statische Netzwerkadresse..."
+    configure_network_dhcpcd
 else
     echo "DHCP bleibt aktiv."
 fi
@@ -104,6 +98,7 @@ function install_eda(){
     mkdir -p "$tmp_dir"
 
     log_info "Installiere Splash-Screen-Unterstützung..."
+    sudo apt-get update -y
     sudo apt-get install -y rpd-plym-splash
 
     wget -q https://raw.githubusercontent.com/ikulx/ycontrol-sh/refs/heads/main/img/splash.png -O "${tmp_dir}splash.png"
@@ -125,7 +120,7 @@ function install_eda(){
     grep -q "net.ifnames=0" ${cmd_file} || sed -i "1{s/$/ net.ifnames=0/}" ${cmd_file}
 
     wget -q "https://apt.edatec.cn/pubkey.gpg" -O "${tmp_dir}edatec.gpg"
-    cat "${tmp_dir}edatec.gpg" | gpg --dearmor > "/etc/apt/trusted.gpg.d/edatec-archive-stable.gpg"
+    cat "${tmp_dir}edatec.gpg" | gpg --dearmor | sudo tee "/etc/apt/trusted.gpg.d/edatec-archive-stable.gpg" > /dev/null
     echo "deb https://apt.edatec.cn/raspbian stable main" | sudo tee /etc/apt/sources.list.d/edatec.list > /dev/null
     sudo apt update -y
 }
@@ -141,7 +136,6 @@ for pkg in docker.io docker-doc docker-compose podman-docker containerd runc; do
     sudo apt-get remove -y $pkg 2>/dev/null || true
 done
 
-sudo apt-get update -y
 sudo apt-get install -y ca-certificates curl gnupg subversion
 
 sudo install -m 0755 -d /etc/apt/keyrings
