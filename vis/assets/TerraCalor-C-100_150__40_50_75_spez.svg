@@ -1,0 +1,521 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg viewBox="0 0 1330 600" version="1.1" id="svg42" sodipodi:docname="250724TerraCalor-C-100_150__40_50_75.svg" inkscape:version="1.4.2 (f4327f4, 2025-05-13)" xml:space="preserve" width="1330" height="600" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" xmlns:bx="https://boxy-svg.com">
+
+<ycontrol>
+   	<!-- Zeile 1 -->	
+		<property name="Zeile1" datatype="String" defaultvalue="xxx">
+			<target type="Content" element="zeile1" />
+		</property>
+		
+   	<!-- Zeile 2 -->
+		<property name="Zeile2" datatype="String" defaultvalue="xxx">
+			<target type="Content" element="zeile2" />
+		</property>
+
+
+
+<!-- Komp -->
+
+
+        <property name="Status Kompressor" datatype="Int8" defaultvalue="99">
+        	<target type="Style" element="komp1colorfill" selector="fill">
+       			<condition eq="99" output="#f542ef" />
+       			<condition eq="0" output="black" />
+       			<condition eq="1" output="green" />
+       			<condition eq="2" output="red" />
+       			<condition eq="10" output="black" />
+       			<condition eq="11" output="green" />
+       			<condition eq="12" output="red" />
+       			<condition eq="20" output="black" />
+       			<condition eq="21" output="green" />
+       			<condition eq="22" output="red" />
+       		</target>
+       		 <target type="Style" element="komp1colorfill" selector="stroke">
+       			<condition eq="99" output="#18c6c9" />
+       			<condition lt="10" output="white" />
+       			<condition lt="20" output="blue" />
+       			<condition lt="30" output="orange" />
+       		</target>
+		</property>
+
+
+
+		
+    <!-- Status -->
+        <property name="Stauts EZ" datatype="INT16" defaultvalue="0">
+        	<target type="Content" element="statusez">
+       			<condition eq="0" output="Auto Aus" />
+        	    <condition eq="1" output="Ein Heizen" />
+       			<condition eq="2" output="Ein BWW" />
+        	    <condition eq="3" output="Ein Kühlen" />
+       			<condition eq="4" output="Störung!" /> 
+       			<condition eq="5" output="Qittieren" />
+       			<condition eq="6" output="Frostschutz" />
+       			<condition eq="7" output="EVU-Sperre" />
+       			<condition eq="8" output="Freecoling und Heizen" />
+       			<condition eq="10" output="Hand Aus" />
+       			<condition eq="90" output="Abtauung" />
+       			<condition eq="100" output="EVU-Sperre" />
+       		</target>  
+		</property> 
+
+
+
+<!-- Ventil Cooling -->
+        <property name="StatusSpezquelle" datatype="Int8" defaultvalue="99">
+        	<target type="Style" element="ventilcofill" selector="fill">
+       			<condition eq="99" output="#f542ef" />
+       			<condition eq="0" output="black" />
+       			<condition eq="1" output="green" />
+       			<condition eq="2" output="red" />
+       			<condition eq="10" output="black" />
+       			<condition eq="11" output="green" />
+       			<condition eq="12" output="red" />
+       			<condition eq="20" output="black" />
+       			<condition eq="21" output="green" />
+       			<condition eq="22" output="red" />
+       		</target>
+          <target type="Content" element="ventilcotext">
+       			<condition eq="0" output="ZU" />
+        	  <condition eq="1" output="AUF" />
+       		</target>
+		</property>
+
+
+
+<!-- Ventil Sole -->
+         <property name="Hochhaltung Ventil vorhanden" datatype="boolean" defaultvalue="1">
+        	<target type="Attribute" element="ventilsoaktiv" selector="opacity">
+        	    <condition eq="0" output="0" />
+        	    <condition eq="1" output="1" />
+       		</target>
+		</property>
+        <property name="Status Hochhaltung Ventil" datatype="Int8" defaultvalue="99">
+        	<target type="Style" element="ventilsofill" selector="fill">
+       			<condition eq="99" output="#f542ef" />
+       			<condition eq="0" output="black" />
+       			<condition eq="1" output="green" />
+       			<condition eq="2" output="red" />
+       			<condition eq="10" output="black" />
+       			<condition eq="11" output="green" />
+       			<condition eq="12" output="red" />
+       			<condition eq="20" output="black" />
+       			<condition eq="21" output="green" />
+       			<condition eq="22" output="red" />
+       		</target>
+       		 <target type="Style" element="ventilsofill" selector="stroke">
+       			<condition eq="99" output="#18c6c9" />
+       			<condition lt="10" output="white" />
+       			<condition lt="20" output="blue" />
+       			<condition lt="30" output="orange" />
+       		</target>
+		</property>
+		<property name="Wert Hochhaltung Ventil" datatype="String" defaultvalue="xxx">
+			<target type="Content" element="ventilsotext" />
+		</property>
+
+<!-- Pumpe VL -->
+        <property name="Status Pumpe" datatype="Int8" defaultvalue="99">
+        	<target type="Style" element="pumpcolorfill" selector="fill">
+       			<condition eq="99" output="#f542ef" />
+       			<condition eq="0" output="black" />
+       			<condition eq="1" output="green" />
+       			<condition eq="2" output="red" />
+       			<condition eq="10" output="black" />
+       			<condition eq="11" output="green" />
+       			<condition eq="12" output="red" />
+       			<condition eq="20" output="black" />
+       			<condition eq="21" output="green" />
+       			<condition eq="22" output="red" />
+       		</target>
+       		 <target type="Style" element="pumpcolorfill" selector="stroke">
+       			<condition eq="99" output="#18c6c9" />
+       			<condition lt="10" output="white" />
+       			<condition lt="20" output="blue" />
+       			<condition lt="30" output="orange" />
+       		</target>
+       		 <target type="Style" element="pumpcolorstroke" selector="fill">
+       			<condition eq="99" output="#18c6c9" />
+       			<condition lt="10" output="white" />
+       			<condition lt="20" output="blue" />
+       			<condition lt="30" output="orange" />
+       		</target>
+		</property>
+
+<!-- Sole Pumpe -->
+        <property name="Status Sole Pumpe" datatype="Int8" defaultvalue="99">
+        	<target type="Style" element="pumpsolecolorfill" selector="fill">
+       			<condition eq="99" output="#f542ef" />
+       			<condition eq="0" output="black" />
+       			<condition eq="1" output="green" />
+       			<condition eq="2" output="red" />
+       			<condition eq="10" output="black" />
+       			<condition eq="11" output="green" />
+       			<condition eq="12" output="red" />
+       			<condition eq="20" output="black" />
+       			<condition eq="21" output="green" />
+       			<condition eq="22" output="red" />
+       		</target>
+       		 <target type="Style" element="pumpsolecolorfill" selector="stroke">
+       			<condition eq="99" output="#18c6c9" />
+       			<condition lt="10" output="white" />
+       			<condition lt="20" output="blue" />
+       			<condition lt="30" output="orange" />
+       		</target>
+       		 <target type="Style" element="pumpsolecolorstroke" selector="fill">
+       			<condition eq="99" output="#18c6c9" />
+       			<condition lt="10" output="white" />
+       			<condition lt="20" output="blue" />
+       			<condition lt="30" output="orange" />
+       		</target>
+		</property>
+		
+
+
+<!-- Abluft -->
+        <property name="Abluft vorhanden" datatype="boolean" defaultvalue="0">
+        	<target type="Attribute" element="abluftaktiv" selector="opacity">
+        	    <condition eq="0" output="0" />
+        	    <condition eq="1" output="1" />
+       		</target>
+		</property>
+        <!-- <property name="Status Druckwächter" datatype="boolean" defaultvalue="true">
+        	<target type="Style" element="druckwaecolorfill" selector="fill">
+       			<condition eq="false" output="green" />
+       			<condition eq="true" output="red" />
+       		</target>
+		</property> -->
+
+<!-- Hochhaltung -->
+        <property name="Hochhaltung vorhanden" datatype="Int8" defaultvalue="0">
+        	<target type="Attribute" element="hochaltungaktiv" selector="opacity">
+        	    <condition eq="0" output="0" />
+        	    <condition eq="1" output="1" />
+       		</target>
+		</property>
+
+
+    <!-- Fuehler Spez-->
+			
+		<property name="FühlerSpezIstwert" datatype="Int16" defaultvalue="xxx">
+		    <target type="Content" element="fuehlercosekvlist" />
+			<target type="Style" element="fuehlercosekvlcolorfill" selector="fill">
+       			<condition gt="100" output="red" />
+       			<condition gte="1" output="green" />
+       			<condition lte="0" output="red" />
+       			</target>
+		</property>
+
+
+    <!-- Fuehler Sole VL-->
+		
+		<property name="FühlerVL" datatype="Int16" defaultvalue="xxx">
+		    <target type="Content" element="fuehlersolevlist" />
+			<target type="Style" element="fuehlersolevlcolorfill" selector="fill">
+       			<condition gt="100" output="red" />
+       			<condition gte="1" output="green" />
+       			<condition lte="0" output="red" />
+       			</target>
+		</property>
+
+
+<!-- Text -->
+		<property name="Sollwert" datatype="String" defaultvalue="xxx">
+			<target type="Content" element="sollwert" />
+		</property>
+		<property name="Austritt" datatype="String" defaultvalue="xxx">
+			<target type="Content" element="istwert" />
+		</property>
+		<property name="Austritt" datatype="String" defaultvalue="xxx">
+			<target type="Content" element="vl" />
+		</property>
+		<property name="Eintritt" datatype="String" defaultvalue="xxx">
+			<target type="Content" element="rl" />
+		</property>
+		<property name="Sole Austritt" datatype="String" defaultvalue="xxx">
+			<target type="Content" element="svl" />
+		</property>
+		<property name="Sole Eintritt" datatype="String" defaultvalue="xxx">
+			<target type="Content" element="srl" />
+		</property>
+		<property name="Leistung" datatype="String" defaultvalue="">
+			<target type="Content" element="leistung" />
+		</property>
+		<property name="Leistung Einheit" datatype="String" defaultvalue="kW">
+			<target type="Content" element="leistungein" />
+		</property>
+
+
+    <!-- Buttons-->
+        <property name="Buttons einblenden" datatype="boolean" defaultvalue="0">
+        	<target type="Attribute" element="buttosaktiv" selector="opacity">
+        		<condition eq="1" output="1" />
+        		<condition eq="0" output="0" />
+       		</target>
+		</property>		
+
+		<action name="Quelle Click" triggers="click" elements="quelleclick" />
+
+
+
+
+  </ycontrol>
+
+
+
+  <defs id="defs2">
+    <rect x="1530.8483" y="91.773781" width="56.81234" height="30.077122" id="rect42"/>
+    <bx:grid x="0" y="0" width="5" height="5"/>
+    <symbol id="thermometer" viewBox="0 0 24 24">
+      <path fill="#00e0ff" d="M 17,17 A 5,5 0 1 1 7,17 C 7,15.29 8,13.83 9.44,13.15 V 5 a 2.56,2.56 0 0 1 5.12,0 v 8.15 A 4.994,4.994 0 0 1 17,17 Z" id="path1"/>
+    </symbol>
+    <symbol id="target" viewBox="0 0 24 24">
+      <path fill="#ffce00" d="m 12,20 a 8,8 0 1 1 8,-8 8.009,8.009 0 0 1 -8,8 z M 12,6 a 6,6 0 1 0 6,6 6.006,6.006 0 0 0 -6,-6 z m 0,10 a 4,4 0 1 1 4,-4 4.005,4.005 0 0 1 -4,4 z" id="path2"/>
+    </symbol>
+    <symbol id="thermometer-5" viewBox="0 0 24 24">
+      <path fill="#00e0ff" d="M 17,17 A 5,5 0 1 1 7,17 C 7,15.29 8,13.83 9.44,13.15 V 5 a 2.56,2.56 0 0 1 5.12,0 v 8.15 A 4.994,4.994 0 0 1 17,17 Z" id="path1-2"/>
+    </symbol>
+    <symbol id="target-7" viewBox="0 0 24 24">
+      <path fill="#ffce00" d="m 12,20 a 8,8 0 1 1 8,-8 8.009,8.009 0 0 1 -8,8 z M 12,6 a 6,6 0 1 0 6,6 6.006,6.006 0 0 0 -6,-6 z m 0,10 a 4,4 0 1 1 4,-4 4.005,4.005 0 0 1 -4,4 z" id="path2-6"/>
+    </symbol>
+    <symbol id="thermometer-2" viewBox="0 0 24 24">
+      <path fill="#00e0ff" d="M 17,17 A 5,5 0 1 1 7,17 C 7,15.29 8,13.83 9.44,13.15 V 5 a 2.56,2.56 0 0 1 5.12,0 v 8.15 A 4.994,4.994 0 0 1 17,17 Z" id="path1-1"/>
+    </symbol>
+    <symbol id="target-6" viewBox="0 0 24 24">
+      <path fill="#ffce00" d="m 12,20 a 8,8 0 1 1 8,-8 8.009,8.009 0 0 1 -8,8 z M 12,6 a 6,6 0 1 0 6,6 6.006,6.006 0 0 0 -6,-6 z m 0,10 a 4,4 0 1 1 4,-4 4.005,4.005 0 0 1 -4,4 z" id="path2-8"/>
+    </symbol>
+    <symbol id="icon-thermo" viewBox="0 0 24 24">
+      <path fill="#00e0ff" d="M 17,17 A 5,5 0 1 1 7,17 C 7,15.29 8,13.83 9.44,13.15 V 5 a 2.56,2.56 0 0 1 5.12,0 v 8.15 A 4.994,4.994 0 0 1 17,17 Z" id="path1-18"/>
+    </symbol>
+    <symbol id="icon-target" viewBox="0 0 24 24">
+      <path fill="#ffce00" d="m 12,20 a 8,8 0 1 1 8,-8 8.009,8.009 0 0 1 -8,8 z M 12,6 a 6,6 0 1 0 6,6 6.006,6.006 0 0 0 -6,-6 z m 0,10 a 4,4 0 1 1 4,-4 4.005,4.005 0 0 1 -4,4 z" id="path2-9"/>
+    </symbol>
+    <rect x="194.45438" y="368.44901" width="155.96591" height="45.031693" id="rect22-65"/>
+    <rect x="194.45438" y="368.44901" width="155.96591" height="45.031693" id="rect22-65-1"/>
+    <rect x="194.45438" y="368.44901" width="155.96591" height="45.031693" id="rect22-65-5"/>
+    <rect x="194.45438" y="368.44901" width="155.96591" height="45.031693" id="rect22-65-4"/>
+    <rect x="92.25" y="168.44901" width="160.11159" height="55.800999" id="rect7"/>
+    <rect x="194.45438" y="368.44901" width="155.96591" height="45.031693" id="rect22-5"/>
+    <rect x="194.45438" y="368.44901" width="155.96591" height="45.031693" id="rect22-63"/>
+    <rect x="194.45438" y="368.44901" width="155.96591" height="45.031693" id="rect22"/>
+    <rect x="194.45438" y="368.44901" width="155.96591" height="45.031693" id="rect22-4"/>
+    <rect x="194.45438" y="368.44901" width="155.96591" height="45.031693" id="rect22-65-1-7"/>
+    <rect x="194.45438" y="368.44901" width="155.96591" height="45.031693" id="rect22-65-1-4"/>
+  </defs>
+  <rect width="1329.5" height="602.10303" rx="7.9999995" ry="8" style="display:inline;stroke:#000000;stroke-width:1" y="-1.051" id="rect2" x="0"/>
+  <g id="Info" transform="rotate(-90,8.9745,157.4745)" style="display:inline">
+    <g id="bar">
+      <rect y="178" width="120.00001" height="310" rx="3.9779005" fill="#313131" id="rect1" x="18" style="stroke-width:0.819542" ry="3.9779005"/>
+    </g>
+    <text id="GebÃ¤ude" fill="#ffffff" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial;white-space:pre" font-family="Inter" font-size="26px" font-weight="500" letter-spacing="0em" x="172.61621" y="-325.54333" transform="rotate(90)"><tspan x="186.61621" y="-108.69434" class="zeile1" id="tspan1" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial">Gebäude</tspan></text>
+    <text id="Heizkreis" fill="#ffffff" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.3333px;font-family:Arial;-inkscape-font-specification:Arial;white-space:pre" font-family="Inter" font-size="26px" font-weight="500" letter-spacing="0em" x="172.29167" y="-338.05359" transform="rotate(90)"><tspan x="186.29167" y="-82.739586" class="zeile2" id="tspan2" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.3333px;font-family:Arial;-inkscape-font-specification:Arial">HP</tspan></text>
+    <g id="g5" class="buttosaktiv">
+      <g id="HZK" class="hklaktiv" style="display:inline" transform="rotate(90,92.105698,256.14746)">
+        <path id="path-20" d="M 31.196095,320.25316 H 67.38538 c 3.997378,0 7.237857,-3.582 7.237857,-8 v -28 c 0,-4.418 -3.240479,-8 -7.237857,-8 H 31.196095 c -3.997378,0 -7.237857,3.582 -7.237857,8 v 28 c 0,4.418 3.240479,8 7.237857,8 z" fill="#666666" style="stroke-width:0.951174"/>
+        <g id="Symbol kurve" class="hklaktiv" style="display:inline" transform="translate(1.290581,0.253156)">
+          <path id="path14_2" d="m 33.8859,287.418 -0.0473,0.048 -1.4895,1.503 z m 0,0 0.0473,0.048 m -0.0473,-0.048 0.0473,0.048 m 0,0 1.4941,1.503 v 0 c 0.1321,0.132 0.3453,0.213 0.5851,0.213 0.1503,0 0.2969,-0.033 0.4213,-0.092 v 0 c 0.1653,-0.078 0.2585,-0.195 0.2866,-0.313 0.0278,-0.118 -0.0056,-0.246 -0.1148,-0.356 v 0 m -2.6723,-0.955 2.6723,0.955 m 0,0 -2.123,-2.134 c -0.1333,-0.134 -0.3442,-0.214 -0.5851,-0.214 -0.241,0 -0.4519,0.08 -0.5852,0.214 l -2.1229,2.134 c 0,0 -10e-5,0 -10e-5,0 -0.108,0.109 -0.1404,0.235 -0.1136,0.35 0.0272,0.117 0.1178,0.234 0.276,0.315 0.1583,0.081 0.3521,0.109 0.536,0.087 m 4.7179,-0.752 -4.7179,0.752 m 0,0 c 0.1844,-0.022 0.3519,-0.094 0.4614,-0.204 z" fill="#e8eaed" stroke="#e8eaed" stroke-width="0.133333"/>
+          <path id="path16" d="m 62.9198,307.867 0.1164,0.059 -0.1164,0.06 -2.0956,1.069 c -0.1593,0.082 -0.2509,0.2 -0.278,0.318 -0.0267,0.116 0.0068,0.242 0.1183,0.35 v 0 c 0.1337,0.13 0.3453,0.21 0.5813,0.21 0.1506,0 0.2964,-0.023 0.4124,-0.083 h 2e-4 l 2.9768,-1.522 c 0.1926,-0.099 0.289,-0.244 0.289,-0.394 0,-0.151 -0.0964,-0.296 -0.289,-0.394 l -2.9768,-1.522 c -0.159,-0.082 -0.3528,-0.11 -0.5366,-0.088 -0.1842,0.022 -0.3515,0.094 -0.4611,0.204 -0.108,0.108 -0.1404,0.234 -0.1134,0.349 0.0273,0.117 0.1182,0.234 0.2768,0.315 0,0 0,0 10e-5,0 z" fill="#e8eaed" stroke="#e8eaed" stroke-width="0.133333"/>
+          <path id="Vector 2" d="m 36.7977,304.168 c 0,0 9.9469,-9.177 23.7831,-10.964" stroke="#e8eaed" stroke-linecap="round"/>
+          <path id="path26_2" d="m 34.6541,307.436 h -0.0666 v -0.067 l 0.0011,-20.812 c 0,-0.129 -0.0709,-0.25 -0.1982,-0.341 -0.1273,-0.091 -0.3076,-0.149 -0.5124,-0.149 -0.2022,0 -0.3826,0.059 -0.5108,0.151 -0.1283,0.092 -0.1999,0.213 -0.1999,0.339 v 21.363 c 0,0.127 0.0719,0.248 0.2003,0.34 0.1283,0.091 0.3087,0.15 0.5104,0.15 h 30.3447 c 0.2047,0 0.3851,-0.056 0.5125,-0.146 0.1272,-0.089 0.1981,-0.209 0.1981,-0.338 0,-0.126 -0.0718,-0.248 -0.2003,-0.34 -0.1283,-0.091 -0.3087,-0.15 -0.5103,-0.15 z" fill="#e8eaed" stroke="#e8eaed" stroke-width="0.133333"/>
+        </g>
+      </g>
+      <g id="ZP" class="zpaktiv" transform="rotate(90,93.5,254.5)">
+        <path id="path-21" d="m 114.23786,320 h 36.18928 c 3.99711,0 7.23786,-3.582 7.23786,-8 v -28 c 0,-4.418 -3.24075,-8 -7.23786,-8 H 114.23786 C 110.24075,276 107,279.582 107,284 v 28 c 0,4.418 3.24075,8 7.23786,8 z" fill="#666666" style="stroke-width:0.951174"/>
+        <path id="path-22" d="m 135.6325,302.6005 1.4,-1.371 -3.7,-3.621 v -4.503 h -2 v 5.286 z m -3.3,5.188 c -1.383,0 -2.683,-0.257 -3.9,-0.771 -1.217,-0.514 -2.275,-1.212 -3.175,-2.093 -0.9,-0.88 -1.613,-1.916 -2.137,-3.107 -0.526,-1.191 -0.788,-2.464 -0.788,-3.818 0,-1.354 0.262,-2.626 0.788,-3.817 0.524,-1.191 1.237,-2.227 2.137,-3.108 0.9,-0.881 1.958,-1.578 3.175,-2.092 1.217,-0.514 2.517,-0.771 3.9,-0.771 1.383,0 2.683,0.257 3.9,0.771 1.217,0.514 2.275,1.211 3.175,2.092 0.9,0.881 1.613,1.917 2.137,3.108 0.525,1.191 0.788,2.463 0.788,3.817 0,1.354 -0.263,2.627 -0.788,3.818 -0.524,1.191 -1.237,2.227 -2.137,3.107 -0.9,0.881 -1.958,1.579 -3.175,2.093 -1.217,0.514 -2.517,0.771 -3.9,0.771 z m 0,-1.958 c 2.217,0 4.104,-0.763 5.663,-2.288 1.558,-1.525 2.337,-3.373 2.337,-5.543 0,-2.17 -0.779,-4.017 -2.337,-5.542 -1.559,-1.526 -3.446,-2.288 -5.663,-2.288 -2.217,0 -4.104,0.762 -5.662,2.288 -1.559,1.525 -2.338,3.372 -2.338,5.542 0,2.17 0.779,4.018 2.338,5.543 1.558,1.525 3.445,2.288 5.662,2.288 z" fill="#e8eaed"/>
+      </g>
+      <g id="g25" transform="translate(-17.987659,-118.48464)">
+        <g id="US" class="usaktiv" transform="rotate(90,46.751509,319.23615)">
+          <path id="path-23" d="m 201.23786,320 h 36.18928 c 3.99711,0 7.23786,-3.582 7.23786,-8 v -28 c 0,-4.418 -3.24075,-8 -7.23786,-8 H 201.23786 C 197.24075,276 194,279.582 194,284 v 28 c 0,4.418 3.24075,8 7.23786,8 z" fill="#666666" style="stroke-width:0.951174"/>
+          <path id="US_2" d="m 218,300 h 2 v -2 c 0,-0.283 0.096,-0.521 0.288,-0.712 C 220.479,297.096 220.717,297 221,297 h 2 v 2 l 3,-3 -3,-3 v 2 h -2 c -0.833,0 -1.542,0.292 -2.125,0.875 C 218.292,296.458 218,297.167 218,298 Z m -4,4 c -0.55,0 -1.021,-0.196 -1.413,-0.587 C 212.196,303.021 212,302.55 212,302 v -11 c 0,-0.55 0.196,-1.021 0.587,-1.412 C 212.979,289.196 213.45,289 214,289 h 16 c 0.55,0 1.021,0.196 1.413,0.588 0.391,0.391 0.587,0.862 0.587,1.412 v 11 c 0,0.55 -0.196,1.021 -0.587,1.413 C 231.021,303.804 230.55,304 230,304 Z m 0,-2 h 16 v -11 h -16 z m -3,5 v -2 h 22 v 2 z" fill="#e8eaed"/>
+        </g>
+        <g id="Raum" class="raumaktiv" transform="matrix(0,1.0833036,-1,0,365.98766,256.32374)" style="display:inline">
+          <path id="path-24" d="m 200.68128,320 h 33.40641 c 3.68973,0 6.68128,-3.582 6.68128,-8 v -28 c 0,-4.418 -2.99155,-8 -6.68128,-8 H 200.68128 C 196.99154,276 194,279.582 194,284 v 28 c 0,4.418 2.99154,8 6.68128,8 z" fill="#666666" style="stroke-width:0.913871"/>
+          <g id="g8">
+            <g id="g10" transform="translate(-3.7654342,0.193)">
+              <path id="path12" d="m 213.378,287.917 c -0.807,0.001 -1.46,0.654 -1.461,1.461 v 17.244 c 0.001,0.807 0.654,1.46 1.461,1.461 h 17.244 c 0.807,-0.001 1.46,-0.654 1.461,-1.461 v -17.244 c -0.001,-0.807 -0.654,-1.46 -1.461,-1.461 z M 230.622,309 h -17.244 c -1.313,-0.002 -2.376,-1.065 -2.378,-2.378 v -17.244 c 0.002,-1.313 1.065,-2.376 2.378,-2.378 h 17.244 c 1.313,0.002 2.376,1.065 2.378,2.378 v 17.244 c -0.002,1.313 -1.065,2.376 -2.378,2.378 z" fill="#e8eaed"/>
+              <path id="path14" d="m 213.635,299.142 h 16.73 v -7.387 h -16.73 z m 16.987,0.958 h -17.244 c -0.364,0 -0.659,-0.308 -0.659,-0.689 v -7.925 c 0,-0.381 0.295,-0.689 0.659,-0.689 h 17.244 c 0.364,0 0.659,0.308 0.659,0.689 v 7.925 c 0,0.381 -0.295,0.689 -0.659,0.689 z" fill="#e8eaed"/>
+              <path id="path22" d="m 218.562,305.523 c -0.253,0 -0.458,-0.214 -0.458,-0.479 v -2.861 c 0,-0.265 0.205,-0.479 0.458,-0.479 0.254,0 0.459,0.214 0.459,0.479 v 2.861 c 0,0.265 -0.205,0.479 -0.459,0.479 z" fill="#e8eaed"/>
+              <path id="path24" d="m 219.93,304.092 h -2.735 c -0.253,0 -0.459,-0.214 -0.459,-0.479 0,-0.264 0.206,-0.479 0.459,-0.479 h 2.735 c 0.253,0 0.459,0.215 0.459,0.479 0,0.265 -0.206,0.479 -0.459,0.479 z" fill="#e8eaed"/>
+              <path id="path26" d="m 226.805,304.092 h -2.735 c -0.253,0 -0.459,-0.214 -0.459,-0.479 0,-0.264 0.206,-0.479 0.459,-0.479 h 2.735 c 0.253,0 0.459,0.215 0.459,0.479 0,0.265 -0.206,0.479 -0.459,0.479 z" fill="#e8eaed"/>
+              <path id="path28" d="m 218.463,295.536 c -0.015,0.012 -0.029,0.025 -0.043,0.039 0.014,-0.013 0.028,-0.027 0.043,-0.039 z m 0.977,3.068 h -2.81 c -0.253,0 -0.458,-0.215 -0.458,-0.479 0,-0.127 0.048,-0.249 0.134,-0.339 l 2.113,-2.21 c 0.229,-0.248 0.562,-0.729 0.562,-0.953 0,-0.579 -0.469,-1.051 -1.046,-1.051 -0.577,0 -1.046,0.472 -1.046,1.051 0,0.265 -0.205,0.48 -0.458,0.48 -0.253,0 -0.459,-0.215 -0.459,-0.48 0,-1.108 0.881,-2.01 1.963,-2.01 1.082,0 1.963,0.902 1.963,2.01 0,0.331 -0.141,0.7 -0.432,1.127 -0.081,0.118 -0.17,0.237 -0.266,0.353 -0.055,0.065 -0.096,0.116 -0.136,0.155 l -1.327,1.387 h 1.703 c 0.253,0 0.458,0.215 0.458,0.48 0,0.264 -0.205,0.479 -0.458,0.479 z" fill="#e8eaed"/>
+              <path id="path30" d="m 223.297,295.536 c -0.015,0.012 -0.029,0.025 -0.043,0.039 0.014,-0.013 0.028,-0.027 0.043,-0.039 z m 0.977,3.068 h -2.81 c -0.253,-10e-4 -0.458,-0.216 -0.458,-0.48 0.001,-0.127 0.049,-0.248 0.135,-0.338 l 2.113,-2.21 c 0.229,-0.248 0.562,-0.729 0.562,-0.953 0,-0.579 -0.469,-1.051 -1.046,-1.051 -0.577,0 -1.046,0.472 -1.046,1.051 0,0.265 -0.205,0.48 -0.458,0.48 -0.254,0 -0.459,-0.215 -0.459,-0.48 0,-1.108 0.881,-2.01 1.963,-2.01 1.082,0 1.963,0.902 1.963,2.01 0,0.331 -0.141,0.7 -0.432,1.127 -0.081,0.118 -0.171,0.237 -0.267,0.353 -0.054,0.065 -0.096,0.116 -0.135,0.155 l -1.328,1.387 h 1.704 c 0.253,0 0.458,0.215 0.458,0.48 0,0.264 -0.205,0.479 -0.458,0.479 z" fill="#e8eaed"/>
+              <path id="path32" d="m 226.773,296.211 c -0.418,0 -0.818,-0.23 -1.095,-0.631 -0.25,-0.36 -0.388,-0.832 -0.388,-1.328 0,-0.495 0.138,-0.966 0.388,-1.327 0.277,-0.401 0.676,-0.631 1.095,-0.631 0.477,0 0.911,0.286 1.191,0.785 0.129,0.229 0.055,0.522 -0.163,0.656 -0.218,0.134 -0.499,0.058 -0.627,-0.17 -0.053,-0.094 -0.197,-0.312 -0.401,-0.312 -0.268,0 -0.566,0.41 -0.566,1 0,0.589 0.298,1 0.566,1 0.203,0 0.348,-0.218 0.401,-0.312 0.124,-0.23 0.403,-0.312 0.624,-0.182 0.221,0.129 0.299,0.422 0.175,0.652 -0.003,0.005 -0.006,0.01 -0.009,0.015 -0.28,0.499 -0.714,0.785 -1.191,0.785 z" fill="#e8eaed"/>
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>
+    <text style="font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 13.3333px; font-family: Arial; text-align: start; writing-mode: lr-tb; direction: ltr; text-anchor: start; fill: rgb(49, 49, 49); fill-opacity: 1; stroke: rgb(255, 255, 255); stroke-width: 3; stroke-linecap: round; stroke-dasharray: none; stroke-opacity: 1; white-space: pre;" x="344.45605" y="67.073357" id="text24" transform="rotate(90)"><tspan id="tspan24" x="344.45605" y="67.073357"/>
+</text>
+  </g>
+  <g id="g15-1-92-5-8" transform="matrix(1, 0, 0, 1, 558.003601, -93.250313)" style="display:inline"/>
+  <path id="Vector" fill-rule="evenodd" clip-rule="evenodd" d="M 1255.14 218.524 L 1275.18 208.511 L 1255.14 198.484 L 1255.14 218.524 Z" fill="#ffffff" stroke="#ffffff" stroke-width="0.999999" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <path id="Vector_4" d="M 1263.79 248.414 L 865.159 248.414" stroke="#ffffff" stroke-width="0.999999" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round" style="fill:none;stroke:#ffffff;stroke-width:3;stroke-linecap:square;stroke-dasharray:none"/>
+  <path id="Vector_5" fill-rule="evenodd" clip-rule="evenodd" d="M 1274.66 258.439 L 1254.62 248.426 L 1274.66 238.399 L 1274.66 258.439 Z" fill="#ffffff" stroke="#ffffff" stroke-width="0.999999" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <path id="Vector_6" d="M 825.5 367.216 L 825.5 210.457" stroke="#ffffff" stroke-width="0.999999" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round" style="fill:none;stroke:#ffffff;stroke-width:3;stroke-linecap:square;stroke-dasharray:none"/>
+  <path id="Vector_7" d="M 865.16 368 L 865.16 249" stroke="#ffffff" stroke-width="0.999999" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round" style="fill:none;stroke:#ffffff;stroke-width:3.00436;stroke-linecap:square;stroke-dasharray:none"/>
+  <path id="Vector_8" d="M 665.49 368.419 L 665.471 328.388" stroke="#ffffff" stroke-width="0.999999" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round" style="fill:none;stroke:#ffffff;stroke-width:3.01337;stroke-linecap:square;stroke-dasharray:none"/>
+  <path id="Line 10" d="M 705.505 369.815 L 705.505 249.902" stroke="#ffffff" stroke-linecap="round" style="fill:none;stroke:#ffffff;stroke-width:2.93833;stroke-linecap:square;stroke-dasharray:none"/>
+  <path id="Line 13" d="M 1260.37 208.504 L 825.5 208.504" stroke="#ffffff" stroke-linecap="round" style="fill:none;stroke:#ffffff;stroke-width:3;stroke-linecap:square;stroke-dasharray:none"/>
+  <g id="Externe Quelle" transform="matrix(1, 0, 0, 1, 281.919037, -10.143219)" style="display:inline" class="externequelleaktiv">
+    <path id="Linie ohne Ventil" d="m -33.197836,258.59223 h 447.185906 9.56637" fill="#ffffff" style="fill:none;stroke:#ffffff;stroke-width:2.99999;stroke-linecap:square;stroke-linejoin:round;stroke-opacity:1"/>
+    <path id="Vector_15" fill-rule="evenodd" clip-rule="evenodd" d="m -45.929381,268.5825 20.04,-10.013 -20.04,-10.027 z" fill="#ffffff" stroke="#ffffff" stroke-width="0.999999" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <path id="Vector_16" fill-rule="evenodd" clip-rule="evenodd" d="m -25.889442,328.5425 -20.04,10.013 20.04,10.027 z" fill="#ffffff" stroke="#ffffff" stroke-width="0.999999" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <path id="Linie Ex Q_2" d="M 382.37117,338.56329 H -25.889442" stroke="#ffffff" stroke-width="0.999999" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round" style="font-variation-settings:normal;display:inline;opacity:1;vector-effect:none;fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:3;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;stop-color:#000000;stop-opacity:1"/>
+    <text transform="translate(-145.92938,10.1135)" id="text6" style="font-size:21.3333px;font-family:Arial;-inkscape-font-specification:Arial;font-variation-settings:normal;text-align:center;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect7);display:inline;opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none"/>
+    <g id="g15-1-2" transform="translate(-603.08988,-49.480829)" style="display:inline">
+      <g id="g16-4" transform="translate(-0.51215478,27.25)">
+        <text x="599.01361" y="366.96094" font-size="25.9142px" fill="#ffffff" text-anchor="end" id="text2-8-0-8-8-9-4-4-9-1-3-4-5-4" style="font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 16px; font-family: Arial; text-align: center; text-anchor: middle; display: inline; fill: rgb(255, 255, 255); fill-opacity: 1; stroke: rgb(255, 255, 255); stroke-width: 0; stroke-dasharray: none; stroke-opacity: 1; white-space: pre;" transform="scale(1.0406001,0.96098396)"><tspan id="tspan9" x="599.01361" y="366.96094">Quelle RL</tspan><tspan id="tspan17" x="599.01361" y="386.96094"/>
+</text>
+        <text transform="translate(348.40675,-44.376402)" id="text22-1" style="font-size:13.3333px;font-family:Arial;-inkscape-font-specification:Arial;text-align:start;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect22-5);display:inline;fill:none;fill-opacity:1;stroke:none;stroke-width:0.5;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:0;stroke-dasharray:none;stroke-opacity:1"/>
+      </g>
+    </g>
+    <g id="g15-1-5" transform="translate(-603.08988,-101.70753)" style="display:inline">
+      <g id="g16-2">
+        <text x="599.01361" y="366.96094" font-size="25.9142px" fill="#ffffff" text-anchor="end" id="text2-8-0-8-8-9-4-4-9-1-3-4-5-8" style="font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 16px; font-family: Arial; text-align: center; text-anchor: middle; display: inline; fill: rgb(255, 255, 255); fill-opacity: 1; stroke: rgb(255, 255, 255); stroke-width: 0; stroke-dasharray: none; stroke-opacity: 1; white-space: pre;" transform="scale(1.0406001,0.96098396)">Quelle VL</text>
+        <text transform="translate(348.40675,-44.376402)" id="text22-2" style="font-size:13.3333px;font-family:Arial;-inkscape-font-specification:Arial;text-align:start;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect22-63);display:inline;fill:none;fill-opacity:1;stroke:none;stroke-width:0.5;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:0;stroke-dasharray:none;stroke-opacity:1"/>
+      </g>
+    </g>
+  </g>
+  <path id="Vector_18" fill-rule="evenodd" clip-rule="evenodd" d="M 1255.78 78.439 L 1275.82 68.426 L 1255.78 58.399 L 1255.78 78.439 Z" fill="#ffffff" stroke="#ffffff" stroke-width="0.999999" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round" style="stroke-width: 1; display: inline;"/>
+  <path style="fill: none; stroke: rgb(255, 255, 255); stroke-width: 3.011; stroke-linecap: square; stroke-linejoin: round; stroke-dasharray: none; display: inline;" d="M 470 108.449 L 1261 108.449" id="path3"/>
+  <path id="Vector_19" fill-rule="evenodd" clip-rule="evenodd" d="M 1275 98.429 L 1254.96 108.442 L 1275 118.469 L 1275 98.429 Z" fill="#ffffff" stroke="#ffffff" stroke-width="0.999999" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round" style="stroke-width: 1; display: inline;"/>
+  <g id="g15-1" transform="matrix(1, 0, 0, 1, 581.627014, -292.015289)" style="display:inline">
+    <g id="g16" transform="translate(0.18696725)">
+      <text x="599.01361" y="366.96094" font-size="25.9142px" fill="#ffffff" text-anchor="end" id="text2-8-0-8-8-9-4-4-9-1-3-4-5" style="font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 16px; font-family: Arial; text-align: center; text-anchor: middle; display: inline; fill: rgb(255, 255, 255); fill-opacity: 1; stroke: rgb(255, 255, 255); stroke-width: 0; stroke-dasharray: none; stroke-opacity: 1; white-space: pre;" transform="scale(1.0406001,0.96098396)">BWW_01<tspan x="599.0136108398438" dy="1em">​</tspan></text>
+      <text transform="translate(348.40675,-44.376402)" id="text22-9" style="font-size:13.3333px;font-family:Arial;-inkscape-font-specification:Arial;text-align:start;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect22);display:inline;fill:none;fill-opacity:1;stroke:none;stroke-width:0.5;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:0;stroke-dasharray:none;stroke-opacity:1"/>
+    </g>
+  </g>
+  <path id="Line 3_2" d="M 380.74 245.419 L 380.74 68.42" fill="#ffffff" style="fill: none; stroke: rgb(255, 255, 255); stroke-width: 3; stroke-linecap: square; stroke-dasharray: none; display: inline;"/>
+  <path id="Line_4_2" d="M 469.5 247.45 L 469.5 108.45" fill="#ffffff" style="fill: none; stroke: rgb(255, 255, 255); stroke-width: 3; stroke-linecap: square; stroke-linejoin: round; stroke-opacity: 1; display: inline;"/>
+  <path id="Line 6" d="M 1261 68.419 L 381 68.419" fill="#ffffff" style="fill: none; stroke: rgb(255, 255, 255); stroke-width: 3; stroke-linecap: square; stroke-dasharray: none; display: inline; transform-box: fill-box; transform-origin: 50% 50%;" transform="matrix(1, 0, 0, 1, 0, 0.000005)"/>
+  <rect id="Rectangle 9-3" x="858.46" y="36.92" width="17.04" height="103.058" stroke="#ffffff" style="display:inline;stroke-width:1"/>
+  <line id="Line 7-1" x1="858.46" y1="139.587" x2="875.5" y2="37.311" stroke="#ffffff" style="display:inline;stroke-width:1"/>
+  <g transform="matrix(1.062012, 0, 0, -1.062012, -237.325226, 359.588806)">
+    <path id="path-2" d="M 624.102 104.778 L 608.982 112.337 L 608.982 97.219 L 624.102 104.778 Z" fill="#ffffff" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" style="display: inline; stroke-width: 1;"/>
+    <path style="display: inline; fill: none; stroke: rgb(255, 255, 255); stroke-width: 0.942; stroke-linecap: square; stroke-dasharray: none; stroke-opacity: 1;" d="M 624.602 105.249 L 624.603 124.081" id="path-3"/>
+    <path id="path-4" d="M 625.102 104.778 L 640.212 97.219 L 640.212 112.337 L 625.102 104.778 Z" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" style="display: inline; stroke-width: 1;"/>
+    <ellipse id="ellipse-1" class="ventilcofill" cx="-624.49" cy="128.799" transform="matrix(-1, 0, 0, 1, 0, 0)" fill="#ff02e6" stroke="white" stroke-width="2.02283" style="display: inline; stroke-width: 2.023;" rx="10.592" ry="10.647"/>
+    <text id="text-1" transform="matrix(-1, 0, 0, -1, 0, 0)" fill="#ffffff" style="font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 15.0657px; font-family: Arial; white-space: pre; display: inline; fill: rgb(255, 255, 255); stroke-width: 1.036;" font-family="Inter" font-size="10.9633px" letter-spacing="0em" x="-630.79" y="-133.36"><tspan x="-630.79" y="-123.41" id="tspan-1" style="font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 15.1px; font-family: Arial; stroke: rgb(255, 255, 255); stroke-width: 1.036; stroke-opacity: 1; word-spacing: 0px;">M</tspan></text>
+    <circle style="fill: rgb(255, 255, 255); fill-opacity: 1; stroke: rgb(255, 255, 255); stroke-width: 2.826; stroke-linecap: square; stroke-linejoin: round; stroke-miterlimit: 0; stroke-opacity: 1;" id="circle-1" cx="624.602" cy="104.778" r="1.469"/>
+    <path style="display: inline; fill: rgb(47, 47, 47); fill-opacity: 1; stroke: rgb(255, 255, 255); stroke-width: 0.471; stroke-linecap: square; stroke-dasharray: none; stroke-dashoffset: 0; stroke-opacity: 1; transform-box: fill-box; transform-origin: 50% 50%;" id="path-5" width="162.33273" height="61.68644" x="-3.2285924" y="-28.501883" d="M 606.532 164.392 L 642.532 164.392 C 645.112 164.392 647.192 162.316 647.192 159.737 L 647.192 151.893 C 647.192 149.315 645.112 147.239 642.532 147.239 L 606.532 147.239 C 603.952 147.239 601.882 149.315 601.882 151.893 L 601.882 159.737 C 601.882 162.316 603.952 164.392 606.532 164.392 Z" rx="16.673883" ry="16.738258" transform="matrix(-1, 0, 0, -1, 0.000062, 0.000006)"/>
+    <text x="677.16217" y="-156.75195" font-size="25.9142px" fill="#ffffff" text-anchor="end" id="text-2" style="font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 15.0657px; font-family: Arial; text-align: center; text-anchor: middle; display: inline; fill: rgb(255, 255, 255); fill-opacity: 1; stroke: rgb(255, 255, 255); stroke-width: 0; stroke-dasharray: none; stroke-opacity: 1; white-space: pre;" transform="matrix(1.0406, 0, 0, -0.960984, -80.49353, 0.102396)"><tspan class="ventilcotext" id="tspan-2" style="font-size:15.0657px;text-align:center;text-anchor:middle;stroke:#ffffff;stroke-width:0;stroke-opacity:1">100</tspan></text>
+  </g>
+  <g id="Hochaltung" transform="matrix(1, 0, 0, 1, 381.248383, -34.03471)" style="display:inline" class="">
+    <g id="g6-0-1" transform="matrix(1.062012, 0, 0, -1.062012, -522.573608, 393.623505)" style="display:inline" class="ventilsoaktiv">
+      <g id="g5-6-5" transform="matrix(-0.47865097,0,0,-0.47865097,1126.6159,318.31785)" style="display:inline;fill:#2f2f2f;fill-opacity:1"/>
+      <path id="polygon49_2-0-6" d="m 705.09084,104.17827 7.559,-15.118007 h -15.118 z" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" style="display:inline;fill:#ffffff"/>
+      <path id="polygon51_2-0-0" d="m 704.5909,104.67822 -15.118,7.55899 V 97.119211 Z" fill="#ffffff" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" style="display:inline"/>
+      <path style="display:inline;fill:none;stroke:#ffffff;stroke-width:0.941609;stroke-linecap:square;stroke-dasharray:none;stroke-opacity:1" d="m 705.09084,105.14902 v 18.83217" id="path15-4-0"/>
+      <path id="polygon50_2-8-2" d="m 705.59078,104.67822 15.118,-7.559009 v 15.117999 z" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" style="display:inline"/>
+      <ellipse id="Ellipse 1_4-8-1-9-8-3-4" class="ventilsofill" cx="-705.02637" cy="128.69936" transform="scale(-1,1)" fill="#ff02e6" stroke="#00ffd1" stroke-width="2.02283" style="display:inline" rx="10.592485" ry="10.646792"/>
+      <text id="M_2-9-3-1-5-0-3" transform="scale(-1)" fill="#ffffff" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15.0657px;font-family:Arial;-inkscape-font-specification:Arial;white-space:pre;display:inline;fill:#ffffff;stroke-width:1.03577" font-family="Inter" font-size="10.9633px" letter-spacing="0em" x="-711.29028" y="-133.25494"><tspan x="-711.29028" y="-123.30717" id="tspan19-2-8-5-7-1-3" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15.0657px;font-family:Arial;-inkscape-font-specification:Arial;stroke:#ffffff;stroke-width:1.03577;stroke-opacity:1">M</tspan></text>
+      <circle style="fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:2.82577;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:0;stroke-opacity:1" id="path5-29-6" cx="705.09082" cy="104.67821" r="1.4690654"/>
+      <path style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke:#ffffff;stroke-width:1.68996;stroke-linecap:square;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" id="rect11-1-4-4-6-2-32-9-2" width="162.33273" height="61.68644" x="-3.2285924" y="-28.501883" d="M 13.445291,-28.501883 H 142.43026 c 9.23733,0 16.67388,7.465264 16.67388,16.738259 v 28.209923 c 0,9.272995 -7.43655,16.738258 -16.67388,16.738258 H 13.445291 c -9.2373314,0 -16.6738834,-7.465263 -16.6738834,-16.738258 v -28.209923 c 0,-9.272995 7.436552,-16.738259 16.6738834,-16.738259 z" rx="16.673883" ry="16.738258" transform="matrix(-0.27912712,0,0,0.27805364,726.78085,155.06437)"/>
+      <text x="677.16217" y="-156.75195" font-size="25.9142px" fill="#ffffff" text-anchor="end" id="text2-8-0-8-8-9-4-4-9-1-41-3-8" style="font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 15.0657px; font-family: Arial; text-align: center; text-anchor: middle; display: inline; fill: rgb(255, 255, 255); fill-opacity: 1; stroke: rgb(255, 255, 255); stroke-width: 0; stroke-dasharray: none; stroke-opacity: 1; white-space: pre;" transform="scale(1.0406001,-0.96098396)"><tspan class="ventilsotext" id="tspan7-8-0-2-5-6-2-28-2" style="font-size:15.0657px;text-align:center;text-anchor:middle;stroke:#ffffff;stroke-width:0;stroke-opacity:1">100</tspan>%</text>
+      <path id="Vector_32" d="M 219.61199,334.86436 V 257.63715" stroke="#ffffff" stroke-width="0.999999" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round" style="font-variation-settings:normal;display:inline;opacity:1;vector-effect:none;fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:3.02371;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;stop-color:#000000;stop-opacity:1" transform="matrix(0.94160895,0,0,-0.92690139,498.30219,341.15442)"/>
+    </g>
+    <g id="g14" style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke:#ffffff;stroke-opacity:1" transform="matrix(1.685929, 0, 0, -1.567242, -1842.851196, 772.452209)" class="fuehlersolevlaktiv">
+      <g id="sek vl-0-1" transform="matrix(0.62992692,0,0,-0.67763132,912.84802,503.40035)" style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke:#ffffff;stroke-opacity:1">
+        <line id="Line 37_2-5-8" x1="575.41296" y1="261.49564" x2="575.41296" y2="281.49564" stroke="#ffffff"/>
+        <path id="circle48_2-6-2" d="m 575.41296,262.32012 c 2.761,0 5,-2.239 5,-5 0,-2.761 -2.239,-5 -5,-5 -2.761,0 -5,2.239 -5,5 0,2.761 2.239,5 5,5 z" fill="#57bbc4" style="stroke:none" class="fuehlersolevlcolorfill"/>
+      </g>
+      <path style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke:#ffffff;stroke-width:1.51287;stroke-linecap:square;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" id="rect11-1-4-4-6-2-6" width="162.33273" height="61.68644" x="-3.2285924" y="-28.501883" d="M 10.134014,-28.501883 H 145.74153 c 7.40289,0 13.36261,7.465264 13.36261,16.738259 v 28.209923 c 0,9.272995 -5.95972,16.738258 -13.36261,16.738258 H 10.134014 c -7.4028841,0 -13.3626064,-7.465263 -13.3626064,-16.738258 v -28.209923 c 0,-9.272995 5.9597223,-16.738259 13.3626064,-16.738259 z" rx="13.362606" transform="matrix(-0.21940061,0,0,-0.18841786,1292.4158,347.88418)" ry="16.738258"/>
+      <text x="1271.1078" y="-345.06775" font-size="25.9142px" fill="#ffffff" text-anchor="end" id="text2-8-0-8-8-9-4-4-9-1-6" style="font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 9.84311px; font-family: Arial; text-align: center; text-anchor: middle; display: inline; fill: rgb(255, 255, 255); fill-opacity: 1; stroke: rgb(255, 255, 255); stroke-width: 0; stroke-dasharray: none; stroke-opacity: 1; white-space: pre;" transform="scale(1.0033032,-0.99670767)"><tspan id="tspan8-2-5-9-6-8-0" style="font-size:9.84311px;text-align:center;text-anchor:middle;stroke:#ffffff;stroke-width:0;stroke-opacity:1" class="fuehlersolevlist">50.5</tspan><tspan class="fuehlerpos4ist" id="tspan7-8-0-2-5-6-3" style="font-size:9.84311px;text-align:center;text-anchor:middle;stroke:#ffffff;stroke-width:0;stroke-opacity:1">°C</tspan></text>
+    </g>
+  </g>
+  <g id="g18-1" transform="matrix(-1, 0, 0, -1, 1505.231934, 859.989685)" style="display:inline">
+    <circle id="Ellipse 2-2-0-4" class="pumpcolorfill" cx="543.72162" cy="-640.07166" r="18.888885" fill="#2e7d32" stroke="#673838" stroke-width="2.22223" style="display:inline" transform="rotate(90)"/>
+    <path id="Polygon 1-9-3-6" class="pumpcolorstroke" d="m 640.07165,525.20314 19.24518,20.55556 h -38.49036 z" fill="#673838" style="display:inline;stroke-width:0.740738"/>
+  </g>
+  <g id="group-1" style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke:#ffffff;stroke-opacity:1" transform="matrix(1.685929, 0, 0, -1.567242, -1622.952759, 738.63916)" class="">
+    <g id="group-2" transform="matrix(0.62992692,0,0,-0.67763132,912.84802,503.40035)" style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke:#ffffff;stroke-opacity:1">
+      <line id="line-1" x1="575.41296" y1="261.49564" x2="575.41296" y2="281.49564" stroke="#ffffff"/>
+      <path id="path-1" d="m 575.41296,262.32012 c 2.761,0 5,-2.239 5,-5 0,-2.761 -2.239,-5 -5,-5 -2.761,0 -5,2.239 -5,5 0,2.761 2.239,5 5,5 z" fill="#57bbc4" style="stroke:none" class="fuehlercosekvlcolorfill"/>
+    </g>
+    <path style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke:#ffffff;stroke-width:1.51287;stroke-linecap:square;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" id="path-6" width="162.33273" height="61.68644" x="-3.2285924" y="-28.501883" d="M 10.134014,-28.501883 H 145.74153 c 7.40289,0 13.36261,7.465264 13.36261,16.738259 v 28.209923 c 0,9.272995 -5.95972,16.738258 -13.36261,16.738258 H 10.134014 c -7.4028841,0 -13.3626064,-7.465263 -13.3626064,-16.738258 v -28.209923 c 0,-9.272995 5.9597223,-16.738259 13.3626064,-16.738259 z" rx="13.362606" transform="matrix(-0.21940061,0,0,-0.18841786,1292.4158,347.88418)" ry="16.738258"/>
+    <text x="1271.1078" y="-345.06775" font-size="25.9142px" fill="#ffffff" text-anchor="end" id="text-3" style="font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 9.84311px; font-family: Arial; text-align: center; text-anchor: middle; display: inline; fill: rgb(255, 255, 255); fill-opacity: 1; stroke: rgb(255, 255, 255); stroke-width: 0; stroke-dasharray: none; stroke-opacity: 1; white-space: pre;" transform="scale(1.0033032,-0.99670767)"><tspan id="tspan-3" style="font-size:9.84311px;text-align:center;text-anchor:middle;stroke:#ffffff;stroke-width:0;stroke-opacity:1" class="fuehlercosekvlist">50.5</tspan><tspan class="fuehlerpos4ist" id="tspan-4" style="font-size:9.84311px;text-align:center;text-anchor:middle;stroke:#ffffff;stroke-width:0;stroke-opacity:1">°C</tspan></text>
+  </g>
+  <g id="g2" style="display:inline" transform="matrix(1, 0, 0, 1, 345.919037, -34.143219)">
+    <g id="g15-1-8" transform="translate(-49.880155,17.961366)" style="display:inline">
+      <path style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke:#ffffff;stroke-width:1.62833;stroke-linecap:square;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" id="rect11-1-4-4-6-2-31-0-5-7" width="162.33273" height="61.68644" x="-3.2285924" y="-28.501883" d="M 12.251585,-28.501883 H 143.62396 c 8.57602,0 15.48018,7.465264 15.48018,16.738259 v 28.209923 c 0,9.272995 -6.90416,16.738258 -15.48018,16.738258 H 12.251585 c -8.5760185,0 -15.4801774,-7.465263 -15.4801774,-16.738258 v -28.209923 c 0,-9.272995 6.9041589,-16.738259 15.4801774,-16.738259 z" rx="15.480177" transform="matrix(-0.31929512,0,0,0.2952963,640.51191,368.30473)" ry="16.738258"/>
+      <text id="EZ VL" fill="#ffffff" style="font-size:16px;text-align:center;text-anchor:middle;white-space:pre;display:inline;stroke-width:1.06201" font-family="Inter" font-size="12px" letter-spacing="0em" x="207.60159" y="69.007645"><tspan x="615.61115" y="374.72269" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Arial;-inkscape-font-specification:Arial;text-align:center;word-spacing:0px;text-anchor:middle;stroke-width:1.06201" id="tspan15-6" class="rl">55.0</tspan><tspan id="tspan14-1" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Arial;-inkscape-font-specification:Arial;text-align:center;text-anchor:middle;stroke-width:1.06201">°C</tspan></text>
+    </g>
+    <g id="g15-1-8-6" transform="translate(-256.04053,17.961366)" style="display:inline">
+      <path style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke:#ffffff;stroke-width:1.62833;stroke-linecap:square;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" id="rect11-1-4-4-6-2-31-0-5-7-0" width="162.33273" height="61.68644" x="-3.2285924" y="-28.501883" d="M 12.251585,-28.501883 H 143.62396 c 8.57602,0 15.48018,7.465264 15.48018,16.738259 v 28.209923 c 0,9.272995 -6.90416,16.738258 -15.48018,16.738258 H 12.251585 c -8.5760185,0 -15.4801774,-7.465263 -15.4801774,-16.738258 v -28.209923 c 0,-9.272995 6.9041589,-16.738259 15.4801774,-16.738259 z" rx="15.480177" transform="matrix(-0.31929512,0,0,0.2952963,640.51191,368.30473)" ry="16.738258"/>
+      <text id="EZ VL-1" fill="#ffffff" style="font-size:16px;text-align:center;text-anchor:middle;white-space:pre;display:inline;stroke-width:1.06201" font-family="Inter" font-size="12px" letter-spacing="0em" x="207.60159" y="69.007645"><tspan x="615.61115" y="374.72269" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Arial;-inkscape-font-specification:Arial;text-align:center;word-spacing:0px;text-anchor:middle;stroke-width:1.06201" id="tspan15-65" class="svl">55.0</tspan><tspan id="tspan14-7" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Arial;-inkscape-font-specification:Arial;text-align:center;text-anchor:middle;stroke-width:1.06201">°C</tspan></text>
+    </g>
+    <g id="g15-1-8-1" transform="translate(-136.04053,17.961366)" style="display:inline">
+      <path style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke:#ffffff;stroke-width:1.62833;stroke-linecap:square;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" id="rect11-1-4-4-6-2-31-0-5-7-2" width="162.33273" height="61.68644" x="-3.2285924" y="-28.501883" d="M 12.251585,-28.501883 H 143.62396 c 8.57602,0 15.48018,7.465264 15.48018,16.738259 v 28.209923 c 0,9.272995 -6.90416,16.738258 -15.48018,16.738258 H 12.251585 c -8.5760185,0 -15.4801774,-7.465263 -15.4801774,-16.738258 v -28.209923 c 0,-9.272995 6.9041589,-16.738259 15.4801774,-16.738259 z" rx="15.480177" transform="matrix(-0.31929512,0,0,0.2952963,640.51191,368.30473)" ry="16.738258"/>
+      <text id="EZ VL-0" fill="#ffffff" style="font-size:16px;text-align:center;text-anchor:middle;white-space:pre;display:inline;stroke-width:1.06201" font-family="Inter" font-size="12px" letter-spacing="0em" x="207.60159" y="69.007645"><tspan x="615.61115" y="374.72269" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Arial;-inkscape-font-specification:Arial;text-align:center;word-spacing:0px;text-anchor:middle;stroke-width:1.06201" id="tspan15-0" class="vl">55.0</tspan><tspan id="tspan14-14" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Arial;-inkscape-font-specification:Arial;text-align:center;text-anchor:middle;stroke-width:1.06201">°C</tspan></text>
+    </g>
+    <g id="g15-1-8-7" transform="translate(-324.02412,17.961376)" style="display:inline">
+      <path style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke:#ffffff;stroke-width:1.62833;stroke-linecap:square;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" id="rect11-1-4-4-6-2-31-0-5-7-1" width="162.33273" height="61.68644" x="-3.2285924" y="-28.501883" d="M 12.251585,-28.501883 H 143.62396 c 8.57602,0 15.48018,7.465264 15.48018,16.738259 v 28.209923 c 0,9.272995 -6.90416,16.738258 -15.48018,16.738258 H 12.251585 c -8.5760185,0 -15.4801774,-7.465263 -15.4801774,-16.738258 v -28.209923 c 0,-9.272995 6.9041589,-16.738259 15.4801774,-16.738259 z" rx="15.480177" transform="matrix(-0.31929512,0,0,0.2952963,622.30391,368.30472)" ry="16.738258"/>
+      <text id="EZ VL-7" fill="#ffffff" style="font-size:16px;text-align:center;text-anchor:middle;white-space:pre;display:inline;stroke-width:1.06201" font-family="Inter" font-size="12px" letter-spacing="0em" x="189.3936" y="69.007637"><tspan x="597.40314" y="374.72269" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Arial;-inkscape-font-specification:Arial;text-align:center;word-spacing:0px;text-anchor:middle;stroke-width:1.06201" id="tspan15-7" class="srl">55.0</tspan><tspan id="tspan14-77" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Arial;-inkscape-font-specification:Arial;text-align:center;text-anchor:middle;stroke-width:1.06201">°C</tspan></text>
+    </g>
+    <path style="font-variation-settings:normal;opacity:1;fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:0.999999;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:3.00002, 3.00002;stroke-dashoffset:0;stroke-opacity:1" d="m 299.69856,386.83593 h 19.74409" id="path6"/>
+    <path style="font-variation-settings:normal;display:inline;fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:0.999999;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:3.00002, 3.00002;stroke-dashoffset:0;stroke-opacity:1" d="m 519.59765,386.52658 h 19.74409" id="path6-3"/>
+  </g>
+  <rect id="Rectangle 6" x="655.16" y="369.179" width="220.001" height="209.242" stroke="#ffffff" style="stroke-width:1.02351;stroke-dasharray:none"/>
+  <g transform="matrix(0.046151, 0, 0, -0.046151, 927.179199, 272.198944)" id="g12" style="display:inline;stroke-width:0.760298">
+    <path id="path14-9" style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.760298" d="m -1625.799,-2317.0662 v -221.4377 h -51.56 l -97.742,117.9997 v -117.9997 h -61.379 v 221.4377 h 51.574 l 97.742,-117.989 v 117.989 h 61.365"/>
+    <path id="path16-4" style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.760298" d="m -1421.169,-2536.2852 c -16.87,4.4336 -30.57,10.3242 -41.12,17.7148 l 20.56,46.1912 c 9.92,-6.551 21.4,-11.816 34.48,-15.82 13.07,-4.0118 25.94,-6.0157 38.6,-6.0157 24.03,0 36.06,6.0157 36.06,18.0277 0,6.328 -3.43,11.023 -10.29,14.082 -6.84,3.058 -17.87,6.273 -33.05,9.644 -16.66,3.586 -30.58,7.442 -41.75,11.551 -11.18,4.117 -20.78,10.703 -28.8,19.773 -8.01,9.063 -12.01,21.297 -12.01,36.692 0,13.496 3.69,25.676 11.07,36.539 7.37,10.859 18.39,19.457 33.05,25.781 14.66,6.324 32.64,9.485 53.94,9.485 14.55,0 28.89,-1.633 43.02,-4.899 14.13,-3.266 26.57,-8.066 37.34,-14.391 l -19.31,-46.507 c -21.09,11.39 -41.54,17.086 -61.37,17.086 -12.45,0 -21.51,-1.852 -27.2,-5.536 -5.69,-3.699 -8.55,-8.496 -8.55,-14.398 0,-5.902 3.38,-10.336 10.13,-13.281 6.74,-2.957 17.6,-6.016 32.58,-9.176 16.87,-3.59 30.84,-7.43 41.92,-11.543 11.06,-4.109 20.66,-10.656 28.79,-19.617 8.11,-8.961 12.18,-21.141 12.18,-36.539 0,-13.281 -3.7,-25.301 -11.08,-36.0549 -7.38,-10.7618 -18.46,-19.3438 -33.21,-25.7813 -14.77,-6.4258 -32.7,-9.6484 -53.78,-9.6484 -17.92,0 -35.33,2.2148 -52.2,6.6406"/>
+    <path id="path18" style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.760298" d="m -1568.769,-2317.0742 v -221.4297 h 62.64 v 221.4297 h -62.64"/>
+    <path id="path20" style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.760298" d="m -2288.34,-2538.6289 h 66.715 l 127.992,221.6917 h -66.711 l -51.511,-89.219 -51.516,89.219 h -66.707 l 84.867,-146.993 -43.129,-74.6987"/>
+    <path id="path22-8" style="fill:#40bea1;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.760298" d="m -2556.641,-2383.7262 c 12.973,21.644 29.848,44.222 47.36,65.445 -7.18,38.621 -32.395,71.742 -72.9377,96.187 -5.8906,-11.5 -57.0117,-101.824 -71.2188,-164.468 -14.4101,-62.657 12.1368,-116.6957 71.2188,-152.3207 0.027,0.047 0.059,0.1094 0.078,0.1563 -18.7695,48.1055 -5.8086,101.8204 25.4996,155.0004"/>
+    <path id="path24-8" style="fill:#f8a10e;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.760298" d="m -2417.141,-2221.4022 c -5.824,-4.278 -50.773,-46.762 -92.136,-96.879 0,-0.024 0,-0.051 0,-0.074 0.714,-3.836 1.254,-8.164 1.656,-12.7 0.023,-0.32 0.074,-0.625 0.098,-0.937 1.343,-16.137 0.664,-35.395 -2.797,-50.461 -14.176,-62.504 -47.8441,-113.0703 -71.7308,-156.1054 -0.023,-0.059 -0.059,-0.1172 -0.086,-0.168 6.914,-17.7148 17.9921,-34.6875 34.2307,-50.5547 9.64,8.7187 95.886,89.5586 139.508,162.3161 42.832,72.758 51.601,146.571 -8.747,205.563"/>
+    <path id="path26-2" style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.760298" d="m -1884.996,-2408.4882 h -93.113 v -49.09 h 37.91 v -26.195 c -10.547,-4.856 -21.824,-7.2776 -33.848,-7.2776 -12.234,0 -23.094,2.6876 -32.586,8.0666 -9.488,5.383 -16.875,12.859 -22.14,22.457 -5.27,9.594 -7.907,20.515 -7.907,32.742 0,19.191 5.789,34.531 17.399,46.027 11.594,11.493 26.887,17.246 45.863,17.246 19.945,0 37.164,-7.593 51.723,-22.609 l 36.926,39.27 c -10.071,10.457 -22.032,18.808 -36.133,24.769 -16.457,6.965 -35.012,10.442 -55.672,10.442 -23.621,0 -44.824,-4.899 -63.582,-14.704 -18.781,-9.804 -33.43,-23.472 -43.981,-40.968 -10.547,-17.508 -15.816,-37.328 -15.816,-59.473 0,-22.141 5.269,-41.969 15.816,-59.469 10.551,-17.5076 25.102,-31.1482 43.657,-40.9724 18.55,-9.8047 39.441,-14.6992 62.636,-14.6992 16.453,0 32.899,2.4219 49.344,7.2773 16.453,4.8438 31.004,11.7969 43.66,20.8672 v 91.7421 h -0.156 v 14.551"/>
+  </g>
+  <path style="fill:none;stroke:#ffffff;stroke-width:1.02282;stroke-linecap:square;stroke-dasharray:none" d="M 655.311 398.419 L 875.004 398.419" id="path4"/>
+  <path style="fill:none;stroke:#ffffff;stroke-width:1;stroke-linecap:square;stroke-dasharray:none" d="M 750.161 378.209 L 780.161 378.209 L 780.161 388.209 L 750.161 388.209 L 750.161 378.209 Z" id="path5"/>
+  <path style="fill:none;stroke:#ffffff;stroke-width:1;stroke-linecap:square;stroke-dasharray:none" d="M 740.725 375.063 L 789.596 375.063 L 789.596 391.354 L 740.725 391.354 L 740.725 375.063 Z" id="path5-6"/>
+  <rect style="fill:#00b8a8;fill-opacity:1;stroke:#00b8a8;stroke-width:4.42903;stroke-linecap:square;stroke-dasharray:none;stroke-opacity:1" id="rect6" width="214.749" height="32.925" x="657.786" y="445.363"/>
+  <text style="font-size: 16px; font-family: Arial; text-align: start; writing-mode: lr-tb; direction: ltr; text-anchor: start; fill: rgb(255, 255, 255); fill-opacity: 1; stroke: none; stroke-width: 1; stroke-linecap: square; stroke-dasharray: none; stroke-opacity: 1; white-space: pre;" x="658.103" y="476.18" id="text22"><tspan id="tspan22" x="658.103" y="476.18" style="fill: rgb(255, 255, 255); fill-opacity: 1; stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-opacity: 1; font-size: 16px; word-spacing: 0px;">TERRACALOR-C</tspan></text>
+  <path style="fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:0.410514;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1" d="M 655.16 578.452 L 655.16 584.883 L 875.194 584.883 L 875.194 578.449" id="path27"/>
+  <g id="g3" transform="matrix(1, 0, 0, 1, 126.000023, 8.029749)">
+    <g id="g41" transform="matrix(0.933343,0,0,1.758389,263.9661,-288.17726)" style="display:inline;stroke-width:0.780588;stroke-dasharray:none">
+      <text style="font-size: 12.4894px; font-family: Arial; text-align: start; writing-mode: lr-tb; direction: ltr; text-anchor: start; opacity: 1; fill: rgb(255, 255, 255); fill-opacity: 1; stroke: none; stroke-width: 0.780588; stroke-linecap: butt; stroke-linejoin: miter; stroke-dasharray: none; stroke-dashoffset: 0; stroke-opacity: 1; white-space: pre;" x="240.69849" y="615.03564" id="text31" transform="scale(1.3725774,0.72855636)"><tspan id="tspan31" style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.780588;stroke-dasharray:none" x="240.69849" y="615.03564">Status:</tspan></text>
+      <text style="font-size: 12.4894px; font-family: Arial; text-align: start; writing-mode: lr-tb; direction: ltr; text-anchor: start; opacity: 1; fill: rgb(255, 255, 255); fill-opacity: 1; stroke: none; stroke-width: 0.780588; stroke-linecap: butt; stroke-linejoin: miter; stroke-dasharray: none; stroke-dashoffset: 0; stroke-opacity: 1; white-space: pre;" x="301.57736" y="614.9472" id="text38" transform="scale(1.3725774,0.72855636)" class="HPStatus"><tspan id="tspan38" style="stroke-width:0.780588" x="301.57736" y="614.9472" class="statusez">Störung</tspan></text>
+    </g>
+    <g id="g42" transform="matrix(0.933343,0,0,1.758389,569.00377,-306.43451)" style="display:inline;stroke-width:0.780588;stroke-dasharray:none">
+      <text style="font-size: 12.4894px; font-family: Arial; text-align: start; writing-mode: lr-tb; direction: ltr; text-anchor: start; opacity: 1; fill: rgb(255, 255, 255); fill-opacity: 1; stroke: none; stroke-width: 0.780588; stroke-linecap: butt; stroke-linejoin: miter; stroke-dasharray: none; stroke-dashoffset: 0; stroke-opacity: 1; white-space: pre;" x="2.2360318" y="643.11487" id="text35" transform="scale(1.3725774,0.72855636)"><tspan id="tspan35" style="stroke-width:0.780588" x="2.2360318" y="643.11487">Leistung:</tspan></text>
+      <text style="font-size: 12.4894px; font-family: Arial; text-align: start; writing-mode: lr-tb; direction: ltr; text-anchor: start; opacity: 1; fill: rgb(255, 255, 255); fill-opacity: 1; stroke: none; stroke-width: 0.780588; stroke-linecap: butt; stroke-linejoin: miter; stroke-dasharray: none; stroke-dashoffset: 0; stroke-opacity: 1; white-space: pre;" x="63.468605" y="644.34064" id="text39" transform="scale(1.3725774,0.72855636)"><tspan id="tspan39" style="stroke-width:0.780588" x="63.468605" y="644.34064" class="leistung">10</tspan>%</text>
+    </g>
+    <g id="g43" transform="matrix(0.933343,0,0,1.758389,263.96609,-288.17338)" style="display:inline;stroke-width:0.780588;stroke-dasharray:none">
+      <text style="font-size: 12.4894px; font-family: Arial; text-align: start; writing-mode: lr-tb; direction: ltr; text-anchor: start; opacity: 1; fill: rgb(255, 255, 255); fill-opacity: 1; stroke: none; stroke-width: 0.780588; stroke-linecap: butt; stroke-linejoin: miter; stroke-dasharray: none; stroke-dashoffset: 0; stroke-opacity: 1; white-space: pre;" x="240.09476" y="645.15515" id="text36" transform="scale(1.3725774,0.72855636)"><tspan id="tspan36" style="stroke-width:0.780588" x="240.09476" y="645.15515">Ist:</tspan></text>
+      <text style="font-size: 12.4894px; font-family: Arial; text-align: start; writing-mode: lr-tb; direction: ltr; text-anchor: start; opacity: 1; fill: rgb(255, 255, 255); fill-opacity: 1; stroke: none; stroke-width: 0.780588; stroke-linecap: butt; stroke-linejoin: miter; stroke-dasharray: none; stroke-dashoffset: 0; stroke-opacity: 1; white-space: pre;" x="302.46771" y="645.22833" id="text40" transform="scale(1.3725774,0.72855636)" class="istwert"><tspan id="tspan40" style="stroke-width:0.780588" x="302.46771" y="645.22833" class="ezisttemp">60.0</tspan>°C</text>
+    </g>
+    <text style="font-size: 16px; font-family: Arial; text-align: start; writing-mode: lr-tb; direction: ltr; text-anchor: start; display: inline; fill: rgb(255, 255, 255); fill-opacity: 1; stroke: none; stroke-width: 1; stroke-linecap: butt; stroke-linejoin: miter; stroke-dasharray: none; stroke-dashoffset: 0; stroke-opacity: 1; white-space: pre;" x="572.32141" y="556.216" id="text37"><tspan id="tspan37" style="stroke-width:1" x="572.32141" y="556.216">Soll:</tspan></text>
+    <text style="font-size: 16px; font-family: Arial; text-align: start; writing-mode: lr-tb; direction: ltr; text-anchor: start; display: inline; fill: rgb(255, 255, 255); fill-opacity: 1; stroke: none; stroke-width: 1; stroke-linecap: butt; stroke-linejoin: miter; stroke-dasharray: none; stroke-dashoffset: 0; stroke-opacity: 1; white-space: pre;" x="651.45306" y="556.216" id="text41"><tspan id="tspan41" style="stroke-width:1" x="651.45306" y="556.216" class="sollwert">60</tspan>°C</text>
+  </g>
+  <g id="g18" transform="matrix(0, 1, -1, 0, 1237.081055, -190.112885)">
+    <circle id="Ellipse 2-2-0" class="pumpsolecolorfill" cx="506.38098" cy="531.57581" r="18.888885" fill="#2e7d32" stroke="#673838" stroke-width="2.22223" style="display:inline"/>
+    <path id="Polygon 1-9-3" class="pumpsolecolorstroke" d="M 524.89946,531.57583 504.3439,550.82101 V 512.33065 Z" fill="#673838" style="display:inline;stroke-width:0.740738"/>
+  </g>
+  <g id="g19-4" transform="matrix(1, 0, 0, 1, 214.540329, -110.308022)">
+    <g id="Komp" transform="matrix(0.721841, 0, 0, 0.721841, 451.827972, 283.60672)" style="display:inline;stroke-width:1.47125" class="komp1aktiv">
+      <title id="title13">Komperssor</title>
+      <path id="Ellipse 2-9" d="m 137,368.5 c 14.083,0 25.5,-11.417 25.5,-25.5 0,-14.083 -11.417,-25.5 -25.5,-25.5 -14.083,0 -25.5,11.417 -25.5,25.5 0,14.083 11.417,25.5 25.5,25.5 z" fill="#5dbf62" stroke="#9d7171" class="komp1colorfill" stroke-width="4.41376"/>
+      <path id="Vector-63" d="M 126.532,365.217 121,324" stroke="#9d7171" stroke-width="2.94251" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round" class="komp1colorfill"/>
+      <path id="Vector_2-7" d="m 147.275,365.218 5.533,-41.217" stroke="#9d7171" stroke-width="2.94251" stroke-miterlimit="3" stroke-linecap="round" class="komp1colorfill" stroke-linejoin="round"/>
+    </g>
+  </g>
+  <g id="group-3" transform="matrix(1, 0, 0, 1, 581.627014, -251.872101)" style="display:inline">
+    <g id="group-4" transform="translate(0.18696725)">
+      <text x="599.01361" y="366.96094" font-size="25.9142px" fill="#ffffff" text-anchor="end" id="text-4" style="font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 16px; font-family: Arial; text-align: center; text-anchor: middle; display: inline; fill: rgb(255, 255, 255); fill-opacity: 1; stroke: rgb(255, 255, 255); stroke-width: 0; stroke-dasharray: none; stroke-opacity: 1; white-space: pre;" transform="scale(1.0406001,0.96098396)">BWW_02<tspan x="599.0136108398438" dy="1em">​</tspan></text>
+      <text transform="translate(348.40675,-44.376402)" id="text-5" style="font-size:13.3333px;font-family:Arial;-inkscape-font-specification:Arial;text-align:start;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect22);display:inline;fill:none;fill-opacity:1;stroke:none;stroke-width:0.5;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:0;stroke-dasharray:none;stroke-opacity:1"/>
+    </g>
+  </g>
+  <g id="group-5" transform="matrix(1, 0, 0, 1, 581.627014, -151.54924)" style="display:inline">
+    <g id="group-6" transform="translate(0.18696725)">
+      <text x="599.01361" y="366.96094" font-size="25.9142px" fill="#ffffff" text-anchor="end" id="text-6" style="font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 16px; font-family: Arial; text-align: center; text-anchor: middle; display: inline; fill: rgb(255, 255, 255); fill-opacity: 1; stroke: rgb(255, 255, 255); stroke-width: 0; stroke-dasharray: none; stroke-opacity: 1; white-space: pre;" transform="scale(1.0406001,0.96098396)">BWW_03<tspan x="599.0136108398438" dy="1em">​</tspan></text>
+      <text transform="translate(348.40675,-44.376402)" id="text-7" style="font-size:13.3333px;font-family:Arial;-inkscape-font-specification:Arial;text-align:start;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect22);display:inline;fill:none;fill-opacity:1;stroke:none;stroke-width:0.5;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:0;stroke-dasharray:none;stroke-opacity:1"/>
+    </g>
+  </g>
+  <g id="group-7" transform="matrix(1, 0, 0, 1, 581.627014, -111.848358)" style="display:inline">
+    <g id="group-8" transform="translate(0.18696725)">
+      <text x="599.01361" y="366.96094" font-size="25.9142px" fill="#ffffff" text-anchor="end" id="text-8" style="font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 16px; font-family: Arial; text-align: center; text-anchor: middle; display: inline; fill: rgb(255, 255, 255); fill-opacity: 1; stroke: rgb(255, 255, 255); stroke-width: 0; stroke-dasharray: none; stroke-opacity: 1; white-space: pre;" transform="scale(1.0406001,0.96098396)">BWW_04<tspan x="599.0136108398438" dy="1em">​</tspan></text>
+      <text transform="translate(348.40675,-44.376402)" id="text-9" style="font-size:13.3333px;font-family:Arial;-inkscape-font-specification:Arial;text-align:start;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect22);display:inline;fill:none;fill-opacity:1;stroke:none;stroke-width:0.5;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:0;stroke-dasharray:none;stroke-opacity:1"/>
+    </g>
+  </g>
+</svg>

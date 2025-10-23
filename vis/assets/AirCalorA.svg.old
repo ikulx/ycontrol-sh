@@ -1,0 +1,179 @@
+<svg width="969" height="447" viewBox="0 0 969 447" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+<ycontrol>
+    <property name="Status Venti" datatype="Int8" defaultvalue="99">
+      <target type="Style" element="venticolorfill" selector="fill">
+        <condition eq="99" output="#f542ef" />
+        <condition eq="0" output="black" />
+        <condition eq="1" output="green" />
+        <condition eq="2" output="red" />
+        <condition eq="10" output="black" />
+        <condition eq="11" output="green" />
+        <condition eq="12" output="red" />
+        <condition eq="20" output="black" />
+        <condition eq="21" output="green" />
+        <condition eq="22" output="red" />
+      </target>
+      <target type="Style" element="venticolorfill" selector="stroke">
+        <condition eq="99" output="#18c6c9" />
+        <condition lt="10" output="white" />
+        <condition lt="20" output="blue" />
+        <condition lt="30" output="orange" />
+      </target>
+            <target type="Style" element="venticolorstroke" selector="fill">
+        <condition eq="99" output="#18c6c9" />
+        <condition lt="10" output="white" />
+        <condition lt="20" output="blue" />
+        <condition lt="30" output="orange" />
+      </target>
+      <!-- Optional: Ziel zur dynamischen Steuerung des Textes -->
+
+	        <target type="Content" element="myText">
+       			<condition eq="0" output="Auto Aus" />
+        	  <condition eq="1" output="Ein Heizen" />
+       			<condition eq="2" output="Ein BWW" />
+        	  <condition eq="3" output="Ein Kühlen" />
+       			<condition eq="4" output="Störung!" /> 
+       			<condition eq="5" output="Qittieren" />
+       			<condition eq="6" output="Frostschutz" />
+       			<condition eq="7" output="EVU-Sperre" />
+       			<condition eq="8" output="Freecoling und Heizen" />
+       			<condition eq="10" output="Hand Aus" />
+       			<condition eq="90" output="Abtauung" />
+            <condition eq="99" output="Unbekannt" />
+       			<condition eq="100" output="EVU-Sperre" />
+       		</target> 
+    </property>
+
+        <property name="Status Venti" datatype="Int8" defaultvalue="99">
+            <target type="Style" element="venticolorstroke" selector="fill">
+        <condition eq="99" output="#18c6c9" />
+        <condition lt="10" output="white" />
+        <condition lt="20" output="blue" />
+        <condition lt="30" output="orange" />
+      </target>
+      <!-- Optional: Ziel zur dynamischen Steuerung des Textes -->
+
+	        <target type="Content" element="myText">
+       			<condition eq="0" output="Auto Aus" />
+        	  <condition eq="1" output="Ein Heizen" />
+       			<condition eq="2" output="Ein BWW" />
+        	  <condition eq="3" output="Ein Kühlen" />
+       			<condition eq="4" output="Störung!" /> 
+       			<condition eq="5" output="Qittieren" />
+       			<condition eq="6" output="Frostschutz" />
+       			<condition eq="7" output="EVU-Sperre" />
+       			<condition eq="8" output="Freecoling und Heizen" />
+       			<condition eq="10" output="Hand Aus" />
+       			<condition eq="90" output="Abtauung" />
+            <condition eq="99" output="Unbekannt" />
+       			<condition eq="100" output="EVU-Sperre" />
+       		</target> 
+    </property>
+  </ycontrol>
+
+
+<g id="AirCalorA" clip-path="url(#clip0_546_167)">
+<path id="path2" d="M0.37793 0.37793H967.937V446.362H0.37793V0.37793Z" stroke="black" stroke-width="0.755906" stroke-linecap="round" stroke-linejoin="round"/>
+<g id="WP">
+<path id="path3" d="M23.0552 189.354H397.228V416.126H23.0552V189.354Z" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="path4" d="M30.6141 196.914H253.606V408.567H30.6141V196.914Z" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="polyline4" d="M30.6141 242.268H253.606" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="polyline5" d="M30.6141 249.827H253.606" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="polyline6" d="M30.6141 257.386H253.606" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="polyline7" d="M30.6141 264.945H253.606" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="polyline8" d="M30.6141 272.504H253.606" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="polyline9" d="M30.6141 280.063H253.606" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="polyline10" d="M30.6141 287.622H253.606" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="polyline11" d="M30.6141 295.181H253.606" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="polyline12" d="M30.6141 302.74H253.606" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="polyline13" d="M30.6141 310.299H253.606" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="polyline14" d="M30.6141 317.858H253.606" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="polyline15" d="M30.6141 325.417H253.606" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="polyline16" d="M30.6141 332.977H253.606" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="polyline17" d="M30.6141 340.536H253.606" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="polyline18" d="M30.6141 348.095H253.606" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="polyline19" d="M30.6141 355.653H253.606" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="polyline20" d="M30.6141 363.212H253.606" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="polyline21" d="M30.6141 370.771H253.606" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="polyline22" d="M30.6141 378.331H253.606" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="polyline23" d="M30.6141 385.89H253.606" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="polyline24" d="M30.6141 393.449H253.606" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="polyline25" d="M30.6141 401.008H253.606" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="polyline26" d="M351.874 416.126V423.685H374.551V416.126" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="polyline34" d="M30.6141 204.473H253.606" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="polyline35" d="M30.6141 212.031H253.606" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="polyline36" d="M30.6141 219.59H253.606" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="polyline37" d="M30.6141 227.149H253.606" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="polyline38" d="M30.6141 234.708H253.606" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="polyline47" d="M45.7323 416.126V423.685H68.4095V416.126" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="Leitungen">
+<path id="polyline28" d="M397.228 368.882H945.26" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="polyline33" d="M945.26 293.292H397.228" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="polygon47" d="M932.031 368.882L945.26 363.212V374.551L932.031 368.882Z" fill="white" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="polygon48" d="M945.26 293.291L932.031 298.961V287.622L945.26 293.291Z" fill="white" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="pri pump">
+<path id="circle39" d="M493.943 317.62C507.406 317.62 518.321 306.706 518.321 293.242C518.321 279.779 507.406 268.864 493.943 268.864C480.479 268.864 469.565 279.779 469.565 293.242C469.565 306.706 480.479 317.62 493.943 317.62Z" fill="#57BBC4" stroke="#AA5FC2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="polygon39" d="M518.173 293.291L484.913 270.614V315.969L518.173 293.291Z" fill="#AA5FC2" stroke="#AA5FC2" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="sek pump">
+<path id="circle39_2" d="M669.378 345C655.914 345 645 355.914 645 369.378C645 382.841 655.914 393.756 669.378 393.756C682.841 393.756 693.756 382.841 693.756 369.378C693.756 355.914 682.841 345 669.378 345Z" fill="#57BBC4" stroke="#AA5FC2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="polygon39_2" d="M645.147 369.329L678.407 392.006V346.652L645.147 369.329Z" fill="#AA5FC2" stroke="#AA5FC2" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="Plattentauscher">
+<path id="path39" d="M554.079 274.394H572.976V387.779H554.079V274.394Z" fill="black" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="polyline39" d="M572.976 274.394L554.079 387.779" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="sek rl">
+<path id="polyline48" d="M608.693 353.994L608.7 368.776" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="circle48" d="M608.697 354.039C613.857 354.039 618.04 349.856 618.04 344.696C618.04 339.537 613.857 335.354 608.697 335.354C603.537 335.354 599.354 339.537 599.354 344.696C599.354 349.856 603.537 354.039 608.697 354.039Z" fill="#57BBC4" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="path48" d="M608.168 348.794L608.175 341.386H605.397V340.328H612.011V341.386H609.233L609.226 348.794H608.168Z" fill="white" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+<text id="55C&#194;&#176;" fill="white"  font-size="12" font-weight="500" letter-spacing="0em"><tspan x="594.41" y="332.364">55C&#xb0;</tspan></text>
+</g>
+<g id="sek vl">
+<path id="polyline48_2" d="M608.693 277.994L608.7 292.776" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="circle48_2" d="M608.697 278.039C613.857 278.039 618.04 273.856 618.04 268.696C618.04 263.537 613.857 259.354 608.697 259.354C603.537 259.354 599.354 263.537 599.354 268.696C599.354 273.856 603.537 278.039 608.697 278.039Z" fill="#57BBC4" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="path48_2" d="M608.168 272.794L608.175 265.386H605.397V264.328H612.011V265.386H609.233L609.226 272.794H608.168Z" fill="white" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+<text id="55C&#194;&#176;_2" fill="white"  font-size="12" font-weight="500" letter-spacing="0em"><tspan x="594.41" y="256.364">55C&#xb0;</tspan></text>
+</g>
+<g id="Ventil">
+<path id="polyline49" d="M744.945 368.882L744.949 383.664" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="polygon49" d="M744.945 368.882L729.827 361.323V376.441L744.945 368.882Z" fill="black" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="polygon50" d="M744.945 368.882L752.504 353.764H737.386L744.945 368.882Z" fill="white" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="polygon51" d="M744.945 368.882L760.063 376.441V361.323L744.945 368.882Z" fill="white" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="circle51" d="M744.949 402.943C750.109 402.943 754.292 398.76 754.292 393.6C754.292 388.44 750.109 384.257 744.949 384.257C739.789 384.257 735.606 388.44 735.606 393.6C735.606 398.76 739.789 402.943 744.949 402.943Z" fill="#57BBC4" stroke="#AA5FC2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="path51" d="M740.98 397.697L740.988 389.231H742.802L744.533 395.199L744.624 395.516L744.703 395.796L744.775 396.045L744.835 396.261L744.884 396.446L744.937 396.242L745.002 396.008L745.077 395.739L745.164 395.433L745.262 395.093L746.971 389.231H748.793L748.785 397.697H747.727L747.734 390.289L745.599 397.697H744.166L742.046 390.289L742.039 397.697H740.98Z" fill="white" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+<text id="100%" fill="white"  font-size="12" font-weight="500" letter-spacing="0em"><tspan x="729.449" y="416.364">100%</tspan></text>
+<path id="polyline29" d="M744.945 353.764V293.292" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="Komp">
+<circle id="Ellipse 2" class="venticolorfill" cx="137" cy="343" r="25.5" fill="#5DBF62" stroke="#9D7171" stroke-width="3"/>
+<path id="Vector" class="venticolorfill" d="M126.532 365.217L121 324" stroke="#9D7171" stroke-width="2" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_2" class="venticolorfill" d="M147.275 365.218L152.808 324.001" stroke="#9D7171" stroke-width="2" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="Venti">
+<circle id="Ellipse 2_2" class="venticolorfill" cx="137" cy="247" r="25.5" fill="#365C38" stroke="#7A1717" stroke-width="3"/>
+<path id="mode_fan" class="venticolorstroke" d="M134.2 267C132.5 267 131.208 266.492 130.325 265.475C129.442 264.458 129 263.3 129 262C129 261.133 129.192 260.292 129.575 259.475C129.958 258.658 130.55 257.983 131.35 257.45C132.083 256.983 132.692 256.358 133.175 255.575C133.658 254.792 134.017 253.717 134.25 252.35C134.217 252.35 134.2 252.342 134.2 252.325C134.2 252.308 134.167 252.283 134.1 252.25L128.3 254.3C127.733 254.5 127.183 254.667 126.65 254.8C126.117 254.933 125.567 255 125 255C122.9 255 121.042 254.083 119.425 252.25C117.808 250.417 117 247.733 117 244.2C117 242.5 117.508 241.208 118.525 240.325C119.542 239.442 120.683 239 121.95 239C122.817 239 123.667 239.192 124.5 239.575C125.333 239.958 126.017 240.55 126.55 241.35C127.017 242.083 127.675 242.708 128.525 243.225C129.375 243.742 130.417 244.083 131.65 244.25C131.683 244.217 131.708 244.183 131.725 244.15C131.742 244.117 131.75 244.083 131.75 244.05L129.7 238.3C129.5 237.733 129.333 237.183 129.2 236.65C129.067 236.117 129 235.583 129 235.05C129 232.917 129.917 231.042 131.75 229.425C133.583 227.808 136.267 227 139.8 227C141.5 227 142.792 227.508 143.675 228.525C144.558 229.542 145 230.683 145 231.95C145 232.817 144.808 233.667 144.425 234.5C144.042 235.333 143.45 236.017 142.65 236.55C141.783 237.117 141.108 237.867 140.625 238.8C140.142 239.733 139.867 240.7 139.8 241.7C139.833 241.733 139.858 241.742 139.875 241.725C139.892 241.708 139.917 241.733 139.95 241.8L145.7 239.65C146.267 239.45 146.808 239.292 147.325 239.175C147.842 239.058 148.383 239 148.95 239C151.65 239 153.667 240.117 155 242.35C156.333 244.583 157 247.067 157 249.8C157 251.5 156.467 252.792 155.4 253.675C154.333 254.558 153.15 255 151.85 255C151.017 255 150.208 254.808 149.425 254.425C148.642 254.042 147.983 253.45 147.45 252.65C146.983 251.917 146.358 251.308 145.575 250.825C144.792 250.342 143.717 249.967 142.35 249.7L142.275 249.85C142.258 249.883 142.233 249.917 142.2 249.95L144.3 255.7C144.5 256.233 144.667 256.742 144.8 257.225C144.933 257.708 145 258.217 145 258.75C145.033 260.917 144.133 262.833 142.3 264.5C140.467 266.167 137.767 267 134.2 267ZM137 250C137.833 250 138.542 249.708 139.125 249.125C139.708 248.542 140 247.833 140 247C140 246.167 139.708 245.458 139.125 244.875C138.542 244.292 137.833 244 137 244C136.167 244 135.458 244.292 134.875 244.875C134.292 245.458 134 246.167 134 247C134 247.833 134.292 248.542 134.875 249.125C135.458 249.708 136.167 250 137 250Z" fill="#7A1717"/>
+</g>
+<g id="Info">
+<path id="path29" d="M23.0552 28.7245C23.0552 23.0552 28.7245 23.0552 28.7245 23.0552H281.953C287.622 23.0552 287.622 28.7245 287.622 28.7245V130.772C287.622 136.441 281.953 136.441 281.953 136.441H28.7245C23.0552 136.441 23.0552 130.772 23.0552 130.772V28.7245Z" fill="#313131"/>
+<text id="Zeile 1" fill="white"  font-size="20" font-weight="500" letter-spacing="0em"><tspan x="32" y="54.9545">Geb&#xe4;ude</tspan></text>
+<text id="Zeile 2" fill="white"  font-size="20" font-weight="500" letter-spacing="0em"><tspan x="32" y="83.4202">Speicher</tspan></text>
+</g>
+<g id="Info EZ">
+<text id="Status:" fill="white"  font-size="15" font-weight="500" letter-spacing="0em"><tspan x="262" y="216.364">Status:</tspan></text>
+<text id="bla" fill="white"  font-size="15" font-weight="500" letter-spacing="0em"><tspan x="262" y="231.364">bla</tspan></text>
+<text id="Sollwert: X&#194;&#176;C" fill="white"  font-size="15" font-weight="500" letter-spacing="0em"><tspan x="262" y="260.364">Sollwert: X&#xb0;C</tspan></text>
+<text id="Leistung: X%" fill="white"  font-size="15" font-weight="500" letter-spacing="0em"><tspan x="262" y="276.364">Leistung: X%</tspan></text>
+<text id="Eintritt" fill="white"  font-size="15" font-weight="500" letter-spacing="0em"><tspan x="404" y="364.364">X&#xb0;C</tspan></text>
+<text id="Austritt" fill="white"  font-size="15" font-weight="500" letter-spacing="0em"><tspan x="404" y="289.364">X&#xb0;C</tspan></text>
+</g>
+</g>
+<defs>
+<clipPath id="clip0_546_167">
+<rect width="968.315" height="446.74" fill="white"/>
+</clipPath>
+</defs>
+</svg>

@@ -1,0 +1,904 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+
+<svg viewBox="0 0 1330 600" version="1.1" id="svg42" width="1330" height="600" xmlns="http://www.w3.org/2000/svg" xmlns:bx="https://boxy-svg.com">
+
+
+	<ycontrol>
+    <!-- Zeile 1 -->	
+		<property name="Zeile1" datatype="String" defaultvalue="Gebäude xxx">
+			<target type="Content" element="zeile1" />
+		</property>
+		
+   	<!-- Zeile 2 -->	
+		<property name="Zeile2" datatype="String" defaultvalue="Brauchwarmwasser">
+			<target type="Content" element="zeile2" />
+		</property>
+
+    <!-- Doppelspeicher -->
+    <property name="AnzahlSpeicher" datatype="Int16" defaultvalue="0">
+      <target type="Attribute" element="doppelspeicheraktiv" selector="visibility">
+        <condition eq="0" output="hidden" />
+        <condition eq="1" output="hidden" />
+        <condition eq="2" output="visible" />
+      </target>
+      <target type="Attribute" element="einzelspeicheraktiv" selector="visibility">
+        <condition eq="0" output="hidden" />
+        <condition eq="1" output="visible" />
+        <condition eq="2" output="hidden" />
+      </target>
+		</property>
+
+
+
+<!--Sollwert-->
+    <property name="SollwertEin" datatype="Int16" defaultvalue="11">
+      <target type="Content" element="fuehlerSollEin"/>
+    </property>
+    <property name="SollwertAus" datatype="Int16" defaultvalue="10">
+      <target type="Content" element="fuehlersollaus"/>
+    </property>
+
+    <property name="SollPosEin" datatype="Int16" defaultvalue="0">
+
+    </property>
+
+    <property name="SollPosAus" datatype="Int16" defaultvalue="0">
+
+    </property>
+
+
+<!--AnzahlFueheler-->
+    <property name="AnzahlFueheler" datatype="Int8" defaultvalue="3">
+      <target type="Attribute" element="centralsoll" selector="opacity">
+        <condition eq="1" output="1"/>
+        <condition gt="1" output="0"/>
+      </target>
+    </property>
+
+<!--Fühler Pos 1-->
+    <property name="FühlerPos1Aktiv" datatype="Int8" defaultvalue="1">
+      <target type="Attribute" element="fuehlerpos1aktiv" selector="opacity">
+        <condition eq="1" output="1"/>
+        <condition eq="0" output="0"/>
+      </target>
+    </property>
+
+    <property name="FühlerPos1SollArt" datatype="Int8" defaultvalue="0">
+        <derive>
+        <when prop="SollPosEin" eq="1" set="1"/>
+        <when prop="SollPosAus" eq="1" set="2"/>
+        <otherwise set="0"/>
+        </derive>
+
+      <target type="Attribute" element="fuehlerpos1sollaktiv" selector="opacity">
+        <condition eq="0" output="1"/>
+        <condition eq="1" output="0"/>
+        <condition eq="2" output="0"/>
+      </target>
+
+      <target type="ContentRef" element="fuehlerpos1soll">
+        <condition eq="1" output="SollwertEin"/>
+        <condition eq="2" output="SollwertAus"/>
+      </target>
+      <target type="Content" element="fuehlerpos1solltext">
+        <condition eq="1" output="Ein"/>
+        <condition eq="2" output="Aus"/>
+      </target>
+    </property>
+    <property name="FühlerPos1Ist" datatype="Int16" defaultvalue="0">
+      <target type="Content" element="fuehlerpos1ist"/>
+      <target type="Style" element="fuehlerpos1colorfill" selector="fill">
+        <condition gt="100" output="red"/>
+        <condition gte="1" output="green"/>
+        <condition lte="0" output="red"/>
+      </target>
+    </property>
+<!--Fühler Pos 2-->
+    <property name="FühlerPos2Aktiv" datatype="Int8" defaultvalue="true">
+      <target type="Attribute" element="fuehlerpos2aktiv" selector="opacity">
+        <condition eq="1" output="1"/>
+        <condition eq="0" output="0"/>
+      </target>
+    </property>
+    <property name="FühlerPos2SollArt" datatype="Int8" defaultvalue="0">
+        <derive>
+        <when prop="SollPosEin" eq="2" set="1"/>
+        <when prop="SollPosAus" eq="2" set="2"/>
+        <otherwise set="0"/>
+        </derive>
+      <target type="Attribute" element="fuehlerpos2sollaktiv" selector="opacity">
+        <condition eq="0" output="1"/>
+        <condition eq="1" output="0"/>
+        <condition eq="2" output="0"/>
+      </target>
+      <target type="ContentRef" element="fuehlerpos2soll">
+        <condition eq="1" output="SollwertEin"/>
+        <condition eq="2" output="SollwertAus"/>
+      </target>
+      <target type="Content" element="fuehlerpos2solltext">
+        <condition eq="1" output="Ein"/>
+        <condition eq="2" output="Aus"/>
+      </target>
+    </property>
+    <property name="FühlerPos2Ist" datatype="Int16" defaultvalue="0">
+      <target type="Content" element="fuehlerpos2ist"/>
+      <target type="Style" element="fuehlerpos2colorfill" selector="fill">
+        <condition gt="100" output="red"/>
+        <condition gte="1" output="green"/>
+        <condition lte="0" output="red"/>
+      </target>
+    </property>
+<!--Fühler Pos 3-->
+    <property name="FühlerPos3Aktiv" datatype="Int8" defaultvalue="true">
+      <target type="Attribute" element="fuehlerpos3aktiv" selector="opacity">
+        <condition eq="1" output="1"/>
+        <condition eq="0" output="0"/>
+      </target>
+    </property>
+    <property name="FühlerPos3SollArt" datatype="Int8" defaultvalue="0">
+        <derive>
+        <when prop="SollPosEin" eq="3" set="1"/>
+        <when prop="SollPosAus" eq="3" set="2"/>
+        <otherwise set="0"/>
+        </derive>
+      <target type="Attribute" element="fuehlerpos3sollaktiv" selector="opacity">
+        <condition eq="0" output="1"/>
+        <condition eq="1" output="0"/>
+        <condition eq="2" output="0"/>
+      </target>
+      <target type="ContentRef" element="fuehlerpos3soll">
+        <condition eq="1" output="SollwertEin"/>
+        <condition eq="2" output="SollwertAus"/>
+      </target>
+      <target type="Content" element="fuehlerpos3solltext">
+        <condition eq="1" output="Ein"/>
+        <condition eq="2" output="Aus"/>
+      </target>
+    </property>
+    <property name="FühlerPos3Ist" datatype="Int16" defaultvalue="0">
+      <target type="Content" element="fuehlerpos3ist"/>
+      <target type="Style" element="fuehlerpos3colorfill" selector="fill">
+        <condition gt="100" output="red"/>
+        <condition gte="1" output="green"/>
+        <condition lte="0" output="red"/>
+      </target>
+    </property>
+<!--Fühler Pos 4-->
+    <property name="FühlerPos4Aktiv" datatype="Int8" defaultvalue="true">
+      <target type="Attribute" element="fuehlerpos4aktiv" selector="opacity">
+        <condition eq="1" output="1"/>
+        <condition eq="0" output="0"/>
+      </target>
+    </property>
+
+    <property name="FühlerPos4SollArt" datatype="Int8" defaultvalue="0">
+        <derive>
+        <when prop="SollPosEin" eq="4" set="1"/>
+        <when prop="SollPosAus" eq="4" set="2"/>
+        <otherwise set="0"/>
+        </derive>
+      <target type="Attribute" element="fuehlerpos4sollaktiv" selector="opacity">
+        <condition eq="0" output="1"/>
+        <condition eq="1" output="0"/>
+        <condition eq="2" output="0"/>
+      </target>
+      <target type="ContentRef" element="fuehlerpos4soll">
+        <condition eq="1" output="SollwertEin"/>
+        <condition eq="2" output="SollwertAus"/>
+      </target>
+      <target type="Content" element="fuehlerpos4solltext">
+        <condition eq="1" output="Ein"/>
+        <condition eq="2" output="Aus"/>
+      </target>
+    </property>
+    <property name="FühlerPos4Ist" datatype="Int16" defaultvalue="0">
+      <target type="Content" element="fuehlerpos4ist"/>
+      <target type="Style" element="fuehlerpos4colorfill" selector="fill">
+        <condition gt="100" output="red"/>
+        <condition gte="1" output="green"/>
+        <condition lte="0" output="red"/>
+      </target>
+    </property>
+<!--Fühler Pos 5-->
+    <property name="FühlerPos5Aktiv" datatype="Int8" defaultvalue="true">
+      <target type="Attribute" element="fuehlerpos5aktiv" selector="opacity">
+        <condition eq="1" output="1"/>
+        <condition eq="0" output="0"/>
+      </target>
+    </property>
+    <property name="FühlerPos5SollArt" datatype="Int8" defaultvalue="0">
+        <derive>
+        <when prop="SollPosEin" eq="5" set="1"/>
+        <when prop="SollPosAus" eq="5" set="2"/>
+        <otherwise set="0"/>
+        </derive>
+      <target type="Attribute" element="fuehlerpos5sollaktiv" selector="opacity">
+        <condition eq="0" output="1"/>
+        <condition eq="1" output="0"/>
+        <condition eq="2" output="0"/>
+      </target>
+      <target type="ContentRef" element="fuehlerpos5soll">
+        <condition eq="1" output="SollEin"/>
+        <condition eq="2" output="SollAus"/>
+      </target>
+      <target type="Content" element="fuehlerpos5solltext">
+        <condition eq="1" output="Ein"/>
+        <condition eq="2" output="Aus"/>
+      </target>
+    </property>
+    <property name="FühlerPos5Ist" datatype="Int16" defaultvalue="0">
+      <target type="Content" element="fuehlerpos5ist"/>
+      <target type="Style" element="fuehlerpos5colorfill" selector="fill">
+        <condition gt="100" output="red"/>
+        <condition gte="1" output="green"/>
+        <condition lte="0" output="red"/>
+      </target>
+    </property>
+<!--Fühler Pos 6-->
+    <property name="FühlerPos6Aktiv" datatype="Int8" defaultvalue="true">
+      <target type="Attribute" element="fuehlerpos6aktiv" selector="opacity">
+        <condition eq="1" output="1"/>
+        <condition eq="0" output="0"/>
+      </target>
+    </property>
+    <property name="FühlerPos6SollArt" datatype="Int8" defaultvalue="0">
+        <derive>
+        <when prop="SollPosEin" eq="6" set="1"/>
+        <when prop="SollPosAus" eq="6" set="2"/>
+        <otherwise set="0"/>
+        </derive>
+      <target type="Attribute" element="fuehlerpos6sollaktiv" selector="opacity">
+        <condition eq="0" output="1"/>
+        <condition eq="1" output="0"/>
+        <condition eq="2" output="0"/>
+      </target>
+      <target type="ContentRef" element="fuehlerpos6soll">
+        <condition eq="1" output="SollwertEin"/>
+        <condition eq="2" output="SollwertAus"/>
+      </target>
+      <target type="Content" element="fuehlerpos6solltext">
+        <condition eq="1" output="Ein"/>
+        <condition eq="2" output="Aus"/>
+      </target>
+    </property>
+    <property name="FühlerPos6Ist" datatype="Int16" defaultvalue="0">
+      <target type="Content" element="fuehlerpos6ist"/>
+      <target type="Style" element="fuehlerpos6colorfill" selector="fill">
+        <condition gt="100" output="red"/>
+        <condition gte="1" output="green"/>
+        <condition lte="0" output="red"/>
+      </target>
+    </property>
+<!--Fühler Pos 7-->
+    <property name="FühlerPos7Aktiv" datatype="Int8" defaultvalue="true">
+      <target type="Attribute" element="fuehlerpos7aktiv" selector="opacity">
+        <condition eq="1" output="1"/>
+        <condition eq="0" output="0"/>
+      </target>
+    </property>
+    <property name="FühlerPos7SollArt" datatype="Int8" defaultvalue="0">
+        <derive>
+        <when prop="SollPosEin" eq="7" set="1"/>
+        <when prop="SollPosAus" eq="7" set="2"/>
+        <otherwise set="0"/>
+        </derive>
+      <target type="Attribute" element="fuehlerpos7sollaktiv" selector="opacity">
+        <condition eq="0" output="1"/>
+        <condition eq="1" output="0"/>
+        <condition eq="2" output="0"/>
+      </target>
+      <target type="ContentRef" element="fuehlerpos7soll">
+        <condition eq="1" output="SollwertEin"/>
+        <condition eq="2" output="SollwertAus"/>
+      </target>
+      <target type="Content" element="fuehlerpos7solltext">
+        <condition eq="1" output="Ein"/>
+        <condition eq="2" output="Aus"/>
+      </target>
+    </property>
+    <property name="FühlerPos7Ist" datatype="Int16" defaultvalue="0">
+      <target type="Content" element="fuehlerpos7ist"/>
+      <target type="Style" element="fuehlerpos7colorfill" selector="fill">
+        <condition gt="100" output="red"/>
+        <condition gte="1" output="green"/>
+        <condition lte="0" output="red"/>
+      </target>
+    </property>
+<!--Fühler Pos 8-->
+    <property name="FühlerPos8Aktiv" datatype="Int8" defaultvalue="true">
+      <target type="Attribute" element="fuehlerpos8aktiv" selector="opacity">
+        <condition eq="1" output="1"/>
+        <condition eq="0" output="0"/>
+      </target>
+    </property>
+    <property name="FühlerPos8SollArt" datatype="Int8" defaultvalue="0">
+        <derive>
+        <when prop="SollPosEin" eq="8" set="1"/>
+        <when prop="SollPosAus" eq="8" set="2"/>
+        <otherwise set="0"/>
+        </derive>
+      <target type="Attribute" element="fuehlerpos8sollaktiv" selector="opacity">
+        <condition eq="0" output="1"/>
+        <condition eq="1" output="0"/>
+        <condition eq="2" output="0"/>
+      </target>
+      <target type="ContentRef" element="fuehlerpos8soll">
+        <condition eq="1" output="SollwertEin"/>
+        <condition eq="2" output="SollwertAus"/>
+      </target>
+      <target type="Content" element="fuehlerpos8solltext">
+        <condition eq="1" output="Ein"/>
+        <condition eq="2" output="Aus"/>
+      </target>
+    </property>
+    <property name="FühlerPos8Ist" datatype="Int16" defaultvalue="0">
+      <target type="Content" element="fuehlerpos8ist"/>
+      <target type="Style" element="fuehlerpos8colorfill" selector="fill">
+        <condition gt="100" output="red"/>
+        <condition gte="1" output="green"/>
+        <condition lte="0" output="red"/>
+      </target>
+    </property>
+
+
+
+
+
+
+<!--Elektroeinsatz Speicher 1-->
+    <property name="ElEinsatzSp1Einbelnden" datatype="Int8" defaultvalue="0">
+      <target type="Attribute" element="eleinsatzaktiv" selector="opacity">
+        <condition lt="20" output="1"/>
+        <condition eq="20" output="0"/>
+      </target>
+    </property>
+    <property name="ElEinsatzSp1Status" datatype="Int16" defaultvalue="99">
+      <target type="Style" element="eleinsatzsp1colorfill" selector="fill">
+        <condition eq="99" output="#f542ef"/>
+        <condition eq="0" output="black"/>
+        <condition eq="1" output="green"/>
+        <condition eq="2" output="red"/>
+        <condition eq="10" output="black"/>
+        <condition eq="11" output="green"/>
+        <condition eq="12" output="red"/>
+        <condition eq="20" output="black"/>
+        <condition eq="21" output="green"/>
+        <condition eq="22" output="red"/>
+      </target>
+      <target type="Style" element="eleinsatzsp1colorfill" selector="stroke">
+        <condition eq="99" output="#18c6c9"/>
+        <condition lt="10" output="white"/>
+        <condition lt="20" output="blue"/>
+        <condition lt="30" output="orange"/>
+      </target>
+      <target type="Content" element="eleinsatzsp1text">
+        <condition eq="99" output="unbekannt"/>
+        <condition eq="0" output="Aus"/>
+        <condition eq="1" output="Ein"/>
+        <condition eq="2" output="Störung"/>
+        <condition eq="10" output="Hand Aus"/>
+        <condition eq="11" output="Hand Ein"/>
+        <condition eq="12" output="Störung"/>
+        <condition eq="20" output="Schalter Aus"/>
+        <condition eq="21" output="Schalter Ein"/>
+        <condition eq="22" output="Störung"/>
+      </target>
+    </property>
+
+
+    <property name="Expansionaktiv" datatype="Int8" defaultvalue="0">
+        <target type="Attribute" element="Expansionaktiv" selector="opacity">
+        <condition gte="1" output="1"/>
+        <condition eq="0" output="0"/>
+      </target>
+    </property>
+
+       <property name="StatusExpansion" datatype="Int8" defaultvalue="0">
+      <target type="Style" element="statusexpansioncolorfill" selector="fill">
+        <condition eq="99" output="#f542ef"/>
+        <condition eq="0" output="black"/>
+        <condition eq="1" output="green"/>
+        <condition eq="2" output="red"/>
+      </target>
+    </property>
+
+    <property name="Entgaseraktiv" datatype="Int8" defaultvalue="0">
+        <target type="Attribute" element="entgaseraktiv" selector="opacity">
+        <condition gte="1" output="1"/>
+        <condition eq="0" output="0"/>
+      </target>
+    </property>
+
+    <property name="StatusEntgaser" datatype="Int8" defaultvalue="0">
+      <target type="Style" element="statusentgasercolorfill" selector="fill">
+        <condition eq="99" output="#f542ef"/>
+        <condition eq="0" output="black"/>
+        <condition eq="1" output="green"/>
+        <condition eq="2" output="red"/>
+      </target>
+    </property>
+
+<!--Temperatur-->
+    <property name="TemperaturEinblenden" datatype="Int8" defaultvalue="0">
+      <target type="Attribute" element="tempaktiv" selector="opacity">
+        <condition eq="1" output="1"/>
+        <condition eq="0" output="0"/>
+      </target>
+    </property>
+
+<!--Settings-->
+    <property name="SettingsEinblenden" datatype="Int8" defaultvalue="0">
+      <target type="Attribute" element="settingsaktiv" selector="opacity">
+        <condition eq="1" output="1"/>
+        <condition eq="0" output="0"/>
+      </target>
+    </property>
+<!--................................Noch nciht verknüpft ..............................-->
+<!--Zeitprogramm-->
+    <property name="ZpEinblenden" datatype="Int8" defaultvalue="0">
+      <target type="Attribute" element="zpaktiv" selector="opacity">
+        <condition eq="1" output="1"/>
+        <condition eq="0" output="0"/>
+      </target>
+    </property>
+
+<!--FuehlerSpeicherVl-->
+    <!-- <property name="FuehlerSpeicherVlEinblenden" datatype="boolean" defaultvalue="true">
+      <target type="Attribute" element="fuehlerspeichervlaktiv" selector="opacity">
+        <condition eq="true" output="1"/>
+        <condition eq="false" output="0"/>
+      </target>
+    </property>
+    <property name="FuehlerSpeicherVlIst" datatype="Int16" defaultvalue="0">
+      <target type="Content" element="fuehlerspeichervlist"/>
+      <target type="Style" element="fuehlerspeichervlcolorfill" selector="fill">
+        <condition gt="100" output="red"/>
+        <condition gte="1" output="green"/>
+        <condition lte="0" output="red"/>
+      </target>
+    </property> -->
+<!--FuehlerSpeicherRl-->
+    <!-- <property name="FuehlerSpeicherRlEinblenden" datatype="boolean" defaultvalue="true">
+      <target type="Attribute" element="fuehlerspeicherrlaktiv" selector="opacity">
+        <condition eq="true" output="1"/>
+        <condition eq="false" output="0"/>
+      </target>
+    </property>
+    <property name="FuehlerSpeicherRlIst" datatype="Int16" defaultvalue="0">
+      <target type="Content" element="fuehlerspeicherrlist"/>
+      <target type="Style" element="fuehlerspeicherrlcolorfill" selector="fill">
+        <condition gt="100" output="red"/>
+        <condition gte="1" output="green"/>
+        <condition lte="0" output="red"/>
+      </target>
+    </property> -->
+
+
+<!--Click-->
+    <action name="Zeitprogramm Click" triggers="click" elements="zpaktiv"/>
+    <action name="Temperatur Click" triggers="click" elements="tempaktiv"/>
+    <action name="Ventil Click" triggers="click" elements="ventilaktiv"/>
+    <action name="Pumpe Click" triggers="click" elements="pumpaktiv"/>
+    <action name="El. Einsatz Click" triggers="click" elements="elaktiv"/>
+
+
+  </ycontrol>
+  <defs id="defs2">
+    <rect x="1530.8483" y="91.773781" width="56.81234" height="30.077122" id="rect42"/>
+    <bx:grid x="0" y="0" width="5" height="20"/>
+    <symbol id="thermometer" viewBox="0 0 24 24">
+      <path fill="#00e0ff" d="M 17,17 A 5,5 0 1 1 7,17 C 7,15.29 8,13.83 9.44,13.15 V 5 a 2.56,2.56 0 0 1 5.12,0 v 8.15 A 4.994,4.994 0 0 1 17,17 Z" id="path1"/>
+    </symbol>
+    <symbol id="target" viewBox="0 0 24 24">
+      <path fill="#ffce00" d="m 12,20 a 8,8 0 1 1 8,-8 8.009,8.009 0 0 1 -8,8 z M 12,6 a 6,6 0 1 0 6,6 6.006,6.006 0 0 0 -6,-6 z m 0,10 a 4,4 0 1 1 4,-4 4.005,4.005 0 0 1 -4,4 z" id="path2"/>
+    </symbol>
+    <symbol id="thermometer-5" viewBox="0 0 24 24">
+      <path fill="#00e0ff" d="M 17,17 A 5,5 0 1 1 7,17 C 7,15.29 8,13.83 9.44,13.15 V 5 a 2.56,2.56 0 0 1 5.12,0 v 8.15 A 4.994,4.994 0 0 1 17,17 Z" id="path1-2"/>
+    </symbol>
+    <symbol id="target-7" viewBox="0 0 24 24">
+      <path fill="#ffce00" d="m 12,20 a 8,8 0 1 1 8,-8 8.009,8.009 0 0 1 -8,8 z M 12,6 a 6,6 0 1 0 6,6 6.006,6.006 0 0 0 -6,-6 z m 0,10 a 4,4 0 1 1 4,-4 4.005,4.005 0 0 1 -4,4 z" id="path2-6"/>
+    </symbol>
+    <symbol id="thermometer-2" viewBox="0 0 24 24">
+      <path fill="#00e0ff" d="M 17,17 A 5,5 0 1 1 7,17 C 7,15.29 8,13.83 9.44,13.15 V 5 a 2.56,2.56 0 0 1 5.12,0 v 8.15 A 4.994,4.994 0 0 1 17,17 Z" id="path1-1"/>
+    </symbol>
+    <symbol id="target-6" viewBox="0 0 24 24">
+      <path fill="#ffce00" d="m 12,20 a 8,8 0 1 1 8,-8 8.009,8.009 0 0 1 -8,8 z M 12,6 a 6,6 0 1 0 6,6 6.006,6.006 0 0 0 -6,-6 z m 0,10 a 4,4 0 1 1 4,-4 4.005,4.005 0 0 1 -4,4 z" id="path2-8"/>
+    </symbol>
+    <symbol id="icon-thermo" viewBox="0 0 24 24">
+      <path fill="#00e0ff" d="M 17,17 A 5,5 0 1 1 7,17 C 7,15.29 8,13.83 9.44,13.15 V 5 a 2.56,2.56 0 0 1 5.12,0 v 8.15 A 4.994,4.994 0 0 1 17,17 Z" id="path1-18"/>
+    </symbol>
+    <symbol id="icon-target" viewBox="0 0 24 24">
+      <path fill="#ffce00" d="m 12,20 a 8,8 0 1 1 8,-8 8.009,8.009 0 0 1 -8,8 z M 12,6 a 6,6 0 1 0 6,6 6.006,6.006 0 0 0 -6,-6 z m 0,10 a 4,4 0 1 1 4,-4 4.005,4.005 0 0 1 -4,4 z" id="path2-9"/>
+    </symbol>
+    <linearGradient id="paint0_linear_187_161" x1="836" y1="58" x2="836" y2="279" gradientUnits="userSpaceOnUse" gradientTransform="matrix(1.0733799,0,0,1.2010766,-118.24691,226.66514)">
+      <stop stop-color="#FF0000" stop-opacity="0.6" id="stop29"/>
+      <stop offset="1" stop-color="#0066FF" stop-opacity="0.6" id="stop30"/>
+    </linearGradient>
+    <linearGradient id="paint1_linear_187_161" x1="589" y1="57" x2="589" y2="278" gradientUnits="userSpaceOnUse" gradientTransform="matrix(1.0733799,0,0,1.2010766,-297.13801,7.8781165)">
+      <stop stop-color="#FF0000" stop-opacity="0.6" id="stop31"/>
+      <stop offset="1" stop-color="#0066FF" stop-opacity="0.6" id="stop32"/>
+    </linearGradient>
+  </defs>
+  <rect width="1329.5" height="602.10303" rx="8" ry="8" style="display:inline;stroke:#000000;stroke-width:1" y="-1.051" id="rect2" x="0"/>
+  <g id="Info" transform="rotate(-90,8.9745,157.4745)" style="display:inline">
+    <g id="bar">
+      <rect y="178" width="120.00001" height="310" rx="3.9779005" fill="#313131" id="rect1" x="18" style="stroke-width:0.819542" ry="3.9779005"/>
+    </g>
+    <text id="GebÃ¤ude" fill="#ffffff" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial;white-space:pre" font-family="Inter" font-size="26px" font-weight="500" letter-spacing="0em" x="172.61621" y="-325.54333" transform="rotate(90)" class="titel"><tspan x="186.61621" y="-108.69434" class="zeile1" id="tspan1" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial">Heizung</tspan></text>
+    <text id="Heizkreis" fill="#ffffff" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.3333px;font-family:Arial;-inkscape-font-specification:Arial;white-space:pre" font-family="Inter" font-size="26px" font-weight="500" letter-spacing="0em" x="172.29167" y="-338.05359" transform="rotate(90)" class="untertitel"><tspan x="186.29167" y="-82.739586" class="zeile2" id="tspan2" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.3333px;font-family:Arial;-inkscape-font-specification:Arial">Speicher</tspan></text>
+    <text style="font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 13.3333px; font-family: Arial; text-align: start; writing-mode: lr-tb; direction: ltr; text-anchor: start; fill: rgb(49, 49, 49); fill-opacity: 1; stroke: rgb(255, 255, 255); stroke-width: 3; stroke-linecap: round; stroke-dasharray: none; stroke-opacity: 1; white-space: pre;" x="344.45605" y="67.073357" id="text24" transform="rotate(90)"><tspan id="tspan24" x="344.45605" y="67.073357"/>
+
+
+</text>
+    <g id="ZP-2" transform="matrix(0,0.90916402,-0.98860209,0,213.1978,145.26929)" style="display:inline">
+      <path id="Vector_97-4" d="m 54.856511,187.333 h 39.282556 c 4.339053,0 7.856513,-3.581 7.856513,-8 v -28 c 0,-4.418 -3.51746,-8 -7.856513,-8 H 54.856511 c -4.339053,0 -7.856511,3.582 -7.856511,8 v 28 c 0,4.419 3.517458,8 7.856511,8 z" fill="#666666" style="stroke-width:0.999999"/>
+      <path id="Vector_98-5" d="m 74.49779,175.333 c -1.3833,0 -2.5625,-0.487 -3.5375,-1.462 -0.975,-0.976 -1.4625,-2.155 -1.4625,-3.538 0,-0.8 0.175,-1.546 0.525,-2.238 0.35,-0.691 0.8417,-1.279 1.475,-1.762 v -8 c 0,-0.833 0.2917,-1.542 0.875,-2.125 0.5833,-0.583 1.2917,-0.875 2.125,-0.875 0.8333,0 1.5417,0.292 2.125,0.875 0.5833,0.583 0.875,1.292 0.875,2.125 v 8 c 0.6333,0.483 1.125,1.071 1.475,1.762 0.35,0.692 0.525,1.438 0.525,2.238 0,1.383 -0.4875,2.562 -1.4625,3.538 -0.975,0.975 -2.1542,1.462 -3.5375,1.462 z m -1,-11 h 2 v -1 h -1 v -1 h 1 v -2 h -1 v -1 h 1 v -1 c 0,-0.283 -0.0958,-0.521 -0.2875,-0.712 -0.1917,-0.192 -0.4292,-0.288 -0.7125,-0.288 -0.2833,0 -0.5208,0.096 -0.7125,0.288 -0.1917,0.191 -0.2875,0.429 -0.2875,0.712 z" fill="#e8eaed"/>
+    </g>
+    <g style="display:inline;fill:none" id="g1-8" transform="rotate(90,157.56201,246.21201)" class="settingsaktiv">
+      <rect x="-389.35001" y="-375.77402" width="49.999985" height="44" rx="8" transform="scale(-1)" fill="#666666" id="rect1-3" ry="8" style="stroke-width:0.999999"/>
+      <g mask="url(#mask0_534_318)" id="g2-6" transform="translate(336.35,331.77402)" style="display:inline">
+        <path d="m 25.25,32 -0.4,-3.2 C 24.6333,28.7167 24.4291,28.6167 24.2375,28.5 24.0458,28.3833 23.8583,28.2583 23.675,28.125 l -2.975,1.25 -2.75,-4.75 2.575,-1.95 C 20.5083,22.5583 20.5,22.4458 20.5,22.3375 v -0.675 c 0,-0.1083 0.0083,-0.2208 0.025,-0.3375 l -2.575,-1.95 2.75,-4.75 2.975,1.25 c 0.1833,-0.1333 0.375,-0.2583 0.575,-0.375 0.2,-0.1167 0.4,-0.2167 0.6,-0.3 l 0.4,-3.2 h 5.5 l 0.4,3.2 c 0.2166,0.0833 0.4208,0.1833 0.6125,0.3 0.1916,0.1167 0.3791,0.2417 0.5625,0.375 l 2.975,-1.25 2.75,4.75 -2.575,1.95 c 0.0166,0.1167 0.025,0.2292 0.025,0.3375 v 0.675 c 0,0.1083 -0.0167,0.2208 -0.05,0.3375 l 2.575,1.95 -2.75,4.75 -2.95,-1.25 c -0.1834,0.1333 -0.375,0.2583 -0.575,0.375 -0.2,0.1167 -0.4,0.2167 -0.6,0.3 L 30.75,32 Z M 27,30 h 1.975 l 0.35,-2.65 c 0.5166,-0.1333 0.9958,-0.3292 1.4375,-0.5875 0.4416,-0.2583 0.8458,-0.5708 1.2125,-0.9375 l 2.475,1.025 0.975,-1.7 -2.15,-1.625 c 0.0833,-0.2333 0.1416,-0.4792 0.175,-0.7375 0.0333,-0.2583 0.05,-0.5208 0.05,-0.7875 0,-0.2667 -0.0167,-0.5292 -0.05,-0.7875 -0.0334,-0.2583 -0.0917,-0.5042 -0.175,-0.7375 l 2.15,-1.625 -0.975,-1.7 -2.475,1.05 C 31.6083,17.8167 31.2041,17.4958 30.7625,17.2375 30.3208,16.9792 29.8416,16.7833 29.325,16.65 L 29,14 h -1.975 l -0.35,2.65 c -0.5167,0.1333 -0.9959,0.3292 -1.4375,0.5875 -0.4417,0.2583 -0.8459,0.5708 -1.2125,0.9375 l -2.475,-1.025 -0.975,1.7 2.15,1.6 c -0.0834,0.25 -0.1417,0.5 -0.175,0.75 -0.0334,0.25 -0.05,0.5167 -0.05,0.8 0,0.2667 0.0166,0.525 0.05,0.775 0.0333,0.25 0.0916,0.5 0.175,0.75 l -2.15,1.625 0.975,1.7 2.475,-1.05 c 0.3666,0.3833 0.7708,0.7042 1.2125,0.9625 0.4416,0.2583 0.9208,0.4542 1.4375,0.5875 z m 1.05,-4.5 c 0.9666,0 1.7916,-0.3417 2.475,-1.025 0.6833,-0.6833 1.025,-1.5083 1.025,-2.475 0,-0.9667 -0.3417,-1.7917 -1.025,-2.475 C 29.8416,18.8417 29.0166,18.5 28.05,18.5 c -0.9834,0 -1.8125,0.3417 -2.4875,1.025 -0.675,0.6833 -1.0125,1.5083 -1.0125,2.475 0,0.9667 0.3375,1.7917 1.0125,2.475 0.675,0.6833 1.5041,1.025 2.4875,1.025 z" fill="#ffffff" id="path2-98"/>
+      </g>
+    </g>
+  </g>
+  <path style="display:inline;fill:none;stroke:#000000;stroke-width:2.53279;stroke-linecap:square;stroke-dasharray:none" d="m 851.4438,318.83199 h 6.6693" id="path3-3"/>
+  <path id="Vector" fill-rule="evenodd" clip-rule="evenodd" d="m 849.8172,314.00647 -0.1256,-1.47324 -0.8737,-1.61497 -1.3493,-1.47324 -1.8472,-1.50147 -2.3733,-1.38832 -2.8466,-1.3882 -3.247,-1.30329 -3.7965,-1.18991 -4.1712,-1.18991 -4.5951,-0.9916 -4.8453,-0.99161 -5.2198,-0.79331 -5.4699,-0.67994 -5.7447,-0.59501 -5.9187,-0.50985 -6.0195,-0.28334 -6.0936,-0.1983 -6.1687,-0.11338 -6.1945,0.11338 -6.0935,0.1983 -6.0947,0.28334 -5.8188,0.50985 -5.7447,0.59501 -5.4946,0.67994 -5.1952,0.79331 -4.8699,0.99161 -4.5951,0.9916 -4.1465,1.18991 -3.7955,1.18991 -3.2727,1.30329 -2.9218,1.3882 -2.2981,1.38832 -1.8473,1.50147 -1.4243,1.47324 -0.7739,1.61497 -0.2749,1.47324 v 247.75905 h 141.5617 z" fill="url(#paint0_linear_187_161)" stroke="#ffffff" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round" style="fill:url(#paint0_linear_187_161);stroke-width:0.999998"/>
+  <path id="Vector_19-2" fill-rule="evenodd" clip-rule="evenodd" d="m 735.77301,528.4496 -0.1718,-1.58543 -0.4433,-1.48933 -0.8018,-1.28155 -0.9725,-1.18546 -1.2451,-0.79992 -1.331,-0.49724 -1.4168,-0.19218 -1.3171,0.19218 -1.331,0.49724 -1.2451,0.79992 -0.9736,1.18546 -0.8007,1.28155 -0.4443,1.48933 -0.1718,1.58543 0.1718,1.58542 0.4443,1.48933 0.8007,1.39325 0.9736,1.08817 1.2451,0.78551 1.331,0.59213 1.3171,0.0961 1.4168,-0.0961 1.331,-0.59213 1.2451,-0.78551 0.9725,-1.08817 0.8018,-1.39325 0.4433,-1.48933 z" stroke="#ffffff" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round" style="stroke-width:0.999998"/>
+  <path id="Vector_3" fill-rule="evenodd" clip-rule="evenodd" d="m 100.03994,188.429 -20.040002,10.014 20.040002,10.026 z" fill="#ffffff" stroke="#ffffff" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <path id="Vector_3-5" fill-rule="evenodd" clip-rule="evenodd" d="m 1249,188.429 -20.04,10.014 20.04,10.026 z" fill="#ffffff" stroke="#ffffff" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <path id="Vector_6" fill-rule="evenodd" clip-rule="evenodd" d="M 80,188.469 100.04,178.4557 80,168.429 Z" fill="#ffffff" stroke="#ffffff" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <path id="Vector_6-0" fill-rule="evenodd" clip-rule="evenodd" d="m 1228.9601,188.469 20.04,-10.0133 -20.04,-10.0267 z" fill="#ffffff" stroke="#ffffff" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <path id="Vector_8" d="M 699.5,570.2151 V 287.86612" stroke="#ffffff" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round" style="stroke-width:0.999998"/>
+  <path id="Vector_9" d="M 699.5,570.2151 H 859.8061" stroke="#ffffff" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round" style="stroke-width:0.999998"/>
+  <path id="Vector_10" d="M 859.804,570.2151 V 287.86612" stroke="#ffffff" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round" style="stroke-width:0.999998"/>
+  <path id="Vector_11" d="M 859.8061,287.86552 H 699.5" stroke="#ffffff" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round" style="stroke-width:0.999998"/>
+  <path id="Vector_12" d="M 699.5,570.2211 V 587.949" stroke="#ffffff" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round" style="stroke-width:0.999998"/>
+  <path id="Vector_13" d="m 699.5,587.949 h 15.7712" stroke="#ffffff" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round" style="stroke-width:0.999998"/>
+  <path id="Vector_14" d="m 715.2658,587.949 7.8862,-17.7279" stroke="#ffffff" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round" style="stroke-width:0.999998"/>
+  <path id="Vector_15" d="M 859.804,570.2211 V 587.949" stroke="#ffffff" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round" style="stroke-width:0.999998"/>
+  <path id="Vector_16" d="M 859.8061,587.79526 H 844.0338" stroke="#ffffff" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round" style="stroke-width:0.999998"/>
+  <path id="Vector_17" d="m 844.0403,587.949 -7.972,-17.7279" stroke="#ffffff" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round" style="stroke-width:0.999998"/>
+  <path id="Vector_18" fill-rule="evenodd" clip-rule="evenodd" d="m 835.83295,527.99752 -0.1717,-1.58542 -0.4444,-1.48982 -0.8008,-1.37727 -0.9735,-1.08902 -1.2451,-0.89672 -1.331,-0.49652 -1.4169,-0.19217 -1.317,0.19217 -1.4169,0.49652 -1.1592,0.89672 -0.9725,1.08902 -0.8018,1.37727 -0.4433,1.48982 -0.1718,1.58542 0.1718,1.48933 0.4433,1.48934 0.8018,1.37643 0.9725,1.08938 1.1592,0.89721 1.4169,0.49604 1.317,0.19218 1.4169,-0.19218 1.331,-0.49604 1.2451,-0.89721 0.9735,-1.08938 0.8008,-1.37643 0.4444,-1.48934 z" stroke="#ffffff" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round" style="stroke-width:0.999998"/>
+  <path id="Vector_18-8" fill-rule="evenodd" clip-rule="evenodd" d="m 835.83295,347.99752 -0.1717,-1.58542 -0.4444,-1.48982 -0.8008,-1.37727 -0.9735,-1.08902 -1.2451,-0.89672 -1.331,-0.49652 -1.4169,-0.19217 -1.317,0.19217 -1.4169,0.49652 -1.1592,0.89672 -0.9725,1.08902 -0.8018,1.37727 -0.4433,1.48982 -0.1718,1.58542 0.1718,1.48933 0.4433,1.48934 0.8018,1.37644 0.9725,1.08938 1.1592,0.8972 1.4169,0.49604 1.317,0.19218 1.4169,-0.19218 1.331,-0.49604 1.2451,-0.8972 0.9735,-1.08938 0.8008,-1.37644 0.4444,-1.48934 z" stroke="#ffffff" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round" style="stroke-width:0.999998"/>
+  <path id="Vector_19" fill-rule="evenodd" clip-rule="evenodd" d="m 735.83295,347.9496 -0.1718,-1.58543 -0.4433,-1.48933 -0.8018,-1.28155 -0.9725,-1.18546 -1.2451,-0.79992 -1.331,-0.49724 -1.4168,-0.19218 -1.3171,0.19218 -1.331,0.49724 -1.2451,0.79992 -0.9736,1.18546 -0.8007,1.28155 -0.4443,1.48933 -0.1718,1.58543 0.1718,1.58542 0.4443,1.48933 0.8007,1.39325 0.9736,1.08817 1.2451,0.78551 1.331,0.59213 1.3171,0.0961 1.4168,-0.0961 1.331,-0.59213 1.2451,-0.78551 0.9725,-1.08817 0.8018,-1.39325 0.4433,-1.48933 z" stroke="#ffffff" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round" style="stroke-width:0.999998"/>
+  <path id="Vector_21" d="m 779.0793,287.71346 v -8.67982" stroke="#ffffff" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round" style="stroke-width:0.999998"/>
+  <path id="Vector_22" d="m 784.1167,273.38221 -10.1198,11.32387" stroke="#ffffff" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round" style="stroke-width:0.999998"/>
+  <path id="Vector_23" d="m 773.9947,273.34522 10.1198,11.32387" stroke="#ffffff" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round" style="stroke-width:0.999998"/>
+  <g id="Doppel" class="doppelspeicheraktiv" style="display: inline"  transform="translate(-75.383,219.269)">
+    <title>Zwei Speicher</title>
+    <g id="g15" style="display: inline;" transform="translate(75.383,-219.269)">
+      <path d="m 900.99999,208.43337 c -1.52672,0 -2.97352,-0.34213 -4.26793,-0.9539 -3.38808,-1.6013 -5.73207,-5.04997 -5.73207,-9.0461 0,-5.52285 4.47715,-10 10,-10" fill="none" stroke="#000000" stroke-width="3" id="path3-2-3" style="display:inline;stroke:#ffffff;stroke-width:3;stroke-dasharray:none;stroke-opacity:1"/>
+      <path style="fill:none;stroke:#ffffff;stroke-width:2.99999;stroke-linecap:square;stroke-linejoin:round;stroke-opacity:1" d="m 899.5,208.449 v 6.38444 0" id="path8-6"/>
+      <path style="fill:none;stroke:#ffffff;stroke-width:2.99999;stroke-linecap:square;stroke-linejoin:round;stroke-opacity:1" d="m 899.5,181.979 v 6.38444 0" id="path8-0"/>
+    </g>
+    <path id="Vector_26" fill-rule="evenodd" clip-rule="evenodd" d="m 405.8002,94.018375 -0.1245,-1.473241 -0.8737,-1.614966 -1.3493,-1.473243 -1.8473,-1.501467 -2.3732,-1.388322 -2.8466,-1.388204 -3.247,-1.30329 -3.7965,-1.189907 -4.1712,-1.189907 -4.5951,-0.991603 -4.8453,-0.991618 -5.2198,-0.793306 -5.4699,-0.679924 -5.7448,-0.595017 -5.9186,-0.509857 -6.0195,-0.28333 -6.0936,-0.198304 -6.1687,-0.113383 -6.19447,0.113383 -6.09358,0.198304 -6.09465,0.28333 -5.8188,0.509857 -5.74472,0.595017 -5.49464,0.679924 -5.19515,0.793306 -4.86992,0.991618 -4.59514,0.991603 -4.14647,1.189907 -3.79548,1.189907 -3.27273,1.30329 -2.92173,1.388204 -2.29811,1.388322 -1.84729,1.501467 -1.42438,1.473243 -0.7739,1.614966 -0.27479,1.473241 V 341.77743 H 405.8013 Z" fill="url(#paint1_linear_187_161)" stroke="#ffffff" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round" style="fill:url(#paint1_linear_187_161);stroke-width:0.999998"/>
+    <path id="Vector_37" fill-rule="evenodd" clip-rule="evenodd" d="m 391.21595,129.22841 -0.1717,-1.58542 -0.4444,-1.4897 -0.8007,-1.37727 -0.9736,-1.08902 -1.2451,-0.89672 -1.331,-0.49653 -1.4169,-0.19205 -1.317,0.19205 -1.4169,0.49653 -1.1592,0.89672 -0.9725,1.08902 -0.8018,1.37727 -0.4433,1.4897 -0.1718,1.58542 0.1718,1.48934 0.4433,1.48933 0.8018,1.37643 0.9725,1.08938 1.1592,0.89721 1.4169,0.49604 1.317,0.19217 1.4169,-0.19217 1.331,-0.49604 1.2451,-0.89721 0.9736,-1.08938 0.8007,-1.37643 0.4444,-1.48933 z" stroke="#ffffff" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round" style="stroke-width:0.999998"/>
+    <path id="Vector_37-4" fill-rule="evenodd" clip-rule="evenodd" d="m 391.21595,309.22841 -0.1717,-1.58542 -0.4444,-1.4897 -0.8007,-1.37727 -0.9736,-1.08902 -1.2451,-0.89672 -1.331,-0.49653 -1.4169,-0.19205 -1.317,0.19205 -1.4169,0.49653 -1.1592,0.89672 -0.9725,1.08902 -0.8018,1.37727 -0.4433,1.4897 -0.1718,1.58542 0.1718,1.48934 0.4433,1.48933 0.8018,1.37643 0.9725,1.08938 1.1592,0.89721 1.4169,0.49604 1.317,0.19217 1.4169,-0.19217 1.331,-0.49604 1.2451,-0.89721 0.9736,-1.08938 0.8007,-1.37643 0.4444,-1.48933 z" stroke="#ffffff" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round" style="display:inline;stroke-width:0.999998"/>
+    <g id="g41" style="display: inline;" transform="translate(75.383,-219.269)">
+      <path style="fill:none;stroke:#ffffff;stroke-width:3;stroke-dasharray:none" d="M 448.74443,346.949 V 528.44898 L 729.5,528.449" id="path8"/>
+      <path d="m 401,358.4711 c -1.52672,0 -2.97352,-0.34213 -4.26793,-0.9539 C 393.34399,355.9159 391,352.46723 391,348.4711 c 0,-5.52285 4.47715,-10 10,-10" fill="none" stroke="#000000" stroke-width="3" id="path3-2-3-2" style="display:inline;stroke:#ffffff;stroke-width:3;stroke-dasharray:none;stroke-opacity:1"/>
+      <path style="fill:none;stroke:#ffffff;stroke-width:3;stroke-linecap:square;stroke-dasharray:none;stroke-opacity:1" d="M 448.74443,348.449 H 310.9375" id="path41"/>
+      <path style="fill:none;stroke:#ffffff;stroke-width:3;stroke-dasharray:none" d="m 309.5,528.449 h 90 V 357.16215" id="path6"/>
+      <path style="fill:none;stroke:#ffffff;stroke-width:3;stroke-linecap:square;stroke-dasharray:none;stroke-opacity:1" d="m 399.5,338.449 v -140" id="path45"/>
+    </g>
+    <g id="g17" transform="translate(-14.61751,12.57966)" class="ele1aktiv" style="">
+      <title>EL einsatz</title>
+      <g id="EL. Einsatz" transform="translate(-445.16649,-161.48316)" style="display: inline; fill: rgb(47, 47, 47); fill-opacity: 1;" class="eleinsatzaktiv">
+        <path id="Vector_58" d="M 895.297,431.073 H 866.23" stroke="#ffffff" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round"/>
+        <path id="Vector_59" d="M 866.231,431.073 823.964,457.02" stroke="#ffffff" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round"/>
+        <path id="Vector_60" d="M 895.297,422.79 H 866.23" stroke="#ffffff" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round"/>
+        <path id="Vector_61" d="m 866.23,422.78 -55.04,34.24" stroke="#ffffff" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round"/>
+        <path id="Vector_62" d="M 895.297,414.506 H 866.23" stroke="#ffffff" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round"/>
+        <path id="Vector_63" d="M 866.233,414.5 798.5,457.02" stroke="#ffffff" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round"/>
+        <path id="Rectangle 2" d="m 919.6665,410.99219 v 24 h -24 v -24 z" fill="#ff02e6" stroke="#ffffff" stroke-width="2" class="eleinsatzsp1colorfill"/>
+        <path id="Vector_64" d="m 904.667,429.667 2.666,-5 L 902,424 l 8,-7.667 h 1.333 l -2.666,5 5.333,0.667 -8,7.667 z m 3.7,-4.117 2.683,-2.567 -4.483,-0.566 1.05,-1.95 -2.667,2.566 4.467,0.55 z" fill="#e8eaed"/>
+      </g>
+    </g>
+    <path id="Vector_27" d="M 254.883,351.4473 V 69.097836" stroke="#ffffff" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round" style="stroke-width:0.999998"/>
+    <path id="Vector_28" d="M 254.883,351.4473 H 415.1891" stroke="#ffffff" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round" style="stroke-width:0.999998"/>
+    <path id="Vector_29" d="M 415.1891,351.4473 V 69.097836" stroke="#ffffff" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round" style="stroke-width:0.999998"/>
+    <path id="Vector_30" d="M 415.1891,69.097836 H 254.883" stroke="#ffffff" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round" style="stroke-width:0.999998"/>
+    <path id="Vector_31" d="M 254.883,351.4521 V 369.18" stroke="#ffffff" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round" style="stroke-width:0.999998"/>
+    <path id="Vector_32" d="m 254.883,369.18 h 15.77224" stroke="#ffffff" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round" style="stroke-width:0.999998"/>
+    <path id="Vector_33" d="m 270.6488,369.18 7.88612,-17.7279" stroke="#ffffff" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round" style="stroke-width:0.999998"/>
+    <path id="Vector_34" d="M 415.1891,351.4521 V 369.18" stroke="#ffffff" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round" style="stroke-width:0.999998"/>
+    <path id="Vector_35" d="M 415.1901,369.02746 H 399.419" stroke="#ffffff" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round" style="stroke-width:0.999998"/>
+    <path id="Vector_36" d="m 399.4233,369.18 -7.972,-17.7279" stroke="#ffffff" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round" style="stroke-width:0.999998"/>
+    <path id="Vector_37-4-1" fill-rule="evenodd" clip-rule="evenodd" d="m 291.21595,309.22841 -0.1717,-1.58542 -0.4444,-1.4897 -0.8007,-1.37727 -0.9736,-1.08902 -1.2451,-0.89672 -1.331,-0.49653 -1.4169,-0.19205 -1.317,0.19205 -1.4169,0.49653 -1.1592,0.89672 -0.9725,1.08902 -0.8018,1.37727 -0.4433,1.4897 -0.1718,1.58542 0.1718,1.48934 0.4433,1.48933 0.8018,1.37643 0.9725,1.08938 1.1592,0.89721 1.4169,0.49604 1.317,0.19217 1.4169,-0.19217 1.331,-0.49604 1.2451,-0.89721 0.9736,-1.08938 0.8007,-1.37643 0.4444,-1.48933 z" stroke="#ffffff" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round" style="display: inline; stroke-width: 0.999998;"/>
+    <path id="Vector_38" fill-rule="evenodd" clip-rule="evenodd" d="m 291.21594,129.17939 -0.17174,-1.58542 -0.44438,-1.48934 -0.80074,-1.28034 -0.97355,-1.18546 -1.24513,-0.80113 -1.33099,-0.49604 -1.41686,-0.19217 -1.31705,0.19217 -1.33097,0.49604 -1.24513,0.80113 -0.97249,1.18546 -0.80181,1.28034 -0.44331,1.48934 -0.17173,1.58542 0.17173,1.58541 0.44331,1.48934 0.80181,1.39326 0.97249,1.08937 1.24513,0.78431 1.33097,0.59333 1.31705,0.0961 1.41686,-0.0961 1.33099,-0.59333 1.24513,-0.78431 0.97355,-1.08937 0.80074,-1.39326 0.44438,-1.48934 z" stroke="#ffffff" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round" style="stroke-width:0.999998"/>
+    <path id="Vector_42" d="M 334.46338,68.945779 V 60.265962" stroke="#ffffff" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round" style="stroke-width:0.999998"/>
+    <path id="Vector_43" d="M 339.49968,54.614528 329.37985,65.938405" stroke="#ffffff" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round" style="stroke-width:0.999998"/>
+    <path id="Vector_44" d="m 329.37878,54.57586 10.11983,11.32387" stroke="#ffffff" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round" style="stroke-width:0.999998"/>
+    <path style="fill: none; stroke: rgb(255, 255, 255); stroke-width: 3; stroke-dasharray: none;" d="m 214.883,-20.82 v 0 330 h 70" id="path7"/>
+    <path style="fill: none; stroke: rgb(255, 255, 255); stroke-width: 2.99999; stroke-dasharray: none;" d="M 476.38299,-20.819989 H 970.41915 1314.883" id="path5"/>
+    <g id="group-1" style="display: inline; fill: rgb(47, 47, 47); fill-opacity: 1; stroke-width: 1.03726;" transform="matrix(-0.964076, 0, 0, -0.964076, 1514.082176, 432.907386)">
+      <g transform="matrix(-1.037263, 0, 0, -1.037263, 1372.135518, 495.042671)" style="">
+        <title>Fühler Speicher 2</title>
+        <g id="group-3" style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke-width:1.03726" class="fuehlerpos8aktiv" transform="matrix(-0.964076, 0, 0, -0.964076, 1322.342793, 477.146125)">
+          <line id="line-1" x1="789.85516" y1="347.24988" x2="746.08051" y2="347.24988" stroke="#ffffff" style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke-width:1.48909;stroke-dasharray:none"/>
+          <path style="fill:#2f2f2f;fill-opacity:1;stroke:#ffffff;stroke-width:1.03726;stroke-linecap:square;stroke-dasharray:1.03726, 3.11179;stroke-dashoffset:0;stroke-opacity:1" d="m 816.08049,347.24986 -26.22528,10e-6" id="path-1"/>
+          <path style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke:#ffffff;stroke-width:0.841909;stroke-linecap:square;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" id="path-2" width="162.33273" height="61.68644" x="-3.2285924" y="-28.501883" rx="8.3226786" transform="matrix(-0.61601868,0,0,-0.61601868,915.15763,348.69217)" d="M 5.0940862,-28.501883 H 150.78146 c 4.61077,0 8.32268,3.711915 8.32268,8.322679 v 45.041082 c 0,4.610764 -3.71191,8.322679 -8.32268,8.322679 H 5.0940862 c -4.61076396,0 -8.3226786,-3.711915 -8.3226786,-8.322679 v -45.041082 c 0,-4.610764 3.71191464,-8.322679 8.3226786,-8.322679 z" ry="8.3226786"/>
+          <path id="path-3" class="fuehlerpos8colorfill" d="m 784.54514,347.24985 c 0,2.93222 2.37785,5.31006 5.31006,5.31006 2.93222,0 5.31006,-2.37784 5.31006,-5.31006 0,-2.93222 -2.37784,-5.31006 -5.31006,-5.31006 -2.93221,0 -5.31006,2.37784 -5.31006,5.31006 z" fill="#57bbc4" style="display:inline;fill:#57bbc4;fill-opacity:1;stroke-width:1.10158"/>
+          <text x="-819.79895" y="-349.64514" font-size="25.9142px" fill="#ffffff" text-anchor="end" id="text-1" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Arial;white-space:pre;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-dasharray:none;stroke-opacity:1" transform="scale(-1)"><tspan id="tspan-1" class="fuehlerpos8soll" style="stroke-width:0">50.5</tspan>°C</text>
+          <text x="-820.48645" y="-333.40146" font-size="25.9142px" fill="#ffffff" text-anchor="end" id="text-2" style="font-size:16px;font-family:'Segoe UI', Arial, sans-serif;white-space:pre;display:inline;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-dasharray:none;stroke-opacity:1" transform="scale(-1)"><tspan style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Arial;-inkscape-font-specification:Arial;stroke-width:0;stroke-dasharray:none" id="tspan-2" class="fuehlerpos8ist">45.0</tspan>°C</text>
+          <text x="-913.61902" y="-349.80139" font-size="25.9142px" fill="#ffffff" id="text-3" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Arial;white-space:pre;display:inline;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-dasharray:none;stroke-opacity:1" transform="scale(-1)"><tspan id="tspan-3" class="fuehlerpos8solltext">Aus</tspan>:</text>
+          <text x="-915.13464" y="-333.42099" font-size="25.9142px" fill="#ffffff" id="text-4" style="font-size:20px;font-family:'Segoe UI', Arial, sans-serif;white-space:pre;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-dasharray:none;stroke-opacity:1" transform="scale(-1)"><tspan style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Arial;-inkscape-font-specification:Arial;stroke-width:0;stroke-dasharray:none" id="tspan-4">Ist:</tspan></text>
+          <g id="group-7" style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke:#ffffff;stroke-width:1.03726;stroke-opacity:1" transform="matrix(1.6859289,0,0,1.5672416,-593.44588,-131.39979)" class="fuehlerpos8sollaktiv">
+            <path style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke:#ffffff;stroke-width:1.90614;stroke-linecap:square;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" id="path-4" width="162.33273" height="61.68644" x="-3.2285924" y="-28.501883" d="M 5.0940862,-28.501883 H 150.78146 c 4.61077,0 8.32268,3.711915 8.32268,8.322679 v 45.041082 c 0,4.610764 -3.71191,8.322679 -8.32268,8.322679 H 5.0940862 c -4.61076396,0 -8.3226786,-3.711915 -8.3226786,-8.322679 v -45.041082 c 0,-4.610764 3.71191464,-8.322679 8.3226786,-8.322679 z" rx="8.3226786" transform="matrix(-0.36538829,0,0,-0.39305917,894.82036,306.32926)" ry="8.3226786"/>
+            <text x="-851.74255" y="-301.89047" font-size="25.9142px" fill="#ffffff" text-anchor="end" id="text-5" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.84311px;font-family:Arial;white-space:pre;display:inline;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-dasharray:none;stroke-opacity:1" transform="scale(-1)"><tspan class="fuehlerpos8ist" id="tspan-5" style="font-size:9.84311px;stroke:#ffffff;stroke-width:0;stroke-opacity:1">50.5</tspan><tspan id="tspan-6" style="font-size:9.84311px;stroke:#ffffff;stroke-width:0;stroke-opacity:1">°C</tspan></text>
+          </g>
+        </g>
+        <g id="group-8" style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke-width:1.03726" class="fuehlerpos7aktiv" transform="matrix(-0.964076, 0, 0, -0.964076, 1322.342793, 557.726815)">
+          <line id="line-2" x1="789.85516" y1="347.24988" x2="746.08051" y2="347.24988" stroke="#ffffff" style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke-width:1.48909;stroke-dasharray:none"/>
+          <path style="fill:#2f2f2f;fill-opacity:1;stroke:#ffffff;stroke-width:1.03726;stroke-linecap:square;stroke-dasharray:1.03726, 3.11179;stroke-dashoffset:0;stroke-opacity:1" d="m 816.08049,347.24986 -26.22528,10e-6" id="path-5"/>
+          <path style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke:#ffffff;stroke-width:0.841909;stroke-linecap:square;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" id="path-6" width="162.33273" height="61.68644" x="-3.2285924" y="-28.501883" rx="8.3226786" transform="matrix(-0.61601868,0,0,-0.61601868,915.15763,348.69217)" d="M 5.0940862,-28.501883 H 150.78146 c 4.61077,0 8.32268,3.711915 8.32268,8.322679 v 45.041082 c 0,4.610764 -3.71191,8.322679 -8.32268,8.322679 H 5.0940862 c -4.61076396,0 -8.3226786,-3.711915 -8.3226786,-8.322679 v -45.041082 c 0,-4.610764 3.71191464,-8.322679 8.3226786,-8.322679 z" ry="8.3226786"/>
+          <path id="path-7" class="fuehlerpos7colorfill" d="m 784.54514,347.24985 c 0,2.93222 2.37785,5.31006 5.31006,5.31006 2.93222,0 5.31006,-2.37784 5.31006,-5.31006 0,-2.93222 -2.37784,-5.31006 -5.31006,-5.31006 -2.93221,0 -5.31006,2.37784 -5.31006,5.31006 z" fill="#57bbc4" style="display:inline;fill:#57bbc4;fill-opacity:1;stroke-width:1.10158"/>
+          <text x="-819.79895" y="-349.64514" font-size="25.9142px" fill="#ffffff" text-anchor="end" id="text-6" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Arial;white-space:pre;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-dasharray:none;stroke-opacity:1" transform="scale(-1)"><tspan id="tspan-7" class="fuehlerpos7soll" style="stroke-width:0">50.5</tspan>°C</text>
+          <text x="-820.48645" y="-333.40146" font-size="25.9142px" fill="#ffffff" text-anchor="end" id="text-7" style="font-size:16px;font-family:'Segoe UI', Arial, sans-serif;white-space:pre;display:inline;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-dasharray:none;stroke-opacity:1" transform="scale(-1)"><tspan style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Arial;-inkscape-font-specification:Arial;stroke-width:0;stroke-dasharray:none" id="tspan-8" class="fuehlerpos7ist">45.0</tspan>°C</text>
+          <text x="-913.61902" y="-349.80139" font-size="25.9142px" fill="#ffffff" id="text-8" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.3333px;font-family:Arial;white-space:pre;display:inline;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-dasharray:none;stroke-opacity:1" transform="scale(-1)"><tspan style="font-size:16px;stroke-width:0" id="tspan-9" class="fuehlerpos7solltext">Aus</tspan>:</text>
+          <text x="-915.13464" y="-333.42099" font-size="25.9142px" fill="#ffffff" id="text-9" style="font-size:16px;font-family:'Segoe UI', Arial, sans-serif;white-space:pre;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-dasharray:none;stroke-opacity:1" transform="scale(-1)"><tspan style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Arial;-inkscape-font-specification:Arial;stroke-width:0;stroke-dasharray:none" id="tspan-10">Ist:</tspan></text>
+          <g id="group-9" style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke:#ffffff;stroke-width:1.03726;stroke-opacity:1" transform="matrix(1.6859289,0,0,1.5672416,-593.44588,-131.39979)" class="fuehlerpos7sollaktiv">
+            <path style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke:#ffffff;stroke-width:1.90614;stroke-linecap:square;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" id="path-8" width="162.33273" height="61.68644" x="-3.2285924" y="-28.501883" d="M 5.0940862,-28.501883 H 150.78146 c 4.61077,0 8.32268,3.711915 8.32268,8.322679 v 45.041082 c 0,4.610764 -3.71191,8.322679 -8.32268,8.322679 H 5.0940862 c -4.61076396,0 -8.3226786,-3.711915 -8.3226786,-8.322679 v -45.041082 c 0,-4.610764 3.71191464,-8.322679 8.3226786,-8.322679 z" rx="8.3226786" transform="matrix(-0.36538829,0,0,-0.39305917,894.82036,306.32926)" ry="8.3226786"/>
+            <text x="-851.25134" y="-301.88602" font-size="25.9142px" fill="#ffffff" text-anchor="end" id="text-10" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.84311px;font-family:Arial;white-space:pre;display:inline;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-dasharray:none;stroke-opacity:1" transform="scale(-1)"><tspan class="fuehlerpos7ist" id="tspan-11" style="font-size:9.84311px;stroke:#ffffff;stroke-width:0;stroke-opacity:1">50.5</tspan><tspan id="tspan-12" style="font-size:9.84311px;stroke:#ffffff;stroke-width:0;stroke-opacity:1">°C</tspan></text>
+          </g>
+        </g>
+        <g id="group-10" style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke-width:1.03726" class="fuehlerpos6aktiv" transform="matrix(-0.964076, 0, 0, -0.964076, 1322.342793, 637.825449)">
+          <line id="line-3" x1="789.85516" y1="347.24988" x2="746.08051" y2="347.24988" stroke="#ffffff" style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke-width:1.48909;stroke-dasharray:none"/>
+          <path style="fill:#2f2f2f;fill-opacity:1;stroke:#ffffff;stroke-width:1.03726;stroke-linecap:square;stroke-dasharray:1.03726, 3.11179;stroke-dashoffset:0;stroke-opacity:1" d="m 816.08049,347.24986 -26.22528,10e-6" id="path-9"/>
+          <path style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke:#ffffff;stroke-width:0.841909;stroke-linecap:square;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" id="path-10" width="162.33273" height="61.68644" x="-3.2285924" y="-28.501883" rx="8.3226786" transform="matrix(-0.61601868,0,0,-0.61601868,915.15763,348.69217)" d="M 5.0940862,-28.501883 H 150.78146 c 4.61077,0 8.32268,3.711915 8.32268,8.322679 v 45.041082 c 0,4.610764 -3.71191,8.322679 -8.32268,8.322679 H 5.0940862 c -4.61076396,0 -8.3226786,-3.711915 -8.3226786,-8.322679 v -45.041082 c 0,-4.610764 3.71191464,-8.322679 8.3226786,-8.322679 z" ry="8.3226786"/>
+          <path id="path-11" class="fuehlerpos6colorfill" d="m 784.54514,347.24985 c 0,2.93222 2.37785,5.31006 5.31006,5.31006 2.93222,0 5.31006,-2.37784 5.31006,-5.31006 0,-2.93222 -2.37784,-5.31006 -5.31006,-5.31006 -2.93221,0 -5.31006,2.37784 -5.31006,5.31006 z" fill="#57bbc4" style="display:inline;fill:#57bbc4;fill-opacity:1;stroke-width:1.10158"/>
+          <text x="-819.79895" y="-349.64514" font-size="25.9142px" fill="#ffffff" text-anchor="end" id="text-11" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Arial;white-space:pre;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-dasharray:none;stroke-opacity:1" transform="scale(-1)"><tspan id="tspan-13" class="fuehlerpos6soll" style="stroke-width:0">50.5</tspan>°C</text>
+          <text x="-820.48645" y="-333.40146" font-size="25.9142px" fill="#ffffff" text-anchor="end" id="text-12" style="font-size:16px;font-family:'Segoe UI', Arial, sans-serif;white-space:pre;display:inline;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-dasharray:none;stroke-opacity:1" transform="scale(-1)"><tspan style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Arial;-inkscape-font-specification:Arial;stroke-width:0;stroke-dasharray:none" id="tspan-14" class="fuehlerpos6ist">45.0</tspan>°C</text>
+          <text x="-913.61902" y="-349.80139" font-size="25.9142px" fill="#ffffff" id="text-13" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.3333px;font-family:Arial;white-space:pre;display:inline;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-dasharray:none;stroke-opacity:1" transform="scale(-1)"><tspan style="font-size:16px;stroke-width:0" id="tspan-15" class7="fuehlerpos6solltext">Ein</tspan>:</text>
+          <text x="-913.84558" y="-333.42099" font-size="25.9142px" fill="#ffffff" id="text-14" style="font-size:20px;font-family:'Segoe UI', Arial, sans-serif;white-space:pre;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-dasharray:none;stroke-opacity:1" transform="scale(-1)"><tspan style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Arial;-inkscape-font-specification:Arial;stroke-width:0;stroke-dasharray:none" id="tspan-16">Ist:</tspan></text>
+          <g id="group-11" style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke:#ffffff;stroke-width:1.03726;stroke-opacity:1" transform="matrix(1.6859289,0,0,1.5672416,-593.44588,-131.39979)" class="fuehlerpos6sollaktiv">
+            <path style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke:#ffffff;stroke-width:1.90614;stroke-linecap:square;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" id="path-12" width="162.33273" height="61.68644" x="-3.2285924" y="-28.501883" d="M 5.0940862,-28.501883 H 150.78146 c 4.61077,0 8.32268,3.711915 8.32268,8.322679 v 45.041082 c 0,4.610764 -3.71191,8.322679 -8.32268,8.322679 H 5.0940862 c -4.61076396,0 -8.3226786,-3.711915 -8.3226786,-8.322679 v -45.041082 c 0,-4.610764 3.71191464,-8.322679 8.3226786,-8.322679 z" rx="8.3226786" transform="matrix(-0.36538829,0,0,-0.39305917,894.82036,306.32926)" ry="8.3226786"/>
+            <text x="-851.25134" y="-301.88602" font-size="25.9142px" fill="#ffffff" text-anchor="end" id="text-15" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.84311px;font-family:Arial;white-space:pre;display:inline;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-dasharray:none;stroke-opacity:1" transform="scale(-1)"><tspan class="fuehlerpos6ist" id="tspan-17" style="font-size:9.84311px;stroke:#ffffff;stroke-width:0;stroke-opacity:1">50.5</tspan><tspan id="tspan-18" style="font-size:9.84311px;stroke:#ffffff;stroke-width:0;stroke-opacity:1">°C</tspan></text>
+          </g>
+        </g>
+        <g id="group-12" style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke-width:1.03726" class="fuehlerpos5aktiv" transform="matrix(-0.964076, 0, 0, -0.964076, 1322.403096, 718.16505)">
+          <line id="line-4" x1="789.85516" y1="347.24988" x2="746.08051" y2="347.24988" stroke="#ffffff" style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke-width:1.48909;stroke-dasharray:none"/>
+          <path style="fill:#2f2f2f;fill-opacity:1;stroke:#ffffff;stroke-width:1.03726;stroke-linecap:square;stroke-dasharray:1.03726, 3.11179;stroke-dashoffset:0;stroke-opacity:1" d="m 816.08049,347.24986 -26.22528,10e-6" id="path-13"/>
+          <path style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke:#ffffff;stroke-width:0.841909;stroke-linecap:square;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" id="path-14" width="162.33273" height="61.68644" x="-3.2285924" y="-28.501883" rx="8.3226786" transform="matrix(-0.61601868,0,0,-0.61601868,915.15763,348.69217)" d="M 5.0940862,-28.501883 H 150.78146 c 4.61077,0 8.32268,3.711915 8.32268,8.322679 v 45.041082 c 0,4.610764 -3.71191,8.322679 -8.32268,8.322679 H 5.0940862 c -4.61076396,0 -8.3226786,-3.711915 -8.3226786,-8.322679 v -45.041082 c 0,-4.610764 3.71191464,-8.322679 8.3226786,-8.322679 z" ry="8.3226786"/>
+          <path id="path-15" class="fuehlerpos5colorfill" d="m 784.54514,347.24985 c 0,2.93222 2.37785,5.31006 5.31006,5.31006 2.93222,0 5.31006,-2.37784 5.31006,-5.31006 0,-2.93222 -2.37784,-5.31006 -5.31006,-5.31006 -2.93221,0 -5.31006,2.37784 -5.31006,5.31006 z" fill="#57bbc4" style="display:inline;fill:#57bbc4;fill-opacity:1;stroke-width:1.10158"/>
+          <text x="-819.79895" y="-349.64514" font-size="25.9142px" fill="#ffffff" text-anchor="end" id="text-16" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Arial;white-space:pre;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-dasharray:none;stroke-opacity:1" transform="scale(-1)"><tspan id="tspan-19" class="fuehlerpos5soll" style="stroke-width:0">50.5</tspan><tspan id="tspan-20" style="stroke-width:0">°C</tspan></text>
+          <text x="-820.48645" y="-333.40146" font-size="25.9142px" fill="#ffffff" text-anchor="end" id="text-17" style="font-size:16px;font-family:'Segoe UI', Arial, sans-serif;white-space:pre;display:inline;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-dasharray:none;stroke-opacity:1" transform="scale(-1)"><tspan style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Arial;-inkscape-font-specification:Arial;stroke-width:0;stroke-dasharray:none" id="tspan-21" class="fuehlerpos5ist">45.0</tspan>°C</text>
+          <text x="-913.61902" y="-349.80139" font-size="25.9142px" fill="#ffffff" id="text-18" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.3333px;font-family:Arial;white-space:pre;display:inline;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-dasharray:none;stroke-opacity:1" transform="scale(-1)"><tspan style="font-size:16px;stroke-width:0" id="tspan-22" class="fuehlerpos5solltext">Aus:</tspan>:</text>
+          <text x="-913.84558" y="-333.42099" font-size="25.9142px" fill="#ffffff" id="text-19" style="font-size:20px;font-family:'Segoe UI', Arial, sans-serif;white-space:pre;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-dasharray:none;stroke-opacity:1" transform="scale(-1)"><tspan style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Arial;-inkscape-font-specification:Arial;stroke-width:0;stroke-dasharray:none" id="tspan-23">Ist:</tspan></text>
+          <g id="group-13" style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke:#ffffff;stroke-width:1.03726;stroke-opacity:1" transform="matrix(1.6859289,0,0,1.5672416,-593.44588,-131.39979)" class="fuehlerpos5sollaktiv">
+            <path style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke:#ffffff;stroke-width:1.90614;stroke-linecap:square;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" id="path-16" width="162.33273" height="61.68644" x="-3.2285924" y="-28.501883" d="M 5.0940862,-28.501883 H 150.78146 c 4.61077,0 8.32268,3.711915 8.32268,8.322679 v 45.041082 c 0,4.610764 -3.71191,8.322679 -8.32268,8.322679 H 5.0940862 c -4.61076396,0 -8.3226786,-3.711915 -8.3226786,-8.322679 v -45.041082 c 0,-4.610764 3.71191464,-8.322679 8.3226786,-8.322679 z" rx="8.3226786" transform="matrix(-0.36538829,0,0,-0.39305917,894.82036,306.32926)" ry="8.3226786"/>
+            <text x="-851.25134" y="-301.88602" font-size="25.9142px" fill="#ffffff" text-anchor="end" id="text-20" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.84311px;font-family:Arial;white-space:pre;display:inline;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-dasharray:none;stroke-opacity:1" transform="scale(-1)"><tspan class="fuehlerpos5ist" id="tspan-24" style="font-size:9.84311px;stroke:#ffffff;stroke-width:0;stroke-opacity:1">50.5</tspan><tspan id="tspan-25" style="font-size:9.84311px;stroke:#ffffff;stroke-width:0;stroke-opacity:1">°C</tspan></text>
+          </g>
+        </g>
+      </g>
+      <g id="group-14" style="display: inline; fill: rgb(47, 47, 47); fill-opacity: 1; stroke-width: 1.03726;" transform="translate(-182.9285,79.956)" class="sollwert1fuehler">
+        <path style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke:#ffffff;stroke-width:0.841909;stroke-linecap:square;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" id="path-17" width="162.33273" height="61.68644" x="-3.2285924" y="-28.501883" rx="8.3226786" transform="matrix(-0.61601868,0,0,-0.61601868,915.15763,348.69217)" d="M 5.0940862,-28.501883 H 150.78146 c 4.61077,0 8.32268,3.711915 8.32268,8.322679 v 45.041082 c 0,4.610764 -3.71191,8.322679 -8.32268,8.322679 H 5.0940862 c -4.61076396,0 -8.3226786,-3.711915 -8.3226786,-8.322679 v -45.041082 c 0,-4.610764 3.71191464,-8.322679 8.3226786,-8.322679 z" ry="8.3226786"/>
+        <text x="-819.79895" y="-349.64514" font-size="25.9142px" fill="#ffffff" text-anchor="end" id="text-21" style="font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 16px; font-family: Arial; fill: rgb(255, 255, 255); fill-opacity: 1; stroke: rgb(255, 255, 255); stroke-width: 0; stroke-dasharray: none; stroke-opacity: 1; white-space: pre;" transform="scale(-1)"><tspan id="tspan-26" class="" style="stroke-width:0">50.5</tspan>°C</text>
+        <text x="-820.48645" y="-333.40146" font-size="25.9142px" fill="#ffffff" text-anchor="end" id="text-22" style="font-size: 16px; font-family: &quot;Segoe UI&quot;, Arial, sans-serif; display: inline; fill: rgb(255, 255, 255); fill-opacity: 1; stroke: rgb(255, 255, 255); stroke-width: 0; stroke-dasharray: none; stroke-opacity: 1; white-space: pre;" transform="scale(-1)"><tspan style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Arial;-inkscape-font-specification:Arial;stroke-width:0;stroke-dasharray:none" id="tspan-27" class="fuehleraussingle2">45.0</tspan>°C</text>
+        <text x="-913.61902" y="-349.80139" font-size="25.9142px" fill="#ffffff" id="text-23" style="font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 16px; font-family: Arial; display: inline; fill: rgb(255, 255, 255); fill-opacity: 1; stroke: rgb(255, 255, 255); stroke-width: 0; stroke-dasharray: none; stroke-opacity: 1; white-space: pre;" transform="scale(-1)">Ein:</text>
+        <text x="-912.32996" y="-333.42099" font-size="25.9142px" fill="#ffffff" id="text-24" style="font-size: 20px; font-family: &quot;Segoe UI&quot;, Arial, sans-serif; fill: rgb(255, 255, 255); fill-opacity: 1; stroke: rgb(255, 255, 255); stroke-width: 0; stroke-dasharray: none; stroke-opacity: 1; white-space: pre;" transform="scale(-1)"><tspan style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Arial;-inkscape-font-specification:Arial;stroke-width:0;stroke-dasharray:none" id="tspan-28">Aus:</tspan></text>
+      </g>
+    </g>
+    <g id="group-15" style="display: inline; fill: rgb(47, 47, 47); fill-opacity: 1; stroke-width: 1.03726;" transform="matrix(-0.964076, 0, 0, -0.964076, 993.57228, 432.907386)">
+      <title>Fühler Speicher 1</title>
+      <g>
+        <g id="group-16" style="display: inline; fill: rgb(47, 47, 47); fill-opacity: 1; stroke-width: 1.03726;" class="fuehlerpos4aktiv" transform="matrix(1, 0, 0, 1, 0, 0.00002)">
+          <line id="line-5" x1="789.85516" y1="347.24988" x2="746.08051" y2="347.24988" stroke="#ffffff" style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke-width:1.48909;stroke-dasharray:none"/>
+          <path style="fill:#2f2f2f;fill-opacity:1;stroke:#ffffff;stroke-width:1.03726;stroke-linecap:square;stroke-dasharray:1.03726, 3.11179;stroke-dashoffset:0;stroke-opacity:1" d="m 816.08049,347.24986 -26.22528,10e-6" id="path-18"/>
+          <path id="path-19" class="fuehlerpos4colorfill" d="m 784.54514,347.24985 c 0,2.93222 2.37785,5.31006 5.31006,5.31006 2.93222,0 5.31006,-2.37784 5.31006,-5.31006 0,-2.93222 -2.37784,-5.31006 -5.31006,-5.31006 -2.93221,0 -5.31006,2.37784 -5.31006,5.31006 z" fill="#57bbc4" style="display:inline;fill:#57bbc4;fill-opacity:1;stroke-width:1.10158"/>
+        </g>
+        <g id="group-17" style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke-width:1.03726" class="fuehlerpos4aktiv" transform="matrix(-1, 0, 0, 1, 1734.220363, 0.116795)">
+          <path style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke:#ffffff;stroke-width:0.841909;stroke-linecap:square;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" id="path-20" width="162.33273" height="61.68644" x="-3.2285924" y="-28.501883" rx="8.3226786" transform="matrix(0.61601868,0,0,-0.61601868,819.13538,348.69217)" d="M 5.0940862,-28.501883 H 150.78146 c 4.61077,0 8.32268,3.711915 8.32268,8.322679 v 45.041082 c 0,4.610764 -3.71191,8.322679 -8.32268,8.322679 H 5.0940862 c -4.61076396,0 -8.3226786,-3.711915 -8.3226786,-8.322679 v -45.041082 c 0,-4.610764 3.71191464,-8.322679 8.3226786,-8.322679 z" ry="8.3226786"/>
+          <text x="914.49408" y="-349.64514" font-size="25.9142px" fill="#ffffff" text-anchor="end" id="text-25" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Arial;white-space:pre;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-dasharray:none;stroke-opacity:1" transform="scale(1,-1)"><tspan id="tspan-29" class="fuehlerpos4soll" style="stroke-width:0">50.5</tspan>°C</text>
+          <text x="913.80658" y="-333.40146" font-size="25.9142px" fill="#ffffff" text-anchor="end" id="text-26" style="font-size:16px;font-family:'Segoe UI', Arial, sans-serif;white-space:pre;display:inline;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-dasharray:none;stroke-opacity:1" transform="scale(1,-1)"><tspan style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Arial;-inkscape-font-specification:Arial;stroke-width:0;stroke-dasharray:none" id="tspan-30" class="fuehlerpos4ist">45.0</tspan>°C</text>
+          <text x="820.67401" y="-349.80139" font-size="25.9142px" fill="#ffffff" id="text-27" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Arial;white-space:pre;display:inline;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-dasharray:none;stroke-opacity:1" transform="scale(1,-1)"><tspan id="tspan-31" class="fuehlerpos4solltext">Aus</tspan>:</text>
+          <text x="819.15839" y="-333.42099" font-size="25.9142px" fill="#ffffff" id="text-28" style="font-size:20px;font-family:'Segoe UI', Arial, sans-serif;white-space:pre;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-dasharray:none;stroke-opacity:1" transform="scale(1,-1)"><tspan style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Arial;-inkscape-font-specification:Arial;stroke-width:0;stroke-dasharray:none" id="tspan-32">Ist:</tspan></text>
+          <g id="group-18" style="fill:#2f2f2f;fill-opacity:1;stroke:#ffffff;stroke-width:1.03726;stroke-opacity:1" transform="matrix(1.6859289,0,0,1.5672416,-593.44588,-131.39979)" class="fuehlerpos4sollaktiv">
+            <path style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke:#ffffff;stroke-width:1.90614;stroke-linecap:square;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" id="path-21" width="162.33273" height="61.68644" x="-3.2285924" y="-28.501883" d="M 5.0940862,-28.501883 H 150.78146 c 4.61077,0 8.32268,3.711915 8.32268,8.322679 v 45.041082 c 0,4.610764 -3.71191,8.322679 -8.32268,8.322679 H 5.0940862 c -4.61076396,0 -8.3226786,-3.711915 -8.3226786,-8.322679 v -45.041082 c 0,-4.610764 3.71191464,-8.322679 8.3226786,-8.322679 z" rx="8.3226786" transform="matrix(-0.36538829,0,0,-0.39305917,894.82036,306.32926)" ry="8.3226786"/>
+            <text x="881.92554" y="-301.89047" font-size="25.9142px" fill="#ffffff" text-anchor="end" id="text-29" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.84311px;font-family:Arial;white-space:pre;display:inline;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-dasharray:none;stroke-opacity:1" transform="scale(1,-1)"><tspan class="fuehlerpos4ist" id="tspan-33" style="font-size:9.84311px;stroke:#ffffff;stroke-width:0;stroke-opacity:1">50.5</tspan><tspan id="tspan-34" style="font-size:9.84311px;stroke:#ffffff;stroke-width:0;stroke-opacity:1">°C</tspan></text>
+          </g>
+        </g>
+      </g>
+
+      <g>
+        <g id="group-20" style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke-width:1.03726" class="fuehlerpos3aktiv" transform="matrix(1, 0, 0, 1, 0, -83.583345)">
+          <line id="line-6" x1="789.85516" y1="347.24988" x2="746.08051" y2="347.24988" stroke="#ffffff" style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke-width:1.48909;stroke-dasharray:none"/>
+          <path style="fill:#2f2f2f;fill-opacity:1;stroke:#ffffff;stroke-width:1.03726;stroke-linecap:square;stroke-dasharray:1.03726, 3.11179;stroke-dashoffset:0;stroke-opacity:1" d="m 816.08049,347.24986 -26.22528,10e-6" id="path-23"/>
+          <path id="path-24" class="fuehlerpos3colorfill" d="m 784.54514,347.24985 c 0,2.93222 2.37785,5.31006 5.31006,5.31006 2.93222,0 5.31006,-2.37784 5.31006,-5.31006 0,-2.93222 -2.37784,-5.31006 -5.31006,-5.31006 -2.93221,0 -5.31006,2.37784 -5.31006,5.31006 z" fill="#57bbc4" style="display:inline;fill:#57bbc4;fill-opacity:1;stroke-width:1.10158"/>
+        </g>
+        <g id="group-21" style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke-width:1.03726" class="fuehlerpos3aktiv" transform="matrix(-1, 0, 0, 1, 1734.220363, -83.466577)">
+          <path style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke:#ffffff;stroke-width:0.841909;stroke-linecap:square;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" id="path-25" width="162.33273" height="61.68644" x="-3.2285924" y="-28.501883" rx="8.3226786" transform="matrix(0.61601868,0,0,-0.61601868,819.13538,348.69217)" d="M 5.0940862,-28.501883 H 150.78146 c 4.61077,0 8.32268,3.711915 8.32268,8.322679 v 45.041082 c 0,4.610764 -3.71191,8.322679 -8.32268,8.322679 H 5.0940862 c -4.61076396,0 -8.3226786,-3.711915 -8.3226786,-8.322679 v -45.041082 c 0,-4.610764 3.71191464,-8.322679 8.3226786,-8.322679 z" ry="8.3226786"/>
+          <text x="914.49408" y="-349.64514" font-size="25.9142px" fill="#ffffff" text-anchor="end" id="text-34" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Arial;white-space:pre;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-dasharray:none;stroke-opacity:1" transform="scale(1,-1)"><tspan id="tspan-38" class="fuehlerpos3soll" style="stroke-width:0">50.5</tspan>°C</text>
+          <text x="913.80658" y="-333.40146" font-size="25.9142px" fill="#ffffff" text-anchor="end" id="text-35" style="font-size:16px;font-family:'Segoe UI', Arial, sans-serif;white-space:pre;display:inline;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-dasharray:none;stroke-opacity:1" transform="scale(1,-1)"><tspan style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Arial;-inkscape-font-specification:Arial;stroke-width:0;stroke-dasharray:none" id="tspan-39" class="fuehlerpos3ist">45.0</tspan>°C</text>
+          <text x="820.67401" y="-349.80139" font-size="25.9142px" fill="#ffffff" id="text-36" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.3333px;font-family:Arial;white-space:pre;display:inline;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-dasharray:none;stroke-opacity:1" transform="scale(1,-1)"><tspan style="font-size:16px;stroke-width:0" id="tspan-40" class="fuehlerpos3solltext">Aus</tspan>:</text>
+          <text x="819.15839" y="-333.42099" font-size="25.9142px" fill="#ffffff" id="text-37" style="font-size:16px;font-family:'Segoe UI', Arial, sans-serif;white-space:pre;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-dasharray:none;stroke-opacity:1" transform="scale(1,-1)"><tspan style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Arial;-inkscape-font-specification:Arial;stroke-width:0;stroke-dasharray:none" id="tspan-41">Ist:</tspan></text>
+          <g id="group-22" style="fill: rgb(47, 47, 47); fill-opacity: 1; stroke: rgb(255, 255, 255); stroke-width: 1.03726; stroke-opacity: 1;" transform="matrix(1.6859289,0,0,1.5672416,-593.44588,-131.39979)" class="fuehlerpos3sollaktiv">
+            <path style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke:#ffffff;stroke-width:1.90614;stroke-linecap:square;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" id="path-26" width="162.33273" height="61.68644" x="-3.2285924" y="-28.501883" d="M 5.0940862,-28.501883 H 150.78146 c 4.61077,0 8.32268,3.711915 8.32268,8.322679 v 45.041082 c 0,4.610764 -3.71191,8.322679 -8.32268,8.322679 H 5.0940862 c -4.61076396,0 -8.3226786,-3.711915 -8.3226786,-8.322679 v -45.041082 c 0,-4.610764 3.71191464,-8.322679 8.3226786,-8.322679 z" rx="8.3226786" transform="matrix(-0.36538829,0,0,-0.39305917,894.82036,306.32926)" ry="8.3226786"/>
+            <text x="881.43433" y="-301.88602" font-size="25.9142px" fill="#ffffff" text-anchor="end" id="text-38" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.84311px;font-family:Arial;white-space:pre;display:inline;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-dasharray:none;stroke-opacity:1" transform="scale(1,-1)"><tspan class="fuehlerpos3ist" id="tspan-42" style="font-size:9.84311px;stroke:#ffffff;stroke-width:0;stroke-opacity:1">50.5</tspan><tspan id="tspan-43" style="font-size:9.84311px;stroke:#ffffff;stroke-width:0;stroke-opacity:1">°C</tspan></text>
+          </g>
+        </g>
+      </g>
+      <g>
+        <g id="group-23" style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke-width:1.03726" class="fuehlerpos2aktiv" transform="matrix(1, 0, 0, 1, 0, -166.666659)">
+          <line id="line-7" x1="789.85516" y1="347.24988" x2="746.08051" y2="347.24988" stroke="#ffffff" style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke-width:1.48909;stroke-dasharray:none"/>
+          <path style="fill:#2f2f2f;fill-opacity:1;stroke:#ffffff;stroke-width:1.03726;stroke-linecap:square;stroke-dasharray:1.03726, 3.11179;stroke-dashoffset:0;stroke-opacity:1" d="m 816.08049,347.24986 -26.22528,10e-6" id="path-27"/>
+          <path id="path-28" class="fuehlerpos2colorfill" d="m 784.54514,347.24985 c 0,2.93222 2.37785,5.31006 5.31006,5.31006 2.93222,0 5.31006,-2.37784 5.31006,-5.31006 0,-2.93222 -2.37784,-5.31006 -5.31006,-5.31006 -2.93221,0 -5.31006,2.37784 -5.31006,5.31006 z" fill="#57bbc4" style="display:inline;fill:#57bbc4;fill-opacity:1;stroke-width:1.10158"/>
+        </g>
+        <g id="group-24" style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke-width:1.03726" class="fuehlerpos2aktiv" transform="matrix(-1, 0, 0, 1, 1734.220363, -166.549899)">
+          <path style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke:#ffffff;stroke-width:0.841909;stroke-linecap:square;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" id="path-29" width="162.33273" height="61.68644" x="-3.2285924" y="-28.501883" rx="8.3226786" transform="matrix(0.61601868,0,0,-0.61601868,819.13538,348.69217)" d="M 5.0940862,-28.501883 H 150.78146 c 4.61077,0 8.32268,3.711915 8.32268,8.322679 v 45.041082 c 0,4.610764 -3.71191,8.322679 -8.32268,8.322679 H 5.0940862 c -4.61076396,0 -8.3226786,-3.711915 -8.3226786,-8.322679 v -45.041082 c 0,-4.610764 3.71191464,-8.322679 8.3226786,-8.322679 z" ry="8.3226786"/>
+          <text x="914.49408" y="-349.64514" font-size="25.9142px" fill="#ffffff" text-anchor="end" id="text-39" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Arial;white-space:pre;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-dasharray:none;stroke-opacity:1" transform="scale(1,-1)"><tspan id="tspan-44" class="fuehlerpos2soll" style="stroke-width:0">50.5</tspan>°C</text>
+          <text x="913.80658" y="-333.40146" font-size="25.9142px" fill="#ffffff" text-anchor="end" id="text-40" style="font-size:16px;font-family:'Segoe UI', Arial, sans-serif;white-space:pre;display:inline;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-dasharray:none;stroke-opacity:1" transform="scale(1,-1)"><tspan style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Arial;-inkscape-font-specification:Arial;stroke-width:0;stroke-dasharray:none" id="tspan-45" class="fuehlerpos2ist">45.0</tspan>°C</text>
+          <text x="820.67401" y="-349.80139" font-size="25.9142px" fill="#ffffff" id="text-41" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.3333px;font-family:Arial;white-space:pre;display:inline;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-dasharray:none;stroke-opacity:1" transform="scale(1,-1)"><tspan style="font-size:16px;stroke-width:0" id="tspan-46" class="fuehlerpos2solltext">Ein</tspan>:</text>
+          <text x="820.44745" y="-333.42099" font-size="25.9142px" fill="#ffffff" id="text-42" style="font-size:20px;font-family:'Segoe UI', Arial, sans-serif;white-space:pre;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-dasharray:none;stroke-opacity:1" transform="scale(1,-1)"><tspan style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Arial;-inkscape-font-specification:Arial;stroke-width:0;stroke-dasharray:none" id="tspan-47">Ist:</tspan></text>
+          <g id="group-25" style="fill:#2f2f2f;fill-opacity:1;stroke:#ffffff;stroke-width:1.03726;stroke-opacity:1" transform="matrix(1.6859289,0,0,1.5672416,-593.44588,-131.39979)" class="fuehlerpos2sollaktiv">
+            <path style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke:#ffffff;stroke-width:1.90614;stroke-linecap:square;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" id="path-30" width="162.33273" height="61.68644" x="-3.2285924" y="-28.501883" d="M 5.0940862,-28.501883 H 150.78146 c 4.61077,0 8.32268,3.711915 8.32268,8.322679 v 45.041082 c 0,4.610764 -3.71191,8.322679 -8.32268,8.322679 H 5.0940862 c -4.61076396,0 -8.3226786,-3.711915 -8.3226786,-8.322679 v -45.041082 c 0,-4.610764 3.71191464,-8.322679 8.3226786,-8.322679 z" rx="8.3226786" transform="matrix(-0.36538829,0,0,-0.39305917,894.82036,306.32926)" ry="8.3226786"/>
+            <text x="881.43433" y="-301.88602" font-size="25.9142px" fill="#ffffff" text-anchor="end" id="text-43" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.84311px;font-family:Arial;white-space:pre;display:inline;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-dasharray:none;stroke-opacity:1" transform="scale(1,-1)"><tspan class="fuehlerpos2ist" id="tspan-48" style="font-size:9.84311px;stroke:#ffffff;stroke-width:0;stroke-opacity:1">50.5</tspan><tspan id="tspan-49" style="font-size:9.84311px;stroke:#ffffff;stroke-width:0;stroke-opacity:1">°C</tspan></text>
+          </g>
+        </g>
+      </g>
+      <g>
+        <g id="group-26" style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke-width:1.03726" class="fuehlerpos1aktiv" transform="matrix(1, 0, 0, 1, -0.06248, -249.999958)">
+          <line id="line-8" x1="789.85516" y1="347.24988" x2="746.08051" y2="347.24988" stroke="#ffffff" style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke-width:1.48909;stroke-dasharray:none"/>
+          <path style="fill:#2f2f2f;fill-opacity:1;stroke:#ffffff;stroke-width:1.03726;stroke-linecap:square;stroke-dasharray:1.03726, 3.11179;stroke-dashoffset:0;stroke-opacity:1" d="m 816.08049,347.24986 -26.22528,10e-6" id="path-31"/>
+          <path id="path-32" class="fuehlerpos1colorfill" d="m 784.54514,347.24985 c 0,2.93222 2.37785,5.31006 5.31006,5.31006 2.93222,0 5.31006,-2.37784 5.31006,-5.31006 0,-2.93222 -2.37784,-5.31006 -5.31006,-5.31006 -2.93221,0 -5.31006,2.37784 -5.31006,5.31006 z" fill="#57bbc4" style="display:inline;fill:#57bbc4;fill-opacity:1;stroke-width:1.10158"/>
+        </g>
+        <g id="group-27" style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke-width:1.03726" class="fuehlerpos1aktiv" transform="matrix(-1, 0, 0, 1, 1734.282863, -249.883213)">
+          <path style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke:#ffffff;stroke-width:0.841909;stroke-linecap:square;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" id="path-33" width="162.33273" height="61.68644" x="-3.2285924" y="-28.501883" rx="8.3226786" transform="matrix(0.61601868,0,0,-0.61601868,819.13538,348.69217)" d="M 5.0940862,-28.501883 H 150.78146 c 4.61077,0 8.32268,3.711915 8.32268,8.322679 v 45.041082 c 0,4.610764 -3.71191,8.322679 -8.32268,8.322679 H 5.0940862 c -4.61076396,0 -8.3226786,-3.711915 -8.3226786,-8.322679 v -45.041082 c 0,-4.610764 3.71191464,-8.322679 8.3226786,-8.322679 z" ry="8.3226786"/>
+          <text x="914.49408" y="-349.64514" font-size="25.9142px" fill="#ffffff" text-anchor="end" id="text-44" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Arial;white-space:pre;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-dasharray:none;stroke-opacity:1" transform="scale(1,-1)"><tspan id="tspan-50" class="fuehlerpos1soll" style="stroke-width:0">50.5</tspan><tspan id="tspan-51" style="stroke-width:0">°C</tspan></text>
+          <text x="913.80658" y="-333.40146" font-size="25.9142px" fill="#ffffff" text-anchor="end" id="text-45" style="font-size:16px;font-family:'Segoe UI', Arial, sans-serif;white-space:pre;display:inline;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-dasharray:none;stroke-opacity:1" transform="scale(1,-1)"><tspan style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Arial;-inkscape-font-specification:Arial;stroke-width:0;stroke-dasharray:none" id="tspan-52" class="fuehlerpos1ist">45.0</tspan>°C</text>
+          <text x="820.67401" y="-349.80139" font-size="25.9142px" fill="#ffffff" id="text-46" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.3333px;font-family:Arial;white-space:pre;display:inline;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-dasharray:none;stroke-opacity:1" transform="scale(1,-1)"><tspan style="font-size:16px;stroke-width:0" id="tspan-53" class="fuehlerpos1solltext">Ein</tspan>:</text>
+          <text x="820.44745" y="-333.42099" font-size="25.9142px" fill="#ffffff" id="text-47" style="font-size:20px;font-family:'Segoe UI', Arial, sans-serif;white-space:pre;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-dasharray:none;stroke-opacity:1" transform="scale(1,-1)"><tspan style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Arial;-inkscape-font-specification:Arial;stroke-width:0;stroke-dasharray:none" id="tspan-54">Ist:</tspan></text>
+          <g id="group-28" style="fill:#2f2f2f;fill-opacity:1;stroke:#ffffff;stroke-width:1.03726;stroke-opacity:1" transform="matrix(1.6859289,0,0,1.5672416,-593.44588,-131.39979)" class="fuehlerpos1sollaktiv">
+            <path style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke:#ffffff;stroke-width:1.90614;stroke-linecap:square;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" id="path-34" width="162.33273" height="61.68644" x="-3.2285924" y="-28.501883" d="M 5.0940862,-28.501883 H 150.78146 c 4.61077,0 8.32268,3.711915 8.32268,8.322679 v 45.041082 c 0,4.610764 -3.71191,8.322679 -8.32268,8.322679 H 5.0940862 c -4.61076396,0 -8.3226786,-3.711915 -8.3226786,-8.322679 v -45.041082 c 0,-4.610764 3.71191464,-8.322679 8.3226786,-8.322679 z" rx="8.3226786" transform="matrix(-0.36538829,0,0,-0.39305917,894.82036,306.32926)" ry="8.3226786"/>
+            <text x="881.43433" y="-301.88602" font-size="25.9142px" fill="#ffffff" text-anchor="end" id="text-48" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.84311px;font-family:Arial;white-space:pre;display:inline;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-dasharray:none;stroke-opacity:1" transform="scale(1,-1)"><tspan class="fuehlerpos1ist" id="tspan-55" style="font-size:9.84311px;stroke:#ffffff;stroke-width:0;stroke-opacity:1">50.5</tspan><tspan id="tspan-56" style="font-size:9.84311px;stroke:#ffffff;stroke-width:0;stroke-opacity:1">°C</tspan></text>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+  <path style="display:inline;fill:none;stroke:#ffffff;stroke-width:3;stroke-linecap:square;stroke-dasharray:none;stroke-opacity:1" d="M 175.42294,-20.82 H 214.883" id="path43" transform="translate(-75.383,219.269)"/>
+  <path style="fill:none;stroke:#ffffff;stroke-width:3;stroke-dasharray:none" d="M 81.823209,178.449 H 407.32321 1239.5" id="path4"/>
+  <path style="fill: none; stroke: rgb(255, 255, 255); stroke-width: 3; stroke-dasharray: none;" d="m 830.30609,348.31642 h 70 L 899.5,214.37023" id="path10"/>
+  <path style="fill: none; stroke: rgb(255, 255, 255); stroke-width: 3.00001; stroke-dasharray: none;" d="M 899.5,189.6042 V 178.449" id="path11"/>
+  <path style="fill:none;stroke:#ffffff;stroke-width:2.99999;stroke-linecap:square;stroke-linejoin:round;stroke-opacity:1" d="m 899.5,208.449 v 6.05381" id="path8-8"/>
+  <g id="g2" class="entgaseraktiv" style="display:inline">
+    <g id="g38" transform="translate(3.9989075)" style="display:inline">
+      <path style="fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:3.00001;stroke-linecap:square;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;paint-order:normal" d="M 1129.1362,476.93523 V 201.46859" id="path36"/>
+      <path style="fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:2.99998;stroke-linecap:square;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;paint-order:normal" d="M 1179.4502,478.04308 V 201.98116" id="path37"/>
+    </g>
+    <g id="g39" transform="translate(0.5,-0.5)" style="display:inline">
+      <path style="fill:none;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-dasharray:none;stroke-opacity:1" d="M 1119.5,479.04303 V 588.449 h 10.9406 l 10.9406,-10.94059 h 32.8218 l 10.9406,10.94059 h 10.9406" id="path19"/>
+      <path style="fill:none;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-dasharray:none;stroke-opacity:1" d="M 1196.0842,479.04303 V 588.949" id="path27"/>
+      <path style="fill:none;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-dasharray:none;stroke-opacity:1" d="m 1119,479.04307 h 77.5842" id="path29"/>
+      <path style="stroke: rgb(255, 255, 255); stroke-width: 1; stroke-linecap: butt; stroke-dasharray: none; stroke-opacity: 1;" d="m 1163.2624,489.98363 v 10.9406 h 21.8812 v -10.9406 z" id="path31" class="statusentgasercolorfill"/>
+      <path style="fill:none;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-dasharray:none;stroke-opacity:1" d="m 1119.5,500.92423 10.9406,10.94059 h 54.703 l 10.9406,-10.94059" id="path33"/>
+      <path style="fill:none;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-dasharray:none;stroke-opacity:1" d="m 1130.4406,522.80544 v 43.76238 h 54.703 v -43.76238 z" id="path38"/>
+    </g>
+  </g>
+  <g id="g19" transform="translate(427.46761,-100.69544)" style="display:inline" class="Expansionaktiv">
+    <g id="g40">
+      <path style="display:inline;fill:none;stroke:#000000;stroke-width:2.53279;stroke-linecap:square;stroke-dasharray:none" d="m 940.30362,569.79189 h 3.18851" id="path3-61-4" transform="translate(-349.34577,104.36271)"/>
+      <path style="display:inline;fill:none;stroke:#000000;stroke-width:2.53279;stroke-linecap:square;stroke-dasharray:none" d="m 940.39982,532.96574 h 3.18855" id="path3-4-5" transform="translate(-349.34577,104.36271)"/>
+      <path style="display:inline;fill:none;stroke:#000000;stroke-width:2.53279;stroke-linecap:square;stroke-dasharray:none" d="m 940.33566,496.4267 h 3.18855" id="path3-09-5" transform="translate(-349.34577,104.36271)"/>
+      <path style="display:inline;fill:none;stroke:#000000;stroke-width:2.53279;stroke-linecap:square;stroke-dasharray:none" d="m 940.33566,459.28553 h 3.18855" id="path3-3-1" transform="translate(-349.34577,104.36271)"/>
+      <path id="Vector-7" fill-rule="evenodd" clip-rule="evenodd" d="m 939.49995,456.97536 -0.0599,-0.70409 -0.41735,-0.77183 -0.64455,-0.70409 -0.88237,-0.71757 -1.1337,-0.66351 -1.35977,-0.66344 -1.55105,-0.62287 -1.81352,-0.56868 -1.99252,-0.56868 -2.19502,-0.4739 -2.31452,-0.47391 -2.49342,-0.37914 -2.61289,-0.32496 -2.74415,-0.28436 -2.82728,-0.24366 -2.87543,-0.13542 -2.91081,-0.0948 -2.9467,-0.0542 -2.95902,0.0542 -2.91077,0.0948 -2.91134,0.13542 -2.77956,0.24366 -2.74415,0.28436 -2.62469,0.32496 -2.48167,0.37914 -2.32628,0.47391 -2.19501,0.4739 -1.98072,0.56868 -1.81305,0.56868 -1.56332,0.62287 -1.3957,0.66344 -1.09777,0.66351 -0.88242,0.71757 -0.68037,0.70409 -0.36968,0.77183 -0.13132,0.70409 V 575.38395 H 939.5 Z" fill="url(#paint0_linear_187_161)" stroke="#ffffff" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round" style="fill:none;stroke-width:0.999996;stroke-linecap:square" transform="translate(-349.34577,104.36271)"/>
+      <path id="Vector_12-6" d="m 871.87816,575.7271 v 8.47561" stroke="#ffffff" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round" style="stroke-width:0.999998;stroke-linecap:square" transform="translate(-349.34577,104.36271)"/>
+      <path id="Vector_13-1" d="m 871.87816,584.20271 h 7.54013" stroke="#ffffff" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round" style="stroke-width:0.999998" transform="translate(-349.34577,104.36271)"/>
+      <path id="Vector_14-4" d="m 879.41571,584.20271 3.77035,-8.47561" stroke="#ffffff" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round" style="stroke-width:0.999998" transform="translate(-349.34577,104.36271)"/>
+      <path id="Vector_15-2" d="m 939.5,575.80612 v 8.47561" stroke="#ffffff" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round" style="stroke-width:0.999998;stroke-linecap:square" transform="translate(-349.34577,104.36271)"/>
+      <path id="Vector_16-3" d="m 939.50101,584.20823 h -7.54066" stroke="#ffffff" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round" style="stroke-width:0.999998" transform="translate(-349.34577,104.36271)"/>
+      <path id="Vector_17-2" d="m 931.96346,584.28173 -3.81137,-8.47561" stroke="#ffffff" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round" style="stroke-width:0.999998" transform="translate(-349.34577,104.36271)"/>
+    </g>
+    <path style="fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:3;stroke-linecap:square;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;paint-order:normal" d="m 1049.5,568.449 0.062,-369.99999" id="path35" transform="translate(-427.46761,100.69544)"/>
+    <path style="display:inline;fill:none;stroke:#ffffff;stroke-width:3;stroke-linecap:square;stroke-dasharray:none;stroke-opacity:1" d="m 1019.5,568.449 h 30" id="path40" transform="translate(-427.46761,100.69544)"/>
+    <g id="g3" style="display:inline" >
+      <path id="Ellipse 2" d="m 556.34331,550.81531 c 10.23498,0 18.53242,-8.29744 18.53242,-18.53242 0,-10.23499 -8.29744,-18.53243 -18.53242,-18.53243 -10.23499,0 -18.53243,8.29744 -18.53243,18.53243 0,10.23498 8.29745,18.53242 18.53243,18.53242 z" stroke-width="2.18029" style="display: inline; stroke: rgb(255, 255, 255); stroke-width: 1; stroke-opacity: 1;" stroke="#9d7171" class="statusexpansioncolorfill"/>
+      <path id="Vector-1" d="m 548.73557,548.42935 -4.02045,-29.95494" stroke-width="1.45352" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round" style="stroke: rgb(255, 255, 255); stroke-width: 1; stroke-opacity: 1; fill: rgb(218, 85, 150);" stroke="#9d7171"/>
+      <path id="Vector_2" d="m 563.81079,548.43008 4.02117,-29.95494" stroke-width="1.45352" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round" style="stroke: rgb(255, 255, 255); stroke-width: 1; stroke-opacity: 1; fill: rgb(218, 85, 150);" stroke="#9d7171"/>
+    </g>
+  </g>
+  <g id="g18" style="display: inline; " class="einzelspeicheraktiv">
+    <title>Ein Speicher</title>
+    <path style="display:inline;fill:none;stroke:#ffffff;stroke-width:3.00001;stroke-linecap:square;stroke-dasharray:none;stroke-opacity:1" d="M 727.99902,528.44898 H 139.87673" id="path42"/>
+    <path style="fill:none;stroke:#ffffff;stroke-width:3;stroke-linecap:square" d="m 899.5,208.449 v -20" id="path17"/>
+    <path style="fill:none;stroke:#ffffff;stroke-width:3;stroke-linecap:square" d="M 830.95841,528.449 H 919.5 V 198.4662" id="path9"/>
+    <g id="g23-8-77-51" style="display: inline; fill: rgb(47, 47, 47); fill-opacity: 1; stroke-width: 1.03726;" transform="matrix(-0.964076, 0, 0, -0.964076, 1438.718039, 652.205332)">
+      <title>Fühler Speicher 1</title>
+      <g>
+        <g id="g13-3-4-7" style="display: inline; fill: rgb(47, 47, 47); fill-opacity: 1; stroke-width: 1.03726;" class="fuehlerpos4aktiv" transform="matrix(1, 0, 0, 1, 0, 0.00002)">
+          <line id="Line 37_2-8-8-2-2-6-8" x1="789.85516" y1="347.24988" x2="746.08051" y2="347.24988" stroke="#ffffff" style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke-width:1.48909;stroke-dasharray:none"/>
+          <path style="fill:#2f2f2f;fill-opacity:1;stroke:#ffffff;stroke-width:1.03726;stroke-linecap:square;stroke-dasharray:1.03726, 3.11179;stroke-dashoffset:0;stroke-opacity:1" d="m 816.08049,347.24986 -26.22528,10e-6" id="path9-2-5-2-7"/>
+          <path id="circle48_2-1-7-3-8-1-0" class="fuehlerpos4colorfill" d="m 784.54514,347.24985 c 0,2.93222 2.37785,5.31006 5.31006,5.31006 2.93222,0 5.31006,-2.37784 5.31006,-5.31006 0,-2.93222 -2.37784,-5.31006 -5.31006,-5.31006 -2.93221,0 -5.31006,2.37784 -5.31006,5.31006 z" fill="#57bbc4" style="display:inline;fill:#57bbc4;fill-opacity:1;stroke-width:1.10158"/>
+        </g>
+        <g id="group-2" style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke-width:1.03726" class="fuehlerpos4aktiv" transform="matrix(-1, 0, 0, 1, 1734.220363, 0.116795)">
+          <path style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke:#ffffff;stroke-width:0.841909;stroke-linecap:square;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" id="rect11-25-9-3" width="162.33273" height="61.68644" x="-3.2285924" y="-28.501883" rx="8.3226786" transform="matrix(0.61601868,0,0,-0.61601868,819.13538,348.69217)" d="M 5.0940862,-28.501883 H 150.78146 c 4.61077,0 8.32268,3.711915 8.32268,8.322679 v 45.041082 c 0,4.610764 -3.71191,8.322679 -8.32268,8.322679 H 5.0940862 c -4.61076396,0 -8.3226786,-3.711915 -8.3226786,-8.322679 v -45.041082 c 0,-4.610764 3.71191464,-8.322679 8.3226786,-8.322679 z" ry="8.3226786"/>
+          <text x="914.49408" y="-349.64514" font-size="25.9142px" fill="#ffffff" text-anchor="end" id="text2-8-0-6-5-3" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Arial;white-space:pre;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-dasharray:none;stroke-opacity:1" transform="scale(1,-1)"><tspan id="tspan60" class="fuehlerpos4soll" style="stroke-width:0">50.5</tspan>°C</text>
+          <text x="913.80658" y="-333.40146" font-size="25.9142px" fill="#ffffff" text-anchor="end" id="text2-8-0-0-77-0-8" style="font-size:16px;font-family:'Segoe UI', Arial, sans-serif;white-space:pre;display:inline;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-dasharray:none;stroke-opacity:1" transform="scale(1,-1)"><tspan style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Arial;-inkscape-font-specification:Arial;stroke-width:0;stroke-dasharray:none" id="tspan5-2-3-2" class="fuehlerpos4ist">45.0</tspan>°C</text>
+          <text x="820.67401" y="-349.80139" font-size="25.9142px" fill="#ffffff" id="text1-3-4-7-29-6-5" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Arial;white-space:pre;display:inline;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-dasharray:none;stroke-opacity:1" transform="scale(1,-1)"><tspan id="tspan16" class="fuehlerpos4solltext">Aus</tspan>:</text>
+          <text x="819.15839" y="-333.42099" font-size="25.9142px" fill="#ffffff" id="text1-3-4-1-9-0" style="font-size:20px;font-family:'Segoe UI', Arial, sans-serif;white-space:pre;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-dasharray:none;stroke-opacity:1" transform="scale(1,-1)"><tspan style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Arial;-inkscape-font-specification:Arial;stroke-width:0;stroke-dasharray:none" id="tspan3-9-2-3">Ist:</tspan></text>
+          <g id="g13-6-8-3-2" style="fill:#2f2f2f;fill-opacity:1;stroke:#ffffff;stroke-width:1.03726;stroke-opacity:1" transform="matrix(1.6859289,0,0,1.5672416,-593.44588,-131.39979)" class="fuehlerpos4sollaktiv">
+            <path style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke:#ffffff;stroke-width:1.90614;stroke-linecap:square;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" id="rect11-1-4-9" width="162.33273" height="61.68644" x="-3.2285924" y="-28.501883" d="M 5.0940862,-28.501883 H 150.78146 c 4.61077,0 8.32268,3.711915 8.32268,8.322679 v 45.041082 c 0,4.610764 -3.71191,8.322679 -8.32268,8.322679 H 5.0940862 c -4.61076396,0 -8.3226786,-3.711915 -8.3226786,-8.322679 v -45.041082 c 0,-4.610764 3.71191464,-8.322679 8.3226786,-8.322679 z" rx="8.3226786" transform="matrix(-0.36538829,0,0,-0.39305917,894.82036,306.32926)" ry="8.3226786"/>
+            <text x="881.92554" y="-301.89047" font-size="25.9142px" fill="#ffffff" text-anchor="end" id="text2-8-0-8-8-9-4-7" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.84311px;font-family:Arial;white-space:pre;display:inline;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-dasharray:none;stroke-opacity:1" transform="scale(1,-1)"><tspan class="fuehlerpos4ist" id="tspan7-8-0-5" style="font-size:9.84311px;stroke:#ffffff;stroke-width:0;stroke-opacity:1">50.5</tspan><tspan id="tspan8-2-5-3" style="font-size:9.84311px;stroke:#ffffff;stroke-width:0;stroke-opacity:1">°C</tspan></text>
+          </g>
+        </g>
+      </g>
+      <g id="g1" style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke-width:1.03726" transform="translate(-182.9285,79.956)" class="centralsoll">
+        <path style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke:#ffffff;stroke-width:0.841909;stroke-linecap:square;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" id="rect11-25-9-3-4" width="162.33273" height="61.68644" x="-3.2285924" y="-28.501883" rx="8.3226786" transform="matrix(-0.61601868,0,0,-0.61601868,915.15763,348.69217)" d="M 5.0940862,-28.501883 H 150.78146 c 4.61077,0 8.32268,3.711915 8.32268,8.322679 v 45.041082 c 0,4.610764 -3.71191,8.322679 -8.32268,8.322679 H 5.0940862 c -4.61076396,0 -8.3226786,-3.711915 -8.3226786,-8.322679 v -45.041082 c 0,-4.610764 3.71191464,-8.322679 8.3226786,-8.322679 z" ry="8.3226786"/>
+        <text x="-819.79895" y="-349.64514" font-size="25.9142px" fill="#ffffff" text-anchor="end" id="text2-8-0-6-5-3-5" style="font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 16px; font-family: Arial; fill: rgb(255, 255, 255); fill-opacity: 1; stroke: rgb(255, 255, 255); stroke-width: 0; stroke-dasharray: none; stroke-opacity: 1; white-space: pre;" transform="scale(-1)"><tspan id="tspan60-1" class="fuehlerSollEin" style="stroke-width:0">50.5</tspan>°C</text>
+        <text x="-820.48645" y="-333.40146" font-size="25.9142px" fill="#ffffff" text-anchor="end" id="text2-8-0-0-77-0-8-7" style="font-size: 16px; font-family: &quot;Segoe UI&quot;, Arial, sans-serif; display: inline; fill: rgb(255, 255, 255); fill-opacity: 1; stroke: rgb(255, 255, 255); stroke-width: 0; stroke-dasharray: none; stroke-opacity: 1; white-space: pre;" transform="scale(-1)"><tspan style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Arial;-inkscape-font-specification:Arial;stroke-width:0;stroke-dasharray:none" id="tspan5-2-3-2-1" class="fuehlersollaus">45.0</tspan>°C</text>
+        <text x="-913.61902" y="-349.80139" font-size="25.9142px" fill="#ffffff" id="text1-3-4-7-29-6-5-1" style="font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 16px; font-family: Arial; display: inline; fill: rgb(255, 255, 255); fill-opacity: 1; stroke: rgb(255, 255, 255); stroke-width: 0; stroke-dasharray: none; stroke-opacity: 1; white-space: pre;" transform="scale(-1)">Ein:</text>
+        <text x="-912.32996" y="-333.42099" font-size="25.9142px" fill="#ffffff" id="text1-3-4-1-9-0-5" style="font-size: 20px; font-family: &quot;Segoe UI&quot;, Arial, sans-serif; fill: rgb(255, 255, 255); fill-opacity: 1; stroke: rgb(255, 255, 255); stroke-width: 0; stroke-dasharray: none; stroke-opacity: 1; white-space: pre;" transform="scale(-1)"><tspan style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Arial;-inkscape-font-specification:Arial;stroke-width:0;stroke-dasharray:none" id="tspan3-9-2-3-2">Aus:</tspan></text>
+      </g>
+      <g>
+        <g id="g13-3-4" style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke-width:1.03726" class="fuehlerpos3aktiv" transform="matrix(1, 0, 0, 1, 0, -83.583345)">
+          <line id="Line 37_2-8-8-2-2-6" x1="789.85516" y1="347.24988" x2="746.08051" y2="347.24988" stroke="#ffffff" style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke-width:1.48909;stroke-dasharray:none"/>
+          <path style="fill:#2f2f2f;fill-opacity:1;stroke:#ffffff;stroke-width:1.03726;stroke-linecap:square;stroke-dasharray:1.03726, 3.11179;stroke-dashoffset:0;stroke-opacity:1" d="m 816.08049,347.24986 -26.22528,10e-6" id="path9-2-5-2"/>
+          <path id="circle48_2-1-7-3-8-1" class="fuehlerpos3colorfill" d="m 784.54514,347.24985 c 0,2.93222 2.37785,5.31006 5.31006,5.31006 2.93222,0 5.31006,-2.37784 5.31006,-5.31006 0,-2.93222 -2.37784,-5.31006 -5.31006,-5.31006 -2.93221,0 -5.31006,2.37784 -5.31006,5.31006 z" fill="#57bbc4" style="display:inline;fill:#57bbc4;fill-opacity:1;stroke-width:1.10158"/>
+        </g>
+        <g id="group-4" style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke-width:1.03726" class="fuehlerpos3aktiv" transform="matrix(-1, 0, 0, 1, 1734.220363, -83.466577)">
+          <path style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke:#ffffff;stroke-width:0.841909;stroke-linecap:square;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" id="rect11-25-9" width="162.33273" height="61.68644" x="-3.2285924" y="-28.501883" rx="8.3226786" transform="matrix(0.61601868,0,0,-0.61601868,819.13538,348.69217)" d="M 5.0940862,-28.501883 H 150.78146 c 4.61077,0 8.32268,3.711915 8.32268,8.322679 v 45.041082 c 0,4.610764 -3.71191,8.322679 -8.32268,8.322679 H 5.0940862 c -4.61076396,0 -8.3226786,-3.711915 -8.3226786,-8.322679 v -45.041082 c 0,-4.610764 3.71191464,-8.322679 8.3226786,-8.322679 z" ry="8.3226786"/>
+          <text x="914.49408" y="-349.64514" font-size="25.9142px" fill="#ffffff" text-anchor="end" id="text2-8-0-6-5" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Arial;white-space:pre;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-dasharray:none;stroke-opacity:1" transform="scale(1,-1)"><tspan id="tspan59" class="fuehlerpos3soll" style="stroke-width:0">50.5</tspan>°C</text>
+          <text x="913.80658" y="-333.40146" font-size="25.9142px" fill="#ffffff" text-anchor="end" id="text2-8-0-0-77-0" style="font-size:16px;font-family:'Segoe UI', Arial, sans-serif;white-space:pre;display:inline;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-dasharray:none;stroke-opacity:1" transform="scale(1,-1)"><tspan style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Arial;-inkscape-font-specification:Arial;stroke-width:0;stroke-dasharray:none" id="tspan5-2-3" class="fuehlerpos3ist">45.0</tspan>°C</text>
+          <text x="820.67401" y="-349.80139" font-size="25.9142px" fill="#ffffff" id="text1-3-4-7-29-6" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.3333px;font-family:Arial;white-space:pre;display:inline;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-dasharray:none;stroke-opacity:1" transform="scale(1,-1)"><tspan style="font-size:16px;stroke-width:0" id="tspan62" class="fuehlerpos3solltext">Aus</tspan>:</text>
+          <text x="819.15839" y="-333.42099" font-size="25.9142px" fill="#ffffff" id="text1-3-4-1-9" style="font-size:16px;font-family:'Segoe UI', Arial, sans-serif;white-space:pre;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-dasharray:none;stroke-opacity:1" transform="scale(1,-1)"><tspan style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Arial;-inkscape-font-specification:Arial;stroke-width:0;stroke-dasharray:none" id="tspan3-9-2">Ist:</tspan></text>
+          <g id="g13-6-8-3" style="fill: rgb(47, 47, 47); fill-opacity: 1; stroke: rgb(255, 255, 255); stroke-width: 1.03726; stroke-opacity: 1;" transform="matrix(1.6859289,0,0,1.5672416,-593.44588,-131.39979)" class="fuehlerpos3sollaktiv">
+            <path style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke:#ffffff;stroke-width:1.90614;stroke-linecap:square;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" id="rect11-1-4" width="162.33273" height="61.68644" x="-3.2285924" y="-28.501883" d="M 5.0940862,-28.501883 H 150.78146 c 4.61077,0 8.32268,3.711915 8.32268,8.322679 v 45.041082 c 0,4.610764 -3.71191,8.322679 -8.32268,8.322679 H 5.0940862 c -4.61076396,0 -8.3226786,-3.711915 -8.3226786,-8.322679 v -45.041082 c 0,-4.610764 3.71191464,-8.322679 8.3226786,-8.322679 z" rx="8.3226786" transform="matrix(-0.36538829,0,0,-0.39305917,894.82036,306.32926)" ry="8.3226786"/>
+            <text x="881.43433" y="-301.88602" font-size="25.9142px" fill="#ffffff" text-anchor="end" id="text2-8-0-8-8-9-4" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.84311px;font-family:Arial;white-space:pre;display:inline;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-dasharray:none;stroke-opacity:1" transform="scale(1,-1)"><tspan class="fuehlerpos3ist" id="tspan7-8-0" style="font-size:9.84311px;stroke:#ffffff;stroke-width:0;stroke-opacity:1">50.5</tspan><tspan id="tspan8-2-5" style="font-size:9.84311px;stroke:#ffffff;stroke-width:0;stroke-opacity:1">°C</tspan></text>
+          </g>
+        </g>
+      </g>
+      <g>
+        <g id="g13-3" style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke-width:1.03726" class="fuehlerpos2aktiv" transform="matrix(1, 0, 0, 1, 0, -166.666659)">
+          <line id="Line 37_2-8-8-2-2" x1="789.85516" y1="347.24988" x2="746.08051" y2="347.24988" stroke="#ffffff" style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke-width:1.48909;stroke-dasharray:none"/>
+          <path style="fill:#2f2f2f;fill-opacity:1;stroke:#ffffff;stroke-width:1.03726;stroke-linecap:square;stroke-dasharray:1.03726, 3.11179;stroke-dashoffset:0;stroke-opacity:1" d="m 816.08049,347.24986 -26.22528,10e-6" id="path9-2-5"/>
+          <path id="circle48_2-1-7-3-8" class="fuehlerpos2colorfill" d="m 784.54514,347.24985 c 0,2.93222 2.37785,5.31006 5.31006,5.31006 2.93222,0 5.31006,-2.37784 5.31006,-5.31006 0,-2.93222 -2.37784,-5.31006 -5.31006,-5.31006 -2.93221,0 -5.31006,2.37784 -5.31006,5.31006 z" fill="#57bbc4" style="display:inline;fill:#57bbc4;fill-opacity:1;stroke-width:1.10158"/>
+        </g>
+        <g id="group-5" style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke-width:1.03726" class="fuehlerpos2aktiv" transform="matrix(-1, 0, 0, 1, 1734.220363, -166.549899)">
+          <path style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke:#ffffff;stroke-width:0.841909;stroke-linecap:square;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" id="rect11-25" width="162.33273" height="61.68644" x="-3.2285924" y="-28.501883" rx="8.3226786" transform="matrix(0.61601868,0,0,-0.61601868,819.13538,348.69217)" d="M 5.0940862,-28.501883 H 150.78146 c 4.61077,0 8.32268,3.711915 8.32268,8.322679 v 45.041082 c 0,4.610764 -3.71191,8.322679 -8.32268,8.322679 H 5.0940862 c -4.61076396,0 -8.3226786,-3.711915 -8.3226786,-8.322679 v -45.041082 c 0,-4.610764 3.71191464,-8.322679 8.3226786,-8.322679 z" ry="8.3226786"/>
+          <text x="914.49408" y="-349.64514" font-size="25.9142px" fill="#ffffff" text-anchor="end" id="text2-8-0-6" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Arial;white-space:pre;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-dasharray:none;stroke-opacity:1" transform="scale(1,-1)"><tspan id="tspan58" class="fuehlerpos2soll" style="stroke-width:0">50.5</tspan>°C</text>
+          <text x="913.80658" y="-333.40146" font-size="25.9142px" fill="#ffffff" text-anchor="end" id="text2-8-0-0-77" style="font-size:16px;font-family:'Segoe UI', Arial, sans-serif;white-space:pre;display:inline;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-dasharray:none;stroke-opacity:1" transform="scale(1,-1)"><tspan style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Arial;-inkscape-font-specification:Arial;stroke-width:0;stroke-dasharray:none" id="tspan5-2" class="fuehlerpos2ist">45.0</tspan>°C</text>
+          <text x="820.67401" y="-349.80139" font-size="25.9142px" fill="#ffffff" id="text1-3-4-7-29" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.3333px;font-family:Arial;white-space:pre;display:inline;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-dasharray:none;stroke-opacity:1" transform="scale(1,-1)"><tspan style="font-size:16px;stroke-width:0" id="tspan63" class="fuehlerpos2solltext">Ein</tspan>:</text>
+          <text x="820.44745" y="-333.42099" font-size="25.9142px" fill="#ffffff" id="text1-3-4-1" style="font-size:20px;font-family:'Segoe UI', Arial, sans-serif;white-space:pre;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-dasharray:none;stroke-opacity:1" transform="scale(1,-1)"><tspan style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Arial;-inkscape-font-specification:Arial;stroke-width:0;stroke-dasharray:none" id="tspan3-9">Ist:</tspan></text>
+          <g id="g13-6-8" style="fill:#2f2f2f;fill-opacity:1;stroke:#ffffff;stroke-width:1.03726;stroke-opacity:1" transform="matrix(1.6859289,0,0,1.5672416,-593.44588,-131.39979)" class="fuehlerpos2sollaktiv">
+            <path style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke:#ffffff;stroke-width:1.90614;stroke-linecap:square;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" id="rect11-1" width="162.33273" height="61.68644" x="-3.2285924" y="-28.501883" d="M 5.0940862,-28.501883 H 150.78146 c 4.61077,0 8.32268,3.711915 8.32268,8.322679 v 45.041082 c 0,4.610764 -3.71191,8.322679 -8.32268,8.322679 H 5.0940862 c -4.61076396,0 -8.3226786,-3.711915 -8.3226786,-8.322679 v -45.041082 c 0,-4.610764 3.71191464,-8.322679 8.3226786,-8.322679 z" rx="8.3226786" transform="matrix(-0.36538829,0,0,-0.39305917,894.82036,306.32926)" ry="8.3226786"/>
+            <text x="881.43433" y="-301.88602" font-size="25.9142px" fill="#ffffff" text-anchor="end" id="text2-8-0-8-8-9" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.84311px;font-family:Arial;white-space:pre;display:inline;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-dasharray:none;stroke-opacity:1" transform="scale(1,-1)"><tspan class="fuehlerpos2ist" id="tspan7-8" style="font-size:9.84311px;stroke:#ffffff;stroke-width:0;stroke-opacity:1">50.5</tspan><tspan id="tspan8-2" style="font-size:9.84311px;stroke:#ffffff;stroke-width:0;stroke-opacity:1">°C</tspan></text>
+          </g>
+        </g>
+      </g>
+      <g>
+        <g id="g13-3-4-1" style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke-width:1.03726" class="fuehlerpos1aktiv" transform="matrix(1, 0, 0, 1, -0.06248, -249.999958)">
+          <line id="Line 37_2-8-8-2-2-6-1" x1="789.85516" y1="347.24988" x2="746.08051" y2="347.24988" stroke="#ffffff" style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke-width:1.48909;stroke-dasharray:none"/>
+          <path style="fill:#2f2f2f;fill-opacity:1;stroke:#ffffff;stroke-width:1.03726;stroke-linecap:square;stroke-dasharray:1.03726, 3.11179;stroke-dashoffset:0;stroke-opacity:1" d="m 816.08049,347.24986 -26.22528,10e-6" id="path9-2-5-2-3"/>
+          <path id="circle48_2-1-7-3-8-1-5" class="fuehlerpos1colorfill" d="m 784.54514,347.24985 c 0,2.93222 2.37785,5.31006 5.31006,5.31006 2.93222,0 5.31006,-2.37784 5.31006,-5.31006 0,-2.93222 -2.37784,-5.31006 -5.31006,-5.31006 -2.93221,0 -5.31006,2.37784 -5.31006,5.31006 z" fill="#57bbc4" style="display:inline;fill:#57bbc4;fill-opacity:1;stroke-width:1.10158"/>
+        </g>
+        <g id="group-6" style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke-width:1.03726" class="fuehlerpos1aktiv" transform="matrix(-1, 0, 0, 1, 1734.282863, -249.883213)">
+          <path style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke:#ffffff;stroke-width:0.841909;stroke-linecap:square;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" id="rect11-25-9-2" width="162.33273" height="61.68644" x="-3.2285924" y="-28.501883" rx="8.3226786" transform="matrix(0.61601868,0,0,-0.61601868,819.13538,348.69217)" d="M 5.0940862,-28.501883 H 150.78146 c 4.61077,0 8.32268,3.711915 8.32268,8.322679 v 45.041082 c 0,4.610764 -3.71191,8.322679 -8.32268,8.322679 H 5.0940862 c -4.61076396,0 -8.3226786,-3.711915 -8.3226786,-8.322679 v -45.041082 c 0,-4.610764 3.71191464,-8.322679 8.3226786,-8.322679 z" ry="8.3226786"/>
+          <text x="914.49408" y="-349.64514" font-size="25.9142px" fill="#ffffff" text-anchor="end" id="text2-8-0-6-5-35" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Arial;white-space:pre;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-dasharray:none;stroke-opacity:1" transform="scale(1,-1)"><tspan id="tspan56" class="fuehlerpos1soll" style="stroke-width:0">50.5</tspan><tspan id="tspan57" style="stroke-width:0">°C</tspan></text>
+          <text x="913.80658" y="-333.40146" font-size="25.9142px" fill="#ffffff" text-anchor="end" id="text2-8-0-0-77-0-1" style="font-size:16px;font-family:'Segoe UI', Arial, sans-serif;white-space:pre;display:inline;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-dasharray:none;stroke-opacity:1" transform="scale(1,-1)"><tspan style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Arial;-inkscape-font-specification:Arial;stroke-width:0;stroke-dasharray:none" id="tspan5-2-3-22" class="fuehlerpos1ist">45.0</tspan>°C</text>
+          <text x="820.67401" y="-349.80139" font-size="25.9142px" fill="#ffffff" id="text1-3-4-7-29-6-2" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.3333px;font-family:Arial;white-space:pre;display:inline;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-dasharray:none;stroke-opacity:1" transform="scale(1,-1)"><tspan style="font-size:16px;stroke-width:0" id="tspan65" class="fuehlerpos1solltext">Ein</tspan>:</text>
+          <text x="820.44745" y="-333.42099" font-size="25.9142px" fill="#ffffff" id="text1-3-4-1-9-4" style="font-size:20px;font-family:'Segoe UI', Arial, sans-serif;white-space:pre;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-dasharray:none;stroke-opacity:1" transform="scale(1,-1)"><tspan style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Arial;-inkscape-font-specification:Arial;stroke-width:0;stroke-dasharray:none" id="tspan3-9-2-0">Ist:</tspan></text>
+          <g id="g13-6-8-3-3" style="fill:#2f2f2f;fill-opacity:1;stroke:#ffffff;stroke-width:1.03726;stroke-opacity:1" transform="matrix(1.6859289,0,0,1.5672416,-593.44588,-131.39979)" class="fuehlerpos1sollaktiv">
+            <path style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke:#ffffff;stroke-width:1.90614;stroke-linecap:square;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" id="rect11-1-4-4" width="162.33273" height="61.68644" x="-3.2285924" y="-28.501883" d="M 5.0940862,-28.501883 H 150.78146 c 4.61077,0 8.32268,3.711915 8.32268,8.322679 v 45.041082 c 0,4.610764 -3.71191,8.322679 -8.32268,8.322679 H 5.0940862 c -4.61076396,0 -8.3226786,-3.711915 -8.3226786,-8.322679 v -45.041082 c 0,-4.610764 3.71191464,-8.322679 8.3226786,-8.322679 z" rx="8.3226786" transform="matrix(-0.36538829,0,0,-0.39305917,894.82036,306.32926)" ry="8.3226786"/>
+            <text x="881.43433" y="-301.88602" font-size="25.9142px" fill="#ffffff" text-anchor="end" id="text2-8-0-8-8-9-4-0" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.84311px;font-family:Arial;white-space:pre;display:inline;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-dasharray:none;stroke-opacity:1" transform="scale(1,-1)"><tspan class="fuehlerpos1ist" id="tspan7-8-0-0" style="font-size:9.84311px;stroke:#ffffff;stroke-width:0;stroke-opacity:1">50.5</tspan><tspan id="tspan8-2-5-5" style="font-size:9.84311px;stroke:#ffffff;stroke-width:0;stroke-opacity:1">°C</tspan></text>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+  <g id="g17-1" transform="translate(429.6665,239.71241)" style="display:inline" class="ele2aktiv">
+    <g id="EL. Einsatz-1" transform="translate(-445.16649,-161.48316)" style="display:inline;fill:#2f2f2f;fill-opacity:1" class="eleinsatzaktiv">
+      <path id="Vector_58-3" d="m 893.63049,423.20925 h -29.067" stroke="#ffffff" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round"/>
+      <path id="Vector_59-8" d="m 864.56449,423.20925 -42.267,25.947" stroke="#ffffff" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round"/>
+      <path id="Vector_60-7" d="m 893.63049,414.92625 h -29.067" stroke="#ffffff" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round"/>
+      <path id="Vector_61-4" d="m 864.56349,414.91625 -55.04,34.24" stroke="#ffffff" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round"/>
+      <path id="Vector_62-2" d="m 893.63049,406.64225 h -29.067" stroke="#ffffff" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round"/>
+      <path id="Vector_63-7" d="m 864.56649,406.63625 -67.733,42.52" stroke="#ffffff" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round"/>
+      <path id="Rectangle 2-7" d="m 917.99999,403.12844 v 24 h -24 v -24 z" fill="#ff02e6" stroke="#ffffff" stroke-width="2" class="eleinsatzsp1colorfill"/>
+      <path id="Vector_64-9" d="m 903.00049,421.80325 2.666,-5 -5.333,-0.667 8,-7.667 h 1.333 l -2.666,5 5.333,0.667 -8,7.667 z m 3.7,-4.117 2.683,-2.567 -4.483,-0.566 1.05,-1.95 -2.667,2.566 4.467,0.55 z" fill="#e8eaed"/>
+    </g>
+  </g>
+  <path style="fill:none;stroke:#ffffff;stroke-width:3;stroke-linecap:square;stroke-dasharray:none;stroke-opacity:1" d="m 139.5,528.449 v -330" id="path44"/>
+  <path style="display:inline;fill:none;stroke:#ffffff;stroke-width:3;stroke-linecap:square" d="m 1239.5,198.449 -320,0.0172" id="path15"/>
+</svg>

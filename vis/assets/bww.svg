@@ -1,0 +1,2488 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 1024 600"
+   version="1.1"
+   id="svg42"
+   sodipodi:docname="250701_BWW - neuv2.svg"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25, custom)"
+   xml:space="preserve"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:bx="https://boxy-svg.com">
+   
+	<ycontrol>
+   	<!-- Zeile 1 -->	
+		<property name="Zeile1" datatype="String" defaultvalue="Gebäude xxx">
+			<target type="Content" element="zeile1" />
+		</property>
+		
+   	<!-- Zeile 2 -->	
+		<property name="Zeile2" datatype="String" defaultvalue="Brauchwarmwasser">
+			<target type="Content" element="zeile2" />
+		</property>
+		
+   	<!-- Zeitprogramm -->
+        <property name="ZpEinblenden" datatype="boolean" defaultvalue="true">
+
+        	<target type="Attribute" element="zpaktiv" selector="opacity">
+        		<condition eq="true" output="1" />
+        		<condition eq="false" output="0" />
+       		</target>
+		</property>
+
+   	<!-- Temperatur -->
+        <property name="TemperaturEinblenden" datatype="boolean" defaultvalue="true">
+
+        	<target type="Attribute" element="tempaktiv" selector="opacity">
+        		<condition eq="true" output="1" />
+        		<condition eq="false" output="0" />
+       		</target>
+		</property>
+		
+    <!-- Ladung -->
+        <property name="Magroladung" datatype="Int8" defaultvalue="0">
+        	<target type="Attribute" element="magroaktiv" selector="opacity">
+        		<condition eq="0" output="0" />
+        		<condition eq="1" output="0" />
+            <condition gt="1" output="1" />
+       		</target>
+       		<target type="Attribute" element="registereinsatzaktiv" selector="opacity">
+        		<condition eq="0" output="1" />
+        		<condition eq="1" output="1" />
+            <condition gt="1" output="0" />
+       		</target>
+		</property>
+		
+   	<!-- Plattentauscher -->
+        <property name="PlattentauscherEinblenden" datatype="Int8" defaultvalue="0">
+
+        	<target type="Attribute" element="plattentauscheraktiv" selector="opacity">
+        		<condition eq="0" output="0" />
+        		<condition eq="1" output="0" />
+            <condition eq="2" output="1" />
+            <condition eq="3" output="0" />
+       		</target>
+		</property>
+		
+    <!-- Magro Ventil -->
+        <property name="MagroVentilEinbelnden" datatype="Int8" defaultvalue="0">
+        	<target type="Attribute" element="magroventilaktiv" selector="opacity">
+        		<condition eq="0" output="0" />
+        		<condition eq="1" output="0" />
+            <condition eq="2" output="1" />
+            <condition eq="3" output="1" />
+       		</target>
+		</property>
+        <property name="MagroVentilWert" datatype="Int16" defaultvalue="-1">
+
+		    <target type="Content" element="ventilist" />    		
+		</property>
+        <property name="VentilStatus" datatype="Int16" defaultvalue="99">
+          <target type="Style" element="magroventilcolorfill" selector="fill">
+       			<condition gt="100" output="red" />
+       			<condition gte="1" output="green" />
+       			<condition eq="0" output="black" />
+       			<condition lt="0" output="red" />
+       		</target>
+       		 <target type="Style" element="magroventilcolorfill" selector="stroke">
+       			<condition eq="99" output="#18c6c9" />
+       			<condition lt="10" output="white" />
+       			<condition lt="20" output="blue" />
+       			<condition lt="30" output="orange" />
+       		</target>
+		</property>
+    <!-- Elektroeinsatz -->
+        <property name="ElEinsatzEinbelnden" datatype="boolean" defaultvalue="true">
+        	<target type="Attribute" element="eleinsatzaktiv" selector="opacity">
+        		<condition eq="true" output="1" />
+        		<condition eq="false" output="0" />
+       		</target>
+		</property>
+		
+        <property name="ElEinsatzStatus" datatype="Int16" defaultvalue="99">
+        	<target type="Style" element="eleinsatzcolorfill" selector="fill">
+       			<condition eq="99" output="#f542ef" />
+       			<condition eq="0" output="black" />
+       			<condition eq="1" output="green" />
+       			<condition eq="2" output="red" />
+       			<condition eq="10" output="black" />
+       			<condition eq="11" output="green" />
+       			<condition eq="12" output="red" />
+       			<condition eq="20" output="black" />
+       			<condition eq="21" output="green" />
+       			<condition eq="22" output="red" />
+       		</target>
+       		 <target type="Style" element="eleinsatzcolorfill" selector="stroke">
+       			<condition eq="99" output="#18c6c9" />
+       			<condition lt="10" output="white" />
+       			<condition lt="20" output="blue" />
+       			<condition lt="30" output="orange" />
+       		</target>
+        	<target type="Content" element="eleinsatztext">
+       			<condition eq="99" output="unbekannt" />
+       			<condition eq="0" output="Aus" />
+       			<condition eq="1" output="Ein" />
+       			<condition eq="2" output="Störung" />
+       			<condition eq="10" output="Hand Aus" />
+       			<condition eq="11" output="Hand Ein" />
+       			<condition eq="12" output="Störung" />
+       			<condition eq="20" output="Schalter Aus" />
+       			<condition eq="21" output="Schalter Ein" />
+       			<condition eq="22" output="Störung" />
+       		</target>
+		</property>
+
+
+<!-- Sollwert -->
+ 		<property name="SollwertEin" datatype="Int16" defaultvalue="0">
+			<target type="Content" element="fuehlersollein" />
+		</property>
+
+ 		<property name="SollwertAus" datatype="Int16" defaultvalue="0">
+			<target type="Content" element="fuehlersollaus" />
+		</property>
+
+<!-- Fühler Pos 1 -->
+    <property name="FühlerPos1Einblenden" datatype="boolean" defaultvalue="true">
+        	<target type="Attribute" element="fuehlerpos1aktiv" selector="opacity">
+        		<condition eq="true" output="1" />
+        		<condition eq="false" output="0" />
+       		</target>
+		</property>
+  
+    <property name="FühlerPos1SollEinblenden" datatype="boolean" defaultvalue="true">
+        	<target type="Attribute" element="fuehlerpos1sollaktiv" selector="opacity">
+        		<condition eq="true" output="0" />
+        		<condition eq="false" output="1" />
+       		</target>
+		</property>
+
+		<property name="FühlerPos1Ist" datatype="Int16" defaultvalue="0">
+		    <target type="Content" element="fuehlerpos1ist" />
+			<target type="Style" element="fuehlerpos1colorfill" selector="fill">
+       			<condition gt="100" output="red" />
+       			<condition gte="1" output="green" />
+       			<condition lte="0" output="red" />
+       			</target>
+		 </property>
+
+
+<!-- Fühler Pos 2 -->
+    <property name="FühlerPos2Einblenden" datatype="boolean" defaultvalue="true">
+        	<target type="Attribute" element="fuehlerpos2aktiv" selector="opacity">
+        		<condition eq="true" output="1" />
+        		<condition eq="false" output="0" />
+       		</target>
+		</property>
+  
+    <property name="FühlerPos2SollEinblenden" datatype="boolean" defaultvalue="true">
+        	<target type="Attribute" element="fuehlerpos2sollaktiv" selector="opacity">
+        		<condition eq="true" output="0" />
+        		<condition eq="false" output="1" />
+       		</target>
+		</property>
+
+		<property name="FühlerPos2Ist" datatype="Int16" defaultvalue="0">
+		    <target type="Content" element="fuehlerpos2ist" />
+			<target type="Style" element="fuehlerpos2colorfill" selector="fill">
+       			<condition gt="100" output="red" />
+       			<condition gte="1" output="green" />
+       			<condition lte="0" output="red" />
+       			</target>
+		 </property>
+
+<!-- Fühler Pos 3 -->
+    <property name="FühlerPos3Einblenden" datatype="boolean" defaultvalue="true">
+        	<target type="Attribute" element="fuehlerpos3aktiv" selector="opacity">
+        		<condition eq="true" output="1" />
+        		<condition eq="false" output="0" />
+       		</target>
+		</property>
+
+    <property name="FühlerPos3SollEinblenden" datatype="boolean" defaultvalue="true">
+        	<target type="Attribute" element="fuehlerpos3sollaktiv" selector="opacity">
+        		<condition eq="true" output="0" />
+        		<condition eq="false" output="1" />
+       		</target>
+		</property>
+
+		<property name="FühlerPos3Ist" datatype="Int16" defaultvalue="0">
+		    <target type="Content" element="fuehlerpos3ist" />
+			<target type="Style" element="fuehlerpos3colorfill" selector="fill">
+       			<condition gt="100" output="red" />
+       			<condition gte="1" output="green" />
+       			<condition lte="0" output="red" />
+       			</target>
+		 </property>
+
+
+<!-- Fühler Pos 4 -->
+    <property name="FühlerPos4Einblenden" datatype="boolean" defaultvalue="true">
+        	<target type="Attribute" element="fuehlerpos4aktiv" selector="opacity">
+        		<condition eq="true" output="1" />
+        		<condition eq="false" output="0" />
+       		</target>
+		</property>
+
+    <property name="FühlerPos4SollEinblenden" datatype="boolean" defaultvalue="true">
+        	<target type="Attribute" element="fuehlerpos4sollaktiv" selector="opacity">
+        		<condition eq="true" output="0" />
+        		<condition eq="false" output="1" />
+       		</target>
+		</property>
+
+		<property name="FühlerPos4Ist" datatype="Int16" defaultvalue="0">
+		    <target type="Content" element="fuehlerpos4ist" />
+			<target type="Style" element="fuehlerpos4colorfill" selector="fill">
+       			<condition gt="100" output="red" />
+       			<condition gte="1" output="green" />
+       			<condition lte="0" output="red" />
+       			</target>
+		 </property>
+
+    <!-- FuehlerSpeicherVl-->	
+        <property name="FuehlerSpeicherVlEinblenden" datatype="boolean" defaultvalue="true">
+        	<target type="Attribute" element="fuehlerspeichervlaktiv" selector="opacity">
+        		<condition eq="true" output="1" />
+        		<condition eq="false" output="0" />
+       		</target>
+		</property>
+		<property name="FuehlerSpeicherVlIst" datatype="Int16" defaultvalue="0">
+		    <target type="Content" element="fuehlerspeichervlist" />
+			<target type="Style" element="fuehlerspeichervlcolorfill" selector="fill">
+       			<condition gt="100" output="red" />
+       			<condition gte="1" output="green" />
+       			<condition lte="0" output="red" />
+       			</target>
+		</property>		
+   
+		
+    <!-- FuehlerSpeicherRl-->	
+        <property name="FuehlerSpeicherRlEinblenden" datatype="boolean" defaultvalue="true">
+        	<target type="Attribute" element="fuehlerspeicherrlaktiv" selector="opacity">
+        		<condition eq="true" output="1" />
+        		<condition eq="false" output="0" />
+       		</target>
+		</property>
+		<property name="FuehlerSpeicherRlIst" datatype="Int16" defaultvalue="0">
+		    <target type="Content" element="fuehlerspeicherrlist" />
+			<target type="Style" element="fuehlerspeicherrlcolorfill" selector="fill">
+       			<condition gt="100" output="red" />
+       			<condition gte="1" output="green" />
+       			<condition lte="0" output="red" />
+       			</target>
+		</property>
+
+    <!-- Fuehler BE Eintritt-->	
+        <property name="FuehlerBeEintrittEinblenden" datatype="boolean" defaultvalue="true">
+        	<target type="Attribute" element="fuehlerbeeinaktiv" selector="opacity">
+        		<condition eq="true" output="1" />
+        		<condition eq="false" output="0" />
+       		</target>
+		</property>
+		<property name="FuehlerBeEintrittIst" datatype="Int16" defaultvalue="0">
+		    <target type="Content" element="fuehlerbeeinist" />
+			<target type="Style" element="fuehlerbeeincolorfill" selector="fill">
+       			<condition gt="100" output="red" />
+       			<condition gte="1" output="green" />
+       			<condition lte="0" output="red" />
+       			</target>
+		</property>
+
+    <!-- Fuehler BE Austritt-->	
+        <property name="FuehlerBeAustrittEinblenden" datatype="boolean" defaultvalue="true">
+        	<target type="Attribute" element="fuehlerbeausaktiv" selector="opacity">
+        		<condition eq="true" output="1" />
+        		<condition eq="false" output="0" />
+       		</target>
+		</property>
+		<property name="FuehlerBeAustrittIst" datatype="Int16" defaultvalue="0">
+		    <target type="Content" element="fuehlerbeausist" />
+			<target type="Style" element="fuehlerbeauscolorfill" selector="fill">
+       			<condition gt="100" output="red" />
+       			<condition gte="1" output="green" />
+       			<condition lte="0" output="red" />
+       			</target>
+		</property>
+
+    <!-- Lade Pumpe oder PT Pumpe -->
+        <property name="LadePumpeEinblenden" datatype="boolean" defaultvalue="true">
+        	<target type="Attribute" element="ladepumpaktiv" selector="opacity">
+        		<condition eq="true" output="1" />
+        		<condition eq="false" output="0" />
+       		</target>
+		</property>
+        <property name="LadePumpeStatus" datatype="Int8" defaultvalue="99">
+        	<target type="Content" element="ladepumpeist">
+       			<condition eq="99" output="unbekannt" />
+       			<condition eq="0" output="Auto Aus" />
+       			<condition eq="1" output="Auto Ein" />
+       			<condition eq="2" output="Störung" />
+       			<condition eq="20" output="Hand Aus" />
+       			<condition eq="21" output="Hand Ein" />
+       			<condition eq="22" output="Störung" />
+       		</target>
+        	<target type="Style" element="ladepumpcolorfill" selector="fill">
+       			<condition eq="99" output="#f542ef" />
+       			<condition eq="0" output="black" />
+       			<condition eq="1" output="green" />
+       			<condition eq="2" output="red" />
+       			<condition eq="20" output="black" />
+       			<condition eq="21" output="green" />
+       			<condition eq="22" output="red" />
+       		</target>
+       		 <target type="Style" element="ladepumpcolorfill" selector="stroke">
+       			<condition eq="99" output="#18c6c9" />
+       			<condition lt="3" output="white" />
+       			<condition lt="23" output="blue" />
+       		</target>
+       		 <target type="Style" element="ladepumpcolorstroke" selector="fill">
+       			<condition eq="99" output="#18c6c9" />
+       			<condition lt="3" output="white" />
+       			<condition lt="23" output="blue" />
+       		</target>
+		</property>
+  
+    <!-- PT Pumpe Sek-->
+        <property name="PtSekPumpeEinblenden" datatype="boolean" defaultvalue="true">
+        	<target type="Attribute" element="ptsekpumpaktiv" selector="opacity">
+        		<condition eq="true" output="1" />
+        		<condition eq="false" output="0" />
+       		</target>
+		</property>
+        <property name="PtSekPumpeStatus" datatype="Int8" defaultvalue="99">
+        	<target type="Content" element="ptsekpumpeist">
+       			<condition eq="99" output="unbekannt" />
+       			<condition eq="0" output="Auto Aus" />
+       			<condition eq="1" output="Auto Ein" />
+       			<condition eq="2" output="Störung" />
+       			<condition eq="20" output="Hand Aus" />
+       			<condition eq="21" output="Hand Ein" />
+       			<condition eq="22" output="Störung" />
+       		</target>
+        	<target type="Style" element="ptsekpumpcolorfill" selector="fill">
+       			<condition eq="99" output="#f542ef" />
+       			<condition eq="0" output="black" />
+       			<condition eq="1" output="green" />
+       			<condition eq="2" output="red" />
+       			<condition eq="20" output="black" />
+       			<condition eq="21" output="green" />
+       			<condition eq="22" output="red" />
+       		</target>
+       		 <target type="Style" element="ptsekpumpcolorfill" selector="stroke">
+       			<condition eq="99" output="#18c6c9" />
+       			<condition lt="3" output="white" />
+       			<condition lt="23" output="blue" />
+       		</target>
+       		 <target type="Style" element="ptsekpumpcolorstroke" selector="fill">
+       			<condition eq="99" output="#18c6c9" />
+       			<condition lt="3" output="white" />
+       			<condition lt="23" output="blue" />
+       		</target>
+		</property>
+
+    <!-- Zirkulations Pumpe-->
+        <property name="ZirkPumpeEinblenden" datatype="boolean" defaultvalue="true">
+        	<target type="Attribute" element="zirkpumpaktiv" selector="opacity">
+        		<condition eq="true" output="1" />
+        		<condition eq="false" output="0" />
+       		</target>
+		</property>
+        <property name="ZirkPumpeStatus" datatype="Int8" defaultvalue="99">
+        	<target type="Content" element="zirkpumpeist">
+       			<condition eq="99" output="unbekannt" />
+       			<condition eq="0" output="Auto Aus" />
+       			<condition eq="1" output="Auto Ein" />
+       			<condition eq="2" output="Störung" />
+       			<condition eq="20" output="Hand Aus" />
+       			<condition eq="21" output="Hand Ein" />
+       			<condition eq="22" output="Störung" />
+       		</target>
+        	<target type="Style" element="zirkpumpcolorfill" selector="fill">
+       			<condition eq="99" output="#f542ef" />
+       			<condition eq="0" output="black" />
+       			<condition eq="1" output="green" />
+       			<condition eq="2" output="red" />
+       			<condition eq="20" output="black" />
+       			<condition eq="21" output="green" />
+       			<condition eq="22" output="red" />
+       		</target>
+       		 <target type="Style" element="zirkpumpcolorfill" selector="stroke">
+       			<condition eq="99" output="#18c6c9" />
+       			<condition lt="3" output="white" />
+       			<condition lt="23" output="blue" />
+       		</target>
+       		 <target type="Style" element="zirkpumpcolorstroke" selector="fill">
+       			<condition eq="99" output="#18c6c9" />
+       			<condition lt="3" output="white" />
+       			<condition lt="23" output="blue" />
+       		</target>
+		</property>
+
+    <!-- Quellen Pumpe-->
+        <property name="QuellPumpeEinblenden" datatype="boolean" defaultvalue="true">
+        	<target type="Attribute" element="quellpumpaktiv" selector="opacity">
+        		<condition eq="true" output="1" />
+        		<condition eq="false" output="0" />
+       		</target>
+		</property>
+        <property name="QuellPumpeStatus" datatype="Int8" defaultvalue="99">
+        	<target type="Content" element="quellpumpeist">
+       			<condition eq="99" output="unbekannt" />
+       			<condition eq="0" output="Auto Aus" />
+       			<condition eq="1" output="Auto Ein" />
+       			<condition eq="2" output="Störung" />
+       			<condition eq="20" output="Hand Aus" />
+       			<condition eq="21" output="Hand Ein" />
+       			<condition eq="22" output="Störung" />
+       		</target>
+        	<target type="Style" element="quellpumpcolorfill" selector="fill">
+       			<condition eq="99" output="#f542ef" />
+       			<condition eq="0" output="black" />
+       			<condition eq="1" output="green" />
+       			<condition eq="2" output="red" />
+       			<condition eq="20" output="black" />
+       			<condition eq="21" output="green" />
+       			<condition eq="22" output="red" />
+       		</target>
+       		 <target type="Style" element="quellpumpcolorfill" selector="stroke">
+       			<condition eq="99" output="#18c6c9" />
+       			<condition lt="3" output="white" />
+       			<condition lt="23" output="blue" />
+       		</target>
+       		 <target type="Style" element="quellpumpcolorstroke" selector="fill">
+       			<condition eq="99" output="#18c6c9" />
+       			<condition lt="3" output="white" />
+       			<condition lt="23" output="blue" />
+       		</target>
+		</property>
+
+        <property name="LwwEinblenden" datatype="boolean" defaultvalue="false">
+        	<target type="Attribute" element="lwwaktiv" selector="opacity">
+        		<condition eq="true" output="1" />
+        		<condition eq="false" output="0" />
+       		</target>
+		</property>
+
+        <property name="BeEinblenden" datatype="boolean" defaultvalue="false">
+        	<target type="Attribute" element="beaktiv" selector="opacity">
+        		<condition eq="true" output="1" />
+        		<condition eq="false" output="0" />
+       		</target>
+		</property>
+
+    <!-- Zirkulations Ventil -->
+        <property name="ZirkulationVentilEinbelnden" datatype="boolean" defaultvalue="true">
+        	<target type="Attribute" element="zirkulationventilaktiv" selector="opacity">
+        		<condition eq="true" output="1" />
+        		<condition eq="false" output="0" />
+       		</target>
+		</property>
+        <property name="ZirkulationVentilWert" datatype="Int16" defaultvalue="-1">
+
+		    <target type="Content" element="zirkulationventilist" />    		
+		</property>
+        <property name="ZirkulationVentilStatus" datatype="Int16" defaultvalue="99">
+          <target type="Style" element="zirkulationventilcolorfill" selector="fill">
+       			<condition gt="100" output="red" />
+       			<condition gte="1" output="green" />
+       			<condition eq="0" output="black" />
+       			<condition lt="0" output="red" />
+       		</target>
+       		 <target type="Style" element="zirkulationventilcolorfill" selector="stroke">
+       			<condition eq="99" output="#18c6c9" />
+       			<condition lt="10" output="white" />
+       			<condition lt="20" output="blue" />
+       			<condition lt="30" output="orange" />
+       		</target>
+		</property>
+		
+    <!-- Click -->		
+		<action name="Zeitprogramm Click" triggers="click" elements="zpaktiv" />
+		<action name="Temperatur Click" triggers="click" elements="tempaktiv" />
+		<action name="Ventil Click" triggers="click" elements="ventilaktiv" />
+		<action name="Pumpe Click" triggers="click" elements="pumpaktiv" />
+		<action name="El. Einsatz Click" triggers="click" elements="elaktiv" />
+	
+	</ycontrol>
+   
+   
+   <sodipodi:namedview
+     id="namedview42"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showguides="false"
+     inkscape:zoom="2.0000001"
+     inkscape:cx="732.49998"
+     inkscape:cy="349.74999"
+     inkscape:window-width="1920"
+     inkscape:window-height="1009"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g23-8-77-51"
+     showgrid="false"><inkscape:grid
+       id="grid1"
+       units="px"
+       originx="-0.5"
+       originy="-1.551"
+       spacingx="10"
+       spacingy="10"
+       empcolor="#0099e5"
+       empopacity="0.30196078"
+       color="#0099e5"
+       opacity="0.14902"
+       empspacing="5"
+       enabled="true"
+       visible="false"
+       dotted="false"
+       snapvisiblegridlinesonly="true" /></sodipodi:namedview><defs
+     id="defs2"><inkscape:path-effect
+       effect="fillet_chamfer"
+       id="path-effect13"
+       is_visible="true"
+       lpeversion="1"
+       nodesatellites_param="F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1"
+       radius="0"
+       unit="px"
+       method="auto"
+       mode="F"
+       chamfer_steps="1"
+       flexible="false"
+       use_knot_distance="true"
+       apply_no_radius="true"
+       apply_with_radius="true"
+       only_selected="false"
+       hide_knots="false" /><inkscape:path-effect
+       effect="fillet_chamfer"
+       id="path-effect12"
+       is_visible="true"
+       lpeversion="1"
+       nodesatellites_param="F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1"
+       radius="0"
+       unit="px"
+       method="auto"
+       mode="F"
+       chamfer_steps="1"
+       flexible="false"
+       use_knot_distance="true"
+       apply_no_radius="true"
+       apply_with_radius="true"
+       only_selected="false"
+       hide_knots="false" /><rect
+       x="238.55612"
+       y="262.12273"
+       width="160.94388"
+       height="80.991901"
+       id="rect9" /><rect
+       x="1530.8483"
+       y="91.773779"
+       width="56.812339"
+       height="30.077121"
+       id="rect42" /><linearGradient
+       id="paint0_linear_534_1034"
+       x1="764.5"
+       y1="109"
+       x2="764.5"
+       y2="361"
+       gradientUnits="userSpaceOnUse"><stop
+         stop-color="#FF0000"
+         stop-opacity="0.6"
+         id="stop1" /><stop
+         offset="1"
+         stop-color="#0066FF"
+         stop-opacity="0.6"
+         id="stop2" /></linearGradient><bx:grid
+       x="0"
+       y="0"
+       width="5"
+       height="20" /><linearGradient
+       id="paint0_linear_534_1034-0"
+       x1="764.5"
+       y1="109"
+       x2="764.5"
+       y2="361"
+       gradientUnits="userSpaceOnUse"><stop
+         stop-color="#FF0000"
+         stop-opacity="0.6"
+         id="stop1-0" /><stop
+         offset="1"
+         stop-color="#0066FF"
+         stop-opacity="0.6"
+         id="stop2-6" /></linearGradient><filter
+       id="shadow"
+       x="-0.0022727273"
+       y="-0.005"
+       width="1.0045455"
+       height="1.01"><feDropShadow
+         dx="2"
+         dy="2"
+         stdDeviation="3"
+         flood-color="rgba(0,0,0,0.4)" /></filter><symbol
+       id="thermometer"
+       viewBox="0 0 24 24"><path
+         fill="#00e0ff"
+         d="M17 17a5 5 0 1 1-10 0c0-1.71 1-3.17 2.44-3.85V5a2.56 2.56 0 0 1 5.12 0v8.15A4.994 4.994 0 0 1 17 17z"
+         id="path1" /></symbol><symbol
+       id="target"
+       viewBox="0 0 24 24"><path
+         fill="#ffce00"
+         d="M12 20a8 8 0 1 1 8-8 8.009 8.009 0 0 1-8 8zm0-14a6 6 0 1 0 6 6 6.006 6.006 0 0 0-6-6zm0 10a4 4 0 1 1 4-4 4.005 4.005 0 0 1-4 4z"
+         id="path2" /></symbol><filter
+       id="shadow-1"
+       x="-0.0022727273"
+       y="-0.005"
+       width="1.0045455"
+       height="1.01"><feDropShadow
+         dx="2"
+         dy="2"
+         stdDeviation="3"
+         flood-color="rgba(0,0,0,0.4)" /></filter><symbol
+       id="thermometer-5"
+       viewBox="0 0 24 24"><path
+         fill="#00e0ff"
+         d="M17 17a5 5 0 1 1-10 0c0-1.71 1-3.17 2.44-3.85V5a2.56 2.56 0 0 1 5.12 0v8.15A4.994 4.994 0 0 1 17 17z"
+         id="path1-2" /></symbol><symbol
+       id="target-7"
+       viewBox="0 0 24 24"><path
+         fill="#ffce00"
+         d="M12 20a8 8 0 1 1 8-8 8.009 8.009 0 0 1-8 8zm0-14a6 6 0 1 0 6 6 6.006 6.006 0 0 0-6-6zm0 10a4 4 0 1 1 4-4 4.005 4.005 0 0 1-4 4z"
+         id="path2-6" /></symbol><filter
+       id="shadow-2"
+       x="-0.0022727273"
+       y="-0.005"
+       width="1.0045455"
+       height="1.01"><feDropShadow
+         dx="2"
+         dy="2"
+         stdDeviation="3"
+         flood-color="rgba(0,0,0,0.4)" /></filter><symbol
+       id="thermometer-2"
+       viewBox="0 0 24 24"><path
+         fill="#00e0ff"
+         d="M17 17a5 5 0 1 1-10 0c0-1.71 1-3.17 2.44-3.85V5a2.56 2.56 0 0 1 5.12 0v8.15A4.994 4.994 0 0 1 17 17z"
+         id="path1-1" /></symbol><symbol
+       id="target-6"
+       viewBox="0 0 24 24"><path
+         fill="#ffce00"
+         d="M12 20a8 8 0 1 1 8-8 8.009 8.009 0 0 1-8 8zm0-14a6 6 0 1 0 6 6 6.006 6.006 0 0 0-6-6zm0 10a4 4 0 1 1 4-4 4.005 4.005 0 0 1-4 4z"
+         id="path2-8" /></symbol><symbol
+       id="icon-thermo"
+       viewBox="0 0 24 24"><path
+         fill="#00e0ff"
+         d="M17 17a5 5 0 1 1-10 0c0-1.71 1-3.17 2.44-3.85V5a2.56 2.56 0 0 1 5.12 0v8.15A4.994 4.994 0 0 1 17 17z"
+         id="path1-18" /></symbol><symbol
+       id="icon-target"
+       viewBox="0 0 24 24"><path
+         fill="#ffce00"
+         d="M12 20a8 8 0 1 1 8-8 8.009 8.009 0 0 1-8 8zm0-14a6 6 0 1 0 6 6 6.006 6.006 0 0 0-6-6zm0 10a4 4 0 1 1 4-4 4.005 4.005 0 0 1-4 4z"
+         id="path2-9" /></symbol><mask
+       id="path-114-inside-1_534_1034-2"
+       fill="#ffffff"><path
+         d="m 868,311 h 26 v 26 h -26 z"
+         id="path18-4" /></mask><mask
+       id="path-114-inside-1_534_1034"
+       fill="#ffffff"><path
+         d="m 868,311 h 26 v 26 h -26 z"
+         id="path13" /></mask><mask
+       id="path-114-inside-1_534_1034-9"
+       fill="#ffffff"><path
+         d="m 868,311 h 26 v 26 h -26 z"
+         id="path13-1" /></mask><linearGradient
+       id="paint0_linear_534_2533"
+       x1="791.5"
+       y1="208"
+       x2="791.5"
+       y2="460"
+       gradientUnits="userSpaceOnUse"><stop
+         stop-color="#FF0000"
+         stop-opacity="0.6"
+         id="stop30" /><stop
+         offset="1"
+         stop-color="#0066FF"
+         stop-opacity="0.6"
+         id="stop31" /></linearGradient><inkscape:path-effect
+       effect="fillet_chamfer"
+       id="path-effect13-6"
+       is_visible="true"
+       lpeversion="1"
+       nodesatellites_param="F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1"
+       radius="0"
+       unit="px"
+       method="auto"
+       mode="F"
+       chamfer_steps="1"
+       flexible="false"
+       use_knot_distance="true"
+       apply_no_radius="true"
+       apply_with_radius="true"
+       only_selected="false"
+       hide_knots="false" /><inkscape:path-effect
+       effect="fillet_chamfer"
+       id="path-effect13-8"
+       is_visible="true"
+       lpeversion="1"
+       nodesatellites_param="F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1"
+       radius="0"
+       unit="px"
+       method="auto"
+       mode="F"
+       chamfer_steps="1"
+       flexible="false"
+       use_knot_distance="true"
+       apply_no_radius="true"
+       apply_with_radius="true"
+       only_selected="false"
+       hide_knots="false" /><inkscape:path-effect
+       effect="fillet_chamfer"
+       id="path-effect13-5"
+       is_visible="true"
+       lpeversion="1"
+       nodesatellites_param="F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1"
+       radius="0"
+       unit="px"
+       method="auto"
+       mode="F"
+       chamfer_steps="1"
+       flexible="false"
+       use_knot_distance="true"
+       apply_no_radius="true"
+       apply_with_radius="true"
+       only_selected="false"
+       hide_knots="false" /><inkscape:path-effect
+       effect="fillet_chamfer"
+       id="path-effect13-0"
+       is_visible="true"
+       lpeversion="1"
+       nodesatellites_param="F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1"
+       radius="0"
+       unit="px"
+       method="auto"
+       mode="F"
+       chamfer_steps="1"
+       flexible="false"
+       use_knot_distance="true"
+       apply_no_radius="true"
+       apply_with_radius="true"
+       only_selected="false"
+       hide_knots="false" /><inkscape:path-effect
+       effect="fillet_chamfer"
+       id="path-effect13-2"
+       is_visible="true"
+       lpeversion="1"
+       nodesatellites_param="F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1"
+       radius="0"
+       unit="px"
+       method="auto"
+       mode="F"
+       chamfer_steps="1"
+       flexible="false"
+       use_knot_distance="true"
+       apply_no_radius="true"
+       apply_with_radius="true"
+       only_selected="false"
+       hide_knots="false" /><inkscape:path-effect
+       effect="fillet_chamfer"
+       id="path-effect13-2-9"
+       is_visible="true"
+       lpeversion="1"
+       nodesatellites_param="F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1"
+       radius="0"
+       unit="px"
+       method="auto"
+       mode="F"
+       chamfer_steps="1"
+       flexible="false"
+       use_knot_distance="true"
+       apply_no_radius="true"
+       apply_with_radius="true"
+       only_selected="false"
+       hide_knots="false" /><inkscape:path-effect
+       effect="fillet_chamfer"
+       id="path-effect13-2-4"
+       is_visible="true"
+       lpeversion="1"
+       nodesatellites_param="F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1"
+       radius="0"
+       unit="px"
+       method="auto"
+       mode="F"
+       chamfer_steps="1"
+       flexible="false"
+       use_knot_distance="true"
+       apply_no_radius="true"
+       apply_with_radius="true"
+       only_selected="false"
+       hide_knots="false" /><inkscape:path-effect
+       effect="fillet_chamfer"
+       id="path-effect13-2-3"
+       is_visible="true"
+       lpeversion="1"
+       nodesatellites_param="F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1"
+       radius="0"
+       unit="px"
+       method="auto"
+       mode="F"
+       chamfer_steps="1"
+       flexible="false"
+       use_knot_distance="true"
+       apply_no_radius="true"
+       apply_with_radius="true"
+       only_selected="false"
+       hide_knots="false" /></defs><rect
+     width="1025"
+     height="602.10303"
+     rx="8"
+     ry="8"
+     style="display:inline;stroke:#000000"
+     y="-1.051"
+     id="rect2"
+     x="0"
+     sodipodi:insensitive="true" /><g
+     id="Speicher"
+     transform="matrix(0.99903582,0,0,1.351096,1.0896418,-100.74871)"
+     style="display:inline"><path
+       id="Vector"
+       fill-rule="evenodd"
+       clip-rule="evenodd"
+       d="m 867,224.784 -0.266,-1.399 -0.932,-1.533 -1.437,-1.399 -1.97,-1.425 -2.528,-1.318 -3.035,-1.318 -3.46,-1.237 -4.046,-1.13 -4.445,-1.13 -4.898,-0.941 -5.163,-0.942 -5.563,-0.753 -5.83,-0.645 -6.122,-0.565 -6.308,-0.484 -6.415,-0.269 -6.494,-0.188 -6.575,-0.108 -6.601,0.108 -6.494,0.188 -6.495,0.269 -6.202,0.484 -6.122,0.565 -5.856,0.645 -5.536,0.753 -5.19,0.942 -4.898,0.941 -4.418,1.13 -4.046,1.13 -3.487,1.237 -3.114,1.318 -2.449,1.318 -1.97,1.425 -1.517,1.399 -0.825,1.533 -0.293,1.399 V 460 H 866.867 V 224.784 Z"
+       fill="url(#paint0_linear_534_2533)"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round"
+       style="fill:url(#paint0_linear_534_2533)" /><path
+       id="Vector_2"
+       d="M 707.06,468.135 H 874.886"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round" /><path
+       id="Vector_3"
+       d="M 874.886,484.564 V 199.685"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round" /><path
+       id="Vector_4"
+       d="M 874.886,199.681 H 707.06"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round" /><path
+       id="Vector_5"
+       d="m 707.06,484.996 h 16.773"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round" /><path
+       id="Vector_6"
+       d="m 723.833,484.996 8.387,-16.867"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round" /><path
+       id="Vector_7"
+       d="M 874.886,484.996 H 858.113"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round" /><path
+       id="Vector_8"
+       d="m 858.113,484.996 -8.386,-16.867"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round" /><path
+       id="Vector_12"
+       d="M 707.062,484.995 V 199.675"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round" /></g><g
+     id="g17"
+     inkscape:label="Leitungen"
+     style="display:inline"><line
+       id="Line 26"
+       x1="20.000002"
+       y1="398.44901"
+       x2="707.1701"
+       y2="398.44901"
+       stroke="#ffffff"
+       style="display:inline;stroke-width:3.47177;stroke-dasharray:none" /><line
+       id="Line 27"
+       x1="40.53994"
+       y1="498.44901"
+       x2="707.46991"
+       y2="498.44901"
+       stroke="#ffffff"
+       style="display:inline;stroke-width:3;stroke-dasharray:none" /><path
+       id="Vector_13"
+       fill-rule="evenodd"
+       clip-rule="evenodd"
+       d="M 941.1438,87.949 931.1298,67.9088 921.1038,87.949 Z"
+       fill="#ffffff"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round" /><path
+       id="Vector_14"
+       fill-rule="evenodd"
+       clip-rule="evenodd"
+       d="m 20.000002,408.46901 20.04,-10.013 -20.04,-10.027 z"
+       fill="#ffffff"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round" /><path
+       id="Vector_15"
+       fill-rule="evenodd"
+       clip-rule="evenodd"
+       d="m 40.039938,488.429 -20.04,10.013 20.04,10.027 z"
+       fill="#ffffff"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round" /><path
+       id="Vector_16"
+       d="M 991.22188,82.7361 991.02572,248.449"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round"
+       style="stroke-width:3.00561;stroke-linecap:square;stroke-dasharray:none" /><path
+       id="Vector_17"
+       fill-rule="evenodd"
+       clip-rule="evenodd"
+       d="m 981.1038,67.90907 10.013,20.04 10.027,-20.04 z"
+       fill="#ffffff"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round" /><path
+       id="Vector_18"
+       d="M 991.02572,248.449 H 851.0013"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round"
+       style="display:inline;stroke-width:2.99996;stroke-linecap:square;stroke-dasharray:none" /><path
+       id="Vector_19"
+       d="M 931.12156,208.449 H 851.00224"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round"
+       style="fill:none;stroke-width:3.00224;stroke-dasharray:none" /><path
+       id="Vector_20"
+       d="m 931.03769,89.9531 0.0832,118.49301"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round"
+       style="fill:none;stroke-width:3.00577;stroke-linecap:square;stroke-dasharray:none" /></g><g
+     id="Ventil Magro"
+     transform="translate(0.389,63.1935)"
+     style="display:inline"
+     class="magroventilaktiv"><text
+       id="100 %"
+       fill="#ffffff"
+       xml:space="preserve"
+       style="white-space:pre"
+       font-family="Inter"
+       font-size="12px"
+       font-weight="500"
+       letter-spacing="0em"
+       x="-4.7008629"
+       y="-4.9497476"><tspan
+         x="653.16016"
+         y="491.41428"
+         id="tspan2-5" class="magroventilist">100 %</tspan></text><path
+       id="Vector_29"
+       d="m 672.146,434.605 -0.168,25.16"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round" /><ellipse
+       id="Ellipse 1_4-8-1-9"
+       class="magroventilcolorfill"
+       cx="-672.32739"
+       cy="524.64575"
+       transform="matrix(-1,0,0,1,-0.389,-63.1935)"
+       fill="#ff02e6"
+       stroke="#00ffd1"
+       stroke-width="2.19267"
+       style="display:inline"
+       rx="11.511"
+       ry="11.511497" /><text
+       id="M_2-9-3-1"
+       transform="scale(-1,1)"
+       fill="#ffffff"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial;white-space:pre;display:inline;stroke-width:1.09633"
+       font-family="Inter"
+       font-size="10.9633px"
+       letter-spacing="0em"
+       x="-677.75922"
+       y="455.89835"><tspan
+         x="-677.75922"
+         y="466.46298"
+         id="tspan19-2-8-5"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial;stroke-width:1.09633">M</tspan></text><path
+       id="Vector_26"
+       fill-rule="evenodd"
+       clip-rule="evenodd"
+       d="m 655.081,443.763 17.147,-8.573 -17.147,-8.573 z"
+       fill="#000000"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round" /><path
+       id="Vector_27"
+       fill-rule="evenodd"
+       clip-rule="evenodd"
+       d="m 689.153,426.62 -17.146,8.574 17.146,8.573 z"
+       fill="#ffffff"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round" /><path
+       id="Vector_28"
+       fill-rule="evenodd"
+       clip-rule="evenodd"
+       d="m 663.547,418.04 8.573,17.147 8.573,-17.147 z"
+       fill="#ffffff"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round" /><path
+       id="Vector_30"
+       d="M 672.058,423.763 V 336"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round"
+       style="stroke-width:3;stroke-dasharray:none" /><path
+       id="Vector_31"
+       d="M 705.0599,435.2555 H 689.42264"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round"
+       style="stroke-width:2.83477;stroke-linecap:square;stroke-dasharray:none" /></g><g
+     id="g18"
+     inkscape:label="Ventil_Zirkulation"
+     style="display:inline"
+     transform="translate(0.33375,63.18901)"
+     class="zirkulationventilaktiv"><path
+       id="Vector_26-4"
+       fill-rule="evenodd"
+       clip-rule="evenodd"
+       d="m 999.24489,172.88965 -8.573,-17.147 -8.573,17.147 z"
+       fill="#000000"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round"
+       style="display:inline" /><path
+       id="Vector_27-2"
+       fill-rule="evenodd"
+       clip-rule="evenodd"
+       d="m 982.10189,138.81765 8.574,17.146 8.573,-17.146 z"
+       fill="#ffffff"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round"
+       style="display:inline" /><text
+       id="100 %-6"
+       fill="#ffffff"
+       xml:space="preserve"
+       style="font-size:14px;font-family:'Segoe UI', Arial, sans-serif;white-space:pre;display:inline;fill:#ffffff"
+       font-family="Inter"
+       font-size="12px"
+       font-weight="500"
+       letter-spacing="0em"
+       x="286.4245"
+       y="-315.43661"
+       transform="translate(0.05525,0.00449)"><tspan
+         x="944.28552"
+         y="180.92741"
+         id="tspan2-5-5" class="zirkulationventilist">100 %</tspan><tspan>%</tspan></text><path
+       id="Vector_29-0"
+       d="m 990.61864,155.84916 -25.16,-0.168"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round"
+       style="display:inline"
+       transform="translate(0.05525,0.00449)" /><ellipse
+       id="Ellipse 1_4-8-1-9-2"
+       class="zirkulationventilcolorfill"
+       cx="-963.77136"
+       cy="155.64156"
+       transform="matrix(-1,0,0,1,0.05525,0.00449)"
+       fill="#ff02e6"
+       stroke="#00ffd1"
+       stroke-width="2.19267"
+       style="display:inline"
+       rx="11.511"
+       ry="11.511497" /><text
+       id="M_2-9-3-1-8"
+       transform="matrix(-1,0,0,1,0.05525,0.00449)"
+       fill="#ffffff"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14px;font-family:Arial;-inkscape-font-specification:Arial;white-space:pre;display:inline;fill:#ffffff;stroke-width:1.09633"
+       font-family="Inter"
+       font-size="10.9633px"
+       letter-spacing="0em"
+       x="-969.59222"
+       y="150.08766"><tspan
+         x="-969.59222"
+         y="160.6523"
+         id="tspan19-2-8-5-6"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial;stroke-width:1.09633">M</tspan></text></g><g
+     id="g23-8-77-51"
+     style="display:inline;fill:#2f2f2f;fill-opacity:1"
+     inkscape:label="TempSensTank"
+     transform="rotate(180,737.79025,277.84943)"><g
+       id="g13"
+       inkscape:label="TankSens4"
+       style="display:inline;fill:#2f2f2f;fill-opacity:1"
+       class="fuehlerpos4aktiv"><line
+         id="Line 37_2-8-8-2"
+         x1="789.85516"
+         y1="347.24988"
+         x2="746.08051"
+         y2="347.24988"
+         stroke="#ffffff"
+         style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke-width:1.4356;stroke-dasharray:none" /><path
+         style="fill:#2f2f2f;fill-opacity:1;stroke:#57bbc4;stroke-width:0.999998;stroke-linecap:square;stroke-dasharray:0.999998, 3;stroke-dashoffset:0;stroke-opacity:1"
+         d="m 816.08049,347.24986 -26.22528,10e-6"
+         id="path9-2" /><path
+         style="fill:#2f2f2f;fill-opacity:1;stroke:#57bbc4;stroke-width:1.83766;stroke-linecap:square;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="rect11"
+         width="158.63622"
+         height="79.328682"
+         x="-3.2285924"
+         y="-28.501883"
+         sodipodi:type="rect"
+         inkscape:path-effect="#path-effect13"
+         d="M 4.7951016,-28.501883 H 147.38393 c 4.44513,0 8.02369,3.578568 8.02369,8.023694 v 63.281294 c 0,4.445127 -3.57856,8.023694 -8.02369,8.023694 H 4.7951016 c -4.44512645,0 -8.023694,-3.578567 -8.023694,-8.023694 v -63.281294 c 0,-4.445126 3.57856755,-8.023694 8.023694,-8.023694 z"
+         rx="8.023694"
+         transform="matrix(-0.37389264,0,0,-0.37389264,875.0298,351.92343)" /><text
+         x="-875.13403"
+         y="-349.96292"
+         font-size="25.9142px"
+         fill="#ffffff"
+         id="text1-3-4"
+         style="font-size:13.3333px;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"
+         transform="scale(-1)"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial;stroke-width:0;stroke-dasharray:none"
+           id="tspan3">Aus:</tspan></text><text
+         x="-819.55035"
+         y="-349.98245"
+         font-size="25.9142px"
+         fill="#ffffff"
+         text-anchor="end"
+         id="text2-8-0"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.3333px;font-family:Arial;-inkscape-font-specification:Arial;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"
+         transform="scale(-1)"><tspan class="fuehlersollaus"></tspan><tspan>°C</tspan></text><text
+         x="-875.13403"
+         y="-336.10974"
+         font-size="25.9142px"
+         fill="#ffffff"
+         id="text1-3-4-7"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.3333px;font-family:Arial;-inkscape-font-specification:Arial;display:inline;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"
+         transform="scale(-1)">Ist:</text><text
+         x="-818.57379"
+         y="-335.95349"
+         font-size="25.9142px"
+         fill="#ffffff"
+         text-anchor="end"
+         id="text2-8-0-0"
+         style="font-size:13.3333px;font-family:'Segoe UI', Arial, sans-serif;display:inline;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"
+         transform="scale(-1)"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial;stroke-width:0;stroke-dasharray:none"
+           id="tspan4" class="fuehlerpos4ist">45°C</tspan><tspan>°C</tspan></text><path
+         id="circle48_2-1-7-3"
+         class="fuehlerpos4colorfill"
+         d="m 784.54514,347.24985 c 0,2.93222 2.37785,5.31006 5.31006,5.31006 2.93222,0 5.31006,-2.37784 5.31006,-5.31006 0,-2.93222 -2.37784,-5.31006 -5.31006,-5.31006 -2.93221,0 -5.31006,2.37784 -5.31006,5.31006 z"
+         fill="#57bbc4"
+         style="display:inline;fill:#57bbc4;fill-opacity:1;stroke-width:1.06201" /><g
+         id="g13-6"
+         inkscape:label="TankSens4_NUR_TEMP"
+         style="display:inline;fill:#2f2f2f;fill-opacity:1"
+         transform="translate(-19.875,-0.9605)"
+         class="fuehlerpos4sollaktiv"><path
+           style="fill:#2f2f2f;fill-opacity:1;stroke:#57bbc4;stroke-width:1.83766;stroke-linecap:square;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+           id="rect11-23"
+           width="158.63622"
+           height="79.328682"
+           x="-3.2285924"
+           y="-28.501883"
+           sodipodi:type="rect"
+           inkscape:path-effect="#path-effect13-2"
+           d="M 4.7951016,-28.501883 H 147.38393 c 4.44513,0 8.02369,3.578568 8.02369,8.023694 v 63.281294 c 0,4.445127 -3.57856,8.023694 -8.02369,8.023694 H 4.7951016 c -4.44512645,0 -8.023694,-3.578567 -8.023694,-8.023694 v -63.281294 c 0,-4.445126 3.57856755,-8.023694 8.023694,-8.023694 z"
+           rx="8.023694"
+           transform="matrix(-0.37389264,0,0,-0.37389264,894.9048,352.88394)" /><text
+           x="-891.57269"
+           y="-366.7135"
+           font-size="25.9142px"
+           fill="#ffffff"
+           text-anchor="end"
+           id="text2-8-0-8"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.3333px;font-family:Arial;-inkscape-font-specification:Arial;display:inline;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"
+           transform="rotate(180,-20,-11.38762)"><tspan class="fuehlerpos4ist"></tspan><tspan>°C</tspan></text></g></g><g
+       id="g13-4"
+       inkscape:label="TankSens3"
+       style="display:inline;fill:#2f2f2f;fill-opacity:1"
+       transform="translate(-0.00481805,-83.583344)"
+       class="fuehlerpos3aktiv"><line
+         id="Line 37_2-8-8-2-8"
+         x1="789.85516"
+         y1="347.24988"
+         x2="746.08533"
+         y2="347.24988"
+         stroke="#ffffff"
+         style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke-width:1.43552;stroke-dasharray:none" /><path
+         id="circle48_2-1-7-3-1"
+         class="fuehlerpos3colorfill"
+         d="m 784.54514,347.24985 c 0,2.93222 2.37785,5.31006 5.31006,5.31006 2.93222,0 5.31006,-2.37784 5.31006,-5.31006 0,-2.93222 -2.37784,-5.31006 -5.31006,-5.31006 -2.93221,0 -5.31006,2.37784 -5.31006,5.31006 z"
+         fill="#57bbc4"
+         style="display:inline;fill:#57bbc4;fill-opacity:1;stroke-width:1.06201" /><path
+         style="fill:#2f2f2f;fill-opacity:1;stroke:#57bbc4;stroke-width:0.999998;stroke-linecap:square;stroke-dasharray:0.999998, 3;stroke-dashoffset:0;stroke-opacity:1"
+         d="m 816.08049,347.24986 -26.22528,10e-6"
+         id="path9-2-8" /><path
+         style="fill:#2f2f2f;fill-opacity:1;stroke:#57bbc4;stroke-width:1.83766;stroke-linecap:square;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="rect11-2"
+         width="158.63622"
+         height="79.328682"
+         x="-3.2285924"
+         y="-28.501883"
+         sodipodi:type="rect"
+         inkscape:path-effect="#path-effect13-0"
+         d="M 4.7951016,-28.501883 H 147.38393 c 4.44513,0 8.02369,3.578568 8.02369,8.023694 v 63.281294 c 0,4.445127 -3.57856,8.023694 -8.02369,8.023694 H 4.7951016 c -4.44512645,0 -8.023694,-3.578567 -8.023694,-8.023694 v -63.281294 c 0,-4.445126 3.57856755,-8.023694 8.023694,-8.023694 z"
+         rx="8.023694"
+         transform="matrix(-0.37389264,0,0,-0.37389264,875.0298,351.92343)" /><text
+         x="-875.13403"
+         y="-349.96292"
+         font-size="25.9142px"
+         fill="#ffffff"
+         id="text1-3-4-4"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.3333px;font-family:Arial;-inkscape-font-specification:Arial;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"
+         transform="scale(-1)">Aus:</text><text
+         x="-819.55035"
+         y="-349.98245"
+         font-size="25.9142px"
+         fill="#ffffff"
+         text-anchor="end"
+         id="text2-8-0-55"
+         style="font-size:13.3333px;font-family:'Segoe UI', Arial, sans-serif;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"
+         transform="scale(-1)"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial;stroke-width:0;stroke-dasharray:none"
+           id="tspan5" class="fuehlersollaus">50°C</tspan><tspan>°C</tspan></text><text
+         x="-875.13403"
+         y="-336.10974"
+         font-size="25.9142px"
+         fill="#ffffff"
+         id="text1-3-4-7-1"
+         style="font-size:13.3333px;font-family:'Segoe UI', Arial, sans-serif;display:inline;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"
+         transform="scale(-1)"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial;stroke-width:0;stroke-dasharray:none"
+           id="tspan6">Ist:</tspan></text><text
+         x="-818.57379"
+         y="-335.95349"
+         font-size="25.9142px"
+         fill="#ffffff"
+         text-anchor="end"
+         id="text2-8-0-0-7"
+         style="font-size:13.3333px;font-family:'Segoe UI', Arial, sans-serif;display:inline;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"
+         transform="scale(-1)"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial;stroke-width:0;stroke-dasharray:none"
+           id="tspan7" class="fuehlerpos3ist">45°C</tspan><tspan>°C</tspan></text><g
+         id="g13-6-7"
+         inkscape:label="TankSens3_NUR_TEMP"
+         style="display:inline;fill:#2f2f2f;fill-opacity:1"
+         transform="translate(-19.875002,-0.960516)"
+         class="fuehlerpos3sollaktiv"><path
+           style="fill:#2f2f2f;fill-opacity:1;stroke:#57bbc4;stroke-width:1.83766;stroke-linecap:square;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+           id="rect11-23-9"
+           width="158.63622"
+           height="79.328682"
+           x="-3.2285924"
+           y="-28.501883"
+           sodipodi:type="rect"
+           inkscape:path-effect="#path-effect13-2-9"
+           d="M 4.7951016,-28.501883 H 147.38393 c 4.44513,0 8.02369,3.578568 8.02369,8.023694 v 63.281294 c 0,4.445127 -3.57856,8.023694 -8.02369,8.023694 H 4.7951016 c -4.44512645,0 -8.023694,-3.578567 -8.023694,-8.023694 v -63.281294 c 0,-4.445126 3.57856755,-8.023694 8.023694,-8.023694 z"
+           rx="8.023694"
+           transform="matrix(-0.37389264,0,0,-0.37389264,894.9048,352.88394)" /><text
+           x="-891.57269"
+           y="-366.7135"
+           font-size="25.9142px"
+           fill="#ffffff"
+           text-anchor="end"
+           id="text2-8-0-8-5"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.3333px;font-family:Arial;-inkscape-font-specification:Arial;display:inline;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"
+           transform="rotate(180,-20,-11.38762)"><tspan class="fuehlerpos3ist"></tspan><tspan>°C</tspan></text></g></g><g
+       id="g23-8-77-0"
+       style="display:inline;fill:#2f2f2f;fill-opacity:1"
+       inkscape:label="TankSens2"
+       transform="translate(2e-5,-166.66666)"
+       class="fuehlerpos2aktiv"><line
+         id="Line 37_2-8-8-0"
+         x1="789.85516"
+         y1="347.24988"
+         x2="746.08051"
+         y2="347.24988"
+         stroke="#ffffff"
+         style="display:inline;stroke-width:1.43559;stroke-dasharray:none" /><g
+         id="g9-3-5"
+         transform="matrix(-0.37389264,0,0,-0.37389264,874.52981,356.59717)"
+         style="stroke:#ffffff;stroke-width:1.00029;stroke-dasharray:none;stroke-opacity:1"><path
+           style="fill:none;stroke:#57bbc4;stroke-width:2.67456;stroke-linecap:square;stroke-dasharray:2.67456, 8.02369;stroke-dashoffset:0;stroke-opacity:1"
+           d="m 156.32649,24.999975 70.1412,-2.6e-5"
+           id="path9-31" /></g><path
+         id="circle48_2-1-7-4"
+         class="fuehlerpos2colorfill"
+         d="m 784.54514,347.24985 c 0,2.93222 2.37785,5.31006 5.31006,5.31006 2.93222,0 5.31006,-2.37784 5.31006,-5.31006 0,-2.93222 -2.37784,-5.31006 -5.31006,-5.31006 -2.93221,0 -5.31006,2.37784 -5.31006,5.31006 z"
+         fill="#57bbc4"
+         style="display:inline;stroke-width:1.06201" /><path
+         style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke:#57bbc4;stroke-width:1.83766;stroke-linecap:square;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="rect11-9"
+         width="158.63622"
+         height="79.328682"
+         x="-3.2285924"
+         y="-28.501883"
+         sodipodi:type="rect"
+         inkscape:path-effect="#path-effect13-8"
+         d="M 4.7951016,-28.501883 H 147.38393 c 4.44513,0 8.02369,3.578568 8.02369,8.023694 v 63.281294 c 0,4.445127 -3.57856,8.023694 -8.02369,8.023694 H 4.7951016 c -4.44512645,0 -8.023694,-3.578567 -8.023694,-8.023694 v -63.281294 c 0,-4.445126 3.57856755,-8.023694 8.023694,-8.023694 z"
+         rx="8.023694"
+         transform="matrix(-0.37389264,0,0,-0.37389264,875.0298,351.42343)" /><text
+         x="-875.13409"
+         y="-182.79625"
+         font-size="25.9142px"
+         fill="#ffffff"
+         id="text1-3-4-6"
+         style="font-size:13.3333px;font-family:'Segoe UI', Arial, sans-serif;display:inline;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"
+         transform="rotate(180,-1e-5,83.33333)"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial;stroke-width:0;stroke-dasharray:none"
+           id="tspan8">Ein:</tspan></text><text
+         x="-819.55035"
+         y="-182.81578"
+         font-size="25.9142px"
+         fill="#ffffff"
+         text-anchor="end"
+         id="text2-8-0-5"
+         style="font-size:13.3333px;font-family:'Segoe UI', Arial, sans-serif;display:inline;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"
+         transform="rotate(180,-1e-5,83.33333)"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial;stroke-width:0;stroke-dasharray:none"
+           id="tspan10" class="fuehlersollein">50°C</tspan><tspan>°C</tspan></text><text
+         x="-875.13409"
+         y="-168.94308"
+         font-size="25.9142px"
+         fill="#ffffff"
+         id="text1-3-4-7-77"
+         style="font-size:13.3333px;font-family:'Segoe UI', Arial, sans-serif;display:inline;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"
+         transform="rotate(180,-1e-5,83.33333)"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial;stroke-width:0;stroke-dasharray:none"
+           id="tspan11">Ist:</tspan></text><text
+         x="-818.57379"
+         y="-168.78682"
+         font-size="25.9142px"
+         fill="#ffffff"
+         text-anchor="end"
+         id="text2-8-0-0-4"
+         style="font-size:13.3333px;font-family:'Segoe UI', Arial, sans-serif;display:inline;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"
+         transform="rotate(180,-1e-5,83.33333)"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial;stroke-width:0;stroke-dasharray:none"
+           id="tspan12" class="fuehlerpos2ist">45°C</tspan><tspan>°C</tspan></text><g
+         id="g13-6-1"
+         inkscape:label="TankSens2_NUR_TEMP"
+         style="display:inline;fill:#2f2f2f;fill-opacity:1"
+         transform="translate(-19.875,-1.4605)"
+         class="fuehlerpos2sollaktiv"><path
+           style="fill:#2f2f2f;fill-opacity:1;stroke:#57bbc4;stroke-width:1.83766;stroke-linecap:square;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+           id="rect11-23-2"
+           width="158.63622"
+           height="79.328682"
+           x="-3.2285924"
+           y="-28.501883"
+           sodipodi:type="rect"
+           inkscape:path-effect="#path-effect13-2-4"
+           d="M 4.7951016,-28.501883 H 147.38393 c 4.44513,0 8.02369,3.578568 8.02369,8.023694 v 63.281294 c 0,4.445127 -3.57856,8.023694 -8.02369,8.023694 H 4.7951016 c -4.44512645,0 -8.023694,-3.578567 -8.023694,-8.023694 v -63.281294 c 0,-4.445126 3.57856755,-8.023694 8.023694,-8.023694 z"
+           rx="8.023694"
+           transform="matrix(-0.37389264,0,0,-0.37389264,894.9048,352.88394)" /><text
+           x="-891.57269"
+           y="-366.7135"
+           font-size="25.9142px"
+           fill="#ffffff"
+           text-anchor="end"
+           id="text2-8-0-8-3"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.3333px;font-family:Arial;-inkscape-font-specification:Arial;display:inline;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"
+           transform="rotate(180,-20,-11.38762)"><tspan class="fuehlerpos2ist"></tspan><tspan>°C</tspan></text></g></g><g
+       id="g23-8-77"
+       style="display:inline;fill:#2f2f2f;fill-opacity:1"
+       inkscape:label="TankSens1"
+       transform="translate(2e-5,-249.99998)"
+       class="fuehlerpos1aktiv"><path
+         style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke:#57bbc4;stroke-width:1.83766;stroke-linecap:square;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="rect11-98"
+         width="158.63622"
+         height="79.328682"
+         x="-3.2285924"
+         y="-28.501883"
+         sodipodi:type="rect"
+         inkscape:path-effect="#path-effect13-5"
+         d="M 4.7951016,-28.501883 H 147.38393 c 4.44513,0 8.02369,3.578568 8.02369,8.023694 v 63.281294 c 0,4.445127 -3.57856,8.023694 -8.02369,8.023694 H 4.7951016 c -4.44512645,0 -8.023694,-3.578567 -8.023694,-8.023694 v -63.281294 c 0,-4.445126 3.57856755,-8.023694 8.023694,-8.023694 z"
+         rx="8.023694"
+         transform="matrix(-0.37389264,0,0,-0.37389264,875.0298,351.42343)" /><line
+         id="Line 37_2-8-8"
+         x1="789.85516"
+         y1="347.24988"
+         x2="746.08051"
+         y2="347.24988"
+         stroke="#ffffff"
+         style="display:inline;stroke-width:1.43559;stroke-dasharray:none" /><g
+         id="g9-3"
+         transform="matrix(-0.37389264,0,0,-0.37389264,874.52981,356.59717)"
+         style="stroke:#ffffff;stroke-width:1.00029;stroke-dasharray:none;stroke-opacity:1"><path
+           style="fill:none;stroke:#57bbc4;stroke-width:2.67456;stroke-linecap:square;stroke-dasharray:2.67456, 8.02369;stroke-dashoffset:0;stroke-opacity:1"
+           d="m 156.32649,24.999975 70.1412,-2.6e-5"
+           id="path9" /></g><path
+         id="circle48_2-1-7"
+         class="fuehlerpos1colorfill"
+         d="m 784.54514,347.24985 c 0,2.93222 2.37785,5.31006 5.31006,5.31006 2.93222,0 5.31006,-2.37784 5.31006,-5.31006 0,-2.93222 -2.37784,-5.31006 -5.31006,-5.31006 -2.93221,0 -5.31006,2.37784 -5.31006,5.31006 z"
+         fill="#57bbc4"
+         style="display:inline;stroke-width:1.06201" /><text
+         x="-875.13409"
+         y="-99.462921"
+         font-size="25.9142px"
+         fill="#ffffff"
+         id="text1-3-4-0"
+         style="font-size:13.3333px;font-family:'Segoe UI', Arial, sans-serif;display:inline;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"
+         transform="rotate(180,-1e-5,124.99999)"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial;stroke-width:0;stroke-dasharray:none"
+           id="tspan13">Ein:</tspan></text><text
+         x="-819.55035"
+         y="-99.482452"
+         font-size="25.9142px"
+         fill="#ffffff"
+         text-anchor="end"
+         id="text2-8-0-2"
+         style="font-size:13.3333px;font-family:'Segoe UI', Arial, sans-serif;display:inline;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"
+         transform="rotate(180,-1e-5,124.99999)"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial;stroke-width:0;stroke-dasharray:none"
+           id="tspan14" class="fuehlersollein">50°C</tspan><tspan>°C</tspan></text><text
+         x="-875.13409"
+         y="-85.609749"
+         font-size="25.9142px"
+         fill="#ffffff"
+         id="text1-3-4-7-2"
+         style="font-size:13.3333px;font-family:'Segoe UI', Arial, sans-serif;display:inline;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"
+         transform="rotate(180,-1e-5,124.99999)"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial;stroke-width:0;stroke-dasharray:none"
+           id="tspan20">Ist:</tspan></text><text
+         x="-818.57379"
+         y="-85.453499"
+         font-size="25.9142px"
+         fill="#ffffff"
+         text-anchor="end"
+         id="text2-8-0-0-36"
+         style="font-size:13.3333px;font-family:'Segoe UI', Arial, sans-serif;display:inline;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"
+         transform="rotate(180,-1e-5,124.99999)"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial;stroke-width:0;stroke-dasharray:none"
+           id="tspan21" class="fuehlerpos1ist">45°C</tspan><tspan>°C</tspan></text><g
+         id="g13-6-11"
+         inkscape:label="TankSens1_NUR_TEMP"
+         style="display:inline;fill:#2f2f2f;fill-opacity:1"
+         transform="translate(-19.875,-1.4605)"
+         class="fuehlerpos1sollaktiv"><path
+           style="fill:#2f2f2f;fill-opacity:1;stroke:#57bbc4;stroke-width:1.83766;stroke-linecap:square;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+           id="rect11-23-3"
+           width="158.63622"
+           height="79.328682"
+           x="-3.2285924"
+           y="-28.501883"
+           sodipodi:type="rect"
+           inkscape:path-effect="#path-effect13-2-3"
+           d="M 4.7951016,-28.501883 H 147.38393 c 4.44513,0 8.02369,3.578568 8.02369,8.023694 v 63.281294 c 0,4.445127 -3.57856,8.023694 -8.02369,8.023694 H 4.7951016 c -4.44512645,0 -8.023694,-3.578567 -8.023694,-8.023694 v -63.281294 c 0,-4.445126 3.57856755,-8.023694 8.023694,-8.023694 z"
+           rx="8.023694"
+           transform="matrix(-0.37389264,0,0,-0.37389264,894.9048,352.88394)" /><text
+           x="-891.57269"
+           y="-366.7135"
+           font-size="25.9142px"
+           fill="#ffffff"
+           text-anchor="end"
+           id="text2-8-0-8-8"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.3333px;font-family:Arial;-inkscape-font-specification:Arial;display:inline;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"
+           transform="rotate(180,-20,-11.38762)"><tspan class="fuehlerpos1ist">50°C</tspan><tspan>°C</tspan></text></g></g></g><g
+     id="Info"
+     transform="rotate(-90,9.0000038,157.5)"
+     style="display:inline"><g
+       id="bar"
+       sodipodi:insensitive="true"><rect
+         y="178"
+         width="120.00001"
+         height="310"
+         rx="3.9779005"
+         fill="#313131"
+         id="rect1"
+         x="18"
+         style="stroke-width:0.819542" /></g><text
+       id="GebÃ¤ude"
+       fill="#ffffff"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial;white-space:pre"
+       font-family="Inter"
+       font-size="26px"
+       font-weight="500"
+       letter-spacing="0em"
+       x="173.25488"
+       y="-304.65662"
+       transform="rotate(90)"><tspan
+         x="187.25488"
+         y="-87.807617"
+         class="zeile1"
+         id="tspan1"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial">BWW</tspan></text><text
+       id="Heizkreis"
+       fill="#ffffff"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26px;font-family:Arial;-inkscape-font-specification:Arial;white-space:pre"
+       font-family="Inter"
+       font-size="26px"
+       font-weight="500"
+       letter-spacing="0em"
+       x="172.0957"
+       y="-364.00833"
+       transform="rotate(90)"><tspan
+         x="186.0957"
+         y="-108.69434"
+         class="zeile2"
+         id="tspan2"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26px;font-family:Arial;-inkscape-font-specification:Arial">Gebäude</tspan></text><g
+       id="ZP"
+       class="zpaktiv"
+       transform="rotate(90,93.5,254.5)"><path
+         id="path-21"
+         d="m 114.23786,320 h 36.18928 c 3.99711,0 7.23786,-3.582 7.23786,-8 v -28 c 0,-4.418 -3.24075,-8 -7.23786,-8 H 114.23786 C 110.24075,276 107,279.582 107,284 v 28 c 0,4.418 3.24075,8 7.23786,8 z"
+         fill="#666666"
+         style="stroke-width:0.951174" /><path
+         id="path-22"
+         d="m 135.6325,302.6005 1.4,-1.371 -3.7,-3.621 v -4.503 h -2 v 5.286 z m -3.3,5.188 c -1.383,0 -2.683,-0.257 -3.9,-0.771 -1.217,-0.514 -2.275,-1.212 -3.175,-2.093 -0.9,-0.88 -1.613,-1.916 -2.137,-3.107 -0.526,-1.191 -0.788,-2.464 -0.788,-3.818 0,-1.354 0.262,-2.626 0.788,-3.817 0.524,-1.191 1.237,-2.227 2.137,-3.108 0.9,-0.881 1.958,-1.578 3.175,-2.092 1.217,-0.514 2.517,-0.771 3.9,-0.771 1.383,0 2.683,0.257 3.9,0.771 1.217,0.514 2.275,1.211 3.175,2.092 0.9,0.881 1.613,1.917 2.137,3.108 0.525,1.191 0.788,2.463 0.788,3.817 0,1.354 -0.263,2.627 -0.788,3.818 -0.524,1.191 -1.237,2.227 -2.137,3.107 -0.9,0.881 -1.958,1.579 -3.175,2.093 -1.217,0.514 -2.517,0.771 -3.9,0.771 z m 0,-1.958 c 2.217,0 4.104,-0.763 5.663,-2.288 1.558,-1.525 2.337,-3.373 2.337,-5.543 0,-2.17 -0.779,-4.017 -2.337,-5.542 -1.559,-1.526 -3.446,-2.288 -5.663,-2.288 -2.217,0 -4.104,0.762 -5.662,2.288 -1.559,1.525 -2.338,3.372 -2.338,5.542 0,2.17 0.779,4.018 2.338,5.543 1.558,1.525 3.445,2.288 5.662,2.288 z"
+         fill="#e8eaed" /></g><text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.3333px;font-family:Arial;-inkscape-font-specification:Arial;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#313131;fill-opacity:1;stroke:#ffffff;stroke-width:3;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+       x="344.45605"
+       y="67.073357"
+       id="text24"
+       transform="rotate(90)"><tspan
+         sodipodi:role="line"
+         id="tspan24"
+         x="344.45605"
+         y="67.073357" /></text><g
+       id="ZP-2"
+       transform="matrix(0,0.90916402,-0.98860209,0,213.44855,145.1452)"><path
+         id="Vector_97-4"
+         d="m 55,187.333 h 40 c 4.4183,0 8,-3.581 8,-8 v -28 c 0,-4.418 -3.5817,-8 -8,-8 H 55 c -4.4183,0 -8,3.582 -8,8 v 28 c 0,4.419 3.5817,8 8,8 z"
+         fill="#666666" /><path
+         id="Vector_98-5"
+         d="m 75,175 c -1.3833,0 -2.5625,-0.487 -3.5375,-1.462 C 70.4875,172.562 70,171.383 70,170 c 0,-0.8 0.175,-1.546 0.525,-2.238 0.35,-0.691 0.8417,-1.279 1.475,-1.762 v -8 c 0,-0.833 0.2917,-1.542 0.875,-2.125 C 73.4583,155.292 74.1667,155 75,155 c 0.8333,0 1.5417,0.292 2.125,0.875 C 77.7083,156.458 78,157.167 78,158 v 8 c 0.6333,0.483 1.125,1.071 1.475,1.762 0.35,0.692 0.525,1.438 0.525,2.238 0,1.383 -0.4875,2.562 -1.4625,3.538 C 77.5625,174.513 76.3833,175 75,175 Z m -1,-11 h 2 v -1 h -1 v -1 h 1 v -2 h -1 v -1 h 1 v -1 c 0,-0.283 -0.0958,-0.521 -0.2875,-0.712 C 75.5208,157.096 75.2833,157 75,157 c -0.2833,0 -0.5208,0.096 -0.7125,0.288 C 74.0958,157.479 74,157.717 74,158 Z"
+         fill="#e8eaed" /></g></g><g
+     id="Vector_22"
+     transform="matrix(0.9963699,0,0,1.1685835,2.1390465,-1.9480782)"
+     style="display:inline;stroke-width:1;stroke-dasharray:none"
+     inkscape:label="Plattentauscher"
+     class="plattentauscheraktiv"><path
+       fill-rule="evenodd"
+       clip-rule="evenodd"
+       d="M 488.275,444.941 510.071,325.43 Z"
+       fill="#d9d9d9"
+       id="path1-8"
+       style="stroke-width:1;stroke-dasharray:none" /><path
+       id="Vector_21"
+       d="m 510.397,388.6965 h -21.795 v 119.507 h 21.795 z"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round"
+       style="stroke-width:1;stroke-dasharray:none"
+       transform="translate(-0.327,-63.2635)" /><path
+       d="M 488.275,444.941 510.071,325.43"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round"
+       id="path2-2"
+       style="stroke-width:1;stroke-dasharray:none" /></g><g
+     id="Frischwasser"
+     transform="translate(-1.153245,56.686)"
+     style="display:inline"><path
+       id="Vector_32"
+       d="M 991.13822,451.763 H 852.16257"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round"
+       style="stroke-width:3.03977;stroke-dasharray:none" /><path
+       id="Vector_33"
+       fill-rule="evenodd"
+       clip-rule="evenodd"
+       d="m 1007.6,441.745 -20.04,10.013 20.04,10.027 z"
+       fill="#ffffff"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round" /></g><g
+     id="Magroeinsatz"
+     transform="translate(0.327,63.2635)"
+     style="display:inline"
+     class="magroaktiv"><path
+       id="Vector_34"
+       d="m 728.739,335.75 -5.921,5.921"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round" /><path
+       id="Vector_35"
+       d="m 728.739,335.752 5.921,5.921"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round" /><path
+       id="Vector_36"
+       d="m 747.353,335.75 -5.921,5.921"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round" /><path
+       id="Vector_37"
+       d="m 747.353,335.752 5.92,5.921"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round" /><path
+       id="Vector_38"
+       d="m 766.39,335.75 -5.921,5.921"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round" /><path
+       id="Vector_39"
+       d="m 766.39,335.752 5.921,5.921"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round" /><path
+       id="Vector_40"
+       d="m 783.737,335.75 -5.921,5.921"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round" /><path
+       id="Vector_41"
+       d="m 783.737,335.752 5.921,5.921"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round" /><path
+       id="Vector_42"
+       d="m 801.082,335.75 -5.921,5.921"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round" /><path
+       id="Vector_43"
+       d="m 801.082,335.752 5.921,5.921"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round" /><path
+       id="Vector_44"
+       d="m 818.005,335.75 -5.921,5.921"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round" /><path
+       id="Vector_45"
+       d="m 818.005,335.752 5.921,5.921"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round" /><path
+       id="Vector_46"
+       d="m 835.35,335.75 -5.921,5.921"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round" /><path
+       id="Vector_47"
+       d="m 835.35,335.752 5.921,5.921"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round" /><path
+       id="Vector_48"
+       d="m 852.273,335.75 -5.921,5.921"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round" /><path
+       id="Vector_49"
+       d="m 852.273,335.752 5.921,5.921"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round" /><path
+       id="Vector_50"
+       d="M 852.063,335.1855 H 708.062"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round" /><path
+       id="Vector_51"
+       d="M 771.974,435.351 H 707"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round" /></g><g
+     id="EL. Einsatz"
+     transform="translate(4.8335,60.1155)"
+     style="display:inline"
+     class="eleinsatzaktiv"><path
+       id="Vector_58"
+       d="M 895.297,431.073 H 866.23"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round" /><path
+       id="Vector_59"
+       d="M 866.231,431.073 823.964,457.02"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round" /><path
+       id="Vector_60"
+       d="M 895.297,422.79 H 866.23"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round" /><path
+       id="Vector_61"
+       d="m 866.23,422.78 -55.04,34.24"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round" /><path
+       id="Vector_62"
+       d="M 895.297,414.506 H 866.23"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round" /><path
+       id="Vector_63"
+       d="M 866.233,414.5 798.5,457.02"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round" /><text
+       id="HZ/BWW"
+       fill="#ffffff"
+       xml:space="preserve"
+       style="white-space:pre"
+       font-family="Inter"
+       font-size="12px"
+       font-weight="500"
+       letter-spacing="0em"><tspan
+         x="928"
+         y="427.36401"
+         id="tspan18" class="eleinsatztext">HZ/BWW</tspan></text><path
+       id="Rectangle 2"
+       d="m 919.6665,410.99219 v 24 h -24 v -24 z"
+       fill="#ff02e6"
+       stroke="#ffffff"
+       class="eleinsatzcolorfill"
+       stroke-width="2" /><path
+       id="Vector_64"
+       d="m 904.667,429.667 2.666,-5 L 902,424 l 8,-7.667 h 1.333 l -2.666,5 5.333,0.667 -8,7.667 z m 3.7,-4.117 2.683,-2.567 -4.483,-0.566 1.05,-1.95 -2.667,2.566 4.467,0.55 z"
+       fill="#e8eaed" /></g><g
+     id="Stroemungswaechter"
+     transform="translate(0.23647971,63.2635)"
+     class="beaktiv"
+><path
+       style="fill:none;stroke:#ffffff;stroke-width:1.20869;stroke-linecap:square;stroke-dasharray:none;stroke-opacity:1"
+       d="m 219.26352,413.77079 v 21.41472"
+       id="path5" /><path
+       id="Rectangle 2_2"
+       d="m 219.263,384.07231 14.85,14.85 -14.85,14.849 -14.849,-14.849 z"
+       fill="#ff02e6"
+       stroke="#ffffff"
+       stroke-width="2" /><text
+       id="SW"
+       fill="#ffffff"
+       xml:space="preserve"
+       style="white-space:pre"
+       font-family="Inter"
+       font-size="10px"
+       letter-spacing="0em"
+       x="206.61264"
+       y="394.6868"><tspan
+         x="208.67807"
+         y="403.82318"
+         id="tspan19">SW</tspan></text></g><g
+     id="Ventil EZ"
+     transform="translate(0.327,63.2635)"
+
+     class="beaktiv"><text
+       id="100 %_2"
+       fill="#ffffff"
+       xml:space="preserve"
+       style="white-space:pre"
+       font-family="Inter"
+       font-size="12px"
+       font-weight="500"
+       letter-spacing="0em"
+       x="-4.7011375"
+       y="-5.0200205"><tspan
+         x="90.160164"
+         y="491.34399"
+         id="tspan27">100 %</tspan></text><circle
+       id="Ellipse 1_4-8-1"
+       class="ventilvlcolorfill"
+       cx="-109.38901"
+       cy="524.64581"
+       r="11.511497"
+       transform="matrix(-1,0,0,1,-0.327,-63.2635)"
+       fill="#ff02e6"
+       stroke="#00ffd1"
+       stroke-width="2.19267"
+       style="display:inline" /><text
+       id="M_2-9-3"
+       transform="matrix(-1,0,0,1,-0.327,-63.2635)"
+       fill="#ffffff"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial;white-space:pre;display:inline;stroke-width:1.09633"
+       font-family="Inter"
+       font-size="10.9633px"
+       letter-spacing="0em"
+       x="-115.2098"
+       y="519.91949"><tspan
+         x="-115.2098"
+         y="530.48413"
+         id="tspan19-2-8"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial;stroke-width:1.09633">M</tspan></text><path
+       id="Vector_67"
+       fill-rule="evenodd"
+       clip-rule="evenodd"
+       d="M 92.0809,443.763 109.228,435.19 92.0809,426.617 Z"
+       fill="#ffffff"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round" /><path
+       id="Vector_68"
+       fill-rule="evenodd"
+       clip-rule="evenodd"
+       d="m 100.547,418.04 8.573,17.147 8.573,-17.147 z"
+       fill="#ffffff"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round" /><path
+       id="Vector_69"
+       d="m 109.146,434.605 -0.168,25.16"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round" /><path
+       id="Vector_70"
+       d="M 109.058,423.763 V 336"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round"
+       style="stroke-width:3;stroke-dasharray:none" /><path
+       id="Vector_71"
+       fill-rule="evenodd"
+       clip-rule="evenodd"
+       d="m 126.153,426.621 -17.146,8.573 17.146,8.574 z"
+       fill="#000000"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round" /></g><g
+     id="LWW"
+     transform="translate(0.327,63.2635)"
+     class="lwwaktiv"><text
+       id="Zuluft"
+       fill="#ffffff"
+       xml:space="preserve"
+       style="white-space:pre"
+       font-family="Inter"
+       font-size="12px"
+       font-weight="500"
+       letter-spacing="0em"><tspan
+         x="21"
+         y="363.36401"
+         id="tspan29">Zuluft</tspan></text><text
+       id="Abluft"
+       fill="#ffffff"
+       xml:space="preserve"
+       style="white-space:pre"
+       font-family="Inter"
+       font-size="12px"
+       font-weight="500"
+       letter-spacing="0em"><tspan
+         x="18"
+         y="464.36401"
+         id="tspan30">Abluft</tspan></text><g
+       id="Venti"><circle
+         id="Ellipse 2_5"
+         cx="158.004"
+         cy="335.00299"
+         r="21.503599"
+         fill="#2e7d32"
+         stroke="#673838"
+         stroke-width="3"
+         class="venticolorfill" /><line
+         id="Line 29"
+         y1="-1.5"
+         x2="36.824699"
+         y2="-1.5"
+         transform="matrix(0.977603,0.210457,-0.170464,0.985364,142,321)"
+         stroke="#673838"
+         stroke-width="3"
+         x1="0"
+         class="ventistrokefill" /><line
+         id="Line 30"
+         x1="140.70599"
+         y1="349.52899"
+         x2="178.70599"
+         y2="341.927"
+         stroke="#673838"
+         stroke-width="3"
+         class="ventistrokefill" /></g></g><g
+     id="Rauchmelder"
+     class="beaktiv"
+     transform="translate(0.67232496,131.449)"
+><path
+       id="Rectangle 2_3"
+       d="m 229,288 v 21 h -21 v -21 z"
+       fill="#ff02e6"
+       stroke="#ffffff"
+       stroke-width="2" /><g
+       id="rauchmelder symbol"><line
+         id="Line 31"
+         x1="220.722"
+         y1="299.83301"
+         x2="216.479"
+         y2="295.59"
+         stroke="#ffffff" /><line
+         id="Line 32"
+         x1="221.186"
+         y1="291.59"
+         x2="217.186"
+         y2="295.59"
+         stroke="#ffffff" /><line
+         id="Line 33"
+         x1="221.186"
+         y1="299.59"
+         x2="216.59"
+         y2="304.186"
+         stroke="#ffffff" /></g><path
+       style="display:inline;fill:none;stroke:#ffffff;stroke-width:1.2751;stroke-linecap:square"
+       d="m 219.49999,398.76195 v 20.24729"
+       id="path6"
+       transform="translate(-0.67232496,-131.449)" /></g><g
+     id="Registereinsatz"
+     transform="translate(0.327,63.2635)"
+     style="display:inline"
+     class="registereinsatzaktiv"><path
+       id="Vector_72"
+       d="m 742.835,393.753 h 92.134"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round" /><path
+       id="Vector_73"
+       d="m 834.969,393.751 -92.134,7.32"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round" /><path
+       id="Vector_74"
+       d="m 742.835,401.071 h 92.134"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round" /><path
+       id="Vector_75"
+       d="m 834.969,401.069 -92.134,7.32"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round" /><path
+       id="Vector_76"
+       d="m 742.835,408.389 h 92.134"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round" /><path
+       id="Vector_77"
+       d="m 834.969,408.387 -92.134,7.32"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round" /><path
+       id="Vector_78"
+       d="m 742.835,415.707 h 92.134"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round" /><path
+       id="Vector_79"
+       d="m 834.969,415.705 -92.134,7.32"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round" /><path
+       id="Vector_80"
+       d="m 742.835,423.025 h 92.134"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round" /><path
+       id="Vector_81"
+       d="m 834.969,423.023 -92.134,7.32"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round" /><path
+       id="Vector_82"
+       d="m 742.835,430.343 h 92.134"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round" /><path
+       id="Vector_83"
+       d="m 742.835,335.501 h 92.134"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round" /><path
+       id="Vector_84"
+       d="m 834.969,335.5 -92.134,7.32"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round" /><path
+       id="Vector_85"
+       d="m 742.835,342.82 h 92.134"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round" /><path
+       id="Vector_86"
+       d="m 834.969,342.817 -92.134,7.32"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round" /><path
+       id="Vector_87"
+       d="m 742.835,350.137 h 92.134"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round" /><path
+       id="Vector_88"
+       d="m 834.969,350.136 -92.134,7.32"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round" /><path
+       id="Vector_89"
+       d="m 742.835,357.456 h 92.134"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round" /><path
+       id="Vector_90"
+       d="m 834.969,357.454 -92.134,7.32"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round" /><path
+       id="Vector_91"
+       d="m 742.835,364.773 h 92.134"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round" /><path
+       id="Vector_92"
+       d="m 834.969,364.772 -92.134,7.32"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round" /><path
+       id="Vector_93"
+       d="m 742.835,372.092 h 92.134"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round" /><path
+       id="Vector_94"
+       d="m 834.969,372.09 -92.134,7.32"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round" /><path
+       id="Vector_95"
+       d="m 742.835,379.41 h 92.134"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round" /><path
+       id="Vector_96"
+       d="m 834.969,379.408 -92.134,7.32"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round" /><path
+       id="Vector_97"
+       d="m 742.835,386.728 h 92.134"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round" /><path
+       id="Vector_98"
+       d="m 834.969,386.726 -92.134,7.32"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round" /><path
+       id="Vector_99"
+       d="m 834.963,430.343 -62.613,4.974"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round" /><path
+       id="Vector_100"
+       d="M 772.036,435.1855 H 707.062"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round" /><path
+       id="Vector_101"
+       d="M 707.34252,335.1855 H 822.06621"
+       stroke="#ffffff"
+       stroke-miterlimit="3"
+       stroke-linecap="round"
+       stroke-linejoin="round"
+       style="stroke-width:0.998785" /></g><g
+     id="g23"
+     style="display:inline"
+     inkscape:label="TempSens_VL_PT"
+     transform="rotate(-90,750.59003,509.78366)"
+     class="fuehlerspeichervlaktiv"><text
+       id="text5-1"
+       fill="#ffffff"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.3334px;font-family:Arial;-inkscape-font-specification:Arial;white-space:pre;display:inline;stroke:none;stroke-width:1.096;stroke-dasharray:none;stroke-opacity:1"
+       font-family="Inter"
+       font-size="12px"
+       font-weight="500"
+       letter-spacing="0em"
+       x="-479.75055"
+       y="-1115.5327"
+       transform="rotate(90)"><tspan
+         x="276.71924"
+         y="-893.67444"
+         class="fuehlerspeichervlist"
+         id="tspan5-8"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.3334px;font-family:Arial;-inkscape-font-specification:Arial;stroke:none;stroke-width:1.096;stroke-dasharray:none;stroke-opacity:1">55°C</tspan><tspan>°C</tspan></text><line
+       id="Line 37_2"
+       x1="412.29916"
+       y1="-460.81955"
+       x2="412.29916"
+       y2="-440.81955"
+       stroke="#ffffff"
+       style="display:inline;stroke-width:0.941609;stroke-dasharray:none"
+       transform="matrix(0,1.0620124,-1.0620124,0,393.76887,-147.14081)" /><path
+       id="circle48_2"
+       class="fuehlerspeichervlcolorfill"
+       d="m 412.29914,-455.81956 c 2.761,0 5,-2.239 5,-5 0,-2.761 -2.239,-5 -5,-5 -2.761,0 -5,2.239 -5,5 0,2.761 2.239,5 5,5 z"
+       fill="#57bbc4"
+       style="display:inline"
+       transform="matrix(0,1.0620124,-1.0620124,0,393.76887,-147.14081)" /></g><g
+     id="g23-59"
+     inkscape:label="TempSens_VL_WP"
+     transform="rotate(-90,594.5863,665.81232)"
+     class="fuehlerbeeinaktiv"><text
+       id="text5-1-6"
+       fill="#ffffff"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.3334px;font-family:Arial;-inkscape-font-specification:Arial;white-space:pre;display:inline;stroke:none;stroke-width:1.096;stroke-dasharray:none;stroke-opacity:1"
+       font-family="Inter"
+       font-size="12px"
+       font-weight="500"
+       letter-spacing="0em"
+       x="-479.75055"
+       y="-1115.5327"
+       transform="rotate(90)"><tspan
+         x="276.71924"
+         y="-893.67444"
+         class="fuehlerbeeinist"
+         id="tspan5-8-3"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.3334px;font-family:Arial;-inkscape-font-specification:Arial;stroke:none;stroke-width:1.096;stroke-dasharray:none;stroke-opacity:1">55°C</tspan><tspan>°C</tspan></text><line
+       id="Line 37_2-4"
+       x1="412.29916"
+       y1="-460.81955"
+       x2="412.29916"
+       y2="-440.81955"
+       stroke="#ffffff"
+       style="display:inline;stroke-width:0.941609;stroke-dasharray:none"
+       transform="matrix(0,1.0620124,-1.0620124,0,393.76887,-147.14081)" /><path
+       id="circle48_2-2"
+       class="fuehlerbeeincolorfill"
+       d="m 412.29914,-455.81956 c 2.761,0 5,-2.239 5,-5 0,-2.761 -2.239,-5 -5,-5 -2.761,0 -5,2.239 -5,5 0,2.761 2.239,5 5,5 z"
+       fill="#57bbc4"
+       style="display:inline"
+       transform="matrix(0,1.0620124,-1.0620124,0,393.76887,-147.14081)" /></g><g
+     id="g23-5"
+     inkscape:label="TempSens_RL_PT"
+     transform="rotate(90,593.76902,230.29332)"
+     class="fuehlerspeicherrlaktiv"><text
+       id="text5-1-3"
+       fill="#ffffff"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.3334px;font-family:Arial;-inkscape-font-specification:Arial;white-space:pre;display:inline;stroke:none;stroke-width:1.096;stroke-dasharray:none;stroke-opacity:1"
+       font-family="Inter"
+       font-size="12px"
+       font-weight="500"
+       letter-spacing="0em"
+       x="-1063.0068"
+       y="681.36047"
+       transform="rotate(-90)"><tspan
+         x="-306.53711"
+         y="903.21875"
+         class="fuehlerspeicherrlist"
+         id="tspan5-8-6"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.3334px;font-family:Arial;-inkscape-font-specification:Arial;stroke:none;stroke-width:1.096;stroke-dasharray:none;stroke-opacity:1">55°C</tspan><tspan>°C</tspan></text><line
+       id="Line 37_2-1"
+       x1="412.29916"
+       y1="-460.81955"
+       x2="412.29916"
+       y2="-440.81955"
+       stroke="#ffffff"
+       style="display:inline;stroke-width:0.941609;stroke-dasharray:none"
+       transform="matrix(0,1.0620124,-1.0620124,0,393.76887,-147.14081)" /><path
+       id="circle48_2-8"
+       class="fuehlerspeicherrlcolorfill"
+       d="m 412.29914,-455.81956 c 2.761,0 5,-2.239 5,-5 0,-2.761 -2.239,-5 -5,-5 -2.761,0 -5,2.239 -5,5 0,2.761 2.239,5 5,5 z"
+       fill="#57bbc4"
+       style="display:inline"
+       transform="matrix(0,1.0620124,-1.0620124,0,393.76887,-147.14081)" /></g><g
+     id="g23-5-2"
+     inkscape:label="TempSens_RL_WP"
+     transform="rotate(90,436.85086,73.375158)"
+     class="fuehlerbeausaktiv"><text
+       id="text5-1-3-1"
+       fill="#ffffff"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.3334px;font-family:Arial;-inkscape-font-specification:Arial;white-space:pre;display:inline;stroke:none;stroke-width:1.096;stroke-dasharray:none;stroke-opacity:1"
+       font-family="Inter"
+       font-size="12px"
+       font-weight="500"
+       letter-spacing="0em"
+       x="-1063.0068"
+       y="681.36053"
+       transform="rotate(-90)"><tspan
+         x="-306.53711"
+         y="903.21881"
+         class="fuehlerbeausist"
+         id="tspan5-8-6-4"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.3334px;font-family:Arial;-inkscape-font-specification:Arial;stroke:none;stroke-width:1.096;stroke-dasharray:none;stroke-opacity:1">55°C</tspan><tspan>°C</tspan></text><line
+       id="Line 37_2-1-6"
+       x1="412.29916"
+       y1="-460.81955"
+       x2="412.29916"
+       y2="-440.81955"
+       stroke="#ffffff"
+       style="display:inline;stroke-width:0.941609;stroke-dasharray:none"
+       transform="matrix(0,1.0620124,-1.0620124,0,393.76887,-147.14081)" /><path
+       id="circle48_2-8-2"
+       class="fuehlerbeauscolorfill"
+       d="m 412.29914,-455.81956 c 2.761,0 5,-2.239 5,-5 0,-2.761 -2.239,-5 -5,-5 -2.761,0 -5,2.239 -5,5 0,2.761 2.239,5 5,5 z"
+       fill="#57bbc4"
+       style="display:inline"
+       transform="matrix(0,1.0620124,-1.0620124,0,393.76887,-147.14081)" /></g><g
+     id="g37"
+     inkscape:label="Pump4"
+     class="quellpumpaktiv"><circle
+       id="Ellipse 2-4"
+       class="quellpumpcolorfill"
+       cx="173.3549"
+       cy="398.37897"
+       r="21.046207"
+       fill="#2e7d32"
+       stroke="#673838"
+       stroke-width="2.47602"
+       style="display:inline" /><path
+       id="Polygon 1-4"
+       class="quellpumpcolorstroke"
+       d="m 193.98846,398.37898 -22.90323,21.4432 v -42.88639 z"
+       fill="#673838"
+       style="display:inline;stroke-width:0.825339" /></g><g
+     id="g36"
+     inkscape:label="Ladepumpe"
+
+     class="ladepumpaktiv"><circle
+       id="Ellipse 2-2-0"
+       class="ladepumpcolorfill"
+       cx="438.97348"
+       cy="398.44894"
+       r="21.945852"
+       fill="#2e7d32"
+       stroke="#673838"
+       stroke-width="2.58187"
+       style="display:inline" /><path
+       id="Polygon 1-9-3"
+       class="ladepumpcolorstroke"
+       d="m 460.48898,398.449 -23.88225,22.35981 v -44.71962 z"
+       fill="#673838"
+       style="display:inline;stroke-width:0.860619" /></g><g
+     id="g35"
+     inkscape:label="Pump2"
+     style="display:inline"
+     class="ptsekpumpaktiv"><circle
+       id="Ellipse 2-2"
+       class="ptsekpumpcolorfill"
+       cx="-579.3219"
+       cy="-498.43716"
+       r="21.945852"
+       transform="scale(-1)"
+       fill="#2e7d32"
+       stroke="#673838"
+       stroke-width="2.58187"
+       style="display:inline" /><path
+       id="Polygon 1-9"
+       class="ptsekpumpcolorstroke"
+       d="m 557.80638,498.43714 23.88225,-22.35981 v 44.71962 z"
+       fill="#673838"
+       style="display:inline;stroke-width:0.860619" /></g><g
+     id="g34"
+     inkscape:label="Pump1"
+     style="display:inline"
+     class="zirkpumpaktiv"><circle
+       id="Ellipse 2-2-2"
+       class="zirkpumpcolorfill"
+       cx="158.29356"
+       cy="-991.12384"
+       r="21.945852"
+       transform="rotate(90)"
+       fill="#2e7d32"
+       stroke="#673838"
+       stroke-width="2.58187"
+       style="display:inline" /><path
+       id="Polygon 1-9-9"
+       class="zirkpumpcolorstroke"
+       d="M 991.12382,179.80905 968.76401,155.9268 h 44.71959 z"
+       fill="#673838"
+       style="display:inline;stroke-width:0.860619" /></g><text
+     xml:space="preserve"
+     transform="translate(-1.2150096e-5)"
+     id="text9"
+     style="font-size:13.3333px;text-align:start;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect9);display:inline;fill:none;stroke:#57bbc4;stroke-width:0.695;stroke-linecap:square;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" /><g
+     id="g32"
+     style="stroke-width:2.11857;stroke-dasharray:none"
+     inkscape:label="WP"
+     class="beaktiv"
+     transform="matrix(0.41508911,0,0,0.572209,228.73467,271.52439)"><rect
+       x="50.026199"
+       y="186.84808"
+       width="361.39828"
+       height="243.77135"
+       stroke="#ffffff"
+       id="rect5"
+       style="stroke-width:2.22903" /><rect
+       x="322.61621"
+       y="224.51534"
+       width="56.90202"
+       height="56.417545"
+       stroke="#ffffff"
+       id="rect4"
+       style="stroke-width:3.16735" /><line
+       x1="322.61621"
+       y1="264.00763"
+       x2="379.51819"
+       y2="264.00763"
+       stroke="#ffffff"
+       id="line4"
+       style="stroke-width:3.16735" /><ellipse
+       cx="351.06717"
+       cy="272.47028"
+       fill="#ffffff"
+       id="circle4"
+       rx="8.8909407"
+       ry="7.0521932"
+       style="stroke-width:3.16735" /><rect
+       x="379.59601"
+       y="432.79324"
+       width="17.428988"
+       height="13.824474"
+       stroke="#ffffff"
+       id="rect7"
+       style="stroke-width:2.11857;stroke-dasharray:none" /><rect
+       x="64.425812"
+       y="432.78995"
+       width="17.428751"
+       height="13.827494"
+       stroke="#ffffff"
+       id="rect7-5"
+       style="stroke-width:2.11879;stroke-dasharray:none" /><g
+       id="g11"
+       transform="matrix(1.7134442,0,0,1.317115,93.278682,339.41314)"
+       style="display:inline;stroke:#ffffff;stroke-width:1.00029;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:label="WP_Stats"><text
+         x="12"
+         y="18.692604"
+         class="label"
+         id="text1"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15.8489px;font-family:Arial;-inkscape-font-specification:Arial;stroke-width:0;stroke-dasharray:none"><tspan
+   style="font-size:21.8537px"
+   id="tspan15">Status</tspan>:</text><text
+         x="131.44365"
+         y="18.692604"
+         class="value"
+         id="text2"
+         style="font-size:21.8537px;stroke-width:0;stroke-dasharray:none"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.8537px;font-family:Arial;-inkscape-font-specification:Arial"
+           id="tspan25">Ein</tspan></text><text
+         x="12"
+         y="41.222836"
+         class="label"
+         id="text7"
+         style="font-size:15.8489px;stroke-width:0;stroke-dasharray:none"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15.8489px;font-family:Arial;-inkscape-font-specification:Arial"
+           id="tspan23"><tspan
+   style="font-size:21.8537px"
+   id="tspan16">Sollwert</tspan>:</tspan></text><text
+         x="148.31581"
+         y="41.222836"
+         class="value"
+         id="text8"
+         style="font-size:21.8537px;stroke-width:0;stroke-dasharray:none"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.8537px;font-family:Arial;-inkscape-font-specification:Arial"
+           id="tspan31">50°C</tspan></text></g></g><style
+     id="style1">
+    text {
+      font-family: &quot;Segoe UI&quot;, &quot;Arial&quot;, sans-serif;
+      font-size: 14px;
+      fill: #ffffff;
+    }
+    .label {
+      text-anchor: start;
+    }
+    .value {
+      text-anchor: end;
+    }
+  </style></svg>

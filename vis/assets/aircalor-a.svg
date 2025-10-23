@@ -1,0 +1,615 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg viewBox="0 0 1330 600" version="1.1" id="svg42" width="1330" height="600" xmlns="http://www.w3.org/2000/svg" xmlns:bx="https://boxy-svg.com">
+
+   <ycontrol>
+   	<!-- Zeile 1 -->	
+		<property name="Zeile1" datatype="String" defaultvalue="xxx">
+			<target type="Content" element="zeile1" />
+		</property>
+		
+   	<!-- Zeile 2 -->
+		<property name="Zeile2" datatype="String" defaultvalue="xxx">
+			<target type="Content" element="zeile2" />
+		</property>
+
+
+<!--Zeitprogramm-->
+    <property name="ZpEinblenden" datatype="boolean" defaultvalue="0">
+      <target type="Attribute" element="zpaktiv" selector="opacity">
+        <condition eq="1" output="1"/>
+        <condition eq="0" output="0"/>
+      </target>
+    </property>
+	<action name="ZpClick" triggers="click" elements="zpaktiv" />
+
+<!--Info-->
+    <property name="InfoEinblenden" datatype="boolean" defaultvalue="0">
+      <target type="Attribute" element="infoaktiv" selector="opacity">
+        <condition eq="1" output="1"/>
+        <condition eq="0" output="0"/>
+      </target>
+    </property>
+    <action name="InfoClick" triggers="click" elements="infoaktiv" />
+<!--Settings-->
+    <property name="SettingsEinblenden" datatype="boolean" defaultvalue="0">
+      <target type="Attribute" element="settingsaktiv" selector="opacity">
+        <condition eq="1" output="1"/>
+        <condition eq="0" output="0"/>
+      </target>
+    </property>
+    <action name="SettingsClick" triggers="click" elements="settingsaktiv" />
+    
+    <!-- Funktion -->
+
+    <!-- Systemtrennung -->
+
+        <property name="Funktion" datatype="INT16" defaultvalue="0">
+        	<target type="Attribute" element="ventilvlaktiv" selector="visibility">
+        	  <condition eq="0" output="visible" />
+        	  <condition eq="1" output="visible" />
+        	  <condition eq="1" output="visible" />
+       			<condition gt="1" output="hidden" />
+       		</target>
+        	<target type="Content" element="leitungo">
+       			<condition eq="0" output="Warmwasser" />
+        	  <condition eq="1" output="Warmwasser" />
+       			<condition eq="2" output="Heizen" />
+        	  <condition eq="3" output="" />
+       			<condition eq="4" output="" />        	    
+       		</target>  
+        	<target type="Content" element="leitungu">
+       			<condition eq="0" output="Heizen" />
+        	  <condition eq="1" output="Heizen / Kühlen" />
+       			<condition eq="2" output="Heizen" />
+        	  <condition eq="3" output="Heizen / Kühlen" />
+       			<condition eq="4" output="Warmwasser" />         	   
+       		</target>
+		    </property>
+
+<!-- Ventil VL-->
+        <property name="Status Ventil" datatype="Int8" defaultvalue="99">
+        	<target type="Style" element="ventilcolorfill" selector="fill">
+       			<condition eq="99" output="#f542ef" />
+       			<condition eq="0" output="black" />
+       			<condition eq="1" output="green" />
+       			<condition eq="2" output="red" />
+       			<condition eq="10" output="black" />
+       			<condition eq="11" output="green" />
+       			<condition eq="12" output="red" />
+       			<condition eq="20" output="black" />
+       			<condition eq="21" output="green" />
+       			<condition eq="22" output="red" />
+       		</target>
+       		 <target type="Style" element="ventilcolorfill" selector="stroke">
+       			<condition eq="99" output="#18c6c9" />
+       			<condition lt="10" output="white" />
+       			<condition lt="20" output="blue" />
+       			<condition lt="30" output="orange" />
+       		</target>
+        	<target type="Content" element="ventiltext">
+       			<condition eq="99" output="Unbekannt" />
+        	    <condition eq="0" output="Auto HZ" />
+       			<condition eq="1" output="Auto BWW" />
+       			<condition eq="2" output="Störung" />
+       			<condition eq="10" output="Hand HZ" />
+       			<condition eq="11" output="Hand BWW" />
+       			<condition eq="12" output="Störung" />
+       			<condition eq="20" output="Lokal HZ" />
+       			<condition eq="21" output="Lokal BWW" />
+       			<condition eq="22" output="Störung" />
+       		</target>
+        </property>
+
+
+    <!-- Ventil RL -->
+        <property name="Ventil RL anzeigen" datatype="Int8" defaultvalue="0">
+            <target type="Attribute" element="ventilrlaktiv" selector="visibility">
+                <condition eq="1" output="visible" />
+                <condition eq="0" output="hidden" />
+            </target>	
+        </property>
+
+
+    <!-- Venti -->
+        <property name="Status Venti" datatype="Int8" defaultvalue="99">
+        	<target type="Style" element="venticolorfill" selector="fill">
+       			<condition eq="99" output="#f542ef" />
+       			<condition eq="0" output="black" />
+       			<condition eq="1" output="green" />
+       			<condition eq="2" output="red" />
+       			<condition eq="10" output="black" />
+       			<condition eq="11" output="green" />
+       			<condition eq="12" output="red" />
+       			<condition eq="20" output="black" />
+       			<condition eq="21" output="green" />
+       			<condition eq="22" output="red" />
+       		</target>
+       		 <target type="Style" element="venticolorfill" selector="stroke">
+       			<condition eq="99" output="#18c6c9" />
+       			<condition lt="10" output="white" />
+       			<condition lt="20" output="blue" />
+       			<condition lt="30" output="orange" />
+       		</target>
+       		 <target type="Style" element="ventifancolorfill" selector="fill">
+       			<condition eq="99" output="#18c6c9" />
+       			<condition lt="10" output="white" />
+       			<condition lt="20" output="blue" />
+       			<condition lt="30" output="orange" />
+       		</target>
+		    </property>
+  
+<!-- Komp -->
+        <property name="Status Kompressor" datatype="Int8" defaultvalue="99">
+        	<target type="Style" element="kompcolorfill" selector="fill">
+       			<condition eq="99" output="#f542ef" />
+       			<condition eq="0" output="black" />
+       			<condition eq="1" output="green" />
+       			<condition eq="2" output="red" />
+       			<condition eq="10" output="black" />
+       			<condition eq="11" output="green" />
+       			<condition eq="12" output="red" />
+       			<condition eq="20" output="black" />
+       			<condition eq="21" output="green" />
+       			<condition eq="22" output="red" />
+       		</target>
+       		 <target type="Style" element="kompcolorfill" selector="stroke">
+       			<condition eq="99" output="#18c6c9" />
+       			<condition lt="10" output="white" />
+       			<condition lt="20" output="blue" />
+       			<condition lt="30" output="orange" />
+       		</target>
+		</property>
+
+<!-- Status Pumpe -->
+        <property name="Status Pumpe" datatype="Int8" defaultvalue="1">
+        	<target type="Style" element="pumpcolorfill" selector="fill">
+       			<condition eq="99" output="#f542ef" />
+       			<condition eq="0" output="black" />
+       			<condition eq="1" output="green" />
+       			<condition eq="2" output="red" />
+       			<condition eq="10" output="black" />
+       			<condition eq="11" output="green" />
+       			<condition eq="12" output="red" />
+       			<condition eq="20" output="black" />
+       			<condition eq="21" output="green" />
+       			<condition eq="22" output="red" />
+       		</target>
+       		 <target type="Style" element="pumpcolorfill" selector="stroke">
+       			<condition eq="99" output="#18c6c9" />
+       			<condition lt="10" output="white" />
+       			<condition lt="20" output="blue" />
+       			<condition lt="30" output="orange" />
+       		</target>
+       		 <target type="Style" element="pumpcolorstroke" selector="fill">
+       			<condition eq="99" output="#18c6c9" />
+       			<condition lt="10" output="white" />
+       			<condition lt="20" output="blue" />
+       			<condition lt="30" output="orange" />
+       		</target>
+		</property>
+    <property name="Status Pumpe" datatype="String" defaultvalue="xxx">
+			<target type="Content" element="pumpist" />
+		</property>
+
+<!-- Text WP-->
+		<property name="Sollwert" datatype="String" defaultvalue="xxx">
+			<target type="Content" element="sollwert" />
+		</property>
+		<property name="Eintritt" datatype="String" defaultvalue="xxx">
+			<target type="Content" element="wprl" />
+		</property>
+		<property name="Austritt" datatype="String" defaultvalue="xxx">
+			<target type="Content" element="wpvl" />
+		</property>
+		<property name="Leistung" datatype="String" defaultvalue="xxx">
+			<target type="Content" element="leistung" />
+		</property>
+    <property name="Stauts EZ" datatype="INT16" defaultvalue="0">
+        <target type="Content" element="statusez">
+       			<condition eq="0" output="Auto Aus" />
+        	  <condition eq="1" output="Ein Heizen" />
+       			<condition eq="2" output="Ein BWW" />
+        	  <condition eq="3" output="Ein Kühlen" />
+       			<condition eq="4" output="Störung!" /> 
+       			<condition eq="5" output="Qittieren" />
+       			<condition eq="6" output="Frostschutz" />
+       			<condition eq="7" output="EVU-Sperre" />
+       			<condition eq="8" output="Freecoling und Heizen" />
+       			<condition eq="10" output="Hand Aus" />
+       			<condition eq="90" output="Abtauung" />
+       			<condition eq="100" output="EVU-Sperre" />
+       		</target>  
+		</property>
+    
+    <!-- Systemtrennung -->
+        <property name="Systemtrennung anzeigen" datatype="INT8" defaultvalue="0">
+            <target type="Attribute" element="systrennungaktiv" selector="visibility">
+                <condition eq="1" output="visible" />
+                <condition eq="0" output="hidden" />
+            </target>	
+        </property>
+
+    
+    <!-- Status Pumpe Systemtrennung -->
+    <property name="Status Pumpe Systemtrennung" datatype="Int8" defaultvalue="99">
+        	<target type="Style" element="pumpsyscolorfill" selector="fill">
+       			<condition eq="99" output="#f542ef" />
+       			<condition eq="0" output="black" />
+       			<condition eq="1" output="green" />
+       			<condition eq="2" output="red" />
+       			<condition eq="10" output="black" />
+       			<condition eq="11" output="green" />
+       			<condition eq="12" output="red" />
+       			<condition eq="20" output="black" />
+       			<condition eq="21" output="green" />
+       			<condition eq="22" output="red" />
+       		</target>
+       		 <target type="Style" element="pumpsyscolorfill" selector="stroke">
+       			<condition eq="99" output="#18c6c9" />
+       			<condition lt="10" output="white" />
+       			<condition lt="20" output="blue" />
+       			<condition lt="30" output="orange" />
+       		</target>
+       		 <target type="Style" element="pumpsyscolorstroke" selector="fill">
+       			<condition eq="99" output="#18c6c9" />
+       			<condition lt="10" output="white" />
+       			<condition lt="20" output="blue" />
+       			<condition lt="30" output="orange" />
+       		</target>
+		</property>
+
+        <!-- Status Ventil Systemtrennung -->
+		<property name="Position Systemtrennung Ventil" datatype="Int16" defaultvalue="1000">
+		    <target type="Content" element="ventilsyspos" />
+		</property>
+		
+		<property name="Status Systemtrennung Ventil" datatype="Int16" defaultvalue="0">
+			<target type="Style" element="ventilsyscollorfill" selector="fill">
+       			<condition gt="100" output="red" />
+       			<condition eq="1" output="green" />
+       			<condition eq="0" output="black" />
+       			<condition eq="11" output="green" />
+       			<condition eq="10" output="black" />
+       			<condition lt="0" output="red" />
+       			</target>
+			<target type="Style" element="ventilsyscollorfill" selector="stroke">
+       			<condition eq="0" output="white" />
+       			<condition eq="1" output="white" />
+       			<condition eq="10" output="blue" />
+       			<condition eq="11" output="blue" />
+       			</target>
+		</property>
+
+
+    <!-- Fuehler PRI Eintritt Systemtrennung-->
+      <property name="Fühler SYS PRI Eintritt einblenden" datatype="Int8" defaultvalue="1">
+        	<target type="Attribute" element="prieintrittaktiv" selector="opacity">
+        		<condition eq="1" output="1" />
+        		<condition eq="0" output="0" />
+       		</target>
+		</property>
+			
+		<property name="Fühler SYS PRI Eintritt Istwert" datatype="Int16" defaultvalue="0">
+		    <target type="Content" element="prieintrittlist" />
+			<target type="Style" element="prieintrittcolorfill" selector="fill">
+       			<condition gt="100" output="red" />
+       			<condition gte="1" output="green" />
+       			<condition lte="0" output="red" />
+       			</target>
+		</property>
+
+
+    <!-- Fuehler PRI Austritt Systemtrennung-->
+      <property name="Fühler SYS PRI Austritt einblenden" datatype="Int8" defaultvalue="1">
+        	<target type="Attribute" element="priaustrittaktiv" selector="opacity">
+        		<condition eq="1" output="1" />
+        		<condition eq="0" output="0" />
+       		</target>
+		</property>
+			
+		<property name="Fühler SYS PRI Austritt Istwert" datatype="Int16" defaultvalue="0">
+		    <target type="Content" element="priaustrittist" />
+			<target type="Style" element="priaustrittcolorfill" selector="fill">
+       			<condition gt="100" output="red" />
+       			<condition gte="1" output="green" />
+       			<condition lte="0" output="red" />
+       			</target>
+		</property>
+
+   <!-- Fuehler SEK Eintritt Systemtrennung-->
+      <property name="Fühler SYS SEK Eintritt einblenden" datatype="Int8" defaultvalue="1">
+        	<target type="Attribute" element="sekeintrittaktiv" selector="opacity">
+        		<condition eq="1" output="1" />
+        		<condition eq="0" output="0" />
+       		</target>
+		</property>
+			
+		<property name="Fühler SYS SEK Eintritt Istwert" datatype="Int16" defaultvalue="0">
+		    <target type="Content" element="sekeintrittlist" />
+			<target type="Style" element="sekeintrittcolorfill" selector="fill">
+       			<condition gt="100" output="red" />
+       			<condition gte="1" output="green" />
+       			<condition lte="0" output="red" />
+       			</target>
+		</property>
+
+
+    <!-- Fuehler SEK Austritt Systemtrennung-->
+      <property name="Fühler SYS SEK Austritt einblenden" datatype="Int8" defaultvalue="1">
+        	<target type="Attribute" element="sekaustrittaktiv" selector="opacity">
+        		<condition eq="1" output="1" />
+        		<condition eq="0" output="0" />
+       		</target>
+		</property>
+			
+		<property name="Fühler SYS SEK Austritt Istwert" datatype="Int16" defaultvalue="0">
+		    <target type="Content" element="sekaustrittist" />
+			<target type="Style" element="sekaustrittcolorfill" selector="fill">
+       			<condition gt="100" output="red" />
+       			<condition gte="1" output="green" />
+       			<condition lte="0" output="red" />
+       			</target>
+		</property>
+  <action name="Ventil BWW" triggers="click" element="bwwclick" />
+	<action name="Click WP" triggers="click" element="wpclick" />
+	<action name="cd" triggers="click" element="ventilclick" />
+    
+
+  </ycontrol>
+   
+
+  <defs id="defs2">
+    <rect x="1530.8483" y="91.773781" width="56.81234" height="30.077122" id="rect42"/>
+    <bx:grid x="0" y="0" width="5" height="5"/>
+    <symbol id="thermometer" viewBox="0 0 24 24">
+      <path fill="#00e0ff" d="M 17,17 A 5,5 0 1 1 7,17 C 7,15.29 8,13.83 9.44,13.15 V 5 a 2.56,2.56 0 0 1 5.12,0 v 8.15 A 4.994,4.994 0 0 1 17,17 Z" id="path1"/>
+    </symbol>
+    <symbol id="target" viewBox="0 0 24 24">
+      <path fill="#ffce00" d="m 12,20 a 8,8 0 1 1 8,-8 8.009,8.009 0 0 1 -8,8 z M 12,6 a 6,6 0 1 0 6,6 6.006,6.006 0 0 0 -6,-6 z m 0,10 a 4,4 0 1 1 4,-4 4.005,4.005 0 0 1 -4,4 z" id="path2"/>
+    </symbol>
+    <symbol id="thermometer-5" viewBox="0 0 24 24">
+      <path fill="#00e0ff" d="M 17,17 A 5,5 0 1 1 7,17 C 7,15.29 8,13.83 9.44,13.15 V 5 a 2.56,2.56 0 0 1 5.12,0 v 8.15 A 4.994,4.994 0 0 1 17,17 Z" id="path1-2"/>
+    </symbol>
+    <symbol id="target-7" viewBox="0 0 24 24">
+      <path fill="#ffce00" d="m 12,20 a 8,8 0 1 1 8,-8 8.009,8.009 0 0 1 -8,8 z M 12,6 a 6,6 0 1 0 6,6 6.006,6.006 0 0 0 -6,-6 z m 0,10 a 4,4 0 1 1 4,-4 4.005,4.005 0 0 1 -4,4 z" id="path2-6"/>
+    </symbol>
+    <symbol id="thermometer-2" viewBox="0 0 24 24">
+      <path fill="#00e0ff" d="M 17,17 A 5,5 0 1 1 7,17 C 7,15.29 8,13.83 9.44,13.15 V 5 a 2.56,2.56 0 0 1 5.12,0 v 8.15 A 4.994,4.994 0 0 1 17,17 Z" id="path1-1"/>
+    </symbol>
+    <symbol id="target-6" viewBox="0 0 24 24">
+      <path fill="#ffce00" d="m 12,20 a 8,8 0 1 1 8,-8 8.009,8.009 0 0 1 -8,8 z M 12,6 a 6,6 0 1 0 6,6 6.006,6.006 0 0 0 -6,-6 z m 0,10 a 4,4 0 1 1 4,-4 4.005,4.005 0 0 1 -4,4 z" id="path2-8"/>
+    </symbol>
+    <symbol id="icon-thermo" viewBox="0 0 24 24">
+      <path fill="#00e0ff" d="M 17,17 A 5,5 0 1 1 7,17 C 7,15.29 8,13.83 9.44,13.15 V 5 a 2.56,2.56 0 0 1 5.12,0 v 8.15 A 4.994,4.994 0 0 1 17,17 Z" id="path1-18"/>
+    </symbol>
+    <symbol id="icon-target" viewBox="0 0 24 24">
+      <path fill="#ffce00" d="m 12,20 a 8,8 0 1 1 8,-8 8.009,8.009 0 0 1 -8,8 z M 12,6 a 6,6 0 1 0 6,6 6.006,6.006 0 0 0 -6,-6 z m 0,10 a 4,4 0 1 1 4,-4 4.005,4.005 0 0 1 -4,4 z" id="path2-9"/>
+    </symbol>
+    <rect x="194.45438" y="368.44901" width="155.96591" height="45.031693" id="rect22-0-6"/>
+    <rect x="194.45438" y="368.44901" width="155.96591" height="45.031693" id="rect22-0-2-3"/>
+    <rect x="194.45438" y="368.44901" width="155.96591" height="45.031693" id="rect22"/>
+    <rect x="194.45438" y="368.44901" width="155.96591" height="45.031693" id="rect22-9"/>
+    <rect x="194.45438" y="368.44901" width="155.96591" height="45.031693" id="rect22-1"/>
+    <rect x="194.45438" y="368.44901" width="155.96591" height="45.031693" id="rect22-11"/>
+  </defs>
+  <rect width="1330" height="602.10303" rx="8" ry="8" style="display: inline; stroke: rgb(0, 0, 0); stroke-width: 1; pointer-events: none;" y="-1.051" id="rect2" x="0"/>
+  <g id="Info" transform="rotate(-90,8.9745,157.4745)" style="display: inline;">
+    <g id="bar">
+      <rect y="178" width="120.00001" height="310" rx="3.9779005" fill="#313131" id="rect1" x="18" style="stroke-width:0.819542" ry="3.9779005"/>
+    </g>
+    <text id="GebÃ¤ude" fill="#ffffff" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial;white-space:pre" font-family="Inter" font-size="26px" font-weight="500" letter-spacing="0em" x="172.61621" y="-325.54333" transform="rotate(90)"><tspan x="186.61621" y="-108.69434" class="zeile1" id="tspan1" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial">Aircalor AG</tspan></text>
+    <text id="Heizkreis" fill="#ffffff" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.3333px;font-family:Arial;-inkscape-font-specification:Arial;white-space:pre" font-family="Inter" font-size="26px" font-weight="500" letter-spacing="0em" x="172.29167" y="-338.05359" transform="rotate(90)"><tspan x="186.29167" y="-82.739586" class="zeile2" id="tspan2" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.3333px;font-family:Arial;-inkscape-font-specification:Arial">WP</tspan></text>
+    <g id="ZP" class="zpaktiv" transform="rotate(90,133.8325,214.1675)">
+      <path id="path-21" d="m 114.23786,320 h 36.18928 c 3.99711,0 7.23786,-3.582 7.23786,-8 v -28 c 0,-4.418 -3.24075,-8 -7.23786,-8 H 114.23786 C 110.24075,276 107,279.582 107,284 v 28 c 0,4.418 3.24075,8 7.23786,8 z" fill="#666666" style="stroke-width:0.951174"/>
+      <path id="path-22" d="m 135.6325,302.6005 1.4,-1.371 -3.7,-3.621 v -4.503 h -2 v 5.286 z m -3.3,5.188 c -1.383,0 -2.683,-0.257 -3.9,-0.771 -1.217,-0.514 -2.275,-1.212 -3.175,-2.093 -0.9,-0.88 -1.613,-1.916 -2.137,-3.107 -0.526,-1.191 -0.788,-2.464 -0.788,-3.818 0,-1.354 0.262,-2.626 0.788,-3.817 0.524,-1.191 1.237,-2.227 2.137,-3.108 0.9,-0.881 1.958,-1.578 3.175,-2.092 1.217,-0.514 2.517,-0.771 3.9,-0.771 1.383,0 2.683,0.257 3.9,0.771 1.217,0.514 2.275,1.211 3.175,2.092 0.9,0.881 1.613,1.917 2.137,3.108 0.525,1.191 0.788,2.463 0.788,3.817 0,1.354 -0.263,2.627 -0.788,3.818 -0.524,1.191 -1.237,2.227 -2.137,3.107 -0.9,0.881 -1.958,1.579 -3.175,2.093 -1.217,0.514 -2.517,0.771 -3.9,0.771 z m 0,-1.958 c 2.217,0 4.104,-0.763 5.663,-2.288 1.558,-1.525 2.337,-3.373 2.337,-5.543 0,-2.17 -0.779,-4.017 -2.337,-5.542 -1.559,-1.526 -3.446,-2.288 -5.663,-2.288 -2.217,0 -4.104,0.762 -5.662,2.288 -1.559,1.525 -2.338,3.372 -2.338,5.542 0,2.17 0.779,4.018 2.338,5.543 1.558,1.525 3.445,2.288 5.662,2.288 z" fill="#e8eaed"/>
+    </g>
+    <g id="g25" transform="translate(-17.987659,-39.149641)" style="display:inline">
+      <g id="Raum" class="raumaktiv" transform="matrix(0,1.0833036,-1,0,365.98766,256.32374)" style="display:inline"/>
+    </g>
+    <g id="g25-5" transform="translate(-17.987659,-119.14964)" style="display:inline" class="infoaktiv">
+      <path id="path-23-7" d="m 45.987659,474.3875 v 36.18928 c 0,3.99711 3.582,7.23786 8,7.23786 h 28 c 4.418,0 8,-3.24075 8,-7.23786 V 474.3875 c 0,-3.99711 -3.582,-7.23786 -8,-7.23786 h -28 c -4.418,0 -8,3.24075 -8,7.23786 z" fill="#666666" style="display:inline;stroke-width:0.951174"/>
+      <text style="font-size: 16px; font-family: Arial; text-align: start; writing-mode: lr-tb; direction: ltr; text-anchor: start; fill: none; stroke: rgb(253, 253, 253); stroke-width: 3; white-space: pre;" x="472.32104" y="-62.25721" id="text17" transform="rotate(90)"><tspan id="tspan17" style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:3" x="472.32104" y="-62.25721">INFO</tspan></text>
+    </g>
+    <text style="font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 13.3333px; font-family: Arial; text-align: start; writing-mode: lr-tb; direction: ltr; text-anchor: start; display: inline; fill: rgb(49, 49, 49); fill-opacity: 1; stroke: rgb(255, 255, 255); stroke-width: 3; stroke-linecap: round; stroke-dasharray: none; stroke-opacity: 1; white-space: pre;" x="344.45605" y="67.073357" id="text24" transform="rotate(90)"><tspan id="tspan24" x="0" y="0"/>
+</text>
+    <g style="display:inline;fill:none" id="g1" transform="rotate(90,157.56201,246.21201)" class="settingsaktiv">
+      <rect x="-389.35001" y="-375.77402" width="49.999985" height="44" rx="8" transform="scale(-1)" fill="#666666" id="rect1-3" ry="8" style="stroke-width:0.999999"/>
+      <g mask="url(#mask0_534_318)" id="g2" transform="translate(336.35,331.77402)" style="display:inline">
+        <path d="m 25.25,32 -0.4,-3.2 C 24.6333,28.7167 24.4291,28.6167 24.2375,28.5 24.0458,28.3833 23.8583,28.2583 23.675,28.125 l -2.975,1.25 -2.75,-4.75 2.575,-1.95 C 20.5083,22.5583 20.5,22.4458 20.5,22.3375 v -0.675 c 0,-0.1083 0.0083,-0.2208 0.025,-0.3375 l -2.575,-1.95 2.75,-4.75 2.975,1.25 c 0.1833,-0.1333 0.375,-0.2583 0.575,-0.375 0.2,-0.1167 0.4,-0.2167 0.6,-0.3 l 0.4,-3.2 h 5.5 l 0.4,3.2 c 0.2166,0.0833 0.4208,0.1833 0.6125,0.3 0.1916,0.1167 0.3791,0.2417 0.5625,0.375 l 2.975,-1.25 2.75,4.75 -2.575,1.95 c 0.0166,0.1167 0.025,0.2292 0.025,0.3375 v 0.675 c 0,0.1083 -0.0167,0.2208 -0.05,0.3375 l 2.575,1.95 -2.75,4.75 -2.95,-1.25 c -0.1834,0.1333 -0.375,0.2583 -0.575,0.375 -0.2,0.1167 -0.4,0.2167 -0.6,0.3 L 30.75,32 Z M 27,30 h 1.975 l 0.35,-2.65 c 0.5166,-0.1333 0.9958,-0.3292 1.4375,-0.5875 0.4416,-0.2583 0.8458,-0.5708 1.2125,-0.9375 l 2.475,1.025 0.975,-1.7 -2.15,-1.625 c 0.0833,-0.2333 0.1416,-0.4792 0.175,-0.7375 0.0333,-0.2583 0.05,-0.5208 0.05,-0.7875 0,-0.2667 -0.0167,-0.5292 -0.05,-0.7875 -0.0334,-0.2583 -0.0917,-0.5042 -0.175,-0.7375 l 2.15,-1.625 -0.975,-1.7 -2.475,1.05 C 31.6083,17.8167 31.2041,17.4958 30.7625,17.2375 30.3208,16.9792 29.8416,16.7833 29.325,16.65 L 29,14 h -1.975 l -0.35,2.65 c -0.5167,0.1333 -0.9959,0.3292 -1.4375,0.5875 -0.4417,0.2583 -0.8459,0.5708 -1.2125,0.9375 l -2.475,-1.025 -0.975,1.7 2.15,1.6 c -0.0834,0.25 -0.1417,0.5 -0.175,0.75 -0.0334,0.25 -0.05,0.5167 -0.05,0.8 0,0.2667 0.0166,0.525 0.05,0.775 0.0333,0.25 0.0916,0.5 0.175,0.75 l -2.15,1.625 0.975,1.7 2.475,-1.05 c 0.3666,0.3833 0.7708,0.7042 1.2125,0.9625 0.4416,0.2583 0.9208,0.4542 1.4375,0.5875 z m 1.05,-4.5 c 0.9666,0 1.7916,-0.3417 2.475,-1.025 0.6833,-0.6833 1.025,-1.5083 1.025,-2.475 0,-0.9667 -0.3417,-1.7917 -1.025,-2.475 C 29.8416,18.8417 29.0166,18.5 28.05,18.5 c -0.9834,0 -1.8125,0.3417 -2.4875,1.025 -0.675,0.6833 -1.0125,1.5083 -1.0125,2.475 0,0.9667 0.3375,1.7917 1.0125,2.475 0.675,0.6833 1.5041,1.025 2.4875,1.025 z" fill="#ffffff" id="path2-98"/>
+      </g>
+    </g>
+  </g>
+  <g id="Leitungen" transform="matrix(1.062012, 0, 0, 1.062012, 168.831345, 45.518375)" style="display: inline;">
+    <path id="polygon47" d="M 985.776 378.176 L 999.005 372.506 L 999.005 383.845 L 985.776 378.176 Z" fill="#ffffff" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round"/>
+    <path id="polygon48" d="m 999.0048,237.87542 -13.229,5.67 v -11.339 z" fill="#ffffff" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round"/>
+    <line style="fill: rgb(216, 216, 216); stroke: rgb(255, 255, 255); stroke-width: 2.82483px;" x1="62.305" y1="236.825" x2="985.576" y2="237.144"/>
+    <line style="fill: rgb(216, 216, 216); stroke: rgb(255, 255, 255); stroke-width: 2.825;" x1="62.576" y1="378.066" x2="989.79" y2="378.386"/>
+  </g>
+  <g id="Systemtrennung" transform="matrix(1.062012, 0, 0, 1.062012, 168.982864, 62.017178)" style="display: inline;" class="systrennungaktiv">
+    <title id="title3">Systemtrennung</title>
+    <g id="Plattentauscher" transform="matrix(1.657583, 0, 0, 1.657583, -306.798981, -254.186203)" style="stroke-width:0.568062;stroke-dasharray:none">
+      <title>PT</title>
+      <rect x="509.358" y="272.647" width="19.882" height="113.612" style="stroke: rgb(255, 255, 255);"/>
+      <line style="fill: rgb(216, 216, 216); stroke: rgb(255, 255, 255);" x1="529.205" y1="272.676" x2="509.364" y2="386.26"/>
+    </g>
+    <g id="g14-8" style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke:#ffffff;stroke-opacity:1" transform="matrix(1.5874857,0,0,-1.4757287,-1373.5795,619.01173)">
+      <g id="sek vl-0-9" transform="matrix(0.629927, 0, 0, -0.677631, 889.122314, 460.478851)" style="display:inline">
+        <line id="Line 37_2-5-2" x1="575.884" y1="261.82" x2="575.884" y2="281.82" stroke="#ffffff"/>
+        <path id="circle48_2-6-7" d="M 575.884 262.987 C 578.484 262.987 580.592 260.879 580.592 258.279 C 580.592 255.679 578.484 253.571 575.884 253.571 C 573.284 253.571 571.176 255.679 571.176 258.279 C 571.176 260.879 573.284 262.987 575.884 262.987 Z" fill="#57bbc4" style="stroke:none"/>
+      </g>
+      <path style="display: inline; fill: rgb(47, 47, 47); fill-opacity: 1; stroke: rgb(255, 255, 255); stroke-linecap: square; stroke-dasharray: none; stroke-dashoffset: 0; stroke-opacity: 1; stroke-width: 0.307392px; transform-box: fill-box; transform-origin: 50% 50%;" id="rect11-1-4-4-6-2-9" width="162.33273" height="61.68644" x="-3.2285924" y="-28.501883" d="M 1237.02 291.841 L 1266.75 291.841 C 1268.37 291.841 1269.68 293.231 1269.68 294.957 L 1269.68 300.209 C 1269.68 301.936 1268.37 303.326 1266.75 303.326 L 1237.02 303.326 C 1235.4 303.326 1234.09 301.936 1234.09 300.209 L 1234.09 294.957 C 1234.09 293.231 1235.4 291.841 1237.02 291.841 Z" rx="13.362606" ry="16.738258" transform="matrix(-1, 0, 0, -1, 0.000006, 0.000001)"/>
+      <text id="55CÃ‚Â°_2" fill="#ffffff" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.84308px;font-family:Arial;-inkscape-font-specification:Arial;text-align:center;text-anchor:middle;white-space:pre;display:inline;stroke-width:0.653344" font-family="Inter" font-size="12px" letter-spacing="0em" transform="matrix(0.964158, 0, 0, -1.037174, -0.075938, -6.793938)" y="-464.02243" x="924.37976"><tspan x="1299.338" y="-290.08401" id="tspan4" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.84308px;font-family:Arial;-inkscape-font-specification:Arial;text-align:center;text-anchor:middle;stroke:none;stroke-width:0.653344" class="tempvl">51.0</tspan><tspan style="stroke:none" id="tspan12">°C</tspan></text>
+    </g>
+    <path id="polyline29" d="M 744.76554,345.93365 V 225.3758" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" style="display:inline;stroke-width:2.82483;stroke-linecap:square;stroke-dasharray:none"/>
+    <g id="g18-8" transform="matrix(-0.94160895,0,0,0.94160895,1145.5279,-136.9547)">
+      <circle id="Ellipse 2-2-0" class="pumpcolorfillrl" cx="506.38098" cy="531.57581" r="18.888885" fill="#2e7d32" stroke="white" stroke-width="2.22223" style="display:inline"/>
+      <path id="Polygon 1-9-3" class="pumpcolorstrokerl" d="M 524.89946,531.57583 504.3439,550.82101 V 512.33065 Z" fill="white" style="display:inline;stroke-width:0.740738"/>
+    </g>
+    <g id="g6-0" transform="translate(39.739216,258.82455)" style="display:inline">
+      <path id="polygon49_2-0" d="m 705.09084,104.17827 7.559,-15.118007 h -15.118 z" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" style="display:inline;fill:#ffffff"/>
+      <path id="polygon51_2-0" d="m 705.59078,104.67822 15.118,7.55899 V 97.119211 Z" fill="#ffffff" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" style="display:inline"/>
+      <path style="display:inline;fill:none;stroke:#ffffff;stroke-width:0.941609;stroke-linecap:square;stroke-dasharray:none;stroke-opacity:1" d="m 705.09084,105.14902 v 18.83217" id="path15-4"/>
+      <path id="polygon50_2-8" d="m 704.5909,104.67822 -15.118,-7.559009 v 15.117999 z" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" style="display:inline"/>
+      <ellipse id="Ellipse 1_4-8-1-9-8-3" class="ventilcolorfill" cx="-705.02637" cy="128.69936" transform="scale(-1,1)" fill="#ff02e6" stroke="#00ffd1" stroke-width="2.02283" style="display:inline" rx="10.592485" ry="10.646792"/>
+      <text id="M_2-9-3-1-5-0" transform="scale(-1,1)" fill="#ffffff" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15.0657px;font-family:Arial;-inkscape-font-specification:Arial;white-space:pre;display:inline;fill:#ffffff;stroke:#ffffff;stroke-width:0.941609;stroke-opacity:1" font-family="Inter" font-size="10.9633px" letter-spacing="0em" x="-711.29028" y="124.14377"><tspan x="-711.29028" y="134.09154" id="tspan19-2-8-5-7-1" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15.0657px;font-family:Arial;-inkscape-font-specification:Arial;stroke:#ffffff;stroke-width:0.941609;stroke-opacity:1">M</tspan></text>
+      <circle style="fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:2.82577;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:0;stroke-opacity:1" id="path5-29" cx="705.09082" cy="104.67821" r="1.4690654"/>
+      <path style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke:#ffffff;stroke-width:1.68996;stroke-linecap:square;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" id="rect11-1-4-4-6-2-32-9" width="162.33273" height="61.68644" x="-3.2285924" y="-28.501883" d="M 13.445291,-28.501883 H 142.43026 c 9.23733,0 16.67388,7.465264 16.67388,16.738259 v 28.209923 c 0,9.272995 -7.43655,16.738258 -16.67388,16.738258 H 13.445291 c -9.2373314,0 -16.6738834,-7.465263 -16.6738834,-16.738258 v -28.209923 c 0,-9.272995 7.436552,-16.738259 16.6738834,-16.738259 z" rx="16.673883" transform="matrix(-0.27912712,0,0,0.27805364,726.78085,155.06437)" ry="16.738258"/>
+      <text id="100 %-7" fill="#ffffff" style="font-size:15.0658px;font-family:'Segoe UI', Arial, sans-serif;text-align:center;text-anchor:middle;white-space:pre;display:inline;fill:#ffffff;stroke-width:0.941609" font-family="Inter" font-size="12px" font-weight="500" letter-spacing="0em" x="102.67094" y="-306.34308"><tspan x="704.4856" y="161.0377" id="tspan2-5-6" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15.0658px;font-family:Arial;-inkscape-font-specification:Arial;text-align:center;text-anchor:middle;stroke-width:0.941609" class="ventilpossystr">100</tspan><tspan id="tspan8" style="text-align:center;text-anchor:middle">%</tspan></text>
+    </g>
+    <g id="group-7" style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke:#ffffff;stroke-opacity:1" transform="matrix(1.587486, 0, 0, -1.475729, -1373.575684, 760.25293)">
+      <g id="group-8" transform="matrix(0.629927, 0, 0, -0.677631, 889.122314, 460.478851)" style="display:inline">
+        <line id="line-1" x1="575.884" y1="261.82" x2="575.884" y2="281.82" stroke="#ffffff"/>
+        <path id="path-13" d="M 575.884 262.987 C 578.484 262.987 580.592 260.879 580.592 258.279 C 580.592 255.679 578.484 253.571 575.884 253.571 C 573.284 253.571 571.176 255.679 571.176 258.279 C 571.176 260.879 573.284 262.987 575.884 262.987 Z" fill="#57bbc4" style="stroke:none"/>
+      </g>
+      <path style="display: inline; fill: rgb(47, 47, 47); fill-opacity: 1; stroke: rgb(255, 255, 255); stroke-linecap: square; stroke-dasharray: none; stroke-dashoffset: 0; stroke-opacity: 1; stroke-width: 0.307392px; transform-box: fill-box; transform-origin: 50% 50%;" id="path-14" width="162.33273" height="61.68644" x="-3.2285924" y="-28.501883" d="M 1237.02 291.841 L 1266.75 291.841 C 1268.37 291.841 1269.68 293.231 1269.68 294.957 L 1269.68 300.209 C 1269.68 301.936 1268.37 303.326 1266.75 303.326 L 1237.02 303.326 C 1235.4 303.326 1234.09 301.936 1234.09 300.209 L 1234.09 294.957 C 1234.09 293.231 1235.4 291.841 1237.02 291.841 Z" rx="13.362606" ry="16.738258" transform="matrix(-1, 0, 0, -1, 0.000006, 0.000001)"/>
+      <text id="text-5" fill="#ffffff" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.84308px;font-family:Arial;-inkscape-font-specification:Arial;text-align:center;text-anchor:middle;white-space:pre;display:inline;stroke-width:0.653344" font-family="Inter" font-size="12px" letter-spacing="0em" transform="matrix(0.964158, 0, 0, -1.037174, -0.075938, -6.793938)" y="-464.02243" x="924.37976"><tspan x="1299.338" y="-290.08401" id="tspan-1" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.84308px;font-family:Arial;-inkscape-font-specification:Arial;text-align:center;text-anchor:middle;stroke:none;stroke-width:0.653344" class="tempvl">55.0</tspan><tspan style="stroke:none" id="tspan-2">°C</tspan></text>
+    </g>
+    <g id="group-14" style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke:#ffffff;stroke-opacity:1" transform="matrix(1.587486, 0, 0, -1.475729, -1493.165283, 619.011719)">
+      <g id="group-15" transform="matrix(0.629927, 0, 0, -0.677631, 889.122314, 460.478851)" style="display:inline">
+        <line id="line-2" x1="575.884" y1="261.82" x2="575.884" y2="281.82" stroke="#ffffff"/>
+        <path id="path-25" d="M 575.884 262.987 C 578.484 262.987 580.592 260.879 580.592 258.279 C 580.592 255.679 578.484 253.571 575.884 253.571 C 573.284 253.571 571.176 255.679 571.176 258.279 C 571.176 260.879 573.284 262.987 575.884 262.987 Z" fill="#57bbc4" style="stroke:none"/>
+      </g>
+      <path style="display: inline; fill: rgb(47, 47, 47); fill-opacity: 1; stroke: rgb(255, 255, 255); stroke-linecap: square; stroke-dasharray: none; stroke-dashoffset: 0; stroke-opacity: 1; stroke-width: 0.307392px; transform-box: fill-box; transform-origin: 50% 50%;" id="path-26" width="162.33273" height="61.68644" x="-3.2285924" y="-28.501883" d="M 1237.02 291.841 L 1266.75 291.841 C 1268.37 291.841 1269.68 293.231 1269.68 294.957 L 1269.68 300.209 C 1269.68 301.936 1268.37 303.326 1266.75 303.326 L 1237.02 303.326 C 1235.4 303.326 1234.09 301.936 1234.09 300.209 L 1234.09 294.957 C 1234.09 293.231 1235.4 291.841 1237.02 291.841 Z" rx="13.362606" ry="16.738258" transform="matrix(-1, 0, 0, -1, 0.000006, 0.000001)"/>
+      <text id="text-9" fill="#ffffff" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.84308px;font-family:Arial;-inkscape-font-specification:Arial;text-align:center;text-anchor:middle;white-space:pre;display:inline;stroke-width:0.653344" font-family="Inter" font-size="12px" letter-spacing="0em" transform="matrix(0.964158, 0, 0, -1.037174, -0.075938, -6.793938)" y="-464.02243" x="924.37976"><tspan x="1299.338" y="-290.08401" id="tspan-8" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.84308px;font-family:Arial;-inkscape-font-specification:Arial;text-align:center;text-anchor:middle;stroke:none;stroke-width:0.653344" class="tempvl">51.0</tspan><tspan style="stroke:none" id="tspan-9">°C</tspan></text>
+    </g>
+    <g id="group-16" style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke:#ffffff;stroke-opacity:1" transform="matrix(1.587486, 0, 0, -1.475729, -1493.161499, 760.25293)">
+      <g id="group-17" transform="matrix(0.629927, 0, 0, -0.677631, 889.122314, 460.478851)" style="display:inline">
+        <line id="line-3" x1="575.884" y1="261.82" x2="575.884" y2="281.82" stroke="#ffffff"/>
+        <path id="path-27" d="M 575.884 262.987 C 578.484 262.987 580.592 260.879 580.592 258.279 C 580.592 255.679 578.484 253.571 575.884 253.571 C 573.284 253.571 571.176 255.679 571.176 258.279 C 571.176 260.879 573.284 262.987 575.884 262.987 Z" fill="#57bbc4" style="stroke:none"/>
+      </g>
+      <path style="display: inline; fill: rgb(47, 47, 47); fill-opacity: 1; stroke: rgb(255, 255, 255); stroke-linecap: square; stroke-dasharray: none; stroke-dashoffset: 0; stroke-opacity: 1; stroke-width: 0.307392px; transform-box: fill-box; transform-origin: 50% 50%;" id="path-28" width="162.33273" height="61.68644" x="-3.2285924" y="-28.501883" d="M 1237.02 291.841 L 1266.75 291.841 C 1268.37 291.841 1269.68 293.231 1269.68 294.957 L 1269.68 300.209 C 1269.68 301.936 1268.37 303.326 1266.75 303.326 L 1237.02 303.326 C 1235.4 303.326 1234.09 301.936 1234.09 300.209 L 1234.09 294.957 C 1234.09 293.231 1235.4 291.841 1237.02 291.841 Z" rx="13.362606" ry="16.738258" transform="matrix(-1, 0, 0, -1, 0.000006, 0.000001)"/>
+      <text id="text-10" fill="#ffffff" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.84308px;font-family:Arial;-inkscape-font-specification:Arial;text-align:center;text-anchor:middle;white-space:pre;display:inline;stroke-width:0.653344" font-family="Inter" font-size="12px" letter-spacing="0em" transform="matrix(0.964158, 0, 0, -1.037174, -0.075938, -6.793938)" y="-464.02243" x="924.37976"><tspan x="1299.338" y="-290.08401" id="tspan-10" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.84308px;font-family:Arial;-inkscape-font-specification:Arial;text-align:center;text-anchor:middle;stroke:none;stroke-width:0.653344" class="tempvl">55.0</tspan><tspan style="stroke:none" id="tspan-11">°C</tspan></text>
+    </g>
+  </g>
+  <g id="Ventil_3" transform="matrix(1.062012, 0, 0, 1.062012, 168.831345, 43.518375)" style="display: inline;" class="ventilrlaktiv">
+    <title id="title9">Ventil RL</title>
+    <path id="polygon48_3" d="m 985.77572,428.08143 13.229,-5.67 v 11.339 z" fill="#ffffff" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round"/>
+    <line id="Line 40" x1="827.53198" y1="428.08093" x2="991.56641" y2="428.08093" stroke="#ffffff" style="stroke-width:2.82483;stroke-dasharray:none"/>
+    <line id="Line 41" x1="827.59222" y1="429.57336" x2="827.59222" y2="380.5184" stroke="#ffffff" style="stroke-width:2.57401;stroke-dasharray:none"/>
+    <g id="g15-1-1-7" transform="matrix(0.94160895,0,0,0.94160895,290.979,-23.25579)" style="display:inline">
+      <text id="text-3" fill="#ffffff" style="font-size:16px;white-space:pre;display:inline;stroke-width:1.12786" font-family="Inter" font-size="12px" letter-spacing="0em" x="-277.13" y="77.405"><tspan x="618.144" y="419.228" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Arial;-inkscape-font-specification:Arial;word-spacing:0px;stroke-width:1.12786" id="tspan11" class="heizenkuehlenrl">Heizen/Kühlen</tspan></text>
+    </g>
+    <g id="g15-1-2" transform="matrix(0.941609, 0, 0, 0.941609, 367.031128, 38.063297)" style="display:inline">
+      <text id="text-4" fill="#ffffff" style="font-size:16px;text-align:center;text-anchor:middle;white-space:pre;display:inline;stroke-width:1.062" font-family="Inter" font-size="11.2993px" letter-spacing="0em" x="-233.83" y="82.209"><tspan x="589.411" y="404.073" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Arial;-inkscape-font-specification:Arial;text-align:center;word-spacing:0px;text-anchor:middle;stroke-width:1.062" id="tspan13" class="leitungo">Heizen/Kühlen</tspan></text>
+    </g>
+    <g id="g6-0-1-4-8" transform="rotate(180,766.34152,242.83934)" style="display:inline">
+      <path id="polygon49_2-0-6-3-9" d="m 705.09084,104.17827 7.559,-15.118007 h -15.118 z" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" style="display:inline;fill:#ffffff"/>
+      <path id="polygon51_2-0-0-5-5" d="m 704.5909,104.67822 -15.118,7.55899 V 97.119211 Z" fill="#ffffff" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" style="display:inline"/>
+      <path style="display:inline;fill:none;stroke:#ffffff;stroke-width:0.941609;stroke-linecap:square;stroke-dasharray:none;stroke-opacity:1" d="m 705.09084,105.14902 v 18.83217" id="path15-4-0-9-4"/>
+      <path id="polygon50_2-8-2-7-3" d="m 705.59078,104.67822 15.118,-7.559009 v 15.117999 z" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" style="display:inline"/>
+      <ellipse id="Ellipse 1_4-8-1-9-8-3-4-9-12" class="ventilcolorfill" cx="-705.02637" cy="128.69936" transform="scale(-1,1)" fill="#ff02e6" stroke="#00ffd1" stroke-width="2.02283" style="display:inline" rx="10.592485" ry="10.646792"/>
+      <text id="M_2-9-3-1-5-0-3-8-3" transform="scale(-1)" fill="#ffffff" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15.0657px;font-family:Arial;-inkscape-font-specification:Arial;white-space:pre;display:inline;fill:#ffffff;stroke:#ffffff;stroke-width:1.032;stroke-opacity:1" font-family="Inter" font-size="10.9633px" letter-spacing="0em" x="-711.29028" y="-133.25496"><tspan x="-711.29028" y="-123.30717" id="tspan19-2-8-5-7-1-3-0-3" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15.0657px;font-family:Arial;-inkscape-font-specification:Arial;stroke:#ffffff;stroke-width:1.032;stroke-opacity:1">M</tspan></text>
+      <circle style="fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:2.82577;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:0;stroke-opacity:1" id="path5-29-6-1-4" cx="705.09082" cy="104.67821" r="1.4690654"/>
+      <g id="g15-1-7-1" transform="matrix(0.94160895,0,0,-0.94160895,117.5502,482.58595)" style="display:inline">
+        <path style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke:#ffffff;stroke-width:1.33719;stroke-linecap:square;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" id="rect11-1-4-4-6-2-31-0-5-5-38" width="162.33273" height="61.68644" x="-3.2285924" y="-28.501883" d="M 7.2108521,-28.501883 H 148.6647 c 5.78345,0 10.43944,7.465264 10.43944,16.738259 v 28.209923 c 0,9.272995 -4.65599,16.738258 -10.43944,16.738258 H 7.2108521 c -5.7834522,0 -10.4394445,-7.465263 -10.4394445,-16.738258 v -28.209923 c 0,-9.272995 4.6559923,-16.738259 10.4394445,-16.738259 z" rx="10.439445" transform="matrix(-0.47346822,0,0,0.2952963,660.80781,346.44905)" ry="16.738258"/>
+        <text id="100%_3" fill="#ffffff" style="font-size:16px;text-align:center;text-anchor:middle;white-space:pre;display:inline;stroke-width:1.06201" font-family="Inter" font-size="12px" letter-spacing="0em" x="-1487.1398" y="-17.63072" transform="scale(-1,1)"><tspan x="-624.45752" y="352.867" id="tspan10" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Arial;-inkscape-font-specification:Arial;text-align:center;text-anchor:middle;stroke-width:1.06201" class="ventiltext">HZ/BWW</tspan></text>
+      </g>
+    </g>
+  </g>
+  <g id="Ventil_2" transform="matrix(1.062012, 0, 0, 1.062012, 168.865326, 36.975933)" style="display: inline;" class="bwwventil1aktiv">
+    <title id="title5">Ventil VL</title>
+    <path id="polygon48_2" class="" d="m 998.9728,198.83861 -13.229,5.67 v -11.339 z" fill="#ffffff" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round"/>
+    <line id="Line 39" x1="827.5" y1="198.8391" x2="985.24377" y2="198.8391" stroke="#ffffff" style="stroke-width:2.82483;stroke-dasharray:none"/>
+    <line id="Line 38" x1="827.5" y1="245.91956" x2="827.5" y2="197.40068" stroke="#ffffff" style="stroke-width:2.82483;stroke-dasharray:none"/>
+    <animate attributeName="display" values="inline; inline" begin="0s" dur="2s" fill="freeze"/>
+    <g id="g15-1-1" transform="matrix(0.941609, 0, 0, 0.941609, 281.530945, -139.504547)" style="display:inline">
+      <text id="text-1" fill="#ffffff" style="font-size:16px;text-align:center;text-anchor:middle;white-space:pre;display:inline;stroke-width:1.12786" font-family="Inter" font-size="12px" letter-spacing="0em" x="-163.75212" y="57.40501"><tspan x="680.68024" y="399.22849" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Arial;-inkscape-font-specification:Arial;text-align:center;word-spacing:0px;text-anchor:middle;stroke-width:1.12786" id="tspan7" class="leitungu">Heizen/Kühlen</tspan></text>
+    </g>
+    <g id="g6-0-1-4-2-9" transform="matrix(-1,0,0,1,1532.5908,141.24135)" style="display:inline" class="bwwclick">
+      <path id="polygon49_2-0-6-3-4-0" d="m 705.09084,104.17827 7.559,-15.118007 h -15.118 z" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" style="display:inline;fill:#ffffff"/>
+      <path id="polygon51_2-0-0-5-4-2" d="m 704.5909,104.67822 -15.118,7.55899 V 97.119211 Z" fill="#ffffff" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" style="display:inline"/>
+      <path style="display:inline;fill:none;stroke:#ffffff;stroke-width:0.941609;stroke-linecap:square;stroke-dasharray:none;stroke-opacity:1" d="m 705.09084,105.14902 v 18.83217" id="path15-4-0-9-0-8"/>
+      <path id="polygon50_2-8-2-7-5-6" d="m 705.59078,104.67822 15.118,-7.559009 v 15.117999 z" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" style="display:inline"/>
+      <ellipse id="Ellipse 1_4-8-1-9-8-3-4-9-1-0" class="ventilcolorfill" cx="-705.02637" cy="128.69936" transform="scale(-1,1)" fill="#ff02e6" stroke="#00ffd1" stroke-width="2.02283" style="display:inline" rx="10.592485" ry="10.646792"/>
+      <text id="M_2-9-3-1-5-0-3-8-1-2" transform="scale(-1,1)" fill="#ffffff" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15.0657px;font-family:Arial;-inkscape-font-specification:Arial;white-space:pre;display:inline;fill:#ffffff;stroke:#ffffff;stroke-width:1.03231;stroke-opacity:1" font-family="Inter" font-size="10.9633px" letter-spacing="0em" x="-711.29028" y="124.14377"><tspan x="-711.29028" y="134.09152" id="tspan19-2-8-5-7-1-3-0-5-4" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15.0657px;font-family:Arial;-inkscape-font-specification:Arial;stroke:#ffffff;stroke-width:1.03231;stroke-opacity:1">M</tspan></text>
+      <circle style="fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:2.82577;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:0;stroke-opacity:1" id="path5-29-6-1-9-8" cx="705.09082" cy="104.67821" r="1.4690654"/>
+      <g id="g15-1-7-8-5" transform="matrix(-0.94160895,0,0,0.94160895,1292.5026,-171.15514)" style="display:inline">
+        <path style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke:#ffffff;stroke-width:1.33719;stroke-linecap:square;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" id="rect11-1-4-4-6-2-31-0-5-5-3-0" width="162.33273" height="61.68644" x="-3.2285924" y="-28.501883" d="M 7.2108521,-28.501883 H 148.6647 c 5.78345,0 10.43944,7.465264 10.43944,16.738259 v 28.209923 c 0,9.272995 -4.65599,16.738258 -10.43944,16.738258 H 7.2108521 c -5.7834522,0 -10.4394445,-7.465263 -10.4394445,-16.738258 v -28.209923 c 0,-9.272995 4.6559923,-16.738259 10.4394445,-16.738259 z" rx="10.439445" transform="matrix(-0.47346822,0,0,0.2952963,660.80781,346.44905)" ry="16.738258"/>
+        <text id="100%_2" fill="#ffffff" style="font-size:16px;text-align:center;text-anchor:middle;white-space:pre;display:inline;stroke-width:1.06201" font-family="Inter" font-size="12px" letter-spacing="0em" x="-239.32635" y="11.043573"><tspan x="623.35596" y="352.867" id="tspan6" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Arial;-inkscape-font-specification:Arial;text-align:center;text-anchor:middle;stroke-width:1.06201" class="ventiltext">HZ/BWW</tspan></text>
+      </g>
+    </g>
+    <g id="g15-1" transform="matrix(0.94160895,0,0,0.94160895,366.99911,-189.8483)" style="display:inline">
+      <text id="text-2" fill="#ffffff" style="font-size:16px;white-space:pre;display:inline;stroke-width:1.062" font-family="Inter" font-size="11.2993px" letter-spacing="0em" x="-305.12" y="82.209"><tspan x="537.88" y="404.073" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Arial;-inkscape-font-specification:Arial;word-spacing:0px;stroke-width:1.062" id="tspan9" class="leitungo">Heizen/Kühlen</tspan></text>
+    </g>
+  </g>
+  <g id="WP" transform="matrix(1.071697, 0, 0, 1.071697, 14.291956, 42.402092)" style="display:inline" class="wpclick">
+    <path id="path3" d="M 23.0552,190.91022 H 214.57619 397.228 V 416.126 H 23.0552 Z" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" style="stroke-width:0.996563"/>
+    <path id="path4" d="M 30.6141,196.914 H 253.606 V 408.567 H 30.6141 Z" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round"/>
+    <path id="polyline4" d="M 30.6141,242.268 H 253.606" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round"/>
+    <path id="polyline5" d="M 30.6141,249.827 H 253.606" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round"/>
+    <path id="polyline6" d="M 30.6141,257.386 H 253.606" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round"/>
+    <path id="polyline7" d="M 30.6141,264.945 H 253.606" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round"/>
+    <path id="polyline8" d="M 30.6141,272.504 H 253.606" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round"/>
+    <path id="polyline9" d="M 30.6141,280.063 H 253.606" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round"/>
+    <path id="polyline10" d="M 30.6141,287.622 H 253.606" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round"/>
+    <path id="polyline11" d="M 30.6141,295.181 H 253.606" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round"/>
+    <path id="polyline12" d="M 30.6141,302.74 H 253.606" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round"/>
+    <path id="polyline13" d="M 30.6141,310.299 H 253.606" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round"/>
+    <path id="polyline14" d="M 30.6141,317.858 H 253.606" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round"/>
+    <path id="polyline15" d="M 30.6141,325.417 H 253.606" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round"/>
+    <path id="polyline16" d="M 30.6141,332.977 H 253.606" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round"/>
+    <path id="polyline17" d="M 30.6141,340.536 H 253.606" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round"/>
+    <path id="polyline18" d="M 30.6141,348.095 H 253.606" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round"/>
+    <path id="polyline19" d="M 30.6141,355.653 H 253.606" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round"/>
+    <path id="polyline20" d="M 30.6141,363.212 H 253.606" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round"/>
+    <path id="polyline21" d="M 30.6141,370.771 H 253.606" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round"/>
+    <path id="polyline22" d="M 30.6141,378.331 H 253.606" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round"/>
+    <path id="polyline23" d="M 30.6141,385.89 H 253.606" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round"/>
+    <path id="polyline24" d="M 30.6141,393.449 H 253.606" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round"/>
+    <path id="polyline25" d="M 30.6141,401.008 H 253.606" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round"/>
+    <path id="polyline26" d="m 351.874,416.126 v 7.559 h 22.677 v -7.559" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round"/>
+    <path id="polyline34" d="M 30.6141,204.473 H 253.606" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round"/>
+    <path id="polyline35" d="M 30.6141,212.031 H 253.606" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round"/>
+    <path id="polyline36" d="M 30.6141,219.59 H 253.606" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round"/>
+    <path id="polyline37" d="M 30.6141,227.149 H 253.606" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round"/>
+    <path id="polyline38" d="M 30.6141,234.708 H 253.606" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round"/>
+    <path id="polyline47" d="m 45.7323,416.126 v 7.559 h 22.6772 v -7.559" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <g transform="matrix(0.095094, 0, 0, -0.095094, 547.967041, 51.507023)" id="group-29" style="display:inline">
+    <path id="path-40" style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none" d="m -1625.799,-2317.0662 v -221.4377 h -51.56 l -97.742,117.9997 v -117.9997 h -61.379 v 221.4377 h 51.574 l 97.742,-117.989 v 117.989 h 61.365"/>
+    <path id="path-45" style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none" d="m -1421.169,-2536.2852 c -16.87,4.4336 -30.57,10.3242 -41.12,17.7148 l 20.56,46.1912 c 9.92,-6.551 21.4,-11.816 34.48,-15.82 13.07,-4.0118 25.94,-6.0157 38.6,-6.0157 24.03,0 36.06,6.0157 36.06,18.0277 0,6.328 -3.43,11.023 -10.29,14.082 -6.84,3.058 -17.87,6.273 -33.05,9.644 -16.66,3.586 -30.58,7.442 -41.75,11.551 -11.18,4.117 -20.78,10.703 -28.8,19.773 -8.01,9.063 -12.01,21.297 -12.01,36.692 0,13.496 3.69,25.676 11.07,36.539 7.37,10.859 18.39,19.457 33.05,25.781 14.66,6.324 32.64,9.485 53.94,9.485 14.55,0 28.89,-1.633 43.02,-4.899 14.13,-3.266 26.57,-8.066 37.34,-14.391 l -19.31,-46.507 c -21.09,11.39 -41.54,17.086 -61.37,17.086 -12.45,0 -21.51,-1.852 -27.2,-5.536 -5.69,-3.699 -8.55,-8.496 -8.55,-14.398 0,-5.902 3.38,-10.336 10.13,-13.281 6.74,-2.957 17.6,-6.016 32.58,-9.176 16.87,-3.59 30.84,-7.43 41.92,-11.543 11.06,-4.109 20.66,-10.656 28.79,-19.617 8.11,-8.961 12.18,-21.141 12.18,-36.539 0,-13.281 -3.7,-25.301 -11.08,-36.0549 -7.38,-10.7618 -18.46,-19.3438 -33.21,-25.7813 -14.77,-6.4258 -32.7,-9.6484 -53.78,-9.6484 -17.92,0 -35.33,2.2148 -52.2,6.6406"/>
+    <path id="path-46" style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none" d="m -1568.769,-2317.0742 v -221.4297 h 62.64 v 221.4297 h -62.64"/>
+    <path id="path-47" style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none" d="m -2288.34,-2538.6289 h 66.715 l 127.992,221.6917 h -66.711 l -51.511,-89.219 -51.516,89.219 h -66.707 l 84.867,-146.993 -43.129,-74.6987"/>
+    <path id="path-48" style="fill:#40bea1;fill-opacity:1;fill-rule:nonzero;stroke:none" d="m -2556.641,-2383.7262 c 12.973,21.644 29.848,44.222 47.36,65.445 -7.18,38.621 -32.395,71.742 -72.9377,96.187 -5.8906,-11.5 -57.0117,-101.824 -71.2188,-164.468 -14.4101,-62.657 12.1368,-116.6957 71.2188,-152.3207 0.027,0.047 0.059,0.1094 0.078,0.1563 -18.7695,48.1055 -5.8086,101.8204 25.4996,155.0004"/>
+    <path id="path-49" style="fill:#f8a10e;fill-opacity:1;fill-rule:nonzero;stroke:none" d="m -2417.141,-2221.4022 c -5.824,-4.278 -50.773,-46.762 -92.136,-96.879 0,-0.024 0,-0.051 0,-0.074 0.714,-3.836 1.254,-8.164 1.656,-12.7 0.023,-0.32 0.074,-0.625 0.098,-0.937 1.343,-16.137 0.664,-35.395 -2.797,-50.461 -14.176,-62.504 -47.8441,-113.0703 -71.7308,-156.1054 -0.023,-0.059 -0.059,-0.1172 -0.086,-0.168 6.914,-17.7148 17.9921,-34.6875 34.2307,-50.5547 9.64,8.7187 95.886,89.5586 139.508,162.3161 42.832,72.758 51.601,146.571 -8.747,205.563"/>
+    <path id="path-50" style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none" d="m -1884.996,-2408.4882 h -93.113 v -49.09 h 37.91 v -26.195 c -10.547,-4.856 -21.824,-7.2776 -33.848,-7.2776 -12.234,0 -23.094,2.6876 -32.586,8.0666 -9.488,5.383 -16.875,12.859 -22.14,22.457 -5.27,9.594 -7.907,20.515 -7.907,32.742 0,19.191 5.789,34.531 17.399,46.027 11.594,11.493 26.887,17.246 45.863,17.246 19.945,0 37.164,-7.593 51.723,-22.609 l 36.926,39.27 c -10.071,10.457 -22.032,18.808 -36.133,24.769 -16.457,6.965 -35.012,10.442 -55.672,10.442 -23.621,0 -44.824,-4.899 -63.582,-14.704 -18.781,-9.804 -33.43,-23.472 -43.981,-40.968 -10.547,-17.508 -15.816,-37.328 -15.816,-59.473 0,-22.141 5.269,-41.969 15.816,-59.469 10.551,-17.5076 25.102,-31.1482 43.657,-40.9724 18.55,-9.8047 39.441,-14.6992 62.636,-14.6992 16.453,0 32.899,2.4219 49.344,7.2773 16.453,4.8438 31.004,11.7969 43.66,20.8672 v 91.7421 h -0.156 v 14.551"/>
+  </g>
+  <g id="Info EZ" transform="matrix(1.062405, 0, 0, 1.064602, 50.803703, 124.831009)" style="display: inline; transform-origin: 375.155px 239.611px;">
+    <title id="title15">Status WP</title>
+    <text id="Status:" fill="#ffffff" font-family="Arial" font-size="18px" letter-spacing="0em" y="-1.8832179" style="white-space: pre;"><tspan x="262" y="213.93477" id="tspan18" class="stauswp">Status:</tspan></text>
+    <text id="bla" fill="#ffffff" font-family="Arial" font-size="16px" letter-spacing="0em" style="white-space: pre;"><tspan x="262" y="230.81799" id="tspan19" class="statusez">bla</tspan></text>
+    <text id="Sollwert:" fill="#ffffff" font-family="Arial" font-size="18px" letter-spacing="0em" style="white-space: pre;"><tspan x="262" y="259.81799" id="tspan20">Sollwert:<tspan x="262" dy="1em" font-size="16px" class="sollwert">xxx °C​</tspan></tspan><tspan font-size="16px">°C</tspan></text>
+    <text id="Leistung:" fill="#ffffff" font-family="Arial" font-size="18px" letter-spacing="0em" style="white-space: pre;"><tspan x="262" y="306" id="tspan-3">Leistung:<tspan x="262" dy="1em" font-size="16px" class="leistung">xxx °C​</tspan></tspan><tspan font-size="16px">%</tspan></text>
+  </g>
+  <g id="Komp" transform="matrix(1.062012, 0, 0, 1.062012, 21.585667, 53.570507)" style="display:inline">
+    <title id="title13">Komperssor</title>
+    <path id="path-52" d="m 137,368.5 c 14.083,0 25.5,-11.417 25.5,-25.5 0,-14.083 -11.417,-25.5 -25.5,-25.5 -14.083,0 -25.5,11.417 -25.5,25.5 0,14.083 11.417,25.5 25.5,25.5 z" fill="#5dbf62" stroke="#9d7171" class="kompcolorfill" stroke-width="3"/>
+    <path id="path-53" d="M 126.532,365.217 121,324" stroke="#9d7171" stroke-width="2" stroke-miterlimit="3" stroke-linecap="round" class="kompcolorfill" stroke-linejoin="round"/>
+    <path id="path-54" d="m 147.275,365.218 5.533,-41.217" stroke="#9d7171" stroke-width="2" stroke-miterlimit="3" stroke-linecap="round" class="kompcolorfill" stroke-linejoin="round"/>
+  </g>
+  <g id="Venti" transform="matrix(1.062012, 0, 0, 1.062012, 21.585667, 53.570507)" style="display:inline">
+    <title id="title14">Venti</title>
+    <path id="path-55" d="m 137.13385,272.68252 c 14.083,0 25.5,-11.417 25.5,-25.5 0,-14.083 -11.417,-25.5 -25.5,-25.5 -14.083,0 -25.5,11.417 -25.5,25.5 0,14.083 11.417,25.5 25.5,25.5 z" fill="#365c38" stroke="#7a1717" class="venticolorfill" stroke-width="3"/>
+    <path d="m 134.47092,266.20423 c -1.61685,0 -2.84565,-0.48315 -3.68545,-1.45041 -0.83982,-0.96725 -1.26019,-2.06861 -1.26019,-3.30501 0,-0.8246 0.1826,-1.62447 0.54687,-2.4015 0.36427,-0.77704 0.92731,-1.41902 1.68817,-1.92595 0.69715,-0.44415 1.27637,-1.03858 1.73573,-1.78328 0.45938,-0.7447 0.80083,-1.76712 1.02242,-3.06726 -0.0314,0 -0.0476,-0.008 -0.0476,-0.0238 0,-0.0162 -0.0314,-0.0399 -0.0951,-0.0713 l -5.5163,1.94972 c -0.53927,0.19022 -1.06237,0.34906 -1.5693,0.47555 -0.50693,0.12649 -1.03002,0.19022 -1.56929,0.19022 -1.99727,0 -3.76439,-0.87216 -5.3023,-2.61549 -1.53791,-1.74335 -2.30638,-4.29605 -2.30638,-7.65624 0,-1.61686 0.48315,-2.84565 1.4504,-3.68546 0.96726,-0.83981 2.05245,-1.26019 3.25747,-1.26019 0.8246,0 1.63301,0.18261 2.42527,0.54687 0.79226,0.36426 1.4428,0.92732 1.94973,1.68818 0.44415,0.69715 1.06997,1.29158 1.87839,1.78329 0.80843,0.4917 1.79946,0.81603 2.97215,0.97486 0.0314,-0.0314 0.0552,-0.0637 0.0713,-0.0951 0.0162,-0.0314 0.0237,-0.0637 0.0237,-0.0951 l -1.94972,-5.46875 c -0.19022,-0.53926 -0.34905,-1.06236 -0.47554,-1.5693 -0.12649,-0.50692 -0.19022,-1.0148 -0.19022,-1.52173 0,-2.02867 0.87214,-3.81195 2.61548,-5.34985 1.74335,-1.53791 4.29606,-2.30639 7.65626,-2.30639 1.61684,0 2.84563,0.48315 3.68545,1.45041 0.8398,0.96725 1.26019,2.05244 1.26019,3.25747 0,0.82459 -0.18262,1.63301 -0.54688,2.42527 -0.36426,0.79225 -0.9273,1.4428 -1.68818,1.94972 -0.82458,0.53927 -1.46657,1.25258 -1.92595,2.13995 -0.45936,0.88736 -0.72092,1.80706 -0.78463,2.75814 0.0314,0.0314 0.0551,0.0399 0.0713,0.0238 0.0162,-0.0162 0.0399,0.008 0.0713,0.0713 l 5.46875,-2.04484 c 0.53926,-0.19022 1.0538,-0.34049 1.54552,-0.45177 0.4917,-0.11132 1.00624,-0.16644 1.54551,-0.16644 2.56793,0 4.48628,1.06237 5.75407,3.18614 1.2678,2.12378 1.90217,4.48628 1.90217,7.0856 0,1.61683 -0.50693,2.84563 -1.52174,3.68545 -1.0148,0.83981 -2.13994,1.26019 -3.37635,1.26019 -0.79225,0 -1.56169,-0.18261 -2.30639,-0.54689 -0.74469,-0.36426 -1.37146,-0.9273 -1.87838,-1.68817 -0.44416,-0.69714 -1.03858,-1.27635 -1.78328,-1.73573 -0.7447,-0.45938 -1.76712,-0.81603 -3.06726,-1.06997 l -0.0713,0.14267 c -0.0162,0.0314 -0.0399,0.0637 -0.0713,0.0951 l 1.99729,5.46875 c 0.19022,0.50692 0.34905,0.99102 0.47554,1.45039 0.12651,0.45938 0.19022,0.94348 0.19022,1.45041 0.0314,2.06101 -0.82459,3.88328 -2.56792,5.46874 -1.74335,1.58546 -4.31129,2.37772 -7.70379,2.37772 z m 2.66305,-16.16845 c 0.79225,0 1.46657,-0.27772 2.02105,-0.8322 0.55448,-0.55448 0.8322,-1.22882 0.8322,-2.02107 0,-0.79225 -0.27772,-1.46657 -0.8322,-2.02105 -0.55448,-0.55449 -1.2288,-0.8322 -2.02105,-0.8322 -0.79227,0 -1.46658,0.27771 -2.02106,0.8322 -0.55448,0.55448 -0.83221,1.2288 -0.83221,2.02105 0,0.79225 0.27773,1.46659 0.83221,2.02107 0.55448,0.55448 1.22879,0.8322 2.02106,0.8322 z" fill="#808080" id="path-56" class="ventifancolorfill" style="stroke-width:0.951085"/>
+  </g>
+  <g id="group-12" style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke:#ffffff;stroke-opacity:1" transform="matrix(1.685929, 0, 0, -1.567242, -1635.588257, 747.169495)">
+    <title>VL</title>
+    <path style="display: inline; fill: rgb(47, 47, 47); fill-opacity: 1; stroke: rgb(255, 255, 255); stroke-linecap: square; stroke-dasharray: none; stroke-dashoffset: 0; stroke-opacity: 1; stroke-width: 0.307392px; transform-box: fill-box; transform-origin: 50% 50%;" id="path-24" width="162.33273" height="61.68644" x="-3.2285924" y="-28.501883" d="M 1237.02 291.841 L 1266.75 291.841 C 1268.37 291.841 1269.68 293.231 1269.68 294.957 L 1269.68 300.209 C 1269.68 301.936 1268.37 303.326 1266.75 303.326 L 1237.02 303.326 C 1235.4 303.326 1234.09 301.936 1234.09 300.209 L 1234.09 294.957 C 1234.09 293.231 1235.4 291.841 1237.02 291.841 Z" rx="13.362606" ry="16.738258" transform="matrix(-1, 0, 0, -1, 0.000006, 0.000001)"/>
+    <text id="text-7" fill="#ffffff" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.84308px;font-family:Arial;-inkscape-font-specification:Arial;text-align:center;text-anchor:middle;white-space:pre;display:inline;stroke-width:0.653344" font-family="Inter" font-size="12px" letter-spacing="0em" transform="matrix(0.964158, 0, 0, -1.037174, -0.075938, -6.793938)" y="-464.02243" x="924.37976"><tspan x="1299.338" y="-290.08401" id="tspan-4" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.84308px;font-family:Arial;-inkscape-font-specification:Arial;text-align:center;text-anchor:middle;stroke:none;stroke-width:0.653344" class="wpvl">51.0</tspan><tspan style="stroke:none" id="tspan-5">°C</tspan></text>
+  </g>
+  <g id="group-13" style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke:#ffffff;stroke-opacity:1" transform="matrix(1.685929, 0, 0, -1.567242, -1635.588257, 897.169434)">
+    <title>RL</title>
+    <path style="display: inline; fill: rgb(47, 47, 47); fill-opacity: 1; stroke: rgb(255, 255, 255); stroke-linecap: square; stroke-dasharray: none; stroke-dashoffset: 0; stroke-opacity: 1; stroke-width: 0.307392px; transform-box: fill-box; transform-origin: 50% 50%;" id="path-23" width="162.33273" height="61.68644" x="-3.2285924" y="-28.501883" d="M 1237.02 291.841 L 1266.75 291.841 C 1268.37 291.841 1269.68 293.231 1269.68 294.957 L 1269.68 300.209 C 1269.68 301.936 1268.37 303.326 1266.75 303.326 L 1237.02 303.326 C 1235.4 303.326 1234.09 301.936 1234.09 300.209 L 1234.09 294.957 C 1234.09 293.231 1235.4 291.841 1237.02 291.841 Z" rx="13.362606" ry="16.738258" transform="matrix(-1, 0, 0, -1, 0.000006, 0.000001)"/>
+    <text id="text-8" fill="#ffffff" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.84308px;font-family:Arial;-inkscape-font-specification:Arial;text-align:center;text-anchor:middle;white-space:pre;display:inline;stroke-width:0.653344" font-family="Inter" font-size="12px" letter-spacing="0em" transform="matrix(0.964158, 0, 0, -1.037174, -0.075938, -6.793938)" y="-464.02243" x="924.37976"><tspan x="1299.338" y="-290.08401" id="tspan-6" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.84308px;font-family:Arial;-inkscape-font-specification:Arial;text-align:center;text-anchor:middle;stroke:none;stroke-width:0.653344" class="wprl">51.0</tspan><tspan style="stroke:none" id="tspan-7">°C</tspan></text>
+  </g>
+  <g id="group-34" transform="matrix(1, 0, 0, -1, 83.507965, -233.820984)" style="transform-origin: 506.381px 531.576px;">
+    <title>WPPumpe</title>
+    <circle id="circle-4" class="pumpcolorfillwp" cx="506.38098" cy="531.57581" r="18.888885" fill="#2e7d32" stroke="white" stroke-width="2.22223" style="display:inline"/>
+    <path id="path-51" class="pumpcolorstrokewp" d="M 524.89946,531.57583 504.3439,550.82101 V 512.33065 Z" fill="white" style="display:inline;stroke-width:0.740738"/>
+    <g transform="matrix(1.685929, 0, 0, 1.567242, -1605.098389, 30.945496)">
+      <title>Text</title>
+      <path style="display: inline; fill: rgb(47, 47, 47); fill-opacity: 1; stroke: rgb(255, 255, 255); stroke-linecap: square; stroke-dasharray: none; stroke-dashoffset: 0; stroke-opacity: 1; stroke-width: 0.307392px; transform-box: fill-box; transform-origin: 50% 50%;" id="path-1" width="162.33273" height="61.68644" x="-3.2285924" y="-28.501883" d="M 1237.02 291.841 L 1266.75 291.841 C 1268.37 291.841 1269.68 293.231 1269.68 294.957 L 1269.68 300.209 C 1269.68 301.936 1268.37 303.326 1266.75 303.326 L 1237.02 303.326 C 1235.4 303.326 1234.09 301.936 1234.09 300.209 L 1234.09 294.957 C 1234.09 293.231 1235.4 291.841 1237.02 291.841 Z" rx="13.362606" ry="16.738258" transform="matrix(-1, 0, 0, -1, 0, -0.000007)"/>
+      <text id="text-6" fill="#ffffff" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.84308px;font-family:Arial;-inkscape-font-specification:Arial;text-align:center;text-anchor:middle;white-space:pre;display:inline;stroke-width:0.653344" font-family="Inter" font-size="12px" letter-spacing="0em" transform="matrix(0.964158, 0, 0, -1.037174, -0.075938, -6.793938)" y="-290.0840148925781" x="1299.3380126953125"><tspan style="stroke:none" id="tspan-13" class="pumpist">xxx</tspan><tspan>%</tspan></text>
+    </g>
+  </g>
+</svg>

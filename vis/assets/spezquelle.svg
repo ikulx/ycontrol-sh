@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg viewBox="0 0 1330 600" version="1.1" id="svg42" width="1330" height="600" xmlns="http://www.w3.org/2000/svg" xmlns:bx="https://boxy-svg.com">
+
+<ycontrol>
+   <!-- Fuehler Plattentauscher Pri RL-->
+        <property name="FühlerVLaktiv" datatype="Int6" defaultvalue="1">
+        	<target type="Attribute" element="vlaktiv" selector="opacity">
+        		<condition eq="1" output="1" />
+        		<condition eq="0" output="0" />
+       		</target>
+		</property>		
+		
+		<property name="FühlerVL" datatype="Int16" defaultvalue="xxx">
+		    <target type="Content" element="vlist" />
+			<target type="Style" element="vlcolorfill" selector="fill">
+       			<condition gt="100" output="red" />
+       			<condition gte="1" output="green" />
+       			<condition lte="0" output="red" />
+       			</target>
+		</property>
+
+
+    <!-- Funktion -->
+        <property name="StautsFern" datatype="INT16" defaultvalue="0">
+        	<target type="Content" element="status" >
+       			<condition eq="0" output="Keine Anforderung" />
+        	    <condition eq="1" output="Anforderung" />
+       		</target>  
+		</property>
+
+
+<!--Pumpe-->
+    <property name="PumpeEinblenden" datatype="boolean" defaultvalue="true">
+      <target type="Attribute" element="pumpaktiv" selector="opacity">
+        <condition eq="true" output="1"/>
+        <condition eq="false" output="0"/>
+      </target>
+    </property>
+    <action name="ClickPumpe" triggers="click" element="pumpaktiv"/>
+    <property name="StatusPumpe" datatype="Int8" defaultvalue="99">
+      <target type="Style" element="pumpcolorfill" selector="fill">
+        <condition eq="99" output="#f542ef"/>
+        <condition eq="0" output="black"/>
+        <condition eq="1" output="green"/>
+        <condition eq="2" output="red"/>
+        <condition eq="10" output="black"/>
+        <condition eq="11" output="green"/>
+        <condition eq="12" output="red"/>
+        <condition eq="20" output="black"/>
+        <condition eq="21" output="green"/>
+        <condition eq="22" output="red"/>
+      </target>
+      <target type="Style" element="pumpcolorfill" selector="stroke">
+        <condition eq="99" output="#18c6c9"/>
+        <condition eq="0" output="white"/>
+        <condition eq="1" output="white"/>
+        <condition eq="2" output="white"/>
+        <condition eq="10" output="blue"/>
+        <condition eq="11" output="blue"/>
+        <condition eq="12" output="blue"/>
+      </target>
+      <target type="Style" element="pumpcolorstroke" selector="fill">
+        <condition eq="99" output="#18c6c9"/>
+        <condition eq="0" output="white"/>
+        <condition eq="1" output="white"/>
+        <condition eq="2" output="white"/>
+        <condition eq="10" output="blue"/>
+        <condition eq="11" output="blue"/>
+        <condition eq="12" output="blue"/>
+      </target>
+      <target type="Content" element="pumptext" defaultvalue="xx">
+        <condition eq="99" output="Unbekannt"/>
+        <condition eq="0" output="Aus"/>
+        <condition eq="1" output="Ein"/>
+        <condition eq="2" output="Störung!"/>
+        <condition eq="10" output="Hand Aus"/>
+        <condition eq="11" output="Hand Ein"/>
+        <condition eq="12" output="Störung!"/>
+      </target>
+    </property>
+
+
+</ycontrol>
+
+
+
+  <defs id="defs2">
+    <rect x="92.25" y="168.449" width="160.11158" height="55.801" id="rect7"/>
+    <rect x="1530.8483" y="91.773781" width="56.81234" height="30.077122" id="rect42"/>
+    <bx:grid x="0" y="0" width="5" height="20"/>
+    <symbol id="thermometer" viewBox="0 0 24 24">
+      <path fill="#00e0ff" d="M 17,17 A 5,5 0 1 1 7,17 C 7,15.29 8,13.83 9.44,13.15 V 5 a 2.56,2.56 0 0 1 5.12,0 v 8.15 A 4.994,4.994 0 0 1 17,17 Z" id="path1"/>
+    </symbol>
+    <symbol id="target" viewBox="0 0 24 24">
+      <path fill="#ffce00" d="m 12,20 a 8,8 0 1 1 8,-8 8.009,8.009 0 0 1 -8,8 z M 12,6 a 6,6 0 1 0 6,6 6.006,6.006 0 0 0 -6,-6 z m 0,10 a 4,4 0 1 1 4,-4 4.005,4.005 0 0 1 -4,4 z" id="path2"/>
+    </symbol>
+    <symbol id="thermometer-5" viewBox="0 0 24 24">
+      <path fill="#00e0ff" d="M 17,17 A 5,5 0 1 1 7,17 C 7,15.29 8,13.83 9.44,13.15 V 5 a 2.56,2.56 0 0 1 5.12,0 v 8.15 A 4.994,4.994 0 0 1 17,17 Z" id="path1-2"/>
+    </symbol>
+    <symbol id="target-7" viewBox="0 0 24 24">
+      <path fill="#ffce00" d="m 12,20 a 8,8 0 1 1 8,-8 8.009,8.009 0 0 1 -8,8 z M 12,6 a 6,6 0 1 0 6,6 6.006,6.006 0 0 0 -6,-6 z m 0,10 a 4,4 0 1 1 4,-4 4.005,4.005 0 0 1 -4,4 z" id="path2-6"/>
+    </symbol>
+    <symbol id="thermometer-2" viewBox="0 0 24 24">
+      <path fill="#00e0ff" d="M 17,17 A 5,5 0 1 1 7,17 C 7,15.29 8,13.83 9.44,13.15 V 5 a 2.56,2.56 0 0 1 5.12,0 v 8.15 A 4.994,4.994 0 0 1 17,17 Z" id="path1-1"/>
+    </symbol>
+    <symbol id="target-6" viewBox="0 0 24 24">
+      <path fill="#ffce00" d="m 12,20 a 8,8 0 1 1 8,-8 8.009,8.009 0 0 1 -8,8 z M 12,6 a 6,6 0 1 0 6,6 6.006,6.006 0 0 0 -6,-6 z m 0,10 a 4,4 0 1 1 4,-4 4.005,4.005 0 0 1 -4,4 z" id="path2-8"/>
+    </symbol>
+    <symbol id="icon-thermo" viewBox="0 0 24 24">
+      <path fill="#00e0ff" d="M 17,17 A 5,5 0 1 1 7,17 C 7,15.29 8,13.83 9.44,13.15 V 5 a 2.56,2.56 0 0 1 5.12,0 v 8.15 A 4.994,4.994 0 0 1 17,17 Z" id="path1-18"/>
+    </symbol>
+    <symbol id="icon-target" viewBox="0 0 24 24">
+      <path fill="#ffce00" d="m 12,20 a 8,8 0 1 1 8,-8 8.009,8.009 0 0 1 -8,8 z M 12,6 a 6,6 0 1 0 6,6 6.006,6.006 0 0 0 -6,-6 z m 0,10 a 4,4 0 1 1 4,-4 4.005,4.005 0 0 1 -4,4 z" id="path2-9"/>
+    </symbol>
+    <rect x="194.45438" y="368.44901" width="155.96591" height="45.031693" id="rect22"/>
+    <rect x="194.45438" y="368.44901" width="155.96591" height="45.031693" id="rect22-2"/>
+    <rect x="194.45438" y="368.44901" width="155.96591" height="45.031693" id="rect22-4"/>
+    <rect x="194.45438" y="368.44901" width="155.96591" height="45.031693" id="rect22-8"/>
+    <rect x="194.45438" y="368.44901" width="155.96591" height="45.031693" id="rect22-82"/>
+    <rect x="194.45438" y="368.44901" width="155.96591" height="45.031693" id="rect22-6"/>
+    <rect x="194.45438" y="368.44901" width="155.96591" height="45.031693" id="rect22-65"/>
+    <rect x="194.45438" y="368.44901" width="155.96591" height="45.031693" id="rect22-65-1"/>
+    <rect x="194.45438" y="368.44901" width="155.96591" height="45.031693" id="rect22-65-5"/>
+    <rect x="194.45438" y="368.44901" width="155.96591" height="45.031693" id="rect22-65-4"/>
+    <rect x="194.45438" y="368.44901" width="155.96591" height="45.031693" id="rect22-65-1-8"/>
+    <rect x="194.45438" y="368.44901" width="155.96591" height="45.031693" id="rect22-65-1-9"/>
+    <rect x="194.45438" y="368.44901" width="155.96591" height="45.031693" id="rect22-5"/>
+    <rect x="194.45438" y="368.44901" width="155.96591" height="45.031693" id="rect22-63"/>
+    <rect x="194.45438" y="368.44901" width="155.96591" height="45.031693" id="rect22-65-1-4"/>
+  </defs>
+  <rect width="1329.5" height="602.10303" style="display: inline; pointer-events: none;" y="-1.051" id="rect2" x="0"/>
+  <g id="Group 10" transform="matrix(0.933343, 0, 0, 1.758389, -119.403837, -486.311486)" style="display: inline; stroke-width: 0.780588; stroke-dasharray: none;">
+    <rect id="Rectangle 6" x="291.858" y="443.765" width="287.14" height="74.5" stroke="#ffffff" style="stroke-width: 0.798942; stroke-dasharray: none;"/>
+    <g id="g12-1" transform="matrix(1.81342, 0, 0, 0.962553, 469.556427, 412.926544)" style="display:inline">
+      <g id="g41" transform="matrix(0.551444, 0, 0, 1.038904, -283.915924, -404.025177)" style="stroke-width:0.780588;stroke-dasharray:none">
+        <title>Status</title>
+        <text style="fill: rgb(255, 255, 255); font-family: Arial; font-size: 18.7341px; white-space: pre;" id="text31" transform="matrix(1.372577, 0, 0, 0.728556, 26.760021, 6.344543)" x="240.698" y="615.036">Energielieferant EWZ</text>
+        <text style="font-size: 12.4894px; font-family: Arial; text-align: start; writing-mode: lr-tb; direction: ltr; text-anchor: start; opacity: 1; fill: rgb(255, 255, 255); fill-opacity: 1; stroke: none; stroke-width: 0.780588; stroke-linecap: butt; stroke-linejoin: miter; stroke-dasharray: none; stroke-dashoffset: 0; stroke-opacity: 1; white-space: pre;" x="301.57736" y="614.9472" id="text38" transform="scale(1.3725774,0.72855636)" class="HPStatus"> </text>
+      </g>
+      <g id="g44" transform="matrix(0.55144432,0,0,1.0389039,-266.06491,-425.10433)" style="stroke-width:0.780588;stroke-dasharray:none">
+        <title>Soll</title>
+      </g>
+    </g>
+    <g id="group-1" transform="matrix(1, 0, 0, 1, -19.272909, 52.802158)" style="stroke-width:0.780588;stroke-dasharray:none">
+      <title>Status</title>
+      <text style="font-size: 12.4894px; font-family: Arial; text-align: start; writing-mode: lr-tb; direction: ltr; text-anchor: start; opacity: 1; fill: rgb(255, 255, 255); fill-opacity: 1; stroke: none; stroke-width: 0.780588; stroke-linecap: butt; stroke-linejoin: miter; stroke-dasharray: none; stroke-dashoffset: 0; stroke-opacity: 1; white-space: pre;" x="240.69849" y="615.03564" id="text-1" transform="scale(1.3725774,0.72855636)"><tspan id="tspan31" style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.780588;stroke-dasharray:none" x="240.69849" y="615.03564">Status:</tspan></text>
+      <text style="font-size: 12.4894px; font-family: Arial; text-align: start; writing-mode: lr-tb; direction: ltr; text-anchor: start; opacity: 1; fill: rgb(255, 255, 255); fill-opacity: 1; stroke: none; stroke-width: 0.780588; stroke-linecap: butt; stroke-linejoin: miter; stroke-dasharray: none; stroke-dashoffset: 0; stroke-opacity: 1; white-space: pre;" x="301.57736" y="614.9472" id="text-2" transform="scale(1.3725774,0.72855636)" class="HPStatus"><tspan id="tspan38" style="stroke-width:0.780588" x="301.57736" y="614.9472" class="status">Störung</tspan><tspan style="stroke-width:0.780588" x="301.57736" y="630.55896" class="ezstatus" id="tspan18"/></text>
+    </g>
+  </g>
+  <g transform="matrix(1, 0, 0, 1, 36.170074, 269.766872)" style="">
+    <path id="Vector_18" fill-rule="evenodd" clip-rule="evenodd" d="M 1119.79 80.229 L 1139.83 70.216 L 1119.79 60.189 L 1119.79 80.229 Z" fill="#ffffff" stroke="#ffffff" stroke-width="0.999999" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round" style="stroke-width: 1; display: inline;"/>
+    <path id="Vector_19" fill-rule="evenodd" clip-rule="evenodd" d="M 1139.87 100.194 L 1119.83 110.207 L 1139.87 120.234 L 1139.87 100.194 Z" fill="#ffffff" stroke="#ffffff" stroke-width="0.999999" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round" style="stroke-width: 1; display: inline;"/>
+    <g id="g14-3" style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke:#ffffff;stroke-opacity:1" transform="matrix(1.685929, 0, 0, -1.567242, -1615.592262, 559.447258)" class="vlaktiv">
+      <title>Fühler VL</title>
+      <g id="sek vl-0-1-8" transform="matrix(0.62992692,0,0,-0.67763132,912.84802,503.40035)" style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke:#ffffff;stroke-opacity:1">
+        <line id="Line 37_2-5-8-3" x1="575.41296" y1="261.49564" x2="575.41296" y2="281.49564" stroke="#ffffff"/>
+        <path id="circle48_2-6-2-7" d="m 575.41296,262.32012 c 2.761,0 5,-2.239 5,-5 0,-2.761 -2.239,-5 -5,-5 -2.761,0 -5,2.239 -5,5 0,2.761 2.239,5 5,5 z" fill="#57bbc4" style="stroke:none" class="vlcolorfill"/>
+      </g>
+      <path style="display:inline;fill:#2f2f2f;fill-opacity:1;stroke:#ffffff;stroke-width:1.51287;stroke-linecap:square;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" id="rect11-1-4-4-6-2-6-1" width="162.33273" height="61.68644" x="-3.2285924" y="-28.501883" d="M 10.134014,-28.501883 H 145.74153 c 7.40289,0 13.36261,7.465264 13.36261,16.738259 v 28.209923 c 0,9.272995 -5.95972,16.738258 -13.36261,16.738258 H 10.134014 c -7.4028841,0 -13.3626064,-7.465263 -13.3626064,-16.738258 v -28.209923 c 0,-9.272995 5.9597223,-16.738259 13.3626064,-16.738259 z" rx="13.362606" transform="matrix(-0.21940061,0,0,-0.18841786,1292.4157,344.4252)" ry="16.738258"/>
+      <text x="1271.1077" y="-341.59735" font-size="25.9142px" fill="#ffffff" text-anchor="end" id="text2-8-0-8-8-9-4-4-9-1-6-07" style="font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 9.84311px; font-family: Arial; text-align: center; text-anchor: middle; display: inline; fill: rgb(255, 255, 255); fill-opacity: 1; stroke: rgb(255, 255, 255); stroke-width: 0; stroke-dasharray: none; stroke-opacity: 1; white-space: pre;" transform="scale(1.0033032,-0.99670767)"><tspan id="tspan8-2-5-9-6-8-0-3" style="font-size:9.84311px;text-align:center;text-anchor:middle;stroke:#ffffff;stroke-width:0;stroke-opacity:1" class="vlist">50.5</tspan><tspan id="tspan7-8-0-2-5-6-3-4" style="font-size:9.84311px;text-align:center;text-anchor:middle;stroke:#ffffff;stroke-width:0;stroke-opacity:1">°C</tspan></text>
+    </g>
+    <line style="fill: rgb(216, 216, 216); stroke: rgb(255, 255, 255); stroke-width: 3px;" x1="384.995" y1="70.24" x2="1124.83" y2="70.233"/>
+    <line style="fill: rgb(216, 216, 216); stroke: rgb(255, 255, 255); stroke-width: 3;" x1="384.83" y1="110.24" x2="1124.67" y2="110.233"/>
+  </g>
+  <g id="g22-9" transform="matrix(0, 1, -1, 0, 41.425915, 35.305885)" style="display: inline; transform-origin: 527.463px 345.449px;">
+    <g id="g18-9" transform="rotate(90,609.98537,449.05336)" class="">
+      <circle id="Ellipse 2-2-0-0" class="pumpcolorfill" cx="506.38098" cy="531.57581" r="18.888885" fill="#2e7d32" stroke="#673838" stroke-width="2.22223" style="display:inline"/>
+      <path id="Polygon 1-9-3-8" class="pumpcolorstroke" d="M 524.89946,531.57583 504.3439,550.82101 V 512.33065 Z" fill="#673838" style="display:inline;stroke-width:0.740738"/>
+    </g>
+    <path style="display: inline; fill: rgb(47, 47, 47); fill-opacity: 1; stroke: rgb(255, 255, 255); stroke-width: 0.514; stroke-linecap: square; stroke-dasharray: none; stroke-dashoffset: 0; stroke-opacity: 1; transform-box: fill-box; transform-origin: 50% 50%;" id="rect11-1-4-4-6-2-31-0-5-5-3" width="162.33273" height="61.68644" x="-3.2285924" y="-28.501883" d="M 524.202 357.175 L 608.728 357.175 C 612.182 357.175 614.965 354.432 614.965 351.023 L 614.965 340.653 C 614.965 337.244 612.182 334.5 608.728 334.5 L 524.202 334.5 C 520.747 334.5 517.965 337.244 517.965 340.653 L 517.965 351.023 C 517.965 354.432 520.747 357.175 524.202 357.175 Z" rx="10.439445" ry="16.738258" transform="matrix(0, 1, -1, 0, 0.000003, 0.000012)"/>
+    <text x="1271.1077" y="-341.59735" font-size="25.9142px" fill="#ffffff" text-anchor="end" id="text-3" style="font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 9.84311px; font-family: Arial; text-align: center; text-anchor: middle; display: inline; fill: rgb(255, 255, 255); fill-opacity: 1; stroke: rgb(255, 255, 255); stroke-width: 0; stroke-dasharray: none; stroke-opacity: 1; white-space: pre;" transform="matrix(0, -1.691498, 1.562083, 0, 1104.705811, 2494.407471)"><tspan id="tspan-1" style="font-size:9.84311px;text-align:center;text-anchor:middle;stroke:#ffffff;stroke-width:0;stroke-opacity:1" class="pumptext">Hand Ein</tspan></text>
+  </g>
+</svg>

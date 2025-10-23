@@ -1,0 +1,213 @@
+<svg width="818" height="418" viewBox="0 0 818 418" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- HKL 250429-01 SNLS / Erstellen der Datei -->
+    <ycontrol>
+
+        <!-- Text -->
+        <property name="AT aktuell" datatype="String" defaultvalue="xx">
+            <target type="Content" element="atist" />
+        </property>
+        <property name="AT gemittelt" datatype="String" defaultvalue="xx">
+            <target type="Content" element="atistgemit" />
+        </property>
+        <property name="AT Gebäude" datatype="String" defaultvalue="xx">
+            <target type="Content" element="atistgeb" />
+        </property>
+        <property name="VL Max" datatype="String" defaultvalue="xx">
+            <target type="Content" element="VlMax" />
+        </property>
+        <property name="VL Min" datatype="String" defaultvalue="xx">
+            <target type="Content" element="VlMin" />
+        </property>
+        <property name="VL Soll" datatype="String" defaultvalue="xx">
+            <target type="Content" element="VlSoll" />
+        </property>
+        <property name="VL Auslege" datatype="String" defaultvalue="xx">
+            <target type="Content" element="VlAus" />
+        </property>
+        <property name="VL Fuss" datatype="String" defaultvalue="xx">
+            <target type="Content" element="VlFuss" />
+        </property>
+        <property name="AT Fuss" datatype="String" defaultvalue="xx">
+            <target type="Content" element="AtFuss" />
+        </property>
+        <property name="AT Auslege" datatype="String" defaultvalue="xx">
+            <target type="Content" element="AtAus" />
+        </property>
+        <property name="Totband" datatype="String" defaultvalue="xx">
+            <target type="Content" element="Totband" />
+        </property>
+        <property name="Heizgrenze" datatype="String" defaultvalue="xx">
+            <target type="Content" element="Heizgrenze" />
+        </property>
+        <property name="Sollwert Reduziert" datatype="String" defaultvalue="xx">
+            <target type="Content" element="SollR" />
+        </property>
+        <property name="Sollwert Normal" datatype="String" defaultvalue="xx">
+            <target type="Content" element="SollN" />
+        </property>
+        <!-- <property name="Lable Sollwert Reduziert" datatype="String" defaultvalue="Lable Sollwert Reduziert">
+            <target type="Content" element="LaSollR" />
+        </property>
+        <property name="Lable Sollwert Normal" datatype="String" defaultvalue="Lable Sollwert Normal">
+            <target type="Content" element="LaSollN" />
+        </property>
+        <property name="Lable Betriebsmodus" datatype="String" defaultvalue="Lable Betriebsmodus">
+            <target type="Content" element="LaBetrieb" />
+        </property> -->
+
+    <!-- Betriebsmodus -->
+
+    <property name="Betriebsmodus" datatype="Int8" defaultvalue="1">
+        <target type="Content" element="Betrieb">
+            <condition eq="99" output="{{HklUnbekannt}}" />
+               <condition eq="0" output="{{HklAus}}" />
+               <condition eq="1" output="{{HklStandby}}"/>
+               <condition eq="2" output="{{HklNormalReduziert}}" />
+               <condition eq="3" output="{{HklNormal}}" />
+               <condition eq="4" output="{{HklReduziert}}" />
+           </target>
+    </property>
+
+
+
+
+
+    <!-- Kühlen -->
+        <property name="Kühlen anzeigen" datatype="INT8" defaultvalue="1">
+            <target type="Attribute" element="FreigabeKuehlen" selector="opacity">
+                <condition eq="1" output="1" />
+                <condition eq="0" output="0" />
+            </target>	
+        </property>
+
+    <!-- Actions -->
+
+        <action name="VlAusClick" triggers="click" element="VlAusClick" />
+        <action name="VlFussClick" triggers="click" element="VlFussClick" />
+        <action name="AtAusClick" triggers="click" element="AtAusClick" />
+        <action name="AtFussClick" triggers="click" element="AtFussClick" />
+        <action name="TotbandClick" triggers="click" element="TotbandClick" />
+        <action name="HeizgrenzeClick" triggers="click" element="HeizgrenzeClick" />
+        <action name="BetriebsmodusClick" triggers="click" element="BetriebsmodusClick" />
+        <action name="SollNormalClick" triggers="click" element="SollNormalClick" />
+        <action name="SollReduziertClick" triggers="click" element="SollReduziertClick" />
+
+    </ycontrol>
+
+
+    <g id="HKL v3" clip-path="url(#clip0_557_167)">
+    <rect width="818" height="418" fill="black"/>
+    <g id="Freigabe K&#195;&#188;hlen" class="FreigabeKuehlen">
+    <rect id="Rectangle 1" x="295" y="264" width="46" height="7" fill="#2196F3"/>
+    <path id="Polygon 2" d="M273 267.5L296.25 254.077V280.923L273 267.5Z" fill="#2196F3"/>
+    <text id="Freigabe K&#195;&#188;hlen_2" fill="white"    font-size="12" letter-spacing="0em"><tspan x="283" y="290.864">{{HklFreigabe}}&#10;</tspan><tspan x="283" y="305.864">{{HklKuehlen}}</tspan></text>
+    <path id="Vector" d="M342.5 370.138V205.992" stroke="white" stroke-width="3" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <g id="TotbandClick">
+    <path id="Vector_2" d="M373 285H413C417.418 285 421 282.314 421 279V258C421 254.686 417.418 252 413 252H373C368.582 252 365 254.686 365 258V279C365 282.314 368.582 285 373 285Z" fill="#666666"/>
+    <text id="Totband_2" fill="white"  text-anchor="middle"   font-size="12" letter-spacing="0em"><tspan x="392.453" y="273.114" class="Totband" >xxx</tspan><tspan> &#xb0;C </tspan></text>
+    </g>
+    </g>
+    <g id="Freigabe Heizen">
+    <rect id="Rectangle 1_2" x="447" y="262" width="47" height="7" fill="#FD2B2B"/>
+    <path id="Polygon 2_2" d="M516 265.5L492.75 278.923V252.077L516 265.5Z" fill="#FD2B2B"/>
+    <text id="Freigabe Heizen_2" fill="white"    font-size="12" letter-spacing="0em"><tspan x="460" y="288.864">{{HklFreigabe}}&#10;</tspan><tspan x="460" y="303.864">{{HklHeizen}}</tspan></text>
+    </g>
+    <g id="Frame 8">
+    <g id="VL Max: xxx&#194;&#176;C">
+    <text fill="white"    font-size="12" letter-spacing="0em"><tspan x="197.5" y="35.8636">VL Min: </tspan></text>
+    <text fill="white"    font-size="12" font-weight="bold" letter-spacing="0em"><tspan x="246.332" y="35.8636" class="VlMin" >xxx</tspan><tspan> &#xb0;C </tspan></text>
+    </g>
+    <g id="VL Soll: xxx&#194;&#176;C">
+    <text fill="white"    font-size="12" letter-spacing="0em"><tspan x="352.5" y="35.8636">VL Soll: </tspan></text>
+    <text fill="white"    font-size="12" font-weight="bold" letter-spacing="0em"><tspan x="397.922" y="35.8636" class="VlSoll" >xxx</tspan><tspan> &#xb0;C </tspan></text>
+    </g>
+    <g id="VL Max: xxx&#194;&#176;C_2">
+    <text fill="white"    font-size="12" letter-spacing="0em"><tspan x="507.5" y="35.8636">VL Max: </tspan></text>
+    <text fill="white"    font-size="12" font-weight="bold" letter-spacing="0em"><tspan x="556.332" y="35.8636" class="VlMax" >xxx</tspan><tspan> &#xb0;C </tspan></text>
+    </g>
+    </g>
+    <g id="Group">
+    <path id="Vector_3" d="M73.496 41.3174L73.496 370.131" stroke="white" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <path id="Vector_4" d="M73.5 370.14H806.727" stroke="white" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <path id="Vector_5" d="M171.769 336.124C342.373 177.838 557.371 75.6151 787.827 43.213" stroke="white" stroke-width="1.33333" stroke-miterlimit="3" stroke-linecap="square" stroke-dasharray="7 7"/>
+    <path id="Vector_6" d="M444.894 148.479C552.233 95.5893 667.318 60.1503 785.816 43.4957" stroke="white" stroke-width="3" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <path id="Vector_7" d="M445.209 148.317L445.213 370.131" stroke="white" stroke-width="3" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <path id="Vector_8" d="M444.649 370.132L145.316 370.132" stroke="white" stroke-width="3" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <path id="Vector_9" d="M240.399 277.331H73.5053" stroke="white" stroke-width="1.33333" stroke-miterlimit="3" stroke-linecap="square" stroke-dasharray="3 3"/>
+    <path id="Vector_10" d="M240.785 370.136L240.751 277.056" stroke="white" stroke-width="1.33333" stroke-miterlimit="3" stroke-linecap="square" stroke-dasharray="3 3"/>
+    <path id="Vector_11" d="M622.011 79.2842L73.5047 79.1119" stroke="white" stroke-width="1.33333" stroke-miterlimit="3" stroke-linecap="square" stroke-dasharray="3 3"/>
+    <path id="Vector_12" d="M618.889 370.136V79.109" stroke="white" stroke-width="1.33333" stroke-miterlimit="3" stroke-linecap="square" stroke-dasharray="3 3"/>
+    </g>
+    <text id="AT &#194;&#176;C" fill="white"    font-size="12" letter-spacing="0em"><tspan x="768" y="383.864">AT &#xb0;C</tspan></text>
+    <text id="VL &#194;&#176;C" fill="white"    font-size="12" letter-spacing="0em"><tspan x="53" y="35.8636">VL &#xb0;C</tspan></text>
+    <g id="Temp ist">
+
+    <text id="AT Aktuell" fill="white" font-size="12" font-weight="bold" letter-spacing="0em"><tspan x="680" y="287.864" class="atist" >xxx</tspan><tspan> &#xb0;C </tspan></text>
+    <text id="AT Gemittelt" fill="white" font-size="12" font-weight="bold" letter-spacing="0em"><tspan x="680" y="315.864" class="atistgemit" >xxx</tspan><tspan> &#xb0;C </tspan></text>
+    <text id="AT Geb&#195;&#164;ude" fill="white" font-size="12" font-weight="bold" letter-spacing="0em"><tspan x="680" y="343.864" class="atistgeb" >xxx</tspan><tspan> &#xb0;C </tspan></text>
+    
+    <g id="Frame">
+        <path id="Vector_13" d="M667 322C665.617 322 664.438 321.513 663.463 320.538C662.488 319.563 662 318.383 662 317C662 316.2 662.175 315.454 662.525 314.763C662.875 314.071 663.367 313.483 664 313V305C664 304.167 664.292 303.458 664.875 302.875C665.458 302.292 666.167 302 667 302C667.833 302 668.542 302.292 669.125 302.875C669.708 303.458 670 304.167 670 305V313C670.633 313.483 671.125 314.071 671.475 314.763C671.825 315.454 672 316.2 672 317C672 318.383 671.513 319.563 670.538 320.538C669.563 321.513 668.383 322 667 322ZM666 311H668V310H667V309H668V307H667V306H668V305C668 304.717 667.904 304.479 667.713 304.288C667.521 304.096 667.283 304 667 304C666.717 304 666.479 304.096 666.288 304.288C666.096 304.479 666 304.717 666 305V311Z" fill="#E8EAED"/>
+        </g>
+        <g id="Frame_2">
+        <path id="Vector_14" d="M667 350C665.617 350 664.438 349.513 663.463 348.538C662.488 347.563 662 346.383 662 345C662 344.2 662.175 343.454 662.525 342.763C662.875 342.071 663.367 341.483 664 341V333C664 332.167 664.292 331.458 664.875 330.875C665.458 330.292 666.167 330 667 330C667.833 330 668.542 330.292 669.125 330.875C669.708 331.458 670 332.167 670 333V341C670.633 341.483 671.125 342.071 671.475 342.763C671.825 343.454 672 344.2 672 345C672 346.383 671.513 347.563 670.538 348.538C669.563 349.513 668.383 350 667 350ZM666 339H668V338H667V337H668V335H667V334H668V333C668 332.717 667.904 332.479 667.713 332.288C667.521 332.096 667.283 332 667 332C666.717 332 666.479 332.096 666.288 332.288C666.096 332.479 666 332.717 666 333V339Z" fill="#E8EAED"/>
+        </g>
+        <g id="Frame_3">
+        <path id="Vector_15" d="M667 295C665.617 295 664.438 294.513 663.463 293.538C662.488 292.563 662 291.383 662 290C662 289.2 662.175 288.454 662.525 287.763C662.875 287.071 663.367 286.483 664 286V278C664 277.167 664.292 276.458 664.875 275.875C665.458 275.292 666.167 275 667 275C667.833 275 668.542 275.292 669.125 275.875C669.708 276.458 670 277.167 670 278V286C670.633 286.483 671.125 287.071 671.475 287.763C671.825 288.454 672 289.2 672 290C672 291.383 671.513 292.563 670.538 293.538C669.563 294.513 668.383 295 667 295ZM666 284H668V283H667V282H668V280H667V279H668V278C668 277.717 667.904 277.479 667.713 277.288C667.521 277.096 667.283 277 667 277C666.717 277 666.479 277.096 666.288 277.288C666.096 277.479 666 277.717 666 278V284Z" fill="#E8EAED"/>
+        </g>
+        <g id="Frame_4">
+        <path id="Vector_16" d="M643 347H646V341H652V347H655V338L649 333.5L643 338V347ZM641 349V337L649 331L657 337V349H650V343H648V349H641Z" fill="#E8EAED"/>
+        </g>
+        <g id="average-svgrepo-com 1">
+        <g id="Page-1">
+        <g id="drop">
+        <path id="Combined-Shape" fill-rule="evenodd" clip-rule="evenodd" d="M656.156 303.599L657.452 304.895L654.816 307.532C655.767 308.769 656.333 310.318 656.333 312C656.333 316.05 653.05 319.333 649 319.333C647.319 319.333 645.769 318.767 644.532 317.816L641.896 320.452L640.599 319.155L643.229 316.526C642.25 315.279 641.667 313.708 641.667 312C641.667 307.95 644.95 304.667 649 304.667C650.708 304.667 652.279 305.25 653.526 306.229L656.156 303.599ZM653.504 308.843L645.843 316.504C646.737 317.132 647.825 317.5 649 317.5C652.038 317.5 654.5 315.037 654.5 312C654.5 310.825 654.132 309.737 653.504 308.843ZM649 306.5C645.962 306.5 643.5 308.962 643.5 312C643.5 313.201 643.885 314.312 644.538 315.217L652.217 307.538C651.312 306.885 650.201 306.5 649 306.5Z" fill="#E8EAED"/>
+        </g>
+    </g>
+    </g>
+    </g>
+    <g id="HeizgrenzeClick">
+    <path id="Vector_17" d="M425 410H465C469.418 410 473 407.314 473 404V383C473 379.686 469.418 377 465 377H425C420.582 377 417 379.686 417 383V404C417 407.314 420.582 410 425 410Z" fill="#666666"/>
+    <text id="&#194;&#176;C" fill="white"  text-anchor="middle"  font-size="12" letter-spacing="0em"><tspan x="445.598" y="397.864"  class="Heizgrenze" >xxx</tspan><tspan> &#xb0;C </tspan></text>
+    </g>
+    <g id="AtFussClick">
+    <path id="Vector_18" d="M220 410H260C264.418 410 268 407.314 268 404V383C268 379.686 264.418 377 260 377H220C215.582 377 212 379.686 212 383V404C212 407.314 215.582 410 220 410Z" fill="#666666"/>
+    <text id="&#194;&#176;C_2" fill="white" text-anchor="middle"   font-size="12" letter-spacing="0em"><tspan x="240.598" y="397.864" class="AtFuss" >xxx</tspan><tspan> &#xb0;C </tspan></text>
+    </g>
+    <g id="VlAusClick">
+    <path id="Vector_19" d="M16 95H56C60.4183 95 64 92.3137 64 89V68C64 64.6863 60.4183 62 56 62L16 62C11.5817 62 8 64.6863 8 68L8 89C8 92.3137 11.5817 95 16 95Z" fill="#666666"/>
+    <text id="&#194;&#176;C_3" fill="white"  text-anchor="middle"  font-size="12" letter-spacing="0em"><tspan x="36.7656" y="82.8636" class="VlAus" >xxx</tspan><tspan> &#xb0;C </tspan></text>
+    </g>
+    <g id="VlFussClick">
+    <path id="Vector_20" d="M16 293H56C60.4183 293 64 290.314 64 287V266C64 262.686 60.4183 260 56 260H16C11.5817 260 8 262.686 8 266L8 287C8 290.314 11.5817 293 16 293Z" fill="#666666"/>
+    <text id="&#194;&#176;C_4" fill="white" text-anchor="middle"   font-size="12" letter-spacing="0em"><tspan x="36.7656" y="280.864" class="VlFuss" >xxx</tspan><tspan> &#xb0;C </tspan></text>
+    </g>
+    <g id="AtAusClick">
+    <path id="Vector_21" d="M599 410H639C643.418 410 647 407.314 647 404V383C647 379.686 643.418 377 639 377H599C594.582 377 591 379.686 591 383V404C591 407.314 594.582 410 599 410Z" fill="#666666"/>
+    <text id="&#194;&#176;C_5" fill="white" text-anchor="middle"   font-size="12" letter-spacing="0em"><tspan x="620.598" y="397.864" class="AtAus" >xxx</tspan><tspan> &#xb0;C </tspan></text>
+    </g>
+    <g id="Betriebsart" class="BetriebsmodusClick">
+        
+        <rect id="Rectangle 10" x="637" y="100" width="160" height="34" rx="8" fill="#666666"/>
+        <text id="Totband_3" fill="white" text-anchor="middle" font-size="12" letter-spacing="0em"><tspan x="716.85" y="120.864" class="Betrieb">Normal / Reduziert</tspan></text>
+        <text id="Betriebsmodus" fill="white" font-size="12" letter-spacing="0em"><tspan x="637" y="96.8636" class="LaBetrieb">{{HklBetriebsmodus}}</tspan></text>
+        
+        </g>
+        <g id="Sollwert reduziert" class="SollReduziertClick">
+        <text id="Sollwert Reduziert" fill="white" font-size="12" letter-spacing="0em"><tspan x="637" y="208.864" class="LaSollR">{{HklSollwertReduziert}}</tspan></text>
+        <rect id="Rectangle 11" x="637" y="212" width="56" height="34" rx="8" fill="#666666"/>
+        <text id="Totband_4" fill="white" text-anchor="middle" font-size="12" letter-spacing="0em"><tspan x="665.91" y="233.864" class="SollR" >xxx</tspan><tspan> &#xb0;C </tspan></text>
+        </g>
+        <g id="Sollwert Normal" class="SollNormalClick">
+        <rect id="Rectangle 10_2" x="637" y="156" width="56" height="34" rx="8" fill="#666666"/>
+        <text id="Totband_5" fill="white" text-anchor="middle" font-size="12" letter-spacing="0em"><tspan x="665.91" y="177.864" class="SollN" >xxx</tspan><tspan> &#xb0;C </tspan></text>
+        <text id="Sollwert Normal_2" fill="white" font-size="12" letter-spacing="0em"><tspan x="637" y="152.864" class="LaSollN">{{HklSollwertNormal}}</tspan></text>
+        </g>
+        </g>
+    <defs>
+    <clipPath id="clip0_557_167">
+    <rect width="818" height="418" fill="white"/>
+    </clipPath>
+    </defs>
+    </svg>
+    

@@ -1,0 +1,886 @@
+<svg viewBox="0 0 1330 600" version="1.1" id="svg42" width="1330" height="600" xmlns="http://www.w3.org/2000/svg" xmlns:bx="https://boxy-svg.com">
+
+
+<ycontrol>
+<!--Zeile 1-->
+    <property name="Zeile1" datatype="String" defaultvalue="xxx">
+      <target type="Content" element="zeile1"/>
+    </property>
+<!--Zeile 2-->
+    <property name="Zeile2" datatype="String" defaultvalue="xxx">
+      <target type="Content" element="zeile2"/>
+    </property>
+    <property name="RekuAktiv" datatype="INT16" defaultvalue="0">
+      <target type="Attribute" element="rekuaktiv" selector="opacity">
+        <condition eq="1" output="1"/>
+        <condition eq="0" output="0"/>
+      </target>
+    </property>
+
+    <property name="RekuAbgesetzt" datatype="INT16" defaultvalue="0">
+      <target type="Attribute" element="rekuabgesetzt" selector="opacity">
+        <condition eq="1" output="1"/>
+        <condition eq="0" output="0"/>
+      </target>
+    </property>
+
+        <property name="Bus vorhanden" datatype="BOOLEAN" defaultvalue="0">
+        	<target type="Attribute" element="ohnebus" selector="opacity">
+        <condition eq="1" output="1"/>
+        <condition eq="0" output="0"/>
+       		</target>
+       	</property>
+
+<!--Sicherheiten-->
+    <property name="HKSicherheitenPrio1" datatype="16-BIT" defaultvalue="1">
+      <target type="Style" bit="0" element="stb1" selector="fill">
+        <condition eq="1" output="red"/>
+        <condition eq="0" output="black"/>
+      </target>
+      <target type="Style" bit="1" element="stb2" selector="fill">
+        <condition eq="1" output="red"/>
+        <condition eq="0" output="black"/>
+      </target>
+      <target type="Style" bit="2" element="maxp1colorfill" selector="fill">
+        <condition eq="1" output="red"/>
+        <condition eq="0" output="black"/>
+      </target>
+      <target type="Style" bit="5" element="wasserstand" selector="fill">
+        <condition eq="1" output="red"/>
+        <condition eq="0" output="black"/>
+      </target>
+    </property>
+    <property name="HKSicherheitenWarn" datatype="16-BIT" defaultvalue="3">
+      <target type="Style" bit="0" element="tempw" selector="fill">
+        <condition eq="1" output="orange"/>
+        <condition eq="0" output="black"/>
+      </target>
+    </property>
+
+<!--Kessel VL-->
+    <property name="HKKesselVLIst" datatype="Int16" defaultvalue="1">
+      <target type="Content" element="vltemp"/>
+      <target type="Style" element="vltempcolorfill" selector="fill">
+        <condition gt="120" output="red"/>
+        <condition gt="-49" output="green"/>
+        <condition lte="-50" output="red"/>
+      </target>
+    </property>
+<!--Kessel RL-->
+    <property name="HKKesselRLIst" datatype="Int16" defaultvalue="xx">
+      <target type="Content" element="rltemp"/>
+      <target type="Style" element="rltempcolorfill" selector="fill">
+        <condition gt="-49" output="green"/>
+        <condition gt="120" output="red"/>
+        <condition lte="-50" output="red"/>
+      </target>
+    </property>
+
+<!--Zeitprogramm-->
+    <property name="ZpEinblenden" datatype="boolean" defaultvalue="false">
+      <target type="Attribute" element="zpaktiv" selector="opacity">
+        <condition eq="true" output="1"/>
+        <condition eq="false" output="0"/>
+      </target>
+    </property>
+    <action name="ClickZp" triggers="click" element="zpaktiv"/>
+<!--HKL-->
+    <property name="HklEinblenden" datatype="boolean" defaultvalue="0">
+      <target type="Attribute" element="hklaktiv" selector="opacity">
+        <condition eq="1" output="1"/>
+        <condition eq="0" output="0"/>
+      </target>
+    </property>
+    <action name="ClickHkl" triggers="click" element="hklaktiv"/>
+<!--Raumgeräte-->
+    <property name="RaumEinblenden" datatype="boolean" defaultvalue="false">
+      <target type="Attribute" element="raumaktiv" selector="opacity">
+        <condition eq="true" output="1"/>
+        <condition eq="false" output="0"/>
+      </target>
+    </property>
+    <action name="ClickRaum" triggers="click" element="raumaktiv"/>
+<!--Unterstation-->
+    <property name="UsEinblenden" datatype="boolean" defaultvalue="false">
+      <target type="Attribute" element="usaktiv" selector="opacity">
+        <condition eq="true" output="1"/>
+        <condition eq="false" output="0"/>
+      </target>
+    </property>
+    <action name="ClickRaum" triggers="click" element="usaktiv"/>
+<!--Settings-->
+    <property name="SetEinblenden" datatype="boolean" defaultvalue="false">
+      <target type="Attribute" element="settingsaktiv" selector="opacity">
+        <condition eq="true" output="1"/>
+        <condition eq="false" output="0"/>
+      </target>
+    </property>
+    <action name="ClickRaum" triggers="click" element="usaktiv"/>
+
+<!--Kessel Abgas-->
+    <property name="HKKesselAbgasIst" datatype="Int16" defaultvalue="0">
+      <target type="Content" element="abgastemp"/>
+      <target type="Style" element="abgastempcollorfill" selector="fill">
+        <condition gt="120" output="red"/>
+        <condition lte="-50" output="red"/>
+      </target>
+    </property>
+<!--Kessel innen VL-->
+    <property name="HKKesselInnenVL" datatype="Int16" defaultvalue="0">
+      <target type="Content" element="vltempinnen"/>
+    </property>
+
+<!--Fenleitung VL-->
+    <property name="HKFenleitungVLIst" datatype="Int16" defaultvalue="1">
+      <target type="Content" element="fernrltemp"/>
+      <target type="Style" element="rltempcolorfill" selector="fill">
+        <condition gt="120" output="red"/>
+        <condition lte="-50" output="red"/>
+      </target>
+    </property>
+<!--KesselPumpe-->
+    <property name="HKKesselpumpeIst" datatype="Int16" defaultvalue="0">
+      <target type="Content" element="kpumpist"/>
+    </property>
+    <property name="HKStatusKesselpumpe" datatype="Int8" defaultvalue="1">
+      <target type="Style" element="kpumpcolorfill" selector="fill">
+        <condition gt="100" output="red"/>
+        <condition eq="3" output="black"/>
+        <condition eq="2" output="red"/>
+        <condition eq="1" output="green"/>
+        <condition eq="0" output="black"/>
+        <condition eq="13" output="black"/>
+        <condition eq="12" output="red"/>
+        <condition eq="11" output="green"/>
+        <condition eq="10" output="black"/>
+        <condition eq="23" output="black"/>
+        <condition eq="22" output="red"/>
+        <condition eq="21" output="green"/>
+        <condition eq="20" output="black"/>
+        <condition lt="0" output="red"/>
+      </target>
+      <target type="Style" element="kpumpcolorfill" selector="stroke">
+        <condition eq="99" output="#18c6c9"/>
+        <condition lt="10" output="white"/>
+        <condition lt="20" output="blue"/>
+        <condition lt="30" output="orange"/>
+      </target>
+      <target type="Style" element="kpumpcolorstroke" selector="fill">
+        <condition eq="99" output="#18c6c9"/>
+        <condition eq="0" output="white"/>
+        <condition eq="1" output="white"/>
+        <condition eq="2" output="white"/>
+        <condition eq="3" output="white"/>
+        <condition eq="10" output="blue"/>
+        <condition eq="11" output="blue"/>
+        <condition eq="12" output="blue"/>
+        <condition eq="13" output="blue"/>
+        <condition eq="20" output="orange"/>
+        <condition eq="21" output="orange"/>
+        <condition eq="22" output="orange"/>
+        <condition eq="23" output="orange"/>
+      </target>
+    </property>
+
+<!--FernleitungPumpe-->
+    <property name="FernleitungPumpe vorhanden" datatype="BOOLEAN" defaultvalue="0">
+      <target type="Attribute" element="fernpumpaktiv" selector="opacity">
+        <condition eq="1" output="1"/>
+        <condition eq="0" output="0"/>
+      </target>
+    </property>
+    <property name="HKFernPumpeIst" datatype="Int16" defaultvalue="0">
+      <target type="Content" element="fernpumpist"/>
+    </property>
+    <property name="HKFernPumpeStatus" datatype="Int8" defaultvalue="11">
+      <target type="Style" element="fernpumpcolorfill" selector="fill">
+        <condition gt="100" output="red"/>
+        <condition eq="3" output="black"/>
+        <condition eq="2" output="red"/>
+        <condition eq="1" output="green"/>
+        <condition eq="0" output="black"/>
+        <condition eq="13" output="black"/>
+        <condition eq="12" output="red"/>
+        <condition eq="11" output="green"/>
+        <condition eq="10" output="black"/>
+        <condition eq="23" output="black"/>
+        <condition eq="22" output="red"/>
+        <condition eq="21" output="green"/>
+        <condition eq="20" output="black"/>
+        <condition lt="0" output="red"/>
+      </target>
+      <target type="Style" element="fernpumpcolorfill" selector="stroke">
+        <condition eq="99" output="#18c6c9"/>
+        <condition lt="10" output="white"/>
+        <condition lt="20" output="blue"/>
+        <condition lt="30" output="orange"/>
+      </target>
+      <target type="Style" element="fernpumpcolorstroke" selector="fill">
+        <condition eq="99" output="#18c6c9"/>
+        <condition eq="0" output="white"/>
+        <condition eq="1" output="white"/>
+        <condition eq="3" output="white"/>
+        <condition eq="10" output="blue"/>
+        <condition eq="11" output="blue"/>
+        <condition eq="13" output="blue"/>
+        <condition eq="20" output="orange"/>
+        <condition eq="21" output="orange"/>
+        <condition eq="23" output="orange"/>
+      </target>
+    </property>
+
+<!-- Ventil -->
+        <property name="Rücklaufhochhaltung vorhanden" datatype="BOOLEAN" defaultvalue="1">
+        	<target type="Attribute" element="rueklaufhochaltungaktiv" selector="opacity">
+        <condition eq="1" output="1"/>
+        <condition eq="0" output="0"/>
+       		</target>
+       	</property>
+       	
+
+		<property name="PositionRücklaufhochhaltungVentil" datatype="String" defaultvalue="xxx">
+		    <target type="Content" element="ventilpos" />
+		</property>
+		
+		<property name="StatusRücklaufhochhaltungVentil" datatype="Int8" defaultvalue="0">
+			<target type="Style" element="ventilcollorfill" selector="fill">
+       			<condition gt="100" output="red" />
+       			<condition eq="3" output="black" />
+       			<condition eq="2" output="red" />
+       			<condition eq="1" output="green" />
+       			<condition eq="0" output="black" />
+       			<condition eq="13" output="black" />
+       			<condition eq="12" output="red" />
+       			<condition eq="11" output="green" />
+       			<condition eq="10" output="black" />
+       			<condition eq="23" output="black" />
+       			<condition eq="22" output="red" />
+       			<condition eq="21" output="green" />
+       			<condition eq="20" output="black" />
+       			<condition lt="0" output="red" />
+       			</target>
+			<target type="Style" element="ventilcollorfill" selector="stroke">
+       			<condition eq="99" output="#18c6c9" />
+       			<condition eq="0" output="white" />
+       			<condition eq="1" output="white" />
+       			<condition eq="3" output="white" />
+       			<condition eq="10" output="blue" />
+       			<condition eq="11" output="blue" />
+       			<condition eq="13" output="blue" />
+       			<condition eq="20" output="orange" />
+       			<condition eq="21" output="orange" />
+       			<condition eq="23" output="orange" />
+       			</target>
+		</property>
+
+
+
+<!--Status Brenner-->
+    <property name="HKStatusBrenner" datatype="Int16" defaultvalue="2">
+      <target type="Style" element="brennercollorfill" selector="fill">
+        <condition gt="100" output="red"/>
+        <condition eq="3" output="black"/>
+        <condition eq="2" output="red"/>
+        <condition eq="1" output="green"/>
+        <condition eq="0" output="black"/>
+        <condition eq="13" output="black"/>
+        <condition eq="12" output="red"/>
+        <condition eq="11" output="green"/>
+        <condition eq="10" output="black"/>
+        <condition eq="23" output="black"/>
+        <condition eq="22" output="red"/>
+        <condition eq="21" output="green"/>
+        <condition eq="20" output="black"/>
+        <condition lt="0" output="red"/>
+      </target>
+
+
+      <target type="Style" element="oelcollorfill" selector="fill">
+        <condition gt="100" output="red"/>
+        <condition eq="3" output="black"/>
+        <condition eq="2" output="red"/>
+        <condition eq="1" output="green"/>
+        <condition eq="0" output="black"/>
+        <condition eq="13" output="black"/>
+        <condition eq="12" output="red"/>
+        <condition eq="11" output="green"/>
+        <condition eq="10" output="black"/>
+        <condition eq="23" output="black"/>
+        <condition eq="22" output="red"/>
+        <condition eq="21" output="green"/>
+        <condition eq="20" output="black"/>
+        <condition lt="0" output="red"/>
+      </target>
+
+      <target type="Style" element="flammecollorfill" selector="stroke">
+        <condition gt="100" output="white"/>
+        <condition eq="3" output="white"/>
+        <condition eq="2" output="white"/>
+        <condition eq="1" output="orange"/>
+        <condition eq="0" output="white"/>
+        <condition eq="13" output="white"/>
+        <condition eq="12" output="white"/>
+        <condition eq="11" output="orange"/>
+        <condition eq="10" output="white"/>
+        <condition eq="23" output="white"/>
+        <condition eq="22" output="white"/>
+        <condition eq="21" output="orange"/>
+        <condition eq="20" output="white"/>
+        <condition lt="0" output="white"/>
+      </target>
+      <target type="Content" element="statusbrenner">
+        <condition eq="99" output="unbekannt"/>
+        <condition eq="0" output="Aus"/>
+        <condition eq="1" output="Ein"/>
+        <condition eq="2" output="Störung"/>
+        <condition eq="3" output="Standby"/>
+        <condition eq="10" output="Hand Aus"/>
+        <condition eq="11" output="Hand Ein"/>
+        <condition eq="12" output="Hand Störung"/>
+        <condition eq="13" output="Hand Aus mit Freigabe"/>
+        <condition eq="20" output="Lokal Aus"/>
+        <condition eq="21" output="Lokal Ein"/>
+        <condition eq="22" output="Lokal Störung"/>
+        <condition eq="23" output="Lokal Aus mit Freigabe"/>
+      </target>
+      <target type="Content" element="Anforderung">
+        <condition eq="99" output="unbekannt"/>
+        <condition eq="0" output="Keine"/>
+        <condition eq="1" output="Vorhanden"/>
+        <condition eq="2" output="Keine"/>
+        <condition eq="3" output="Vorhanden"/>
+        <condition eq="10" output="Keine"/>
+        <condition eq="11" output="Vorhanden"/>
+        <condition eq="12" output="Keine"/>
+        <condition eq="13" output="Vorhanden"/>
+        <condition eq="20" output="Keine"/>
+        <condition eq="21" output="Vorhanden"/>
+        <condition eq="22" output="Keine"/>
+        <condition eq="23" output="Vorhanden"/>
+      </target>
+    </property>
+
+
+    <property name="HKSolltemperatur" datatype="String" defaultvalue="xxx">
+      <target type="Content" element="solltemp"/>
+    </property>
+
+    <property name="HKaktuelleSolltemperatur" datatype="String" defaultvalue="xxx">
+      <target type="Content" element="solltemp"/>
+    </property>
+
+
+		<property name="Flamme" datatype="String" defaultvalue="xxx">
+			<target type="Content" element="flamme" />
+		</property>	
+
+
+
+
+		<property name="Phase" datatype="String" defaultvalue="xxx">
+			<target type="Content" element="phase" />
+		</property>
+		<property name="Sollleistung" datatype="String" defaultvalue="xxx">
+			<target type="Content" element="sollleist" />
+		</property>
+<!--Kessel Leistung-->
+    <property name="HKLeistungIst" datatype="Int16" defaultvalue="0">
+      <target type="Content" element="istleistung"/>
+    </property>
+
+
+    <!-- Systemtrennung -->
+        <property name="Systemtrennung anzeigen" datatype="INT8" defaultvalue="0">
+            <target type="Attribute" element="systrennungaktiv" selector="opacity">
+                <condition eq="1" output="1" />
+                <condition eq="0" output="0" />
+            </target>	
+        </property>
+    
+    <!-- Status Pumpe Systemtrennung -->
+    <property name="Status Pumpe Systemtrennung" datatype="Int8" defaultvalue="99">
+        	<target type="Style" element="pumpsyscolorfill" selector="fill">
+       			<condition eq="99" output="#f542ef" />
+       			<condition eq="0" output="black" />
+       			<condition eq="1" output="green" />
+       			<condition eq="2" output="red" />
+       			<condition eq="10" output="black" />
+       			<condition eq="11" output="green" />
+       			<condition eq="12" output="red" />
+       			<condition eq="20" output="black" />
+       			<condition eq="21" output="green" />
+       			<condition eq="22" output="red" />
+       		</target>
+       		 <target type="Style" element="pumpsyscolorfill" selector="stroke">
+       			<condition eq="99" output="#18c6c9" />
+       			<condition lt="10" output="white" />
+       			<condition lt="20" output="blue" />
+       			<condition lt="30" output="orange" />
+       		</target>
+       		 <target type="Style" element="pumpsyscolorstroke" selector="fill">
+       			<condition eq="99" output="#18c6c9" />
+       			<condition lt="10" output="white" />
+       			<condition lt="20" output="blue" />
+       			<condition lt="30" output="orange" />
+       		</target>
+		</property>
+
+
+
+    <!-- Fuehler PRI Eintritt Systemtrennung-->
+      <property name="Fühler SYS PRI Eintritt einblenden" datatype="Int8" defaultvalue="1">
+        	<target type="Attribute" element="prieintrittaktiv" selector="opacity">
+        		<condition eq="1" output="1" />
+        		<condition eq="0" output="0" />
+       		</target>
+		</property>
+			
+		<property name="Fühler SYS PRI Eintritt Istwert" datatype="Int16" defaultvalue="0">
+		    <target type="Content" element="prieintrittlist" />
+			<target type="Style" element="prieintrittcolorfill" selector="fill">
+       			<condition gt="150" output="red" />
+       			<condition gte="1" output="green" />
+       			<condition lte="0" output="red" />
+       			</target>
+		</property>
+
+
+    <!-- Fuehler PRI Austritt Systemtrennung-->
+      <property name="Fühler SYS PRI Austritt einblenden" datatype="Int8" defaultvalue="1">
+        	<target type="Attribute" element="priaustrittaktiv" selector="opacity">
+        		<condition eq="1" output="1" />
+        		<condition eq="0" output="0" />
+       		</target>
+		</property>
+			
+		<property name="Fühler SYS PRI Austritt Istwert" datatype="Int16" defaultvalue="0">
+		    <target type="Content" element="priaustrittist" />
+			<target type="Style" element="priaustrittcolorfill" selector="fill">
+       			<condition gt="150" output="red" />
+       			<condition gte="1" output="green" />
+       			<condition lte="0" output="red" />
+       			</target>
+		</property>
+
+   <!-- Fuehler SEK Eintritt Systemtrennung-->
+      <property name="Fühler SYS SEK Eintritt einblenden" datatype="Int8" defaultvalue="1">
+        	<target type="Attribute" element="sekeintrittaktiv" selector="opacity">
+        		<condition eq="1" output="1" />
+        		<condition eq="0" output="0" />
+       		</target>
+		</property>
+			
+		<property name="Fühler SYS SEK Eintritt Istwert" datatype="Int16" defaultvalue="0">
+		    <target type="Content" element="sekeintrittlist" />
+			<target type="Style" element="sekeintrittcolorfill" selector="fill">
+       			<condition gt="150" output="red" />
+       			<condition gte="1" output="green" />
+       			<condition lte="0" output="red" />
+       			</target>
+		</property>
+
+
+    <!-- Fuehler SEK Austritt Systemtrennung-->
+      <property name="Fühler SYS SEK Austritt einblenden" datatype="Int8" defaultvalue="1">
+        	<target type="Attribute" element="sekaustrittaktiv" selector="opacity">
+        		<condition eq="1" output="1" />
+        		<condition eq="0" output="0" />
+       		</target>
+		</property>
+			
+		<property name="Fühler SYS SEK Austritt Istwert" datatype="Int16" defaultvalue="0">
+		    <target type="Content" element="sekaustrittist" />
+			<target type="Style" element="sekaustrittcolorfill" selector="fill">
+       			<condition gt="150" output="red" />
+       			<condition gte="1" output="green" />
+       			<condition lte="0" output="red" />
+       			</target>
+		</property>
+
+
+<!-- OelVersorgung -->
+
+
+        <property name="Status OelVersorgung" datatype="Int8" defaultvalue="99">
+        	<target type="Style" element="oelcolorfill" selector="fill">
+       			<condition gt="100" output="red" />
+       			<condition eq="3" output="black" />
+       			<condition eq="2" output="red" />
+       			<condition eq="1" output="green" />
+       			<condition eq="0" output="black" />
+       			<condition eq="13" output="black" />
+       			<condition eq="12" output="red" />
+       			<condition eq="11" output="green" />
+       			<condition eq="10" output="black" />
+       			<condition eq="23" output="black" />
+       			<condition eq="22" output="red" />
+       			<condition eq="21" output="green" />
+       			<condition eq="20" output="black" />
+       			<condition lt="0" output="red" />
+       		</target>
+       		 <target type="Style" element="oelcolorfill" selector="stroke">
+       			<condition eq="99" output="#18c6c9" />
+       			<condition lt="10" output="white" />
+       			<condition lt="20" output="blue" />
+       			<condition lt="30" output="orange" />
+       		</target>
+  
+	</property>
+        <property name="Oelventil vorhanden" datatype="BOOLEAN" defaultvalue="1">
+        	<target type="Attribute" element="oelventilaktiv" selector="opacity">
+        <condition eq="1" output="1"/>
+        <condition eq="0" output="0"/>
+       		</target>
+       	</property>
+
+  </ycontrol>
+
+  <defs id="defs2">
+    <rect x="1530.8483" y="91.773781" width="56.81234" height="30.077122" id="rect42"/>
+    <bx:grid x="0" y="0" width="5" height="20"/>
+    <symbol id="thermometer" viewBox="0 0 24 24">
+      <path fill="#00e0ff" d="M 17,17 A 5,5 0 1 1 7,17 C 7,15.29 8,13.83 9.44,13.15 V 5 a 2.56,2.56 0 0 1 5.12,0 v 8.15 A 4.994,4.994 0 0 1 17,17 Z" id="path1"/>
+    </symbol>
+    <symbol id="target" viewBox="0 0 24 24">
+      <path fill="#ffce00" d="m 12,20 a 8,8 0 1 1 8,-8 8.009,8.009 0 0 1 -8,8 z M 12,6 a 6,6 0 1 0 6,6 6.006,6.006 0 0 0 -6,-6 z m 0,10 a 4,4 0 1 1 4,-4 4.005,4.005 0 0 1 -4,4 z" id="path2"/>
+    </symbol>
+    <symbol id="thermometer-5" viewBox="0 0 24 24">
+      <path fill="#00e0ff" d="M 17,17 A 5,5 0 1 1 7,17 C 7,15.29 8,13.83 9.44,13.15 V 5 a 2.56,2.56 0 0 1 5.12,0 v 8.15 A 4.994,4.994 0 0 1 17,17 Z" id="path1-2"/>
+    </symbol>
+    <symbol id="target-7" viewBox="0 0 24 24">
+      <path fill="#ffce00" d="m 12,20 a 8,8 0 1 1 8,-8 8.009,8.009 0 0 1 -8,8 z M 12,6 a 6,6 0 1 0 6,6 6.006,6.006 0 0 0 -6,-6 z m 0,10 a 4,4 0 1 1 4,-4 4.005,4.005 0 0 1 -4,4 z" id="path2-6"/>
+    </symbol>
+    <symbol id="thermometer-2" viewBox="0 0 24 24">
+      <path fill="#00e0ff" d="M 17,17 A 5,5 0 1 1 7,17 C 7,15.29 8,13.83 9.44,13.15 V 5 a 2.56,2.56 0 0 1 5.12,0 v 8.15 A 4.994,4.994 0 0 1 17,17 Z" id="path1-1"/>
+    </symbol>
+    <symbol id="target-6" viewBox="0 0 24 24">
+      <path fill="#ffce00" d="m 12,20 a 8,8 0 1 1 8,-8 8.009,8.009 0 0 1 -8,8 z M 12,6 a 6,6 0 1 0 6,6 6.006,6.006 0 0 0 -6,-6 z m 0,10 a 4,4 0 1 1 4,-4 4.005,4.005 0 0 1 -4,4 z" id="path2-8"/>
+    </symbol>
+    <symbol id="icon-thermo" viewBox="0 0 24 24">
+      <path fill="#00e0ff" d="M 17,17 A 5,5 0 1 1 7,17 C 7,15.29 8,13.83 9.44,13.15 V 5 a 2.56,2.56 0 0 1 5.12,0 v 8.15 A 4.994,4.994 0 0 1 17,17 Z" id="path1-18"/>
+    </symbol>
+    <symbol id="icon-target" viewBox="0 0 24 24">
+      <path fill="#ffce00" d="m 12,20 a 8,8 0 1 1 8,-8 8.009,8.009 0 0 1 -8,8 z M 12,6 a 6,6 0 1 0 6,6 6.006,6.006 0 0 0 -6,-6 z m 0,10 a 4,4 0 1 1 4,-4 4.005,4.005 0 0 1 -4,4 z" id="path2-9"/>
+    </symbol>
+    <bx:export>
+      <bx:file format="svg" href="#rect2" path="Unbetitelt.svg"/>
+    </bx:export>
+  </defs>
+  <rect width="1329.5" height="602.10303" rx="7.9999995" ry="8" style="display: inline; stroke: rgb(0, 0, 0); stroke-width: 1;" y="-1.051" id="rect2" x="0"/>
+  <g id="Info" transform="rotate(-90,8.9745,157.4745)" style="display:inline">
+    <g id="bar">
+      <rect y="178" width="120.00001" height="310" rx="3.9779005" fill="#313131" id="rect1" x="18" style="stroke-width:0.819542" ry="3.9779005"/>
+    </g>
+    <text id="GebÃ¤ude" fill="#ffffff" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial;white-space:pre" font-family="Inter" font-size="26px" font-weight="500" letter-spacing="0em" x="172.61621" y="-325.54333" transform="rotate(90)"><tspan x="186.61621" y="-108.69434" class="zeile1" id="tspan1" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial">Ölversorgung</tspan></text>
+    <text id="Heizkreis" fill="#ffffff" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.3333px;font-family:Arial;-inkscape-font-specification:Arial;white-space:pre" font-family="Inter" font-size="26px" font-weight="500" letter-spacing="0em" x="172.29167" y="-338.05359" transform="rotate(90)"><tspan x="186.29167" y="-82.739586" class="zeile2" id="tspan2" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.3333px;font-family:Arial;-inkscape-font-specification:Arial">Heizkreis</tspan></text>
+    <g id="HZK" class="hklaktiv" style="display:inline" transform="rotate(90,92.105698,256.14746)">
+      <path id="path-20" d="M 31.196095,320.25316 H 67.38538 c 3.997378,0 7.237857,-3.582 7.237857,-8 v -28 c 0,-4.418 -3.240479,-8 -7.237857,-8 H 31.196095 c -3.997378,0 -7.237857,3.582 -7.237857,8 v 28 c 0,4.418 3.240479,8 7.237857,8 z" fill="#666666" style="stroke-width:0.951174"/>
+      <g id="Symbol kurve" class="hklaktiv" style="display:inline" transform="translate(1.290581,0.253156)">
+        <path id="path14_2" d="m 33.8859,287.418 -0.0473,0.048 -1.4895,1.503 z m 0,0 0.0473,0.048 m -0.0473,-0.048 0.0473,0.048 m 0,0 1.4941,1.503 v 0 c 0.1321,0.132 0.3453,0.213 0.5851,0.213 0.1503,0 0.2969,-0.033 0.4213,-0.092 v 0 c 0.1653,-0.078 0.2585,-0.195 0.2866,-0.313 0.0278,-0.118 -0.0056,-0.246 -0.1148,-0.356 v 0 m -2.6723,-0.955 2.6723,0.955 m 0,0 -2.123,-2.134 c -0.1333,-0.134 -0.3442,-0.214 -0.5851,-0.214 -0.241,0 -0.4519,0.08 -0.5852,0.214 l -2.1229,2.134 c 0,0 -10e-5,0 -10e-5,0 -0.108,0.109 -0.1404,0.235 -0.1136,0.35 0.0272,0.117 0.1178,0.234 0.276,0.315 0.1583,0.081 0.3521,0.109 0.536,0.087 m 4.7179,-0.752 -4.7179,0.752 m 0,0 c 0.1844,-0.022 0.3519,-0.094 0.4614,-0.204 z" fill="#e8eaed" stroke="#e8eaed" stroke-width="0.133333"/>
+        <path id="path16" d="m 62.9198,307.867 0.1164,0.059 -0.1164,0.06 -2.0956,1.069 c -0.1593,0.082 -0.2509,0.2 -0.278,0.318 -0.0267,0.116 0.0068,0.242 0.1183,0.35 v 0 c 0.1337,0.13 0.3453,0.21 0.5813,0.21 0.1506,0 0.2964,-0.023 0.4124,-0.083 h 2e-4 l 2.9768,-1.522 c 0.1926,-0.099 0.289,-0.244 0.289,-0.394 0,-0.151 -0.0964,-0.296 -0.289,-0.394 l -2.9768,-1.522 c -0.159,-0.082 -0.3528,-0.11 -0.5366,-0.088 -0.1842,0.022 -0.3515,0.094 -0.4611,0.204 -0.108,0.108 -0.1404,0.234 -0.1134,0.349 0.0273,0.117 0.1182,0.234 0.2768,0.315 0,0 0,0 10e-5,0 z" fill="#e8eaed" stroke="#e8eaed" stroke-width="0.133333"/>
+        <path id="Vector 2" d="m 36.7977,304.168 c 0,0 9.9469,-9.177 23.7831,-10.964" stroke="#e8eaed" stroke-linecap="round"/>
+        <path id="path26_2" d="m 34.6541,307.436 h -0.0666 v -0.067 l 0.0011,-20.812 c 0,-0.129 -0.0709,-0.25 -0.1982,-0.341 -0.1273,-0.091 -0.3076,-0.149 -0.5124,-0.149 -0.2022,0 -0.3826,0.059 -0.5108,0.151 -0.1283,0.092 -0.1999,0.213 -0.1999,0.339 v 21.363 c 0,0.127 0.0719,0.248 0.2003,0.34 0.1283,0.091 0.3087,0.15 0.5104,0.15 h 30.3447 c 0.2047,0 0.3851,-0.056 0.5125,-0.146 0.1272,-0.089 0.1981,-0.209 0.1981,-0.338 0,-0.126 -0.0718,-0.248 -0.2003,-0.34 -0.1283,-0.091 -0.3087,-0.15 -0.5103,-0.15 z" fill="#e8eaed" stroke="#e8eaed" stroke-width="0.133333"/>
+      </g>
+    </g>
+    <g id="ZP" class="zpaktiv" transform="rotate(90,93.5,254.5)">
+      <path id="path-21" d="m 114.23786,320 h 36.18928 c 3.99711,0 7.23786,-3.582 7.23786,-8 v -28 c 0,-4.418 -3.24075,-8 -7.23786,-8 H 114.23786 C 110.24075,276 107,279.582 107,284 v 28 c 0,4.418 3.24075,8 7.23786,8 z" fill="#666666" style="stroke-width:0.951174"/>
+      <path id="path-22" d="m 135.6325,302.6005 1.4,-1.371 -3.7,-3.621 v -4.503 h -2 v 5.286 z m -3.3,5.188 c -1.383,0 -2.683,-0.257 -3.9,-0.771 -1.217,-0.514 -2.275,-1.212 -3.175,-2.093 -0.9,-0.88 -1.613,-1.916 -2.137,-3.107 -0.526,-1.191 -0.788,-2.464 -0.788,-3.818 0,-1.354 0.262,-2.626 0.788,-3.817 0.524,-1.191 1.237,-2.227 2.137,-3.108 0.9,-0.881 1.958,-1.578 3.175,-2.092 1.217,-0.514 2.517,-0.771 3.9,-0.771 1.383,0 2.683,0.257 3.9,0.771 1.217,0.514 2.275,1.211 3.175,2.092 0.9,0.881 1.613,1.917 2.137,3.108 0.525,1.191 0.788,2.463 0.788,3.817 0,1.354 -0.263,2.627 -0.788,3.818 -0.524,1.191 -1.237,2.227 -2.137,3.107 -0.9,0.881 -1.958,1.579 -3.175,2.093 -1.217,0.514 -2.517,0.771 -3.9,0.771 z m 0,-1.958 c 2.217,0 4.104,-0.763 5.663,-2.288 1.558,-1.525 2.337,-3.373 2.337,-5.543 0,-2.17 -0.779,-4.017 -2.337,-5.542 -1.559,-1.526 -3.446,-2.288 -5.663,-2.288 -2.217,0 -4.104,0.762 -5.662,2.288 -1.559,1.525 -2.338,3.372 -2.338,5.542 0,2.17 0.779,4.018 2.338,5.543 1.558,1.525 3.445,2.288 5.662,2.288 z" fill="#e8eaed"/>
+    </g>
+    <g id="g25" transform="translate(-17.987659,-118.48464)">
+      <g id="US" class="usaktiv" transform="rotate(90,46.751509,319.23615)">
+        <path id="path-23" d="m 201.23786,320 h 36.18928 c 3.99711,0 7.23786,-3.582 7.23786,-8 v -28 c 0,-4.418 -3.24075,-8 -7.23786,-8 H 201.23786 C 197.24075,276 194,279.582 194,284 v 28 c 0,4.418 3.24075,8 7.23786,8 z" fill="#666666" style="stroke-width:0.951174"/>
+        <path id="US_2" d="m 218,300 h 2 v -2 c 0,-0.283 0.096,-0.521 0.288,-0.712 C 220.479,297.096 220.717,297 221,297 h 2 v 2 l 3,-3 -3,-3 v 2 h -2 c -0.833,0 -1.542,0.292 -2.125,0.875 C 218.292,296.458 218,297.167 218,298 Z m -4,4 c -0.55,0 -1.021,-0.196 -1.413,-0.587 C 212.196,303.021 212,302.55 212,302 v -11 c 0,-0.55 0.196,-1.021 0.587,-1.412 C 212.979,289.196 213.45,289 214,289 h 16 c 0.55,0 1.021,0.196 1.413,0.588 0.391,0.391 0.587,0.862 0.587,1.412 v 11 c 0,0.55 -0.196,1.021 -0.587,1.413 C 231.021,303.804 230.55,304 230,304 Z m 0,-2 h 16 v -11 h -16 z m -3,5 v -2 h 22 v 2 z" fill="#e8eaed"/>
+      </g>
+      <g id="Raum" class="raumaktiv" transform="matrix(0,1.0833036,-1,0,365.98766,256.32374)" style="display:inline">
+        <path id="path-24" d="m 200.68128,320 h 33.40641 c 3.68973,0 6.68128,-3.582 6.68128,-8 v -28 c 0,-4.418 -2.99155,-8 -6.68128,-8 H 200.68128 C 196.99154,276 194,279.582 194,284 v 28 c 0,4.418 2.99154,8 6.68128,8 z" fill="#666666" style="stroke-width:0.913871"/>
+        <g id="g8">
+          <g id="g10" transform="translate(-3.7654342,0.193)">
+            <path id="path12" d="m 213.378,287.917 c -0.807,0.001 -1.46,0.654 -1.461,1.461 v 17.244 c 0.001,0.807 0.654,1.46 1.461,1.461 h 17.244 c 0.807,-0.001 1.46,-0.654 1.461,-1.461 v -17.244 c -0.001,-0.807 -0.654,-1.46 -1.461,-1.461 z M 230.622,309 h -17.244 c -1.313,-0.002 -2.376,-1.065 -2.378,-2.378 v -17.244 c 0.002,-1.313 1.065,-2.376 2.378,-2.378 h 17.244 c 1.313,0.002 2.376,1.065 2.378,2.378 v 17.244 c -0.002,1.313 -1.065,2.376 -2.378,2.378 z" fill="#e8eaed"/>
+            <path id="path14" d="m 213.635,299.142 h 16.73 v -7.387 h -16.73 z m 16.987,0.958 h -17.244 c -0.364,0 -0.659,-0.308 -0.659,-0.689 v -7.925 c 0,-0.381 0.295,-0.689 0.659,-0.689 h 17.244 c 0.364,0 0.659,0.308 0.659,0.689 v 7.925 c 0,0.381 -0.295,0.689 -0.659,0.689 z" fill="#e8eaed"/>
+            <path id="path22" d="m 218.562,305.523 c -0.253,0 -0.458,-0.214 -0.458,-0.479 v -2.861 c 0,-0.265 0.205,-0.479 0.458,-0.479 0.254,0 0.459,0.214 0.459,0.479 v 2.861 c 0,0.265 -0.205,0.479 -0.459,0.479 z" fill="#e8eaed"/>
+            <path id="path24" d="m 219.93,304.092 h -2.735 c -0.253,0 -0.459,-0.214 -0.459,-0.479 0,-0.264 0.206,-0.479 0.459,-0.479 h 2.735 c 0.253,0 0.459,0.215 0.459,0.479 0,0.265 -0.206,0.479 -0.459,0.479 z" fill="#e8eaed"/>
+            <path id="path26" d="m 226.805,304.092 h -2.735 c -0.253,0 -0.459,-0.214 -0.459,-0.479 0,-0.264 0.206,-0.479 0.459,-0.479 h 2.735 c 0.253,0 0.459,0.215 0.459,0.479 0,0.265 -0.206,0.479 -0.459,0.479 z" fill="#e8eaed"/>
+            <path id="path28" d="m 218.463,295.536 c -0.015,0.012 -0.029,0.025 -0.043,0.039 0.014,-0.013 0.028,-0.027 0.043,-0.039 z m 0.977,3.068 h -2.81 c -0.253,0 -0.458,-0.215 -0.458,-0.479 0,-0.127 0.048,-0.249 0.134,-0.339 l 2.113,-2.21 c 0.229,-0.248 0.562,-0.729 0.562,-0.953 0,-0.579 -0.469,-1.051 -1.046,-1.051 -0.577,0 -1.046,0.472 -1.046,1.051 0,0.265 -0.205,0.48 -0.458,0.48 -0.253,0 -0.459,-0.215 -0.459,-0.48 0,-1.108 0.881,-2.01 1.963,-2.01 1.082,0 1.963,0.902 1.963,2.01 0,0.331 -0.141,0.7 -0.432,1.127 -0.081,0.118 -0.17,0.237 -0.266,0.353 -0.055,0.065 -0.096,0.116 -0.136,0.155 l -1.327,1.387 h 1.703 c 0.253,0 0.458,0.215 0.458,0.48 0,0.264 -0.205,0.479 -0.458,0.479 z" fill="#e8eaed"/>
+            <path id="path30" d="m 223.297,295.536 c -0.015,0.012 -0.029,0.025 -0.043,0.039 0.014,-0.013 0.028,-0.027 0.043,-0.039 z m 0.977,3.068 h -2.81 c -0.253,-10e-4 -0.458,-0.216 -0.458,-0.48 0.001,-0.127 0.049,-0.248 0.135,-0.338 l 2.113,-2.21 c 0.229,-0.248 0.562,-0.729 0.562,-0.953 0,-0.579 -0.469,-1.051 -1.046,-1.051 -0.577,0 -1.046,0.472 -1.046,1.051 0,0.265 -0.205,0.48 -0.458,0.48 -0.254,0 -0.459,-0.215 -0.459,-0.48 0,-1.108 0.881,-2.01 1.963,-2.01 1.082,0 1.963,0.902 1.963,2.01 0,0.331 -0.141,0.7 -0.432,1.127 -0.081,0.118 -0.171,0.237 -0.267,0.353 -0.054,0.065 -0.096,0.116 -0.135,0.155 l -1.328,1.387 h 1.704 c 0.253,0 0.458,0.215 0.458,0.48 0,0.264 -0.205,0.479 -0.458,0.479 z" fill="#e8eaed"/>
+            <path id="path32" d="m 226.773,296.211 c -0.418,0 -0.818,-0.23 -1.095,-0.631 -0.25,-0.36 -0.388,-0.832 -0.388,-1.328 0,-0.495 0.138,-0.966 0.388,-1.327 0.277,-0.401 0.676,-0.631 1.095,-0.631 0.477,0 0.911,0.286 1.191,0.785 0.129,0.229 0.055,0.522 -0.163,0.656 -0.218,0.134 -0.499,0.058 -0.627,-0.17 -0.053,-0.094 -0.197,-0.312 -0.401,-0.312 -0.268,0 -0.566,0.41 -0.566,1 0,0.589 0.298,1 0.566,1 0.203,0 0.348,-0.218 0.401,-0.312 0.124,-0.23 0.403,-0.312 0.624,-0.182 0.221,0.129 0.299,0.422 0.175,0.652 -0.003,0.005 -0.006,0.01 -0.009,0.015 -0.28,0.499 -0.714,0.785 -1.191,0.785 z" fill="#e8eaed"/>
+          </g>
+        </g>
+      </g>
+    </g>
+    <text style="font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 13.3333px; font-family: Arial; text-align: start; writing-mode: lr-tb; direction: ltr; text-anchor: start; fill: rgb(49, 49, 49); fill-opacity: 1; stroke: rgb(255, 255, 255); stroke-width: 3; stroke-linecap: round; stroke-dasharray: none; stroke-opacity: 1; white-space: pre;" x="344.45605" y="67.073357" id="text24" transform="rotate(90)"><tspan id="tspan24" x="344.45605" y="67.073357"/></text>
+  </g>
+  <g id="LRK v2" transform="translate(301.08984,61.0854)" style="">
+    <title>Kessel</title>
+    <g style="">
+      <title>Kamin</title>
+      <path id="path106" d="M 675.021 427.847 L 583.91 427.847" stroke="#ffffff" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" style="stroke-width: 3; stroke-linecap: square; fill: none;"/>
+      <path id="path105" d="M 583.91 462.923 L 675.87 462.923" stroke="#ffffff" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" style="stroke-width: 3; stroke-linecap: square;"/>
+      <path id="path108" d="m 688.032,451.231 v 46.768 h 34.906 V 346" stroke="#ffffff" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" style="stroke-width:3"/>
+      <path id="path109" d="M 688.75 346.23 L 688.75 414.971" stroke="#ffffff" stroke-miterlimit="10" stroke-linejoin="round" style="fill: none; stroke-width: 3; stroke-linecap: round; transform-box: fill-box; transform-origin: 50% 50%;" transform="matrix(0.999995, 0.000001, -0.000001, 0.999992, 0.003794, 0.002981)"/>
+      <path id="path161" d="M 676.29756,463.35389 688.033,451.23" stroke="#ffffff" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" style="stroke-width:3;stroke-linecap:butt"/>
+      <path id="path107" d="m 676.397,427.847 c 4.21569,-4.21869 8.29436,-8.56436 12.35,-12.93525" stroke="#ffffff" stroke-miterlimit="10" stroke-linejoin="round" style="fill: none; stroke-width: 3; stroke-linecap: round;"/>
+    </g>
+    <path id="Vector" fill-rule="evenodd" clip-rule="evenodd" d="m 948.88806,30.52 20.04,-10.0133 -20.04,-10.0267 z" fill="#ffffff" stroke="#ffffff" stroke-width="0.999999" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <path id="Vector_2" fill-rule="evenodd" clip-rule="evenodd" d="m 968.9501,67.3436 -20.04,10.0133 20.04,10.0267 z" fill="#ffffff" stroke="#ffffff" stroke-width="0.999999" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <g id="Wasserstand" class="wasserstandaktiv" style="visibility: hidden;">
+      <title>Wasserstand</title>
+      <path id="Vector_9" d="m 291.999,225.849 h 26.002" stroke="#ffffff" stroke-miterlimit="3" stroke-linecap="square" stroke-linejoin="round"/>
+      <path id="Vector_10" d="m 292,203.028 h 26" stroke="#ffffff" stroke-miterlimit="3" stroke-linecap="square" stroke-linejoin="round"/>
+      <path id="Rectangle 2_6" class="wasserstand" d="m 277,195 h 21 v 38 h -21 z" fill="#ff02e6" stroke="#ffffff" stroke-width="2"/>
+    </g>
+    <g id="Max Druck Leitung" class="maxpleitungaktiv" transform="matrix(1, 0, 0, 1, -17.090001, -22.627001)" style="visibility: hidden;">
+      <title>Min Druck</title>
+      <path id="path6" d="m 434,100 0.069,-26.3935" stroke="#ffffff" stroke-miterlimit="3" stroke-linecap="square" stroke-linejoin="round" style="stroke-width:3"/>
+      <path id="Vector_8" d="m 434,100 h 31" stroke="#ffffff" stroke-miterlimit="3" stroke-linejoin="round" style="stroke-width:3"/>
+      <path id="Rectangle 2_5" class="minp1" d="m 424,65 h 21 v 21 h -21 z" fill="#ff02e6" stroke="#ffffff" stroke-width="2"/>
+      <text id="text6" fill="#ffffff" style="font-size: 16px; font-family: Arial; text-align: start; writing-mode: lr-tb; direction: ltr; text-anchor: start; fill: rgb(255, 255, 255); stroke: rgb(255, 255, 255); stroke-width: 2; white-space: pre;" font-family="Inter" font-size="10px" letter-spacing="0em" x="-2.6814575" y="2.0901642"><tspan x="428.89453" y="81.226562" id="tspan6">P</tspan></text>
+    </g>
+    <g id="Lekoel" class="oelwanneaktiv" transform="matrix(1, 0, 0, 1, -84.589998, -5.636)" style="visibility: hidden;">
+      <title>Lekoel</title>
+      <path id="path4" d="m 133,493 0.069,-26.393" stroke="#ffffff" stroke-miterlimit="3" stroke-linecap="square" stroke-linejoin="round" style="stroke-width:3"/>
+      <path id="path5" class="leckoel" d="m 123,458 h 21 v 21 h -21 z" fill="#ff02e6" stroke="#ffffff" stroke-width="2"/>
+      <text id="L" fill="#ffffff" style="font-size: 16px; font-family: Arial; text-align: start; writing-mode: lr-tb; direction: ltr; text-anchor: start; fill: rgb(255, 255, 255); stroke: rgb(255, 255, 255); stroke-width: 2; white-space: pre;" font-family="Inter" font-size="10px" letter-spacing="0em" x="-2.1880035" y="2.0905762"><tspan x="128.75" y="474.22656" id="tspan5">L</tspan></text>
+    </g>
+    <g id="Max Druck 2" class="maxp2vorhanden" style="visibility: hidden;">
+      <title>Maxdruck 2</title>
+      <path id="Vector_6" d="m 259,316 0.069,-26.393" stroke="#ffffff" stroke-miterlimit="3" stroke-linecap="square" stroke-linejoin="round"/>
+      <path id="Vector_7" d="m 259,316 h 31" stroke="#ffffff" stroke-miterlimit="3" stroke-linejoin="round"/>
+      <path id="Rectangle 2_4" class="maxp2" d="m 249,281 h 21 v 21 h -21 z" fill="#ff02e6" stroke="#ffffff" stroke-width="2"/>
+      <text id="P_2" fill="#ffffff" style="font-size: 16px; font-family: Arial; text-align: start; writing-mode: lr-tb; direction: ltr; text-anchor: start; fill: rgb(255, 255, 255); stroke: rgb(255, 255, 255); stroke-width: 2; white-space: pre;" font-family="Inter" font-size="10px" letter-spacing="0em" x="-2.6814575" y="2.0905762"><tspan x="253.89453" y="297.22656" id="tspan4">P</tspan></text>
+    </g>
+    <g id="Tempbegrenzer 1" style="">
+      <title>stb1</title>
+      <path id="Vector_3" d="m 319,316 h 26.787" stroke="#ffffff" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round"/>
+      <path id="Rectangle 2" class="stb1" d="m 340.255,305 h 21 v 21 h -21 z" fill="#ff02e6" stroke="#ffffff" stroke-width="2"/>
+      <text id="T" fill="#ffffff" style="font-size: 16px; font-family: Arial; text-align: start; writing-mode: lr-tb; direction: ltr; text-anchor: start; fill: rgb(255, 255, 255); stroke: rgb(255, 255, 255); stroke-width: 2; white-space: pre;" font-family="Inter" font-size="10px" letter-spacing="0em" x="-1.9560596" y="2.0905762"><tspan x="345.84094" y="321.22656" id="tspan1-0" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Arial;-inkscape-font-specification:Arial">T</tspan></text>
+    </g>
+    <g id="Tempbegrenzer 2" style="">
+      <title>tempwaechter</title>
+      <path id="Rectangle 2_2" class="tempw" d="m 363.255,305 h 21 v 21 h -21 z" fill="#ff02e6" stroke="#ffffff" stroke-width="2"/>
+      <text id="T_2" fill="#ffffff" style="font-size: 16px; font-family: Arial; text-align: start; writing-mode: lr-tb; direction: ltr; text-anchor: start; fill: rgb(255, 255, 255); stroke: rgb(255, 255, 255); stroke-width: 2; white-space: pre;" font-family="Inter" font-size="10" letter-spacing="0em" x="-1.9560596" y="2.0905762"><tspan x="368.84094" y="321.22656" id="tspan2-9" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Arial;-inkscape-font-specification:Arial">T</tspan></text>
+    </g>
+    <g id="group-1" style="" transform="matrix(1, 0, 0, 1, -0.194, -28.839001)">
+      <title>stb2</title>
+      <path id="path-1" d="m 319,316 h 26.787" stroke="#ffffff" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round"/>
+      <path id="path-2" class="stb2" d="m 340.255,305 h 21 v 21 h -21 z" fill="#ff02e6" stroke="#ffffff" stroke-width="2"/>
+      <text id="text-1" fill="#ffffff" style="font-size: 16px; font-family: Arial; text-align: start; writing-mode: lr-tb; direction: ltr; text-anchor: start; fill: rgb(255, 255, 255); stroke: rgb(255, 255, 255); stroke-width: 2; white-space: pre;" font-family="Inter" font-size="10px" letter-spacing="0em" x="-1.9560596" y="2.0905762"><tspan x="345.84094" y="321.22656" id="tspan-1" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Arial;-inkscape-font-specification:Arial">T</tspan></text>
+    </g>
+    <g id="Max Druck 1" style="">
+      <title>Max Druck 1</title>
+      <path id="Vector_4" d="m 287,316 0.069,-26.393" stroke="#ffffff" stroke-miterlimit="3" stroke-linecap="square" stroke-linejoin="round"/>
+      <path id="Vector_5" d="m 287,316 h 31" stroke="#ffffff" stroke-miterlimit="3" stroke-linejoin="round"/>
+      <path id="Rectangle 2_3" class="maxp1colorfill" d="m 277,281 h 21 v 21 h -21 z" fill="#ff02e6" stroke="#ffffff" stroke-width="2"/>
+      <text id="P" fill="#ffffff" style="font-size: 16px; font-family: Arial; text-align: start; writing-mode: lr-tb; direction: ltr; text-anchor: start; fill: rgb(255, 255, 255); stroke: rgb(255, 255, 255); stroke-width: 2; white-space: pre;" font-family="Inter" font-size="10px" letter-spacing="0em" x="-2.6814575" y="2.0905762"><tspan x="281.89453" y="297.22656" id="tspan3">P</tspan></text>
+    </g>
+    <g id="Leitungen">
+      <path id="Line 16" d="M 447.91015,77.363601 H 960.77021" stroke="#ffffff" style="stroke-width:3"/>
+      <line id="Line 20" x1="448.41016" y1="346" x2="448.41016" y2="77.363602" stroke="#ffffff" style="stroke-width:3"/>
+      <line id="Line 21" x1="318.5" y1="346" x2="318.5" y2="19" stroke="#ffffff" style="stroke-width:3"/>
+      <line id="Line 23" x1="318" y1="20.5" x2="949" y2="20.5" stroke="#ffffff" style="stroke-width:3"/>
+    </g>
+    <g id="Vector_22" transform="matrix(0.9963699,0,0,1.1685835,187.92517,-402.75899)" style="display:inline;fill:#000000;fill-opacity:1;stroke-width:1;stroke-dasharray:none" class="systrennungaktiv">
+      <title>PT</title>
+      <g class="sekeintrittaktiv" id="group-8" transform="matrix(1.003643, 0, 0, 0.855737, -69.015549, 240.547287)" style="">
+        <title>PT SEK RL</title>
+        <path style="display: inline; fill: rgb(47, 47, 47); fill-opacity: 1; stroke: rgb(255, 255, 255); stroke-linecap: square; stroke-dasharray: none; stroke-dashoffset: 0; stroke-width: 0.5px;" id="path-9" width="162.33273" height="61.68644" x="-3.2285924" y="-28.501883" d="M 593.021 237.33 L 642.433 237.33 C 645.378 237.33 647.75 239.379 647.75 241.925 L 647.75 250.951 C 647.75 253.497 645.378 255.546 642.433 255.546 L 593.021 255.546 C 590.075 255.546 587.704 253.497 587.704 250.951 L 587.704 241.925 C 587.704 239.379 590.075 237.33 593.021 237.33 Z" rx="14.374557" ry="15.559906"/>
+        <g id="group-9" transform="matrix(1.062012, 0, 0, -1.062012, 43.026978, -50.841537)" style="display: inline; transform-origin: 575.413px 266.908px;">
+          <line id="line-4" x1="575.41296" y1="261.49564" x2="575.41296" y2="281.49564" stroke="#ffffff"/>
+          <path id="path-10" d="m 575.41296,262.32012 c 2.761,0 5,-2.239 5,-5 0,-2.761 -2.239,-5 -5,-5 -2.761,0 -5,2.239 -5,5 0,2.761 2.239,5 5,5 z" fill="#57bbc4" style="stroke:none" class="sekeintrittcolorfill"/>
+        </g>
+        <text id="text-5" fill="#ffffff" style="font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 16px; font-family: Arial; white-space: pre;" font-family="Inter" font-size="12px" font-weight="500" letter-spacing="0em" x="459.949" y="249.727" transform="matrix(1.000001, 0, 0, 1, 132.829269, -10.926144)"><tspan x="460.359" y="263.09" class="sekeintrittlist" id="tspan-8" style="font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 16px; font-family: Arial; word-spacing: 0px;">55.0</tspan><tspan id="tspan-9" style="font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 16px; font-family: Arial; word-spacing: 0px;">°C</tspan></text>
+      </g>
+      <g class="priaustrittaktiv" id="group-10" transform="matrix(1.003643, 0, 0, 0.855737, -171.387161, 240.547119)" style="">
+        <title>PT PRI RL</title>
+        <path style="display: inline; fill: rgb(47, 47, 47); fill-opacity: 1; stroke: rgb(255, 255, 255); stroke-linecap: square; stroke-dasharray: none; stroke-dashoffset: 0; stroke-width: 0.5px;" id="path-11" width="162.33273" height="61.68644" x="-3.2285924" y="-28.501883" d="M 593.021 237.33 L 642.433 237.33 C 645.378 237.33 647.75 239.379 647.75 241.925 L 647.75 250.951 C 647.75 253.497 645.378 255.546 642.433 255.546 L 593.021 255.546 C 590.075 255.546 587.704 253.497 587.704 250.951 L 587.704 241.925 C 587.704 239.379 590.075 237.33 593.021 237.33 Z" rx="14.374557" ry="15.559906"/>
+        <g id="group-11" transform="matrix(1.062012, 0, 0, -1.062012, 43.026978, -50.841537)" style="display: inline; transform-origin: 575.413px 266.908px;">
+          <line id="line-5" x1="575.41296" y1="261.49564" x2="575.41296" y2="281.49564" stroke="#ffffff"/>
+          <path id="path-12" d="m 575.41296,262.32012 c 2.761,0 5,-2.239 5,-5 0,-2.761 -2.239,-5 -5,-5 -2.761,0 -5,2.239 -5,5 0,2.761 2.239,5 5,5 z" fill="#57bbc4" style="stroke:none" class="priaustrittcolorfill"/>
+        </g>
+        <text id="text-6" fill="#ffffff" style="font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 16px; font-family: Arial; white-space: pre;" font-family="Inter" font-size="12px" font-weight="500" letter-spacing="0em" x="459.949" y="249.727" transform="matrix(1.000001, 0, 0, 1, 132.829269, -10.926144)"><tspan x="460.359" y="263.09" class="priaustrittist" id="tspan-10" style="font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 16px; font-family: Arial; word-spacing: 0px;">55.0</tspan><tspan id="tspan-11" style="font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 16px; font-family: Arial; word-spacing: 0px;">°C</tspan></text>
+      </g>
+      <path id="Vector_21" d="m 510.397,388.6965 h -21.795 v 119.507 h 21.795 z" stroke="#ffffff" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round" style="display:inline;fill:#000000;fill-opacity:1;stroke-width:0.999957;stroke-dasharray:none" transform="translate(-0.32699703,-63.263498)" class="plattentauscheraktiv"/>
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M 488.275,444.941 510.071,325.43 Z" fill="#d9d9d9" id="path1-8" style="fill:#000000;fill-opacity:1;stroke-width:1;stroke-dasharray:none"/>
+      <path d="M 488.275,444.941 510.071,325.43" stroke="#ffffff" stroke-miterlimit="3" stroke-linecap="round" stroke-linejoin="round" id="path2-2" style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke-width:1;stroke-dasharray:none"/>
+      <g class="sekaustrittaktiv" id="group-12" transform="matrix(1.003643, 0, 0, -0.855737, -69.015366, 533.314758)" style="">
+        <title>PT SEK VL</title>
+        <path style="display: inline; fill: rgb(47, 47, 47); fill-opacity: 1; stroke: rgb(255, 255, 255); stroke-linecap: square; stroke-dasharray: none; stroke-dashoffset: 0; stroke-width: 0.5px;" id="path-13" width="162.33273" height="61.68644" x="-3.2285924" y="-28.501883" d="M 593.021 237.33 L 642.433 237.33 C 645.378 237.33 647.75 239.379 647.75 241.925 L 647.75 250.951 C 647.75 253.497 645.378 255.546 642.433 255.546 L 593.021 255.546 C 590.075 255.546 587.704 253.497 587.704 250.951 L 587.704 241.925 C 587.704 239.379 590.075 237.33 593.021 237.33 Z" rx="14.374557" ry="15.559906"/>
+        <g id="group-13" transform="matrix(1.062012, 0, 0, -1.062012, 43.026978, -50.841537)" style="display: inline; transform-origin: 575.413px 266.908px;">
+          <line id="line-6" x1="575.41296" y1="261.49564" x2="575.41296" y2="281.49564" stroke="#ffffff"/>
+          <path id="path-14" d="m 575.41296,262.32012 c 2.761,0 5,-2.239 5,-5 0,-2.761 -2.239,-5 -5,-5 -2.761,0 -5,2.239 -5,5 0,2.761 2.239,5 5,5 z" fill="#57bbc4" style="stroke:none" class="sekaustrittcolorfill"/>
+        </g>
+        <text id="text-7" fill="#ffffff" style="font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 16px; font-family: Arial; white-space: pre;" font-family="Inter" font-size="12px" font-weight="500" letter-spacing="0em" x="459.949" y="249.727" transform="matrix(1.000001, 0, 0, -1, 132.829269, 504.045837)"><tspan x="460.359" y="263.09" class="sekaustrittist" id="tspan-12" style="font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 16px; font-family: Arial; word-spacing: 0px;">55.0</tspan><tspan id="tspan-13" style="font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 16px; font-family: Arial; word-spacing: 0px;">°C</tspan></text>
+      </g>
+      <g class="prieintrittaktiv" id="group-14" transform="matrix(1.003643, 0, 0, -0.855737, -171.386978, 533.31488)" style="">
+        <title>PT PRI VL</title>
+        <path style="display: inline; fill: rgb(47, 47, 47); fill-opacity: 1; stroke: rgb(255, 255, 255); stroke-linecap: square; stroke-dasharray: none; stroke-dashoffset: 0; stroke-width: 0.5px;" id="path-15" width="162.33273" height="61.68644" x="-3.2285924" y="-28.501883" d="M 593.021 237.33 L 642.433 237.33 C 645.378 237.33 647.75 239.379 647.75 241.925 L 647.75 250.951 C 647.75 253.497 645.378 255.546 642.433 255.546 L 593.021 255.546 C 590.075 255.546 587.704 253.497 587.704 250.951 L 587.704 241.925 C 587.704 239.379 590.075 237.33 593.021 237.33 Z" rx="14.374557" ry="15.559906"/>
+        <g id="group-15" transform="matrix(1.062012, 0, 0, -1.062012, 43.026978, -50.841537)" style="display: inline; transform-origin: 575.413px 266.908px;">
+          <line id="line-7" x1="575.41296" y1="261.49564" x2="575.41296" y2="281.49564" stroke="#ffffff"/>
+          <path id="path-16" d="m 575.41296,262.32012 c 2.761,0 5,-2.239 5,-5 0,-2.761 -2.239,-5 -5,-5 -2.761,0 -5,2.239 -5,5 0,2.761 2.239,5 5,5 z" fill="#57bbc4" style="stroke:none" class="prieintrittcolorfill"/>
+        </g>
+        <text id="text-8" fill="#ffffff" style="font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 16px; font-family: Arial; white-space: pre;" font-family="Inter" font-size="12px" font-weight="500" letter-spacing="0em" x="459.949" y="249.727" transform="matrix(1.000001, 0, 0, -1, 132.829269, 504.045868)"><tspan x="460.359" y="263.09" class="prieintrittlist" id="tspan-14" style="font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 16px; font-family: Arial; word-spacing: 0px;">55.0</tspan><tspan id="tspan-15" style="font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 16px; font-family: Arial; word-spacing: 0px;">°C</tspan></text>
+      </g>
+    </g>
+    <g class="rekuaktiv" id="g23" style="visibility: hidden;">
+      <title>Kessel abgesetzt</title>
+      <path id="path103" d="m 536.778,497.999 h 69.809 V 346 h -69.809 z" stroke="#ffffff" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" style=""/>
+      <path id="path104" d="M 536.778,498 606.586,346.001" stroke="#ffffff" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+      <path id="path242" d="m 513.508,369.385 h 23.27" stroke="#ffffff" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+      <path id="path243" d="m 513.508,404.462 h 23.27" stroke="#ffffff" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+      <line id="Line 18" x1="549.5" y1="346" x2="549.5" y2="77.363602" stroke="#ffffff" style="stroke-width:3"/>
+      <line id="Line 19" x1="593.5" y1="346" x2="593.5" y2="77.363602" stroke="#ffffff" style="stroke-width:3"/>
+      <g id="VL Kessel innen" class="ohnebus" style="">
+        <title>Interner Kesselfühler</title>
+        <circle id="Ellipse 1" class="KiVLcolorfill" cx="317.5" cy="364.5" r="10.5" transform="rotate(90,317.5,364.5)" fill="#ff02e6" stroke="#ffffff" stroke-width="2" style=""/>
+        <text id="T_4" transform="translate(313.75,359.25)" fill="#ffffff" style="white-space:pre" font-family="Inter" font-size="10px" letter-spacing="0em"><tspan x="0.54199201" y="9.1363602" id="tspan8">T</tspan></text>
+        <text id="55CÂ°" transform="translate(336,356)" fill="#ffffff" style="white-space:pre" font-family="Inter" font-size="12px" font-weight="500" letter-spacing="0em"><tspan x="0.41015601" y="13.3636" class="KiVList" id="tspan9">55</tspan><tspan id="tspan10">°C</tspan></text>
+      </g>
+      <g id="Rekupumpe" transform="matrix(1, 0, 0, 1, 0, 25.734)" style="">
+        <title>Reku Pumpe</title>
+        <path style="display: inline; fill: rgb(47, 47, 47); fill-opacity: 1; stroke: rgb(255, 255, 255); stroke-linecap: square; stroke-dasharray: none; stroke-dashoffset: 0; stroke-opacity: 1; transform-box: fill-box; transform-origin: 50% 50%; stroke-width: 0.5px;" id="rect11-1-4-4-6-2-32-9-5-1" width="162.33273" height="61.68644" x="-3.2285924" y="-28.501883" d="M 628.234 196.629 L 666.47 196.629 C 669.208 196.629 671.412 194.424 671.412 191.686 L 671.412 183.356 C 671.412 180.617 669.208 178.413 666.47 178.413 L 628.234 178.413 C 625.496 178.413 623.291 180.617 623.291 183.356 L 623.291 191.686 C 623.291 194.424 625.496 196.629 628.234 196.629 Z" rx="16.673883" ry="16.738258" transform="matrix(-1, 0, 0, -1, -0.000021, 0.000002)"/>
+        <text id="100%_2" fill="#ffffff" style="font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 15.0657px; font-family: Arial; text-align: center; text-anchor: middle; display: inline; fill: rgb(255, 255, 255); fill-opacity: 1; stroke: rgb(255, 255, 255); stroke-width: 0; stroke-dasharray: none; stroke-opacity: 1; white-space: pre;" font-family="Inter" font-size="12px" font-weight="500" letter-spacing="0em" x="639.54572" y="179.44254"><tspan x="646.99493" y="192.80614" class="rpumpdreh" id="tspan25">100</tspan><tspan class="rpumproz" id="tspan26">%</tspan></text>
+        <g id="g18" transform="rotate(90,721.96807,403.10773)">
+          <circle id="Ellipse 2-2-0" class="rpumpcolorfill" cx="506.38098" cy="531.57581" r="18.888885" fill="#2e7d32" stroke="#673838" stroke-width="2.22223" style="display:inline"/>
+          <path id="Polygon 1-9-3" class="rpumpcolorstroke" d="M 524.89946,531.57583 504.3439,550.82101 V 512.33065 Z" fill="#673838" style="display:inline;stroke-width:0.740738"/>
+        </g>
+      </g>
+      <g class="rekuaktiv" id="group-6" transform="matrix(1, 0, 0, 1, 45.333001, 5.845)" style="">
+        <title>VL Reku</title>
+        <path style="display: inline; fill: rgb(47, 47, 47); fill-opacity: 1; stroke: rgb(255, 255, 255); stroke-linecap: square; stroke-dasharray: none; stroke-dashoffset: 0; stroke-width: 0.5px;" id="path-7" width="162.33273" height="61.68644" x="-3.2285924" y="-28.501883" d="M 589.021 242.358 L 638.433 242.358 C 641.378 242.358 643.75 244.407 643.75 246.953 L 643.75 255.979 C 643.75 258.525 641.378 260.574 638.433 260.574 L 589.021 260.574 C 586.075 260.574 583.704 258.525 583.704 255.979 L 583.704 246.953 C 583.704 244.407 586.075 242.358 589.021 242.358 Z" rx="14.374557" ry="15.559906"/>
+        <g id="group-7" transform="matrix(0, -1.062012, -1.062012, 0, 848.205566, 862.561279)" style="display:inline">
+          <line id="line-3" x1="575.41296" y1="261.49564" x2="575.41296" y2="281.49564" stroke="#ffffff"/>
+          <path id="path-8" d="m 575.41296,262.32012 c 2.761,0 5,-2.239 5,-5 0,-2.761 -2.239,-5 -5,-5 -2.761,0 -5,2.239 -5,5 0,2.761 2.239,5 5,5 z" fill="#57bbc4" style="stroke:none" class="RVLcolorfill"/>
+        </g>
+        <text id="text-4" fill="#ffffff" style="font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 16px; font-family: Arial; white-space: pre;" font-family="Inter" font-size="12px" font-weight="500" letter-spacing="0em" x="459.949" y="249.727" transform="matrix(1.000001, 0, 0, 1, 128.829269, -5.897657)"><tspan x="460.359" y="263.09" class="RVList" id="tspan-6" style="font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 16px; font-family: Arial; word-spacing: 0px;">55.0</tspan><tspan id="tspan-7" style="font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 16px; font-family: Arial; word-spacing: 0px;">°C</tspan></text>
+      </g>
+      <g class="rekuaktiv" id="g13" transform="matrix(-1, 0, 0, 1, 1098.648705, 5.897738)">
+        <title>RL Reku</title>
+        <path style="display: inline; fill: rgb(47, 47, 47); fill-opacity: 1; stroke: rgb(255, 255, 255); stroke-linecap: square; stroke-dasharray: none; stroke-dashoffset: 0; stroke-width: 0.5px;" id="rect11-1-4-4-6-2-2" width="162.33273" height="61.68644" x="-3.2285924" y="-28.501883" d="M 589.021 242.358 L 638.433 242.358 C 641.378 242.358 643.75 244.407 643.75 246.953 L 643.75 255.979 C 643.75 258.525 641.378 260.574 638.433 260.574 L 589.021 260.574 C 586.075 260.574 583.704 258.525 583.704 255.979 L 583.704 246.953 C 583.704 244.407 586.075 242.358 589.021 242.358 Z" rx="14.374557" ry="15.559906"/>
+        <g id="sek vl-0-4" transform="matrix(0, -1.062012, -1.062012, 0, 848.205566, 862.561279)" style="display:inline">
+          <line id="Line 37_2-5-4" x1="575.41296" y1="261.49564" x2="575.41296" y2="281.49564" stroke="#ffffff"/>
+          <path id="circle48_2-6-6" d="m 575.41296,262.32012 c 2.761,0 5,-2.239 5,-5 0,-2.761 -2.239,-5 -5,-5 -2.761,0 -5,2.239 -5,5 0,2.761 2.239,5 5,5 z" fill="#57bbc4" style="stroke:none" class="RVLcolorfill"/>
+        </g>
+        <text id="55CÂ°_2" fill="#ffffff" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Arial;-inkscape-font-specification:Arial;white-space:pre" font-family="Inter" font-size="12px" font-weight="500" letter-spacing="0em" x="459.949" y="249.727" transform="matrix(-1.000001, 0, 0, 1, 1098.648682, -5.897657)"><tspan x="460.359" y="263.09" class="RVList" id="tspan12" style="font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 16px; font-family: Arial; word-spacing: 0px;">55.0</tspan><tspan id="tspan13" style="font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 16px; font-family: Arial; word-spacing: 0px;">°C</tspan></text>
+      </g>
+      <g class="rekuaktiv" id="g7" transform="matrix(1, 0, 0, 1, 0.555, 1.364)">
+        <title>tempwechterreku</title>
+        <g id="Tempbegrenzer Reku">
+          <path id="Vector_11" d="m 549,326 h 20" stroke="#ffffff" stroke-miterlimit="3" stroke-linejoin="round"/>
+          <path id="Rectangle 2_7" class="stbreku" d="m 563.255,315 h 21 v 21 h -21 z" fill="#ff02e6" stroke="#ffffff" stroke-width="2"/>
+          <text id="T_3" fill="#ffffff" style="font-size: 16px; font-family: Arial; text-align: start; writing-mode: lr-tb; direction: ltr; text-anchor: start; fill: rgb(255, 255, 255); stroke: rgb(255, 255, 255); stroke-width: 2; white-space: pre;" font-family="Inter" font-size="10px" letter-spacing="0em" x="-1.9560596" y="2.0905762"><tspan x="568.84094" y="331.22656" id="tspan7">T</tspan></text>
+        </g>
+      </g>
+    </g>
+    <path id="path99" d="M 280.81,497.999 H 513.509 V 346 H 280.81 Z" stroke="#ffffff" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" style="stroke-linecap:butt;stroke-linejoin:miter"/>
+    <path id="path100" class="brennercollorstroke" d="m 234.27,427.846 c -12.85,0 -23.27,10.471 -23.27,23.385 0,12.916 10.42,23.384 23.27,23.384 12.853,0 23.269,-10.468 23.269,-23.384" stroke="#ffffff" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+    <path id="path101" class="brennercollorstroke" d="M 234.269 427.847 L 280.808 427.847" stroke="#ffffff" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" style="stroke-width: 1;"/>
+    <path id="path102" class="brennercollorstroke" d="M 257.539 451.231 L 280.809 451.231" stroke="#ffffff" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" style="stroke-width: 1;"/>
+    <g id="Ventil" class="rueklaufhochaltungaktiv" style="">
+      <title>Hochhaltung</title>
+      <g>
+        <circle class="ventilcollorfill" id="Ellipse 1_6" cx="137.364" cy="-475.45" r="10.5" transform="matrix(0, 1, -1, 0, 0, 0)" fill="#ff02e6" stroke="#ffffff" stroke-width="2"/>
+        <text id="M" fill="#ffffff" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15.0657px;font-family:Arial;-inkscape-font-specification:Arial;white-space:pre;display:inline;fill:#ffffff;stroke:#ffffff;stroke-width:0.941609;stroke-opacity:1" font-family="Inter" font-size="10px" letter-spacing="0em" x="-22.614811" y="2.1197243"><tspan x="469.18518" y="142.75574" id="tspan27">M</tspan></text>
+      </g>
+      <line id="Line 22" x1="448.41016" y1="137.3636" x2="319" y2="137.3636" stroke="#ffffff" style="stroke-width:3"/>
+      <g id="g6-0" transform="matrix(0,-1.062012,1.062012,0,231.85061,861.69772)" style="display: inline;">
+        <path id="polygon49_2-0" d="m 682.03952,203.41447 7.559,-15.11801 h -15.118 z" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" style="display:inline;fill:#ffffff"/>
+        <path id="polygon51_2-0" d="m 682.53946,203.91442 15.118,7.55899 v -15.118 z" fill="#ffffff" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" style="display:inline"/>
+        <path style="display:inline;fill:none;stroke:#ffffff;stroke-width:0.941612;stroke-linecap:square;stroke-dasharray:none;stroke-opacity:1" d="m 682.03952,204.22367 v 13.85152" id="path15-4"/>
+        <path id="polygon50_2-8" d="m 681.53958,203.91442 -15.118,-7.55901 v 15.118 z" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" style="display:inline"/>
+        <circle style="fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:2.82577;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:0;stroke-opacity:1" id="path5-29" cx="682.03949" cy="203.91441" r="1.4690654"/>
+      </g>
+      <path style="display: inline; fill: rgb(47, 47, 47); fill-opacity: 1; stroke: rgb(255, 255, 255); stroke-linecap: square; stroke-dasharray: none; stroke-dashoffset: 0; stroke-opacity: 1; transform-box: fill-box; transform-origin: 50% 50%; stroke-width: 0.5px;" id="rect11-1-4-4-6-2-32-9" width="162.33273" height="61.68644" x="-3.2285924" y="-28.501883" d="M 498.648 146.291 L 536.884 146.291 C 539.622 146.291 541.826 144.087 541.826 141.349 L 541.826 133.018 C 541.826 130.28 539.622 128.075 536.884 128.075 L 498.648 128.075 C 495.91 128.075 493.705 130.28 493.705 133.018 L 493.705 141.349 C 493.705 144.087 495.91 146.291 498.648 146.291 Z" rx="16.673883" ry="16.738258" transform="matrix(-1, 0, 0, -1, -0.000056, -0.000011)"/>
+      <text id="100%_3" fill="#ffffff" style="font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 15.0657px; font-family: Arial; text-align: center; text-anchor: middle; display: inline; fill: rgb(255, 255, 255); fill-opacity: 1; stroke: rgb(255, 255, 255); stroke-width: 0; stroke-dasharray: none; stroke-opacity: 1; white-space: pre;" font-family="Inter" font-size="12px" font-weight="500" letter-spacing="0em" x="509.95969" y="129.10526"><tspan x="517.40894" y="142.46884" class="ventilpos" id="tspan28">100</tspan><tspan id="tspan29">%</tspan></text>
+    </g>
+    <g id="Oel" style="">
+      <title>Oel Status</title>
+      <path id="path128" class="oelcollorfill" d="M 234,453.463 V 438" stroke="#ffffff" stroke-width="2.49859" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+      <path id="path129" class="oelcollorfill" d="M 234,453.463 226.309,438" stroke="#ffffff" stroke-width="2.49859" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+      <path id="path130" class="oelcollorfill" d="m 241.692,438.002 -7.691,15.462" stroke="#ffffff" stroke-width="2.49859" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+      <path id="path127" class="oelcollorfill" d="m 224,453.462 c 0,5.552 4.478,10.052 10.002,10.052 5.52,0 9.998,-4.5 9.998,-10.052 0,-5.551 -4.478,-10.047 -9.998,-10.047 -5.524,0 -10.002,4.496 -10.002,10.047 z" fill="#ffffff" stroke="#ffffff" stroke-width="2.49859" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+    <path id="Vector_20" class="oelwanneaktiv" d="M 280.612 487.364 L 49.045 487.364" stroke="#ffffff" stroke-width="0.999999" stroke-miterlimit="3" stroke-linejoin="round" style="fill: none; stroke-width: 3;"/>
+    <line id="Line 24" x1="48.91" y1="437.315" x2="215.532" y2="437.363" stroke="#ffffff" style="stroke-width: 3;"/>
+    <g id="g45" class="rekuanbauaktiv" transform="translate(0,-1.140459)" style="">
+      <title>Reku angesetzt</title>
+      <path id="path103-9" d="m 514.45347,499.14762 h 69.809 v -151.999 h -69.809 z" stroke="#ffffff" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" style="stroke-linecap:butt;stroke-linejoin:miter"/>
+      <path id="path104-1" d="m 514.45347,499.14862 69.808,-151.999" stroke="#ffffff" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+    <g style="">
+      <title>Statustexte</title>
+      <text id="Leistung: 10%" fill="#ffffff" style="font-size:16px;white-space:pre" font-family="Inter" font-size="12px" font-weight="500" letter-spacing="0em" x="32.668564" y="7.7796769"><tspan x="338.66858" y="438.14371" id="tspan31" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Arial;-inkscape-font-specification:Arial">Leistung: <tspan class="istleistung">test</tspan>%</tspan></text>
+      <text id="Status: 10%" fill="#ffffff" style="white-space:pre" font-family="Inter" font-size="12px" font-weight="500" letter-spacing="0em" x="32.668564" y="7.7796769">
+        <tspan x="338.66858" y="419.14371" id="tspan34"><tspan style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Arial;-inkscape-font-specification:Arial" id="tspan11">Status: <tspan class="statusbrenner">test</tspan></tspan> </tspan>
+        </text>
+      <text id="Flamme: 10%" class="ohnebus" fill="#ffffff" style="font-size:16px;white-space:pre" font-family="Inter" font-size="12px" font-weight="500" letter-spacing="0em" x="32.668564" y="7.7796769"><tspan x="338.66858" y="457.14371" id="tspan36" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Arial;-inkscape-font-specification:Arial">Flamme: <tspan class="flamme">test</tspan>%</tspan></text>
+      <text id="Phase: 10%" class="ohnebus" fill="#ffffff" style="white-space:pre" font-family="Inter" font-size="12px" font-weight="500" letter-spacing="0em" x="32.668564" y="7.7796769"><tspan x="338.66858" y="476.14371" id="tspan39"><tspan style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Arial;-inkscape-font-specification:Arial" id="tspan14">Phase: <tspan class="phase">test</tspan> </tspan> </tspan></text>
+      <text id="Sollwert: 60Â°C" fill="#ffffff" style="font-size:16px;white-space:pre" font-family="Inter" font-size="12px" font-weight="500" letter-spacing="0em" x="-13.523268" y="13.614435"><tspan x="339.47675" y="381.97845" id="tspan41" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Arial;-inkscape-font-specification:Arial">Solltemperatur: <tspan class="solltemp">test</tspan>°C</tspan></text>
+      <text id="Sollleistung" fill="#ffffff" style="font-size:16px;white-space:pre" font-family="Inter" font-size="12px" font-weight="500" letter-spacing="0em" x="-13.523268" y="13.614435"><tspan x="339.47675" y="399.97845" id="tspan44" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Arial;-inkscape-font-specification:Arial">Sollleistung: <tspan class="sollleist">test</tspan>%</tspan></text>
+    </g>
+    <g id="g6-0-1-1" transform="matrix(-1.062012,0,0,-1.062012,810.63866,543.64362)" style="display: inline;" class="oelventilaktiv">
+      <title>Oelventil</title>
+      <path id="polygon51_2-0-0-7" d="m 717.22124,100.07423 -15.118,7.55899 V 92.515219 Z" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" style="display: inline; fill: rgb(255, 255, 255);"/>
+      <path style="display:inline;fill:none;stroke:#ffffff;stroke-width:0.941609;stroke-linecap:square;stroke-dasharray:none;stroke-opacity:1" d="M 717.72118,100.54503 V 119.3772" id="path15-4-0-6"/>
+      <path id="polygon50_2-8-2-1" d="m 718.22112,100.07423 15.118,-7.559011 v 15.118001 z" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" style="display: inline; fill: rgb(255, 255, 255);"/>
+      <ellipse id="Ellipse 1_4-8-1-9-8-3-4-4" class="oelcolorfill" cx="-717.65674" cy="124.09537" transform="scale(-1,1)" fill="#ff02e6" stroke="#00ffd1" stroke-width="2.02283" style="display:inline" rx="10.592485" ry="10.646792"/>
+      <text id="M_2-9-3-1-5-0-3-2" transform="scale(-1)" fill="#ffffff" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15.0657px;font-family:Arial;-inkscape-font-specification:Arial;white-space:pre;display:inline;fill:#ffffff;stroke-width:0.941609" font-family="Inter" font-size="10.9633px" letter-spacing="0em" x="-723.92065" y="-128.65097"><tspan x="-723.92065" y="-118.7032" id="tspan19-2-8-5-7-1-3-3" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15.0657px;font-family:Arial;-inkscape-font-specification:Arial;stroke:#ffffff;stroke-width:0.941609;stroke-opacity:1">M</tspan></text>
+      <circle style="fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:2.82577;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:0;stroke-opacity:1" id="path5-29-6-2" cx="717.72119" cy="100.07422" r="1.4690654"/>
+    </g>
+    <g style="">
+      <title>Fernleitung</title>
+      <g class="rekuaktiv" id="group-16" transform="matrix(1, 0, 0, 1, 272.20639, -121.41835)" style="visibility: hidden;">
+        <title>Fernleitung RL</title>
+        <path style="display: inline; fill: rgb(47, 47, 47); fill-opacity: 1; stroke: rgb(255, 255, 255); stroke-linecap: square; stroke-dasharray: none; stroke-dashoffset: 0; stroke-width: 0.5px;" id="path-17" width="162.33273" height="61.68644" x="-3.2285924" y="-28.501883" d="M 593.021 237.33 L 642.433 237.33 C 645.378 237.33 647.75 239.379 647.75 241.925 L 647.75 250.951 C 647.75 253.497 645.378 255.546 642.433 255.546 L 593.021 255.546 C 590.075 255.546 587.704 253.497 587.704 250.951 L 587.704 241.925 C 587.704 239.379 590.075 237.33 593.021 237.33 Z" rx="14.374557" ry="15.559906"/>
+        <g id="group-17" transform="matrix(1.062012, 0, 0, -1.062012, 43.026978, -50.841537)" style="display: inline; transform-origin: 575.413px 266.908px;">
+          <line id="line-8" x1="575.41296" y1="261.49564" x2="575.41296" y2="281.49564" stroke="#ffffff"/>
+          <path id="path-18" d="m 575.41296,262.32012 c 2.761,0 5,-2.239 5,-5 0,-2.761 -2.239,-5 -5,-5 -2.761,0 -5,2.239 -5,5 0,2.761 2.239,5 5,5 z" fill="#57bbc4" style="stroke:none" class="RVLcolorfill"/>
+        </g>
+        <text id="text-9" fill="#ffffff" style="font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 16px; font-family: Arial; white-space: pre;" font-family="Inter" font-size="12px" font-weight="500" letter-spacing="0em" x="459.949" y="249.727" transform="matrix(1.000001, 0, 0, 1, 132.829269, -10.926144)"><tspan x="460.359" y="263.09" class="RVList" id="tspan-16" style="font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 16px; font-family: Arial; word-spacing: 0px;">55.0</tspan><tspan id="tspan-17" style="font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 16px; font-family: Arial; word-spacing: 0px;">°C</tspan></text>
+      </g>
+      <g class="rekuaktiv" id="group-18" transform="matrix(1, 0, 0, -1, 272.206573, 220.70491)" style="visibility: hidden;">
+        <title>Fernleitung VL</title>
+        <path style="display: inline; fill: rgb(47, 47, 47); fill-opacity: 1; stroke: rgb(255, 255, 255); stroke-linecap: square; stroke-dasharray: none; stroke-dashoffset: 0; stroke-width: 0.5px;" id="path-19" width="162.33273" height="61.68644" x="-3.2285924" y="-28.501883" d="M 593.021 237.33 L 642.433 237.33 C 645.378 237.33 647.75 239.379 647.75 241.925 L 647.75 250.951 C 647.75 253.497 645.378 255.546 642.433 255.546 L 593.021 255.546 C 590.075 255.546 587.704 253.497 587.704 250.951 L 587.704 241.925 C 587.704 239.379 590.075 237.33 593.021 237.33 Z" rx="14.374557" ry="15.559906"/>
+        <g id="group-19" transform="matrix(1.062012, 0, 0, -1.062012, 43.026978, -50.841537)" style="display: inline; transform-origin: 575.413px 266.908px;">
+          <line id="line-9" x1="575.41296" y1="261.49564" x2="575.41296" y2="281.49564" stroke="#ffffff"/>
+          <path id="path-25" d="m 575.41296,262.32012 c 2.761,0 5,-2.239 5,-5 0,-2.761 -2.239,-5 -5,-5 -2.761,0 -5,2.239 -5,5 0,2.761 2.239,5 5,5 z" fill="#57bbc4" style="stroke:none" class="RVLcolorfill"/>
+        </g>
+        <text id="text-10" fill="#ffffff" style="font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 16px; font-family: Arial; white-space: pre;" font-family="Inter" font-size="12px" font-weight="500" letter-spacing="0em" x="459.949" y="249.727" transform="matrix(1.000001, 0, 0, -1, 132.829269, 504.045837)"><tspan x="460.359" y="263.09" class="RVList" id="tspan-18" style="font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 16px; font-family: Arial; word-spacing: 0px;">55.0</tspan><tspan id="tspan-19" style="font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 16px; font-family: Arial; word-spacing: 0px;">°C</tspan></text>
+      </g>
+      <g id="g18-1" transform="matrix(-1, 0, 0, 1, 1318.791138, -454.212219)" class="fernpumpaktiv">
+        <title>Fernleitung Pumpe</title>
+        <circle id="Ellipse 2-2-0-4" class="fernpumpcolorfill" cx="506.38098" cy="531.57581" r="18.888885" fill="#2e7d32" stroke="#673838" stroke-width="2.22223" style="display:inline"/>
+        <path id="Polygon 1-9-3-2" class="fernpumpcolorstroke" d="M 524.89946,531.57583 504.3439,550.82101 V 512.33065 Z" fill="#673838" style="display:inline;stroke-width:0.740738"/>
+        <path style="display: inline; fill: rgb(47, 47, 47); fill-opacity: 1; stroke: rgb(255, 255, 255); stroke-linecap: square; stroke-dasharray: none; stroke-dashoffset: 0; transform-box: fill-box; transform-origin: 50% 50%; stroke-width: 0.5px; visibility: hidden;" id="rect11-1-4-4-6-2-32-9-5-2" width="162.33273" height="61.68644" x="-3.2285924" y="-28.501883" d="M 487.262 561.981 L 525.498 561.981 C 528.236 561.981 530.441 564.185 530.441 566.923 L 530.441 575.254 C 530.441 577.992 528.236 580.196 525.498 580.196 L 487.262 580.196 C 484.524 580.196 482.32 577.992 482.32 575.254 L 482.32 566.923 C 482.32 564.185 484.524 561.981 487.262 561.981 Z" rx="16.673883" ry="16.738258"/>
+        <g id="Fernleitungspumpe" class="fernpaktiv" transform="matrix(-1, 0, 0, 1, 1079.236206, 344.197235)" style="visibility: hidden;">
+          <text id="100%_2-9" fill="#ffffff" style="font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 15.0657px; font-family: Arial; text-align: center; text-anchor: middle; display: inline; fill: rgb(255, 255, 255); fill-opacity: 1; stroke: rgb(255, 255, 255); stroke-width: 0; stroke-dasharray: none; stroke-opacity: 1; white-space: pre;" font-family="Inter" font-size="12px" font-weight="500" letter-spacing="0em" x="565.04895" y="218.81317"><tspan x="572.49817" y="232.17677" class="fernpumpist" id="tspan47">100</tspan><tspan class="fpporzent" id="tspan48">%</tspan></text>
+        </g>
+      </g>
+    </g>
+    <g class="" id="group-2" transform="matrix(-1, 0, 0, 1, 997.16394, 5.664095)">
+      <title>RL Kessel</title>
+      <path style="display: inline; fill: rgb(47, 47, 47); fill-opacity: 1; stroke: rgb(255, 255, 255); stroke-linecap: square; stroke-dasharray: none; stroke-dashoffset: 0; stroke-width: 0.5; transform-box: fill-box; transform-origin: 50% 50%;" id="path-28" width="162.33273" height="61.68644" x="-3.2285924" y="-28.501883" d="M 588.525 242.228 L 637.937 242.228 C 640.882 242.228 643.254 244.277 643.254 246.823 L 643.254 255.849 C 643.254 258.395 640.882 260.444 637.937 260.444 L 588.525 260.444 C 585.579 260.444 583.208 258.395 583.208 255.849 L 583.208 246.823 C 583.208 244.277 585.579 242.228 588.525 242.228 Z" rx="14.374557" ry="15.559906" transform="matrix(-1, 0, 0, -1, 0.000004, -0.000008)"/>
+      <text id="text-12" fill="#ffffff" style="font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 16px; font-family: Arial; white-space: pre;" font-family="Inter" font-size="12px" font-weight="500" letter-spacing="0em" x="459.949" y="249.727" transform="matrix(-1.000001, 0, 0, 1, 1098.12819, -6.271933)"><tspan x="460.359" y="263.09" class="rltemp" id="tspan-22" style="font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 16px; font-family: Arial; word-spacing: 0px;">55.0</tspan><tspan id="tspan-23" style="font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 16px; font-family: Arial; word-spacing: 0px;">°C</tspan></text>
+      <g id="group-3" transform="matrix(0, -1.062012, -1.062012, 0, 848.205566, 862.561279)" style="display:inline">
+        <line id="line-1" x1="575.41296" y1="261.49564" x2="575.41296" y2="281.49564" stroke="#ffffff"/>
+        <path id="path-4" d="m 575.41296,262.32012 c 2.761,0 5,-2.239 5,-5 0,-2.761 -2.239,-5 -5,-5 -2.761,0 -5,2.239 -5,5 0,2.761 2.239,5 5,5 z" fill="#57bbc4" style="stroke:none" class="rltempcolorfill"/>
+      </g>
+    </g>
+    <g class="" id="group-4" transform="matrix(-1, 0, 0, 1, 867.164001, 5.644823)">
+      <title>VL Kessel</title>
+      <g id="group-5" transform="matrix(0, -1.062012, -1.062012, 0, 848.205566, 862.561279)" style="display:inline">
+        <line id="line-2" x1="575.41296" y1="261.49564" x2="575.41296" y2="281.49564" stroke="#ffffff"/>
+        <path id="path-6" d="m 575.41296,262.32012 c 2.761,0 5,-2.239 5,-5 0,-2.761 -2.239,-5 -5,-5 -2.761,0 -5,2.239 -5,5 0,2.761 2.239,5 5,5 z" fill="#57bbc4" style="stroke:none" class="vltempcolorfill"/>
+      </g>
+      <path style="display: inline; fill: rgb(47, 47, 47); fill-opacity: 1; stroke: rgb(255, 255, 255); stroke-linecap: square; stroke-dasharray: none; stroke-dashoffset: 0; stroke-width: 0.5; transform-origin: 613.298px 251.041px;" id="path-3" width="162.33273" height="61.68644" x="-3.2285924" y="-28.501883" d="M 588.592 241.933 L 638.004 241.933 C 640.949 241.933 643.321 243.982 643.321 246.528 L 643.321 255.554 C 643.321 258.1 640.949 260.149 638.004 260.149 L 588.592 260.149 C 585.646 260.149 583.275 258.1 583.275 255.554 L 583.275 246.528 C 583.275 243.982 585.646 241.933 588.592 241.933 Z" rx="14.374557" ry="15.559906" transform="matrix(-1, 0, 0, -1, 0.000046, 0.000002)"/>
+      <text id="text-2" fill="#ffffff" style="font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 16px; font-family: Arial; white-space: pre;" font-family="Inter" font-size="12px" font-weight="500" letter-spacing="0em" x="459.949" y="249.727" transform="matrix(-1.000001, 0, 0, 1, 1098.195573, -6.56641)"><tspan x="460.359" y="263.09" id="tspan-2" style="font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 16px; font-family: Arial; word-spacing: 0px;" class="vltemp">55.0</tspan><tspan id="tspan-3" style="font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 16px; font-family: Arial; word-spacing: 0px;">°C</tspan></text>
+    </g>
+    <g id="group-20" transform="matrix(1, 0, 0, 1, -145.344714, 26.282853)" style="">
+      <title>Kessel Pumpe</title>
+      <path style="display: inline; fill: rgb(47, 47, 47); fill-opacity: 1; stroke: rgb(255, 255, 255); stroke-linecap: square; stroke-dasharray: none; stroke-dashoffset: 0; stroke-opacity: 1; transform-box: fill-box; transform-origin: 50% 50%; stroke-width: 0.5px;" id="path-26" width="162.33273" height="61.68644" x="-3.2285924" y="-28.501883" d="M 628.234 196.629 L 666.47 196.629 C 669.208 196.629 671.412 194.424 671.412 191.686 L 671.412 183.356 C 671.412 180.617 669.208 178.413 666.47 178.413 L 628.234 178.413 C 625.496 178.413 623.291 180.617 623.291 183.356 L 623.291 191.686 C 623.291 194.424 625.496 196.629 628.234 196.629 Z" rx="16.673883" ry="16.738258" transform="matrix(-1, 0, 0, -1, -0.000021, 0.000002)"/>
+      <text id="text-11" fill="#ffffff" style="font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 15.0657px; font-family: Arial; text-align: center; text-anchor: middle; display: inline; fill: rgb(255, 255, 255); fill-opacity: 1; stroke: rgb(255, 255, 255); stroke-width: 0; stroke-dasharray: none; stroke-opacity: 1; white-space: pre;" font-family="Inter" font-size="12px" font-weight="500" letter-spacing="0em" x="639.54572" y="179.44254"><tspan x="646.99493" y="192.80614" class="kpumpist" id="tspan-20">100</tspan><tspan class="rpumproz" id="tspan-21">%</tspan></text>
+      <g id="group-21" transform="rotate(90,721.96807,403.10773)">
+        <circle id="circle-1" class="kpumpcolorfill" cx="506.38098" cy="531.57581" r="18.888885" fill="#2e7d32" stroke="#673838" stroke-width="2.22223" style="display:inline"/>
+        <path id="path-27" class="kpumpcolorstroke" d="M 524.89946,531.57583 504.3439,550.82101 V 512.33065 Z" fill="#673838" style="display:inline;stroke-width:0.740738"/>
+      </g>
+    </g>
+  </g>
+</svg>
