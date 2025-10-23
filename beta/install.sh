@@ -2,28 +2,20 @@
 set -e
 
 # =====================================================================
-#  Y-Control Raspberry Pi Installationsscript
-#  Funktionen:
-#   - Interaktive Geräteauswahl
-#   - Optionale statische IP (über dhcpcd.conf)
-#   - Splash-Screen Installation & Aktivierung
-#   - Docker & ycontrol Setup
-#   - X-Server & Kiosk (7" / 10")
-#   - Touchscreen-Kalibrierung (10")
-#   - Automatischer Reboot
+#  Y-Control Raspberry Pi Installationsscript (finale Version)
 # =====================================================================
 
 # -------------------------------------------------------
-# Logging-Funktionen (müssen ganz oben stehen)
+# Logging-Funktionen – MÜSSEN GANZ OBEN STEHEN
 # -------------------------------------------------------
-function log_error(){ echo -e "\033[31m${1}\033[0m"; }
-function log_info(){  echo -e "\033[32m${1}\033[0m"; }
+log_error() { echo -e "\033[31m${1}\033[0m"; }
+log_info()  { echo -e "\033[32m${1}\033[0m"; }
 
 # -------------------------------------------------------
 # Interaktive Eingabe
 # -------------------------------------------------------
 
-function ask() {
+ask() {
     local prompt=$1
     local default=$2
     local result
@@ -63,7 +55,7 @@ fi
 # Netzwerk-Konfiguration über dhcpcd.conf
 # -------------------------------------------------------
 
-function configure_network_dhcpcd() {
+configure_network_dhcpcd() {
     local config="/etc/dhcpcd.conf"
     echo "" | sudo tee -a $config > /dev/null
     echo "# --- Y-Control static network configuration ---" | sudo tee -a $config > /dev/null
@@ -96,7 +88,7 @@ TMP_PATH="/tmp/eda-common"
 # 1. EDATEC / Splash Screen Setup
 # -------------------------------------------------------
 
-function install_eda(){
+install_eda() {
     local tmp_dir="${TMP_PATH}/eda/"
     mkdir -p "$tmp_dir"
 
