@@ -3,15 +3,21 @@ set -e
 
 # =====================================================================
 #  Y-Control Raspberry Pi Installationsscript
-#  Features:
+#  Funktionen:
 #   - Interaktive Geräteauswahl
-#   - Optionale statische IP-Konfiguration (über dhcpcd.conf)
+#   - Optionale statische IP (über dhcpcd.conf)
 #   - Splash-Screen Installation & Aktivierung
 #   - Docker & ycontrol Setup
-#   - X-Server & Kiosk-Umgebung (7" / 10")
+#   - X-Server & Kiosk (7" / 10")
 #   - Touchscreen-Kalibrierung (10")
 #   - Automatischer Reboot
 # =====================================================================
+
+# -------------------------------------------------------
+# Logging-Funktionen (müssen ganz oben stehen)
+# -------------------------------------------------------
+function log_error(){ echo -e "\033[31m${1}\033[0m"; }
+function log_info(){  echo -e "\033[32m${1}\033[0m"; }
 
 # -------------------------------------------------------
 # Interaktive Eingabe
@@ -85,9 +91,6 @@ fi
 TIMEOUT=30
 BASE_URL=https://apt.edatec.cn/bsp
 TMP_PATH="/tmp/eda-common"
-
-function log_error(){ echo -e "\033[31m${1}\033[0m"; }
-function log_info(){  echo -e "\033[32m${1}\033[0m"; }
 
 # -------------------------------------------------------
 # 1. EDATEC / Splash Screen Setup
