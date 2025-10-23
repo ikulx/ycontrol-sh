@@ -106,11 +106,12 @@ if [[ "$netchoice" =~ ^[JjYy]$ ]]; then
 fi
 
 # -------------------------------------------------------
-# 3. NetworkManager-Setup  (Bookworm + aktive Connection)
+# 3. NetworkManager Setup (Bookworm + aktives Profil, Fix)
 # -------------------------------------------------------
 progress "Setze Netzwerkadresse (NetworkManager)..."
 sudo apt-get install -y -qq network-manager
 
+# Aktive Ethernet-Verbindung ermitteln
 ACTIVE_CON=$(nmcli -t -f NAME,DEVICE,TYPE con show --active | awk -F: '$3=="ethernet"{print $1; exit}')
 [[ -z "$ACTIVE_CON" ]] && ACTIVE_CON="Wired connection 1"
 
@@ -128,7 +129,12 @@ mask_to_cidr() {
 CIDR=$(mask_to_cidr "$NETMASK")
 
 if $USE_STATIC_NET; then
-  sudo nmcli con mod "$ACTIVE_CON" -ipv4.addresses -ipv4.gateway -ipv4.dns || true
+  # Alte Werte sauber leeren (Bookworm-kompatibel)
+  sudo nmcli con mod "$ACTIVE_CON" ipv4.addresses "" || true
+  sudo nmcli con mod "$ACTIVE_CON" ipv4.gateway "" || true
+  sudo nmcli con mod "$ACTIVE_CON" ipv4.dns "" || true
+
+  # Neue Werte setzen (richtige Reihenfolge)
   sudo nmcli con mod "$ACTIVE_CON" ipv4.addresses "${STATIC_IP}/${CIDR}"
   sudo nmcli con mod "$ACTIVE_CON" ipv4.gateway "$GATEWAY"
   sudo nmcli con mod "$ACTIVE_CON" ipv4.dns "$DNS"
