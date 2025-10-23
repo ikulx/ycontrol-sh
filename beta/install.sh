@@ -2,7 +2,7 @@
 set -Eeuo pipefail
 
 # =====================================================================
-#  Y-Control Raspberry Pi Installer  –  Bookworm 64-bit
+#  Y-Control Raspberry Pi Installer  –  Debug Version (Bookworm)
 # =====================================================================
 TOTAL_STEPS=11
 CURRENT_STEP=0
@@ -106,7 +106,7 @@ if [[ "$netchoice" =~ ^[JjYy]$ ]]; then
 fi
 
 # -------------------------------------------------------
-# 3. NetworkManager-Setup  (Bookworm-Fix)
+# 3. NetworkManager-Setup (mit Debug)
 # -------------------------------------------------------
 progress "Setze Netzwerkadresse (NetworkManager) – Debug..."
 set -x  # Debug-Ausgabe einschalten
@@ -155,8 +155,6 @@ fi
 set +x  # Debug wieder aus
 log_info "Netzwerk-Konfiguration geschrieben (wird nach Reboot aktiv)."
 
-
-
 # -------------------------------------------------------
 # 4. EDATEC-Setup
 # -------------------------------------------------------
@@ -194,9 +192,8 @@ progress "Lade y-control-Dateien..."
 sudo mkdir -p /home/pi/docker /home/pi/y-red_Data /home/pi/ycontrol-data
 sudo chown -R pi:pi /home/pi/docker /home/pi/y-red_Data /home/pi/ycontrol-data
 sudo -u pi mkdir -p /home/pi/ycontrol-data/assets /home/pi/ycontrol-data/external
-sudo -u pi curl -fsSL https://github.com/ikulx/ycontrol-sh/archive/refs/heads/main.tar.gz | sudo -u pi tar -xz --strip-components=2 -C /home/pi/ycontrol-data ycontrol-sh-main/vis/assets
-sudo -u pi curl -fsSL https://github.com/ikulx/ycontrol-sh/archive/refs/heads/main.tar.gz | sudo -u pi tar -xz --strip-components=2 -C /home/pi/ycontrol-data ycontrol-sh-main/vis/external
 sudo -u pi curl -fsSL -o /home/pi/docker/docker-compose.yml https://raw.githubusercontent.com/ikulx/ycontrol-sh/main/docker/dis/docker-compose.yml
+sudo -u pi curl -fsSL -o /home/pi/ycontrol-data/assets.tar.gz https://github.com/ikulx/ycontrol-sh/archive/refs/heads/main.tar.gz
 log_info "Dateien geladen."
 
 # -------------------------------------------------------
@@ -225,14 +222,11 @@ if [[ "$TARGET" =~ 070c$ || "$TARGET" =~ 101c$ ]]; then
 fi
 
 # -------------------------------------------------------
-# 9. Abschluss
+# 9. Abschluss & Reboot
 # -------------------------------------------------------
 progress "Abschluss..."
 log_info "Alle Installationen abgeschlossen."
 
-# -------------------------------------------------------
-# 10. Reboot
-# -------------------------------------------------------
 progress "Starte System neu..."
 sleep 3
 sudo reboot
