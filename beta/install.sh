@@ -6,7 +6,7 @@ set -e
 # =====================================================================
 
 # -------------------------------------------------------
-# Logging-Funktionen – MÜSSEN GANZ OBEN STEHEN
+# Logging-Funktionen (müssen ganz oben stehen)
 # -------------------------------------------------------
 log_error() { echo -e "\033[31m${1}\033[0m"; }
 log_info()  { echo -e "\033[32m${1}\033[0m"; }
@@ -42,11 +42,30 @@ done
 echo
 read -p "Willst du eine statische IP-Adresse konfigurieren? (j/N): " netchoice
 if [[ "$netchoice" =~ ^[JjYy]$ ]]; then
-    STATIC_IP=$(ask "IP-Adresse" "192.168.1.100")
-    NETMASK=$(ask "Subnetzmaske" "255.255.255.0")
-    GATEWAY=$(ask "Gateway" "192.168.1.1")
-    DNS=$(ask "DNS-Server" "8.8.8.8")
-    USE_STATIC_NET=true
+    while true; do
+        STATIC_IP=$(ask "IP-Adresse" "192.168.1.100")
+        NETMASK=$(ask "Subnetzmaske" "255.255.255.0")
+        GATEWAY=$(ask "Gateway" "192.168.1.1")
+        DNS=$(ask "DNS-Server" "8.8.8.8")
+
+        echo
+        echo "--------------------------------------------------------"
+        echo "  Bitte überprüfe deine Netzwerkkonfiguration:"
+        echo "--------------------------------------------------------"
+        echo "  IP-Adresse:   ${STATIC_IP}"
+        echo "  Subnetzmaske: ${NETMASK}"
+        echo "  Gateway:      ${GATEWAY}"
+        echo "  DNS:          ${DNS}"
+        echo "--------------------------------------------------------"
+        read -p "Sind diese Angaben korrekt? (J/n): " confirm
+        if [[ ! "$confirm" =~ ^[Nn]$ ]]; then
+            USE_STATIC_NET=true
+            break
+        else
+            echo "Bitte gib die Werte erneut ein."
+            echo
+        fi
+    done
 else
     USE_STATIC_NET=false
 fi
