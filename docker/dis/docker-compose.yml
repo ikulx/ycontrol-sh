@@ -1,0 +1,62 @@
+
+services:
+
+
+
+  ycontrol-rt:
+    image: ikulx/y-vis3:v0.0.1-rc180
+    container_name: ycontrol-rt
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - "/home/pi/ycontrol-data/external:/app/external"
+      - "/home/pi/ycontrol-data/assets:/node-frontend/build/assets"
+    environment:
+      NODE_ENV: production
+      PORT: 80
+
+
+  ycontrol-red:
+    image: ikulx/y-red:v1.0.2
+    container_name: ycontrol-red
+    restart: always
+    ports:
+      - "1880:1880"
+      - "1883:1883"
+      - "502:502"
+      
+    environment:
+      - TZ=Europe/Zurich
+    volumes:
+      - /home/pi/ycontrol-data/config-log:/home/pi/ycontrol-data/config-log
+      - /home/pi/y-red_Data/:/data
+      - /home/pi/ycontrol-data/:/ycontrol-data
+      - //boot/firmware/:/ycontrol-boot
+
+    logging:
+      options:
+        max-size: 50m
+
+
+  ycontrol-log-db:
+    image: influxdb:2
+    container_name: ycontrol-log-db
+    restart: always
+    environment:
+      DOCKER_INFLUXDB_INIT_MODE: setup
+      DOCKER_INFLUXDB_INIT_USERNAME: ygnis
+      DOCKER_INFLUXDB_INIT_PASSWORD: Ygnis@6017
+      DOCKER_INFLUXDB_INIT_ORG: YgnisAG
+      DOCKER_INFLUXDB_INIT_BUCKET: ycontrol-log
+    volumes:
+      - ./data:/var/lib/influxdb2
+      - ./config:/etc/influxdb2
+    ports:
+      - "8086:8086"
+
+    logging:
+      options:
+        max-size: 50m
+
+
