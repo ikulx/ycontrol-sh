@@ -1,15 +1,31 @@
 #!/bin/bash
-set -e
+set -Eeuo pipefail
 
 # =====================================================================
-#  Y-Control Raspberry Pi Installationsscript (Bookworm-kompatibel)
+#  Y-Control Raspberry Pi Installationsscript
 #  - Fixierter Header
 #  - Fortschrittsanzeige
-#  - GitHub main-Branch Download (kein svn)
+#  - robuster Fehlerfang mit Abbruch
 # =====================================================================
 
 TOTAL_STEPS=10
 CURRENT_STEP=0
+CURRENT_ACTION="Initialisierung"
+
+# -------------------------------------------------------
+# Fehlerbehandlung
+# -------------------------------------------------------
+error_handler() {
+    local exit_code=$?
+    local line_no=$1
+    echo
+    echo -e "\033[31m--------------------------------------------------------\033[0m"
+    echo -e "\033[31m[FEHLER]\033[0m in Zeile ${line_no} bei Schritt: '${CURRENT_ACTION}'"
+    echo -e "\033[31mDas Script wurde mit Fehlercode ${exit_code} abgebrochen.\033[0m"
+    echo -e "\033[31m--------------------------------------------------------\033[0m"
+    exit $exit_code
+}
+trap 'error_handler $LINENO' ERR
 
 # -------------------------------------------------------
 # Header zeichnen
@@ -42,15 +58,18 @@ EOF
     echo
 }
 
+# -------------------------------------------------------
+# Fortschritt anzeigen
+# -------------------------------------------------------
 progress() {
     CURRENT_STEP=$((CURRENT_STEP+1))
+    CURRENT_ACTION="$1"
     draw_header
     echo -e "[${CURRENT_STEP}/${TOTAL_STEPS}] $1"
     echo
 }
 
 log_info()  { echo -e "\033[32m[OK]\033[0m $1"; sleep 1; }
-log_error() { echo -e "\033[31m[ERROR]\033[0m $1"; sleep 2; }
 
 # -------------------------------------------------------
 # 1. Gerätauswahl
@@ -75,9 +94,8 @@ done
 # 2. Netzwerk-Eingabe
 # -------------------------------------------------------
 progress "Netzwerkkonfiguration..."
-read -p "Willst du eine statische IP-Adresse konfigurieren? (j/N): " netchoice
 USE_STATIC_NET=false
-
+read -p "Willst du eine statische IP-Adresse konfigurieren? (j/N): " netchoice
 if [[ "$netchoice" =~ ^[JjYy]$ ]]; then
     while true; do
         read -p "IP-Adresse [192.168.1.100]: " STATIC_IP
@@ -160,11 +178,10 @@ progress "Lade y-control Dateien..."
 sudo mkdir -p /home/pi/docker /home/pi/y-red_Data /home/pi/ycontrol-data
 sudo chown -R pi:pi /home/pi/docker /home/pi/y-red_Data /home/pi/ycontrol-data
 
-# assets & external von main branch laden
+# assets & external aus main laden
 sudo -u pi mkdir -p /home/pi/ycontrol-data/assets /home/pi/ycontrol-data/external
 sudo -u pi curl -fsSL https://github.com/ikulx/ycontrol-sh/archive/refs/heads/main.tar.gz | sudo -u pi tar -xz --strip-components=2 -C /home/pi/ycontrol-data ycontrol-sh-main/vis/assets
 sudo -u pi curl -fsSL https://github.com/ikulx/ycontrol-sh/archive/refs/heads/main.tar.gz | sudo -u pi tar -xz --strip-components=2 -C /home/pi/ycontrol-data ycontrol-sh-main/vis/external
-
 sudo -u pi curl -fsSL -o /home/pi/docker/docker-compose.yml https://raw.githubusercontent.com/ikulx/ycontrol-sh/main/docker/dis/docker-compose.yml
 log_info "Dateien geladen."
 
