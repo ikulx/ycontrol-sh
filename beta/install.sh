@@ -106,7 +106,7 @@ if [[ "$netchoice" =~ ^[JjYy]$ ]]; then
 fi
 
 # -------------------------------------------------------
-# 3. NetworkManager Setup (Bookworm + aktives Profil, Fix)
+# 3. NetworkManager Setup (Bookworm final fix)
 # -------------------------------------------------------
 progress "Setze Netzwerkadresse (NetworkManager)..."
 sudo apt-get install -y -qq network-manager
@@ -129,23 +129,24 @@ mask_to_cidr() {
 CIDR=$(mask_to_cidr "$NETMASK")
 
 if $USE_STATIC_NET; then
-  # Alte Werte sauber leeren (Bookworm-kompatibel)
-  sudo nmcli con mod "$ACTIVE_CON" ipv4.addresses "" || true
-  sudo nmcli con mod "$ACTIVE_CON" ipv4.gateway "" || true
-  sudo nmcli con mod "$ACTIVE_CON" ipv4.dns "" || true
-
-  # Neue Werte setzen (richtige Reihenfolge)
-  sudo nmcli con mod "$ACTIVE_CON" ipv4.addresses "${STATIC_IP}/${CIDR}"
-  sudo nmcli con mod "$ACTIVE_CON" ipv4.gateway "$GATEWAY"
-  sudo nmcli con mod "$ACTIVE_CON" ipv4.dns "$DNS"
-  sudo nmcli con mod "$ACTIVE_CON" ipv4.method manual ipv6.method ignore
+  log_info "Setze statische IP auf ${STATIC_IP}/${CIDR} ..."
+  sudo nmcli con mod "$ACTIVE_CON" \
+    ipv4.method manual \
+    ipv4.addresses "${STATIC_IP}/${CIDR}" \
+    ipv4.gateway "$GATEWAY" \
+    ipv4.dns "$DNS" \
+    ipv6.method ignore
 else
+  log_info "Verwende DHCP..."
   sudo nmcli con mod "$ACTIVE_CON" ipv4.method auto ipv6.method ignore
 fi
 
+# Änderungen übernehmen
 sudo nmcli con down "$ACTIVE_CON" || true
 sudo nmcli con up "$ACTIVE_CON" || true
+
 log_info "Netzwerk gesetzt für: $ACTIVE_CON → ${STATIC_IP:-DHCP}/${CIDR:-auto}"
+
 
 # -------------------------------------------------------
 # 4. EDATEC-Setup
